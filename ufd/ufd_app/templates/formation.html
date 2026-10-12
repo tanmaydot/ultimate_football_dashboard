@@ -1,0 +1,446 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<style>
+    .filter-chip { font-size: 0.9rem; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); transition: background-color 0.15s; }
+    .filter-chip:hover { background: var(--hover); }
+    .filter-chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--a-ink); font-weight: 600; }
+    .bar { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+    .bar > i { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+    .info-pop { position: absolute; top: calc(100% + 8px); right: 0; z-index: 30; width: 260px; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35); }
+    .zone-guide { position: absolute; left: 0; right: 0; z-index: 1; border-top: 1px dashed rgba(255, 255, 255, 0.35); pointer-events: none; display: none; }
+    .zone-guide span { position: absolute; left: 6px; top: 2px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.7); }
+    .pitch.editing .zone-guide { display: block; }
+    .offside-line { position: absolute; left: 0; right: 0; z-index: 1; border-top: 2px dashed #fbbf24; pointer-events: none; display: none; transition: top 0.08s; }
+    .offside-line span { position: absolute; right: 6px; top: 3px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; color: #fde68a; background: rgba(0, 0, 0, 0.4); padding: 0 6px; border-radius: 999px; }
+    .pitch.custom .offside-line, .pitch.editing .offside-line { display: block; }
+    .pitch.custom:not(.editing) .offside-line { display: none; }
+    .pitch.editing .pitch-dot { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25), 0 3px 8px rgba(0, 0, 0, 0.45); }
+    .pitch.custom .pitch-line, .pitch.editing .pitch-line { display: contents; }
+    .pitch.custom .pitch-player, .pitch.editing .pitch-player { position: absolute; transform: translate(-50%, -50%); z-index: 2; }
+    .pitch.editing .pitch-player { cursor: grab; touch-action: none; user-select: none; }
+    .pitch.editing .pitch-player.dragging { cursor: grabbing; z-index: 5; }
+    .pitch.editing .pitch-player.dragging .pitch-dot { transform: scale(1.15); }
+    .pitch.editing .pitch-name { pointer-events: none; }
+    .pitch.editing .pitch-player.selected .pitch-dot { outline: 3px solid #fde047; outline-offset: 3px; }
+    .pitch.editing .pitch-player.magnet .pitch-dot { transform: scale(1.35); outline: 3px dashed #fff; outline-offset: 3px; }
+    .pitch-dot { transition: transform 0.12s; }
+    .dock { border-top: 1px dashed var(--border); margin-top: 14px; padding-top: 12px; }
+    .dock-cards { display: flex; flex-wrap: wrap; gap: 8px; max-height: 230px; overflow-y: auto; padding: 4px 2px; }
+    .pcard { width: 76px; padding: 6px 4px 7px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface-2); text-align: center; cursor: grab; touch-action: none; user-select: none; position: relative; transition: transform 0.12s, box-shadow 0.12s; }
+    .pcard:hover { transform: translateY(-3px); box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25); }
+    .pcard b { display: block; font-family: var(--font-display); font-size: 1.5rem; line-height: 1.1; color: var(--accent-text); }
+    .pcard span { display: block; font-size: 0.7rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pcard small { display: block; font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .pcard.in-xi { opacity: 0.45; }
+    .pcard.in-xi::after { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: 3px; right: 5px; font-size: 0.6rem; color: var(--accent-text); }
+    .pcard.fit-slot { border-color: #fde047; box-shadow: 0 0 0 1px #fde047 inset; }
+    .pcard.hurt::before { content: ""; position: absolute; top: 6px; left: 6px; width: 7px; height: 7px; border-radius: 50%; background: #ef4444; }
+    .drag-ghost { position: fixed; z-index: 100; pointer-events: none; transform: translate(-50%, -60%) rotate(-4deg) scale(1.08); box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45); }
+    .placeholder-note { display: flex; gap: 10px; align-items: flex-start; font-size: 0.85rem; color: var(--muted); padding: 12px; border: 1px dashed var(--border); border-radius: 10px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="sidebar-offset">
+    <a href="{% url 'ufd_app:dashboard' team.id %}" class="text-sm hover-accent inline-flex items-center gap-2 mb-4">
+        <i class="fas fa-arrow-left"></i> Back to dashboard
+    </a>
+
+    <div class="flex items-center gap-4 mb-6">
+        {% if team.crest %}<img src="{{ team.crest }}" alt="" class="w-16 h-16 object-contain">{% endif %}
+        <div>
+            <h1 class="display text-4xl font-bold leading-tight">{{ team.name }} formations</h1>
+            <p class="text-sm" style="color: var(--muted)">Premier League{% if matches_counted %} · {{ matches_counted }} match{{ matches_counted|pluralize:"es" }} counted{% endif %}{% if data_updated %} · data updated {{ data_updated|slice:":10" }}{% endif %}</p>
+        </div>
+    </div>
+
+    {% if options %}
+    <div class="flex flex-wrap gap-2 mb-5" role="group" aria-label="Formation">
+        {% for o in options %}
+        <button type="button" class="filter-chip" data-formation="{{ o.formation }}" aria-pressed="{% if o.formation == selected %}true{% else %}false{% endif %}">
+            {{ o.formation }}{% if o.is_most_used %} <span class="text-xs opacity-80">· most used</span>{% endif %}
+        </button>
+        {% endfor %}
+    </div>
+
+    {{ dock|json_script:"squad-dock" }}
+    <div id="tactics" data-team="{{ team.id }}" data-player-url="{% url 'ufd_app:player' team.id 0 %}" hidden></div>
+    {% for o in options %}
+    <section class="formation-panel" data-formation="{{ o.formation }}" {% if o.formation != selected %}hidden{% endif %}>
+        <div class="card p-4">
+            <div class="flex flex-wrap items-end justify-between gap-3 mb-3">
+                <div class="text-left leading-tight">
+                    <div class="text-xs" style="color: var(--muted)">{% if o.is_most_used %}Most used formation{% else %}Formation{% endif %}{% if not o.starting_xi %} · positions only{% endif %}</div>
+                    <h2 class="display text-4xl font-bold text-accent">{{ o.formation }}</h2>
+                </div>
+                <div class="flex flex-wrap items-center justify-end gap-2 relative">
+                    <span class="text-xs hidden edit-hint" style="color: var(--muted)">Drag players to move them · click a player, then pick from the squad below</span>
+                    <button type="button" class="filter-chip js-reset" hidden><i class="fas fa-rotate-left mr-1"></i>Reset</button>
+                    <button type="button" class="filter-chip js-info" aria-expanded="false"><i class="fas fa-circle-info mr-1"></i>Formation info</button>
+                    <div class="info-pop card p-4 js-info-pop" hidden>
+                        <h3 class="text-sm font-semibold mb-2">This formation</h3>
+                        <dl class="text-sm">
+                            <div class="flex justify-between py-2 border-b border-line"><dt style="color: var(--muted)">Matches</dt><dd class="font-semibold">{{ o.count }}</dd></div>
+                            <div class="flex justify-between py-2 border-b border-line"><dt style="color: var(--muted)">Share of matches</dt><dd class="font-semibold">{{ o.share }}%</dd></div>
+                            <div class="flex justify-between py-2"><dt style="color: var(--muted)">Last used</dt><dd class="font-semibold">{{ o.last_date|default:"—" }}</dd></div>
+                        </dl>
+                        <div class="bar mt-2" role="img" aria-label="{{ o.share }}% of matches"><i style="width: {{ o.share }}%"></i></div>
+                    </div>
+                    <button type="button" class="filter-chip js-edit" aria-pressed="false"><i class="fas fa-pen-ruler mr-1"></i><span>Edit tactics</span></button>
+                </div>
+            </div>
+            {% include "partials/pitch.html" with formation=o.pitch large=True %}
+            <div class="dock js-dock" hidden>
+                <div class="flex flex-wrap items-center gap-2 mb-2">
+                    <h3 class="text-sm font-semibold mr-2"><i class="fas fa-layer-group text-accent mr-1"></i>Squad dock</h3>
+                    <span class="dock-filters flex flex-wrap gap-1"></span>
+                    <input type="search" class="field text-sm px-3 py-1 w-40 js-dock-search" placeholder="Find player" autocomplete="off">
+                    <span class="text-xs js-dock-status" style="color: var(--muted)">Drag a card onto a player spot, or select a spot first.</span>
+                    <button type="button" class="filter-chip js-clear ml-auto" hidden>Clear this spot</button>
+                </div>
+                <div class="dock-cards"></div>
+            </div>
+        </div>
+    </section>
+    {% endfor %}
+    {% else %}
+    <div class="card p-10 text-center">
+        <i class="fas fa-chess-board text-3xl text-accent mb-3"></i>
+        <h2 class="text-xl font-semibold mb-1">No formation data for this club yet</h2>
+        <p style="color: var(--muted)">Formations come from apifootball match details. Run <code>python manage.py build_pl_data</code> with its key set, then reload.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    var chips = document.querySelectorAll('.filter-chip[data-formation]');
+    chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+            chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
+            document.querySelectorAll('.formation-panel').forEach(function (panel) {
+                panel.hidden = panel.dataset.formation !== chip.dataset.formation;
+            });
+            document.dispatchEvent(new CustomEvent('formation-changed'));
+        });
+    });
+
+    // ---------------- Edit tactics ----------------
+    var holder = document.getElementById('tactics');
+    if (!holder) return;
+    var dock = JSON.parse(document.getElementById('squad-dock').textContent);
+    var byId = {};
+    dock.forEach(function (p) { byId[p.id] = p; });
+    var teamId = holder.dataset.team;
+    var playerUrl = holder.dataset.playerUrl;
+    var GROUP_OF = { GK: 'Goalkeeper', DEF: 'Defence', LB: 'Defence', RB: 'Defence', DM: 'Midfield', MID: 'Midfield', LM: 'Midfield', RM: 'Midfield',
+                     AM: 'Midfield', LW: 'Offence', RW: 'Offence', FWD: 'Offence' };
+    // Pitch zones, as % of the pitch height measured from the opponent's goal line (0) to our own (100).
+    var ZONES = [[24, 'FWD'], [40, 'AM'], [58, 'MID'], [72, 'DM'], [88, 'DEF'], [101, 'GK']];
+    var WIDE = { DEF: ['LB', 'RB'], MID: ['LM', 'RM'], AM: ['LW', 'RW'], FWD: ['LW', 'RW'] };
+    // Role for a spot on the board: depth gives the line (FWD/AM/MID/DM/DEF), the touchline side gives wing roles.
+    function zoneLabel(isKeeper, x, y) {
+        var role = 'DEF';
+        for (var k = 0; k < ZONES.length; k++) { if (y < ZONES[k][0]) { role = ZONES[k][1]; break; } }
+        if (role === 'GK' && !isKeeper) role = 'DEF';
+        if (WIDE[role] && (x < 24 || x > 76)) role = WIDE[role][x < 24 ? 0 : 1];
+        return role;
+    }
+    var FILTERS = [['', 'All'], ['Goalkeeper', 'GK'], ['Defence', 'DEF'], ['Midfield', 'MID'], ['Offence', 'ATT']];
+
+    function key(panel) { return 'ufd.tactics.' + teamId + '.' + panel.dataset.formation; }
+    function load(panel) { try { return JSON.parse(localStorage.getItem(key(panel))) || null; } catch (e) { return null; } }
+    function save(panel, st) { try { localStorage.setItem(key(panel), JSON.stringify(st)); } catch (e) { /* storage blocked */ } }
+    function wipe(panel) { try { localStorage.removeItem(key(panel)); } catch (e) { /* ignore */ } }
+
+    function Panel(el) {
+        var self = this;
+        this.el = el;
+        this.pitch = el.querySelector('.pitch');
+        this.dockEl = el.querySelector('.js-dock');
+        this.editBtn = el.querySelector('.js-edit');
+        this.resetBtn = el.querySelector('.js-reset');
+        this.clearBtn = el.querySelector('.js-clear');
+        this.status = el.querySelector('.js-dock-status');
+        this.players = [].slice.call(this.pitch.querySelectorAll('.pitch-player'));
+        this.original = this.players.map(function (p) { return p.innerHTML; });
+        this.addGuides();
+        var info = el.querySelector('.js-info'), pop = el.querySelector('.js-info-pop');
+        info.addEventListener('click', function (e) {
+            e.stopPropagation();
+            pop.hidden = !pop.hidden;
+            info.setAttribute('aria-expanded', String(!pop.hidden));
+        });
+        document.addEventListener('click', function (e) {
+            if (!pop.hidden && !pop.contains(e.target)) { pop.hidden = true; info.setAttribute('aria-expanded', 'false'); }
+        });
+        this.originalId = this.players.map(function (p) { return p.dataset.id || ''; });
+        this.state = load(el) || null;      // {n: {x, y, id|null}}
+        this.selected = null;
+        this.filter = '';
+        this.query = '';
+        if (this.state) this.apply();
+        this.editBtn.addEventListener('click', function () { self.toggle(); });
+        this.resetBtn.addEventListener('click', function () { self.reset(); });
+        this.clearBtn.addEventListener('click', function () { if (self.selected !== null) self.assign(self.selected, null); });
+        el.querySelector('.js-dock-search').addEventListener('input', function (e) { self.query = e.target.value.toLowerCase(); self.renderDock(); });
+        var filters = el.querySelector('.dock-filters');
+        FILTERS.forEach(function (f) {
+            var b = document.createElement('button');
+            b.type = 'button'; b.className = 'filter-chip'; b.style.padding = '2px 10px'; b.style.fontSize = '0.75rem';
+            b.textContent = f[1]; b.dataset.filter = f[0];
+            b.setAttribute('aria-pressed', String(f[0] === ''));
+            b.addEventListener('click', function () {
+                self.filter = f[0];
+                [].forEach.call(filters.children, function (c) { c.setAttribute('aria-pressed', String(c === b)); });
+                self.renderDock();
+            });
+            filters.appendChild(b);
+        });
+        this.bindPitch();
+    }
+
+    Panel.prototype.label = function (i) {
+        return (this.state && this.state[i] && this.state[i].label) || this.players[i].dataset.label;
+    };
+
+    Panel.prototype.addGuides = function () {
+        var pitch = this.pitch;
+        [[3, 'FWD'], [24, 'AM'], [40, 'MID'], [58, 'DM'], [72, 'DEF'], [88, 'GK']].forEach(function (z) {
+            var g = document.createElement('div');
+            g.className = 'zone-guide'; g.style.top = z[0] + '%';
+            g.innerHTML = '<span>' + z[1] + '</span>';
+            if (z[0] === 3) g.style.borderTop = '0';
+            pitch.appendChild(g);
+        });
+        this.offside = document.createElement('div');
+        this.offside.className = 'offside-line';
+        this.offside.innerHTML = '<span>OFFSIDE LINE</span>';
+        pitch.appendChild(this.offside);
+    };
+
+    Panel.prototype.updateOffside = function () {
+        if (!this.state) return;
+        var deepest = null, self = this;
+        this.players.forEach(function (p, i) {
+            if (self.label(i) === 'GK' || !self.state[i]) return;
+            if (deepest === null || self.state[i].y > deepest) deepest = self.state[i].y;
+        });
+        if (deepest !== null) this.offside.style.top = deepest + '%';
+    };
+
+    Panel.prototype.slotId = function (i) {
+        if (this.state && this.state[i] && 'id' in this.state[i]) return this.state[i].id;
+        return this.originalId[i] ? Number(this.originalId[i]) : null;
+    };
+
+    Panel.prototype.ensureState = function () {
+        // Freeze the current spots (as % of the pitch) so each player can then be moved freely.
+        if (this.state) return;
+        var box = this.pitch.getBoundingClientRect(), st = {};
+        this.players.forEach(function (p, i) {
+            var r = p.getBoundingClientRect(), dot = p.querySelector('.pitch-dot').getBoundingClientRect();
+            st[i] = { x: (dot.left + dot.width / 2 - box.left) / box.width * 100, y: (dot.top + dot.height / 2 - box.top) / box.height * 100 };
+        });
+        this.state = st;
+        this.pitch.classList.add('custom');
+        this.place();
+        this.updateOffside();
+    };
+
+    Panel.prototype.place = function () {
+        var self = this;
+        this.players.forEach(function (p, i) {
+            var s = self.state[i];
+            // the dot (not the whole label) sits on the spot, so offset by the label height
+            p.style.left = s.x + '%';
+            p.style.top = s.y + '%';
+        });
+    };
+
+    Panel.prototype.paintNames = function () {
+        var self = this;
+        this.players.forEach(function (p, i) {
+            var id = self.slotId(i), s = self.state && self.state[i];
+            if (!s || !('id' in s)) {
+                p.innerHTML = self.original[i];
+                if (self.originalId[i]) p.dataset.id = self.originalId[i]; else delete p.dataset.id;
+                var d0 = p.querySelector('.pitch-dot'), l0 = self.label(i);
+                if (d0) { d0.textContent = l0; d0.classList.toggle('gk', l0 === 'GK'); }
+                return;
+            }
+            var lab = self.label(i);
+            var dot = '<span class="pitch-dot' + (lab === 'GK' ? ' gk' : '') + '">' + lab + '</span>';
+            var info = id !== null ? byId[id] : null;
+            if (info) {
+                p.dataset.id = id;
+                p.innerHTML = dot + '<a class="pitch-name player-link" target="_blank" rel="noopener" href="' + playerUrl.replace(/0\/$/, id + '/') + '"></a>';
+                p.querySelector('a').textContent = info.name;
+            } else { delete p.dataset.id; p.innerHTML = dot; }
+        });
+    };
+
+    Panel.prototype.apply = function () {
+        this.pitch.classList.add('custom');
+        this.place();
+        this.paintNames();
+        this.updateOffside();
+        this.resetBtn.hidden = false;
+    };
+
+    Panel.prototype.persist = function () { save(this.el, this.state); this.resetBtn.hidden = false; };
+
+    Panel.prototype.reset = function () {
+        wipe(this.el);
+        this.state = null; this.selected = null;
+        this.pitch.classList.remove('custom');
+        this.players.forEach(function (p) { p.style.left = ''; p.style.top = ''; p.classList.remove('selected'); });
+        var self = this;
+        this.players.forEach(function (p, i) { p.innerHTML = self.original[i]; if (self.originalId[i]) p.dataset.id = self.originalId[i]; else delete p.dataset.id; });
+        this.resetBtn.hidden = true;
+        this.renderDock();
+    };
+
+    Panel.prototype.toggle = function () {
+        var on = !this.pitch.classList.contains('editing');
+        if (on) this.ensureState();
+        this.pitch.classList.toggle('editing', on);
+        this.editBtn.setAttribute('aria-pressed', String(on));
+        this.editBtn.querySelector('span').textContent = on ? 'Done' : 'Edit tactics';
+        this.el.querySelector('.edit-hint').classList.toggle('hidden', !on);
+        this.dockEl.hidden = !on;
+        this.resetBtn.hidden = !(on || this.state);
+        if (!on) this.select(null);
+        else { this.paintNames(); this.renderDock(); }
+    };
+
+    Panel.prototype.select = function (i) {
+        this.selected = i;
+        this.players.forEach(function (p, n) { p.classList.toggle('selected', n === i); });
+        this.clearBtn.hidden = i === null || this.slotId(i) === null;
+        this.status.textContent = i === null ? 'Drag a card onto a player spot, or select a spot first.'
+            : 'Choosing for ' + this.label(i) + ': click a card (highlighted ones fit this role) or drag one onto the spot.';
+        this.renderDock();
+    };
+
+    Panel.prototype.assign = function (i, id) {
+        this.ensureState();
+        var prev = this.slotId(i), self = this;
+        if (id !== null) {
+            // a player can only be in one spot: swap with wherever he was
+            this.players.forEach(function (p, n) {
+                if (n !== i && self.slotId(n) === id) self.state[n].id = prev;
+            });
+        }
+        this.state[i].id = id;
+        this.players.forEach(function (p, n) { if (!('id' in self.state[n])) self.state[n].id = self.slotId(n); });
+        this.paintNames();
+        this.persist();
+        this.select(this.selected === i && id === null ? i : (id === null ? i : null));
+    };
+
+    Panel.prototype.renderDock = function () {
+        var self = this, box = this.dockEl.querySelector('.dock-cards');
+        var inXi = {};
+        this.players.forEach(function (p, n) { var id = self.slotId(n); if (id !== null) inXi[id] = true; });
+        var want = this.selected !== null ? GROUP_OF[this.label(this.selected)] : null;
+        var list = dock.filter(function (p) {
+            return (!self.filter || p.group === self.filter) && (!self.query || p.full.toLowerCase().indexOf(self.query) !== -1);
+        });
+        if (want) list = list.slice().sort(function (a, b) { return (b.group === want) - (a.group === want); });
+        box.innerHTML = '';
+        list.forEach(function (p) {
+            var c = document.createElement('div');
+            c.className = 'pcard' + (inXi[p.id] ? ' in-xi' : '') + (want && p.group === want ? ' fit-slot' : '') + (p.injured ? ' hurt' : '');
+            c.dataset.id = p.id;
+            c.innerHTML = '<b></b><span></span><small></small>';
+            c.querySelector('b').textContent = p.shirt === null || p.shirt === undefined ? '–' : p.shirt;
+            c.querySelector('span').textContent = p.name;
+            c.querySelector('small').textContent = p.position;
+            c.title = p.full + (p.injured ? ' (injured)' : '');
+            box.appendChild(c);
+            self.bindCard(c, p);
+        });
+        if (!list.length) box.innerHTML = '<p class="text-sm" style="color: var(--muted)">No players match.</p>';
+    };
+
+    function nearest(panel, x, y, maxDist) {
+        var best = null, bestD = maxDist;
+        panel.players.forEach(function (p, n) {
+            var r = p.querySelector('.pitch-dot').getBoundingClientRect();
+            var d = Math.hypot(r.left + r.width / 2 - x, r.top + r.height / 2 - y);
+            if (d < bestD) { bestD = d; best = n; }
+        });
+        return best;
+    }
+
+    Panel.prototype.bindCard = function (card, p) {
+        var self = this;
+        card.addEventListener('pointerdown', function (e) {
+            if (e.button) return;
+            e.preventDefault();
+            var sx = e.clientX, sy = e.clientY, moved = false, ghost = null, hot = null;
+            card.setPointerCapture(e.pointerId);
+            function move(ev) {
+                if (!moved && Math.hypot(ev.clientX - sx, ev.clientY - sy) < 6) return;
+                if (!moved) { moved = true; ghost = card.cloneNode(true); ghost.classList.add('drag-ghost'); document.body.appendChild(ghost); }
+                ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px';
+                var n = nearest(self, ev.clientX, ev.clientY, 48);
+                if (n !== hot) {
+                    if (hot !== null) self.players[hot].classList.remove('magnet');
+                    hot = n;
+                    if (hot !== null) self.players[hot].classList.add('magnet');
+                }
+            }
+            function up(ev) {
+                card.removeEventListener('pointermove', move); card.removeEventListener('pointerup', up); card.removeEventListener('pointercancel', up);
+                if (ghost) ghost.remove();
+                if (hot !== null) self.players[hot].classList.remove('magnet');
+                if (moved) { if (hot !== null) self.assign(hot, p.id); }
+                else if (self.selected !== null) self.assign(self.selected, p.id);
+            }
+            card.addEventListener('pointermove', move); card.addEventListener('pointerup', up); card.addEventListener('pointercancel', up);
+        });
+    };
+
+    Panel.prototype.bindPitch = function () {
+        var self = this;
+        this.players.forEach(function (p, i) {
+            p.addEventListener('pointerdown', function (e) {
+                if (!self.pitch.classList.contains('editing') || e.button) return;
+                e.preventDefault();
+                var box = self.pitch.getBoundingClientRect(), sx = e.clientX, sy = e.clientY, moved = false;
+                var s0 = { x: self.state[i].x, y: self.state[i].y };
+                p.setPointerCapture(e.pointerId);
+                function move(ev) {
+                    if (!moved && Math.hypot(ev.clientX - sx, ev.clientY - sy) < 5) return;
+                    moved = true; p.classList.add('dragging');
+                    self.state[i].x = Math.max(4, Math.min(96, s0.x + (ev.clientX - sx) / box.width * 100));
+                    self.state[i].y = Math.max(4, Math.min(94, s0.y + (ev.clientY - sy) / box.height * 100));
+                    p.style.left = self.state[i].x + '%'; p.style.top = self.state[i].y + '%';
+                    // the role follows where the player stands: FWD dragged back becomes AM, MID dropped deeper becomes DM, ...
+                    var lab = zoneLabel(p.dataset.n === '0', self.state[i].x, self.state[i].y);
+                    self.state[i].label = lab;
+                    var dot = p.querySelector('.pitch-dot');
+                    dot.textContent = lab; dot.classList.toggle('gk', lab === 'GK');
+                    self.updateOffside();
+                }
+                function up() {
+                    p.removeEventListener('pointermove', move); p.removeEventListener('pointerup', up); p.removeEventListener('pointercancel', up);
+                    p.classList.remove('dragging');
+                    if (moved) { self.persist(); } else { self.select(self.selected === i ? null : i); }
+                }
+                p.addEventListener('pointermove', move); p.addEventListener('pointerup', up); p.addEventListener('pointercancel', up);
+            });
+            p.addEventListener('dblclick', function () { if (self.pitch.classList.contains('editing')) self.assign(i, null); });
+            p.addEventListener('click', function (e) { if (self.pitch.classList.contains('editing')) e.preventDefault(); });
+        });
+    };
+
+    document.querySelectorAll('.formation-panel').forEach(function (el) { el.tactics = new Panel(el); });
+})();
+</script>
+{% endblock %}

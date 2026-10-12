@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<style>
+    .squad-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .squad-table th, .squad-table td { padding: 8px 10px; text-align: left; white-space: nowrap; border-bottom: 1px solid var(--border); }
+    .squad-table th.num, .squad-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .squad-table thead th { position: sticky; top: 0; z-index: 1; background: var(--surface-2); color: var(--muted); font-weight: 600; cursor: pointer; user-select: none; }
+    .squad-table thead th:hover { color: var(--text); }
+    .squad-table thead th[aria-sort="ascending"]::after { content: " ↑"; color: var(--accent-text); }
+    .squad-table thead th[aria-sort="descending"]::after { content: " ↓"; color: var(--accent-text); }
+    .squad-table tbody tr:hover { background: var(--hover); }
+    .squad-table td.dim { color: var(--muted); }
+    .player-cell { display: flex; align-items: center; gap: 10px; }
+    .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--border); object-fit: cover; flex: none; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.8rem; }
+    .filter-chip { font-size: 0.85rem; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); transition: background-color 0.15s; }
+    .filter-chip:hover { background: var(--hover); }
+    .filter-chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--a-ink); font-weight: 600; }
+    .stat-tile { padding: 12px 16px; }
+    .stat-tile b { display: block; font-family: var(--font-display); font-size: 1.9rem; line-height: 1.1; }
+    .stat-tile span { font-size: 0.8rem; color: var(--muted); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="sidebar-offset">
+    <a href="{% url 'ufd_app:dashboard' team.id %}" class="text-sm hover-accent inline-flex items-center gap-2 mb-4">
+        <i class="fas fa-arrow-left"></i> Back to dashboard
+    </a>
+
+    <div class="flex items-center gap-4 mb-6">
+        {% if team.crest %}<img src="{{ team.crest }}" alt="" class="w-16 h-16 object-contain">{% endif %}
+        <div>
+            <h1 class="display text-4xl font-bold leading-tight">{{ team.name }} squad</h1>
+            <p class="text-sm" style="color: var(--muted)">Premier League{% if data_updated %} · data updated {{ data_updated|slice:":10" }}{% endif %}</p>
+        </div>
+    </div>
+
+    {% if players %}
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="card stat-tile"><b>{{ summary.players }}</b><span>Players</span></div>
+        <div class="card stat-tile"><b>{{ summary.average_age|default:"—" }}</b><span>Average age</span></div>
+        <div class="card stat-tile"><b>{{ summary.nationalities }}</b><span>Nationalities</span></div>
+        <div class="card stat-tile"><b>{{ summary.injured }}</b><span>Injured</span></div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2 mb-4">
+        <button type="button" class="filter-chip" data-group="" aria-pressed="true">All ({{ summary.players }})</button>
+        {% for name, count in summary.groups %}
+        <button type="button" class="filter-chip" data-group="{{ name }}" aria-pressed="false">{{ name }} ({{ count }})</button>
+        {% endfor %}
+        <label class="ml-auto">
+            <span class="sr-only">Search players</span>
+            <input id="playerSearch" type="search" placeholder="Search players" autocomplete="off" class="field text-sm px-3 py-2 w-56">
+        </label>
+    </div>
+
+    <div class="card overflow-x-auto">
+        <table class="squad-table" id="squadTable">
+            <thead>
+                <tr>
+                    <th data-type="num" class="num">#</th>
+                    <th data-type="text">Player</th>
+                    <th data-type="text">Position</th>
+                    <th data-type="text">Nationality</th>
+                    <th data-type="num" class="num">Age</th>
+                    <th data-type="num" class="num" title="Appearances">Apps</th>
+                    <th data-type="num" class="num">Goals</th>
+                    <th data-type="num" class="num">Assists</th>
+                    <th data-type="num" class="num" title="Yellow cards">YC</th>
+                    <th data-type="num" class="num" title="Red cards">RC</th>
+                    <th data-type="num" class="num">Rating</th>
+                    <th data-type="text">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in players %}
+                <tr data-group="{{ p.group }}" data-name="{{ p.name|lower }}">
+                    <td class="num dim" data-v="{{ p.shirt|default_if_none:'' }}">{{ p.shirt|default_if_none:"–" }}</td>
+                    <td data-v="{{ p.name }}">
+                        <div class="player-cell">
+                            {% if p.image %}<img class="avatar" src="{{ p.image }}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'avatar',innerHTML:'<i class=\'fas fa-user\'></i>'}))">
+                            {% else %}<span class="avatar"><i class="fas fa-user"></i></span>{% endif %}
+                            {% if p.id %}<a class="font-semibold player-link" href="{% url 'ufd_app:player' team_id p.id %}" target="_blank" rel="noopener">{{ p.name }}</a>{% else %}<span class="font-semibold">{{ p.name }}</span>{% endif %}
+                        </div>
+                    </td>
+                    <td data-v="{{ p.group }}">{{ p.position }}</td>
+                    <td data-v="{{ p.nationality|default:'' }}">{{ p.nationality|default:"—" }}</td>
+                    <td class="num" data-v="{{ p.age|default_if_none:'' }}" {% if p.date_of_birth %}title="Born {{ p.date_of_birth }}"{% endif %}>{{ p.age|default_if_none:"—" }}</td>
+                    <td class="num" data-v="{{ p.appearances|default_if_none:'' }}">{{ p.appearances|default_if_none:"—" }}</td>
+                    <td class="num font-semibold" data-v="{{ p.goals|default_if_none:'' }}">{{ p.goals|default_if_none:"—" }}</td>
+                    <td class="num font-semibold" data-v="{{ p.assists|default_if_none:'' }}">{{ p.assists|default_if_none:"—" }}</td>
+                    <td class="num" data-v="{{ p.yellow_cards|default_if_none:'' }}">{{ p.yellow_cards|default_if_none:"—" }}</td>
+                    <td class="num" data-v="{{ p.red_cards|default_if_none:'' }}">{{ p.red_cards|default_if_none:"—" }}</td>
+                    <td class="num" data-v="{{ p.rating|default_if_none:'' }}">{{ p.rating|default_if_none:"—" }}</td>
+                    <td data-v="{% if p.injured %}1{% else %}0{% endif %}">{% if p.injured %}<span class="text-loss font-semibold"><i class="fas fa-kit-medical mr-1"></i>Injured</span>{% else %}<span class="dim" style="color: var(--muted)">{% if p.has_stats %}Available{% else %}—{% endif %}</span>{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p id="noMatches" class="p-6 text-sm hidden" style="color: var(--muted)">No players match that search.</p>
+    </div>
+
+    <p class="text-xs mt-3" style="color: var(--muted)">
+        Names, positions, birth dates and nationalities come from football-data.org.
+        Appearances, goals, assists, cards and ratings come from apifootball.com
+        {% if summary.without_stats %}and are blank (—) for the {{ summary.without_stats }} player{{ summary.without_stats|pluralize }} it couldn't be matched to{% endif %}.
+    </p>
+    {% else %}
+    <div class="card p-10 text-center">
+        <i class="fas fa-users-slash text-3xl text-accent mb-3"></i>
+        <h2 class="text-xl font-semibold mb-1">No squad data for this club</h2>
+        <p style="color: var(--muted)">Rebuild the data with <code>python manage.py build_pl_data</code> and reload.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    var table = document.getElementById('squadTable');
+    if (!table) return;
+    var body = table.tBodies[0];
+    var rows = Array.prototype.slice.call(body.rows);
+    var group = '', query = '';
+
+    function apply() {
+        var shown = 0;
+        rows.forEach(function (row) {
+            var ok = (!group || row.dataset.group === group) && (!query || row.dataset.name.indexOf(query) !== -1);
+            row.hidden = !ok;
+            if (ok) shown++;
+        });
+        document.getElementById('noMatches').classList.toggle('hidden', shown > 0);
+    }
+
+    document.querySelectorAll('.filter-chip').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+            group = chip.dataset.group;
+            document.querySelectorAll('.filter-chip').forEach(function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
+            apply();
+        });
+    });
+    // /squad/?group=Defence (from the dashboard's position columns) opens already filtered
+    var wanted = new URLSearchParams(window.location.search).get('group');
+    if (wanted) {
+        var target = Array.prototype.find.call(document.querySelectorAll('.filter-chip'), function (c) { return c.dataset.group === wanted; });
+        if (target) target.click();
+    }
+    document.getElementById('playerSearch').addEventListener('input', function (e) {
+        query = e.target.value.trim().toLowerCase();
+        apply();
+    });
+
+    // Sort by clicking a column heading; blanks always sort last.
+    Array.prototype.forEach.call(table.tHead.rows[0].cells, function (th, index) {
+        th.addEventListener('click', function () {
+            var numeric = th.dataset.type === 'num';
+            var descending = th.getAttribute('aria-sort') === 'ascending';
+            Array.prototype.forEach.call(table.tHead.rows[0].cells, function (c) { c.removeAttribute('aria-sort'); });
+            th.setAttribute('aria-sort', descending ? 'descending' : 'ascending');
+            rows.sort(function (a, b) {
+                var x = a.cells[index].dataset.v, y = b.cells[index].dataset.v;
+                if (x === '' && y === '') return 0;
+                if (x === '') return 1;
+                if (y === '') return -1;
+                var result = numeric ? parseFloat(x) - parseFloat(y) : x.localeCompare(y);
+                return descending ? -result : result;
+            });
+            rows.forEach(function (row) { body.appendChild(row); });
+        });
+    });
+})();
+</script>
+{% endblock %}

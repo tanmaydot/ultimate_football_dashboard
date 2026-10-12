@@ -1,0 +1,53 @@
+<script>
+    (function () {
+        var KEY = 'ufd.sidebar';
+        var body = document.body;
+
+        function setOpen(open, remember) {
+            body.classList.toggle('sidebar-open', open);
+            if (remember && window.innerWidth >= 1024) {
+                try { localStorage.setItem(KEY, open ? 'open' : 'closed'); } catch (e) { /* storage blocked */ }
+            }
+            // The dashboard grid is percentage based, but let anything listening re-measure after the slide.
+            setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 450);
+        }
+
+        document.getElementById('sidebarToggle').addEventListener('click', function () { setOpen(true, true); });
+        document.getElementById('sidebarClose').addEventListener('click', function () { setOpen(false, true); });
+        document.getElementById('sidebarOverlay').addEventListener('click', function () { setOpen(false, false); });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && window.innerWidth < 1024) setOpen(false, false);
+        });
+        // On a phone, choosing a club (or Dashboard) loads a new page, which starts collapsed again.
+    })();
+</script>
+<script>
+    // Theme + accent pickers. The page already has them applied (see head.html); this keeps the buttons in sync and saves changes.
+    (function () {
+        var root = document.documentElement;
+        function sync() {
+            document.querySelectorAll('[data-theme-choice]').forEach(function (b) {
+                b.setAttribute('aria-checked', String(b.dataset.themeChoice === root.dataset.theme));
+            });
+            document.querySelectorAll('[data-accent-choice]').forEach(function (b) {
+                b.setAttribute('aria-checked', String(b.dataset.accentChoice === root.dataset.accent));
+            });
+        }
+        function save(key, value) { try { localStorage.setItem(key, value); } catch (e) { /* storage blocked */ } }
+        document.addEventListener('click', function (e) {
+            var theme = e.target.closest('[data-theme-choice]');
+            var accent = e.target.closest('[data-accent-choice]');
+            if (theme) { root.dataset.theme = theme.dataset.themeChoice; save('ufd.theme', root.dataset.theme); sync(); }
+            if (accent) { root.dataset.accent = accent.dataset.accentChoice; save('ufd.accent', root.dataset.accent); sync(); }
+        });
+        sync();
+    })();
+</script>
+
+<script>
+    // A whole table row opens that club (the club name is also a real link, for keyboards and middle-click).
+    document.addEventListener('click', function (e) {
+        var row = e.target.closest('.club-row');
+        if (row && !e.target.closest('a')) window.location.href = row.dataset.href;
+    });
+</script>

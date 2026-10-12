@@ -1,0 +1,17 @@
+# Render Blueprint: Render -> New -> Blueprint -> pick this repo.
+services:
+  - type: web
+    name: ufd
+    runtime: python
+    plan: free
+    rootDir: ufd                      # manage.py lives in ufd/
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --no-input
+    startCommand: gunicorn ufd_project.wsgi --bind 0.0.0.0:$PORT
+    autoDeploy: true                  # redeploys whenever the daily data commit lands
+    envVars:
+      - key: DEBUG
+        value: "0"
+      - key: SECRET_KEY
+        generateValue: true           # Render invents a strong key for you
+      - key: PYTHON_VERSION
+        value: "3.12.3"

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<style>
+    .kv > div { display: flex; flex-wrap: wrap; justify-content: space-between; column-gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    .kv > div:last-child { border-bottom: 0; }
+    .kv dt { color: var(--muted); }
+    .kv dd { font-weight: 600; text-align: right; margin-left: auto; }
+    .stat-tile { padding: 12px 16px; }
+    .stat-tile b { display: block; font-family: var(--font-display); font-size: 1.9rem; line-height: 1.1; }
+    .stat-tile span { font-size: 0.8rem; color: var(--muted); }
+    .bar { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+    .bar > i { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+    .placeholder-note { display: flex; gap: 10px; align-items: flex-start; font-size: 0.85rem; color: var(--muted); padding: 12px; border: 1px dashed var(--border); border-radius: 10px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="sidebar-offset">
+    <a href="{% url 'ufd_app:dashboard' team.id %}" class="text-sm hover-accent inline-flex items-center gap-2 mb-4">
+        <i class="fas fa-arrow-left"></i> Back to dashboard
+    </a>
+
+    <div class="flex items-center gap-4 mb-6">
+        {% if team.crest %}<img src="{{ team.crest }}" alt="" class="w-16 h-16 object-contain">{% endif %}
+        <div>
+            <h1 class="display text-4xl font-bold leading-tight">{{ team.name }}: manager and coaches</h1>
+            <p class="text-sm" style="color: var(--muted)">Premier League{% if data_updated %} · data updated {{ data_updated|slice:":10" }}{% endif %}</p>
+        </div>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-4">
+        <section class="card p-5 lg:col-span-1">
+            <h2 class="text-lg font-semibold mb-3"><i class="fas fa-user-tie text-accent mr-2"></i>Manager</h2>
+            {% if manager %}
+            <div class="flex items-center gap-3 mb-3">
+                <div class="w-14 h-14 rounded-xl bg-accent-soft flex items-center justify-center"><i class="fas fa-user text-accent text-xl"></i></div>
+                <div class="display text-3xl font-bold leading-tight">{{ manager.name }}</div>
+            </div>
+            <dl class="kv">
+                <div><dt>Nationality</dt><dd>{{ manager.nationality|default:"—" }}</dd></div>
+                <div><dt>Age</dt><dd>{% if manager.age %}{{ manager.age }}{% if manager.date_of_birth %} <span style="color: var(--muted)">(born {{ manager.date_of_birth }})</span>{% endif %}{% else %}—{% endif %}</dd></div>
+                <div><dt>Contract start</dt><dd>{{ manager.contract_start|default:"—" }}</dd></div>
+                <div><dt>Contract until</dt><dd>{{ manager.contract_until|default:"—" }}</dd></div>
+                {% if manager.contract_left %}<div><dt>Time left</dt><dd class="text-accent">{{ manager.contract_left }}</dd></div>{% endif %}
+            </dl>
+            {% else %}
+            <div class="placeholder-note"><i class="fas fa-user-slash mt-1"></i><p>No manager is listed for this club in the data.</p></div>
+            {% endif %}
+        </section>
+
+        <section class="card p-5 lg:col-span-2">
+            <h2 class="text-lg font-semibold mb-1"><i class="fas fa-chart-simple text-accent mr-2"></i>Club record this season</h2>
+            <p class="text-xs mb-4" style="color: var(--muted)">This is the club's whole season so far, which may include games under a previous manager.</p>
+            {% if record %}
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                <div class="card stat-tile"><b>{{ record.played }}</b><span>Played</span></div>
+                <div class="card stat-tile"><b><span class="text-win" style="font-size:inherit; color: var(--win)">{{ record.won }}</span> / <span style="font-size:inherit; color: var(--draw)">{{ record.draw }}</span> / <span style="font-size:inherit; color: var(--loss)">{{ record.lost }}</span></b><span>Won / drawn / lost</span></div>
+                <div class="card stat-tile"><b>{{ record.win_rate }}%</b><span>Win rate</span></div>
+                <div class="card stat-tile"><b>{{ record.avg_points|default:"—" }}</b><span>Points per match</span></div>
+            </div>
+            <dl class="kv">
+                <div><dt>Points</dt><dd>{{ record.points }}{% if record.position %} <span style="color: var(--muted)">(league position {{ record.position }})</span>{% endif %}</dd></div>
+                <div><dt>Goals scored / conceded</dt><dd>{{ record.goals_for }} / {{ record.goals_against }}</dd></div>
+            </dl>
+            {% else %}
+            <div class="placeholder-note"><i class="fas fa-triangle-exclamation mt-1"></i><p>No matches played yet this season.</p></div>
+            {% endif %}
+        </section>
+
+        <section class="card p-5 lg:col-span-2">
+            <h2 class="text-lg font-semibold mb-1"><i class="fas fa-chess-board text-accent mr-2"></i>Formations used</h2>
+            <p class="text-xs mb-4" style="color: var(--muted)">Matches played in each formation this season. <a class="text-accent underline" target="_blank" rel="noopener" href="{% url 'ufd_app:formation' team.id %}">See each one on the pitch</a></p>
+            {% if formations %}
+            <ul class="space-y-3">
+                {% for f in formations %}
+                <li>
+                    <div class="flex justify-between text-sm mb-1"><span class="font-semibold">{{ f.formation }}</span><span style="color: var(--muted)">{{ f.count }} match{{ f.count|pluralize:"es" }} · {{ f.share }}%</span></div>
+                    <div class="bar" role="img" aria-label="{{ f.formation }}: {{ f.share }}% of matches"><i style="width: {{ f.share }}%"></i></div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div class="placeholder-note"><i class="fas fa-triangle-exclamation mt-1"></i><p>No formation data yet. It needs apifootball match details (run <code>build_pl_data</code> with its key).</p></div>
+            {% endif %}
+        </section>
+
+        <section class="card p-5 lg:col-span-1">
+            <h2 class="text-lg font-semibold mb-3"><i class="fas fa-people-group text-accent mr-2"></i>Assistants and staff</h2>
+            {% if assistants %}
+            <ul>
+                {% for a in assistants %}
+                <li class="flex justify-between gap-2 py-2 border-b border-line"><span class="font-semibold">{{ a.name }}</span><span style="color: var(--muted)" class="text-sm">{{ a.role|default:"" }}</span></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div class="placeholder-note"><i class="fas fa-screwdriver-wrench mt-1"></i><p>This widget is under development</p></div>
+            {% endif %}
+        </section>
+    </div>
+</div>
+{% endblock %}

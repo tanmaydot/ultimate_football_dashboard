@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<style>
+    .kv > div { display: flex; flex-wrap: wrap; justify-content: space-between; column-gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    .kv > div:last-child { border-bottom: 0; }
+    .kv dt { color: var(--muted); }
+    .kv dd { font-weight: 600; text-align: right; margin-left: auto; }
+    .stat-tile { padding: 12px 16px; }
+    .stat-tile b { display: block; font-family: var(--font-display); font-size: 1.9rem; line-height: 1.1; }
+    .stat-tile span { font-size: 0.8rem; color: var(--muted); }
+    .portrait { width: 112px; height: 112px; border-radius: 16px; object-fit: cover; background: var(--accent-soft); display: flex; align-items: center; justify-content: center; flex: none; }
+    .tag { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-text); }
+    .tag.good { background: rgba(22, 163, 74, 0.15); color: #16a34a; }
+    .tag.bad { background: rgba(220, 38, 38, 0.15); color: #ef4444; }
+    .placeholder-note { display: flex; gap: 10px; align-items: flex-start; font-size: 0.85rem; color: var(--muted); padding: 12px; border: 1px dashed var(--border); border-radius: 10px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="sidebar-offset">
+    <a href="{% url 'ufd_app:squad' team.id %}" class="text-sm hover-accent inline-flex items-center gap-2 mb-4">
+        <i class="fas fa-arrow-left"></i> Back to squad
+    </a>
+
+    <div class="flex items-center gap-5 mb-6 flex-wrap">
+        {% if p.image %}<img class="portrait" src="{{ p.image }}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'portrait',innerHTML:'<i class=\'fas fa-user text-accent text-4xl\'></i>'}))">
+        {% else %}<span class="portrait"><i class="fas fa-user text-accent text-4xl"></i></span>{% endif %}
+        <div>
+            <h1 class="display text-4xl font-bold leading-tight">{% if p.shirt is not None %}<span class="text-accent">#{{ p.shirt }}</span> {% endif %}{{ p.name }}</h1>
+            {% if p.full_name != p.name %}<p class="text-sm" style="color: var(--muted)">{{ p.full_name }}</p>{% endif %}
+            <p class="mt-1 flex items-center gap-2 flex-wrap text-sm">
+                {% if team.crest %}<img src="{{ team.crest }}" alt="" class="w-5 h-5 object-contain">{% endif %}
+                <span>{{ team.name }}</span>
+                <span class="tag">{{ p.position }}</span>
+                {% if p.captain %}<span class="tag">Captain</span>{% endif %}
+                {% if p.injured %}<span class="tag bad"><i class="fas fa-user-injured"></i> Injured</span>{% elif has_stats %}<span class="tag good"><i class="fas fa-circle-check"></i> Fit</span>{% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-4">
+        <section class="card p-5">
+            <h2 class="text-lg font-semibold mb-3"><i class="fas fa-id-card text-accent mr-2"></i>Profile</h2>
+            <dl class="kv">
+                <div><dt>Position</dt><dd>{{ p.position }}</dd></div>
+                <div><dt>Nationality</dt><dd>{{ p.nationality|default:"—" }}</dd></div>
+                <div><dt>Age</dt><dd>{{ p.age|default_if_none:"—" }}</dd></div>
+                <div><dt>Born</dt><dd>{{ p.born|default:"—" }}</dd></div>
+                <div><dt>Shirt number</dt><dd>{{ p.shirt|default_if_none:"—" }}</dd></div>
+                <div><dt>Club</dt><dd>{{ team.name }}</dd></div>
+                <div><dt>Condition</dt><dd>{% if p.injured %}<span style="color: #ef4444">Injured</span>{% elif has_stats %}<span style="color: #16a34a">Fit</span>{% else %}—{% endif %}</dd></div>
+            </dl>
+        </section>
+
+        <section class="card p-5 lg:col-span-2">
+            <h2 class="text-lg font-semibold mb-1"><i class="fas fa-chart-simple text-accent mr-2"></i>26/27 season</h2>
+            <p class="text-xs mb-4" style="color: var(--muted)">Premier League numbers for this club.</p>
+            {% if has_stats %}
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div class="card stat-tile"><b>{{ p.appearances|default_if_none:"—" }}</b><span>Appearances</span></div>
+                <div class="card stat-tile"><b>{{ p.goals|default_if_none:"—" }}</b><span>Goals</span></div>
+                <div class="card stat-tile"><b>{{ p.assists|default_if_none:"—" }}</b><span>Assists</span></div>
+                <div class="card stat-tile"><b>{{ p.rating|default_if_none:"—" }}</b><span>Rating</span></div>
+                <div class="card stat-tile"><b>{{ p.minutes|default_if_none:"—" }}</b><span>Minutes</span></div>
+                <div class="card stat-tile"><b>{{ p.yellow_cards|default_if_none:"—" }}</b><span>Yellow cards</span></div>
+                <div class="card stat-tile"><b>{{ p.red_cards|default_if_none:"—" }}</b><span>Red cards</span></div>
+            </div>
+            {% if more %}
+            <dl class="kv grid sm:grid-cols-2 gap-x-8 mt-4">
+                {% for item in more %}<div><dt>{{ item.label }}</dt><dd>{{ item.value }}</dd></div>{% endfor %}
+            </dl>
+            {% endif %}
+            {% else %}
+            <div class="placeholder-note"><i class="fas fa-circle-info mt-1"></i><p>No season numbers for this player yet. They come from apifootball.com and this player couldn't be matched there.</p></div>
+            {% endif %}
+        </section>
+    </div>
+
+
+</div>
+{% endblock %}

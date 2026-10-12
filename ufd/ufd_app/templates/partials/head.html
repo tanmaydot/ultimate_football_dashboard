@@ -1,0 +1,164 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{% block title %}{% if page_title %}{{ page_title }} - {% endif %}Ultimate Football Dashboard{% endblock %}</title>
+
+<!-- Apply the saved theme and accent before the first paint (no flash). Defaults: the OS light/dark setting, green accent. -->
+<script>
+    (function () {
+        var theme, accent;
+        try { theme = localStorage.getItem('ufd.theme'); accent = localStorage.getItem('ufd.accent'); } catch (e) { /* storage blocked */ }
+        if (['light', 'dark', 'amoled'].indexOf(theme) < 0) {
+            theme = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        if (['red', 'green', 'blue', 'orange', 'purple', 'pink', 'yellow'].indexOf(accent) < 0) accent = 'green';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.dataset.accent = accent;
+    })();
+</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    /*
+     * Colour system, 60-30-10:
+     *   60%  --bg        the page
+     *   30%  --surface   sidebar, widgets, menus (--surface-2 for fields and hover)
+     *   10%  --accent    one colour, used only for the things you should look at:
+     *                    the current club, the active link, icons, key numbers, buttons
+     * Theme (light / dark / amoled) swaps the first two; accent (7 colours) swaps the third.
+     */
+    :root {
+        --radius: 12px;
+        --font: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+        --font-display: "Barlow Condensed", "Barlow", system-ui, sans-serif;
+    }
+
+    :root[data-theme="light"] {
+        color-scheme: light;
+        --bg: #eceff3; --surface: #ffffff; --surface-2: #f2f4f7; --hover: #e8ecf1;
+        --border: #d5dbe3; --text: #14181f; --muted: #566070;
+        --win: #15803d; --loss: #b91c1c; --draw: #a16207;
+        --accent-text: var(--a-fg-l);
+    }
+    :root[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #12151b; --surface: #1b2029; --surface-2: #232a35; --hover: #2a3240;
+        --border: #2f3745; --text: #e9edf3; --muted: #9ba6b6;
+        --win: #4ade80; --loss: #f87171; --draw: #facc15;
+        --accent-text: var(--a-fg-d);
+    }
+    :root[data-theme="amoled"] {
+        color-scheme: dark;
+        --bg: #000000; --surface: #0c0d10; --surface-2: #15171c; --hover: #1d2026;
+        --border: #25282f; --text: #f4f5f7; --muted: #9a9fa9;
+        --win: #4ade80; --loss: #f87171; --draw: #facc15;
+        --accent-text: var(--a-fg-d);
+    }
+
+    /* --a-fill: buttons and fills; --a-ink: text on a fill; --a-fg-l / --a-fg-d: accent text on light / dark surfaces */
+    :root[data-accent="red"]    { --a-fill: #dc2626; --a-ink: #ffffff; --a-fg-l: #b91c1c; --a-fg-d: #f87171; }
+    :root[data-accent="green"]  { --a-fill: #16a34a; --a-ink: #04170b; --a-fg-l: #15803d; --a-fg-d: #4ade80; }
+    :root[data-accent="blue"]   { --a-fill: #2563eb; --a-ink: #ffffff; --a-fg-l: #1d4ed8; --a-fg-d: #60a5fa; }
+    :root[data-accent="orange"] { --a-fill: #ea580c; --a-ink: #1c0a02; --a-fg-l: #c2410c; --a-fg-d: #fb923c; }
+    :root[data-accent="purple"] { --a-fill: #7c3aed; --a-ink: #ffffff; --a-fg-l: #6d28d9; --a-fg-d: #a78bfa; }
+    :root[data-accent="pink"]   { --a-fill: #db2777; --a-ink: #ffffff; --a-fg-l: #be185d; --a-fg-d: #f472b6; }
+    :root[data-accent="yellow"] { --a-fill: #eab308; --a-ink: #1a1400; --a-fg-l: #a16207; --a-fg-d: #facc15; }
+
+    :root {
+        --accent: var(--a-fill);
+        --accent-soft: color-mix(in srgb, var(--a-fill) 16%, transparent);
+        --accent-line: color-mix(in srgb, var(--a-fill) 55%, transparent);
+    }
+
+    /* ---------- base ---------- */
+    html { background: var(--bg); }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; }
+    a { color: inherit; }
+    [hidden] { display: none !important; } /* Tailwind's display classes (grid, flex) would otherwise override the hidden attribute */
+    :focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
+    .font-mono, .mono { font-family: inherit !important; font-variant-numeric: tabular-nums; }
+    .display { font-family: var(--font-display); letter-spacing: 0.01em; }
+
+    /* ---------- surfaces ---------- */
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+    .surface { background: var(--surface); color: var(--text); }
+    .bg-soft { background: var(--surface-2); }
+    .border-line { border-color: var(--border) !important; }
+    .hov { transition: background-color 0.15s; }
+    .hov:hover { background: var(--hover); }
+    .field { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); border-radius: 10px; }
+    .menu-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); }
+
+    /* ---------- the accent (the 10%) ---------- */
+    .text-accent { color: var(--accent-text); }
+    .bg-accent-soft { background: var(--accent-soft); }
+    .btn-accent { background: var(--accent); color: var(--a-ink); font-weight: 600; transition: filter 0.15s; }
+    .btn-accent:hover { filter: brightness(1.08); }
+    .hover-accent:hover { color: var(--accent-text); }
+    .text-win { color: var(--win); } .text-loss { color: var(--loss); } .text-draw { color: var(--draw); }
+
+    /* ---------- sidebar ---------- */
+    #sidebar { background: var(--surface); border-right: 1px solid var(--border); color: var(--text); }
+    .nav-link { border-left: 3px solid transparent; transition: background-color 0.15s; }
+    .nav-link:hover { background: var(--hover); }
+    .nav-link.active { background: var(--accent-soft); border-left-color: var(--accent); }
+
+    .alert-note { background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: var(--radius); }
+
+    /* ---------- scrollbars ---------- */
+    * { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-line); }
+
+    /* ---------- theme / accent pickers ---------- */
+    .seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 3px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); }
+    .seg button { display: flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap; font-size: 0.72rem; font-weight: 600; padding: 6px 2px; border-radius: 7px; color: var(--muted); transition: background-color 0.15s, color 0.15s; }
+    .seg button:hover { color: var(--text); }
+    .seg button[aria-checked="true"] { background: var(--surface); color: var(--text); box-shadow: 0 0 0 1px var(--accent-line); }
+    .seg button i { font-size: 0.7rem; }
+    .seg button[aria-checked="true"] i { color: var(--accent-text); }
+    .swatches { display: flex; justify-content: space-between; gap: 6px; }
+    .swatches button { width: 26px; height: 26px; border-radius: 50%; background: var(--sw); box-shadow: 0 0 0 2px var(--surface), 0 0 0 3px var(--border); transition: transform 0.15s; }
+    .swatches button:hover { transform: scale(1.12); }
+    .swatches button[aria-checked="true"] { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--text); }
+    [data-accent-choice="red"] { --sw: #dc2626; } [data-accent-choice="green"] { --sw: #16a34a; }
+    [data-accent-choice="blue"] { --sw: #2563eb; } [data-accent-choice="orange"] { --sw: #ea580c; }
+    [data-accent-choice="purple"] { --sw: #7c3aed; } [data-accent-choice="pink"] { --sw: #db2777; }
+    [data-accent-choice="yellow"] { --sw: #eab308; }
+
+    /* ---------- formation pitch: always grass green with white markings, whatever the theme or accent ---------- */
+    .formation-wrap { display: flex; flex-direction: column; height: 100%; gap: 8px; }
+    .player-link { text-decoration: none; color: inherit; }
+    .player-link:hover { color: var(--accent-text); text-decoration: underline; }
+    .pitch {
+        flex: 1; min-height: 200px; position: relative; overflow: hidden; display: flex; flex-direction: column-reverse;
+        justify-content: space-around; padding: 10px 4px; border-radius: 10px;
+        border: 2px solid rgba(255, 255, 255, 0.55); color: #ffffff;
+        background: repeating-linear-gradient(180deg, #15803d 0, #15803d 36px, #166534 36px, #166534 72px);
+    }
+    .pitch-art { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .pitch-line { position: relative; z-index: 1; display: flex; justify-content: space-around; align-items: center; }
+    .pitch .player-link:hover { color: #fff; }
+    .pitch-player { display: flex; flex-direction: column; align-items: center; min-width: 0; max-width: 64px; }
+    .pitch-dot {
+        width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        font-size: 0.65rem; font-weight: 700; background: #ffffff; color: #14181f; border: 2px solid rgba(0, 0, 0, 0.25);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+    .pitch-dot.gk { background: #fbbf24; color: #1f2937; }
+    .pitch-name { margin-top: 3px; padding: 1px 6px; border-radius: 999px; background: rgba(0, 0, 0, 0.42); font-size: 0.68rem; font-weight: 600; max-width: 64px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7); }
+    .pitch.large { flex: none; aspect-ratio: 680 / 900; min-height: 0; width: 100%; max-width: 640px; margin: 0 auto; padding: 8% 2% 3.5%; justify-content: space-between; }
+    .pitch.large .pitch-dot { width: 42px; height: 42px; font-size: 0.75rem; }
+    .pitch.large .pitch-name, .pitch.large .pitch-player { max-width: 90px; font-size: 0.78rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+        * { transition: none !important; animation: none !important; }
+    }
+</style>

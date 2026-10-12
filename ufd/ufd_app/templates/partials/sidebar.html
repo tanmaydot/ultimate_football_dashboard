@@ -1,0 +1,119 @@
+<style>
+    /* Sidebar open/closed is driven by a class on <body> (set by the script in base.html / scripts.html). */
+    #sidebar { transform: translateX(-100%); transition: transform 0.4s ease; }
+    body.sidebar-open #sidebar { transform: translateX(0); }
+    #sidebarToggle { transition: opacity 0.2s; }
+    body.sidebar-open #sidebarToggle { opacity: 0; pointer-events: none; }
+    #sidebarOverlay { opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    @media (max-width: 1023px) { body.sidebar-open #sidebarOverlay { opacity: 1; pointer-events: auto; } }
+    @media (min-width: 1024px) { body.sidebar-open #contentWrapper { margin-left: 18rem; } }
+    body:not(.sidebar-open) .sidebar-offset { padding-left: 3.5rem; }
+
+    #appearance summary::-webkit-details-marker { display: none; }
+    #appearance .chev { transition: transform 0.2s; }
+    #appearance[open] .chev { transform: rotate(180deg); }
+
+    .sidebar-table { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.25) transparent; }
+    .sidebar-table thead th { position: sticky; top: 0; background: var(--surface-2); z-index: 1; font-weight: 600; color: var(--muted); }
+    .sidebar-table td { padding: 5px 4px; border-bottom: 1px solid var(--border); }
+    .sidebar-table tr:last-child td { border-bottom: 0; }
+    .sidebar-table .club-row { cursor: pointer; }
+    .sidebar-table .club-row:hover:not(.is-current) { background: var(--hover); }
+    .sidebar-table .is-current { background: var(--accent-soft); font-weight: 700; }
+    .sidebar-table .is-current td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+    .sidebar-table a:hover { color: var(--accent-text); }
+</style>
+
+<!-- Backdrop for the sidebar on small screens -->
+<div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-40"></div>
+
+<aside id="sidebar" class="fixed top-0 left-0 h-screen w-72 z-50" aria-label="Sidebar">
+    <div class="flex flex-col h-full p-5">
+        <!-- Logo + collapse -->
+        <div class="flex items-center justify-between mb-6">
+            <a href="{% url 'ufd_app:dashboard_home' %}" class="flex items-center space-x-3 group">
+                <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background: var(--accent); color: var(--a-ink);">
+                    <i class="fas fa-futbol text-xl"></i>
+                </div>
+                <h1 class="display text-3xl font-bold">UFD</h1>
+            </a>
+            <button id="sidebarClose" type="button" aria-label="Collapse sidebar" title="Collapse sidebar"
+                class="text-lg w-9 h-9 rounded-lg hov hover-accent">
+                <i class="fas fa-angles-left"></i>
+            </button>
+        </div>
+
+        <nav class="space-y-3 mb-5">
+            {% include "partials/nav_links.html" %}
+        </nav>
+
+        <!-- League table: fills the rest of the sidebar and scrolls -->
+        <h2 class="text-sm font-semibold">
+            <i class="fas fa-list-ol mr-1 text-accent"></i> Premier League table
+        </h2>
+        <p class="text-xs mb-2" style="color: var(--muted)">Click a club to switch</p>
+        <div class="sidebar-table flex-1 min-h-0 overflow-y-auto rounded-xl bg-soft border border-line px-2">
+            {% if table %}
+            <table class="w-full text-xs">
+                <thead>
+                    <tr class="text-left">
+                        <th class="py-1.5 w-6">#</th>
+                        <th>Club</th>
+                        <th class="text-center">P</th>
+                        <th class="text-center">GD</th>
+                        <th class="text-center">Pts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in table %}
+                    <tr class="club-row{% if row.team.id == team.id %} is-current{% endif %}" data-href="{% url club_link|default:'ufd_app:dashboard' row.team.id %}"{% if row.team.id == team.id %} aria-current="true"{% endif %}>
+                        <td class="font-mono">{{ row.position }}</td>
+                        <td>
+                            <a href="{% url club_link|default:'ufd_app:dashboard' row.team.id %}" class="flex items-center gap-2" title="Open {{ row.team.name|default:row.team.shortName }}">
+                                {% if row.team.crest %}<img src="{{ row.team.crest }}" alt="" class="w-5 h-5 object-contain" loading="lazy">{% endif %}
+                                <span class="truncate">{{ row.team.tla|default:row.team.shortName }}</span>
+                            </a>
+                        </td>
+                        <td class="text-center font-mono">{{ row.playedGames }}</td>
+                        <td class="text-center font-mono">{% if row.goalDifference > 0 %}+{% endif %}{{ row.goalDifference }}</td>
+                        <td class="text-center font-mono font-bold">{{ row.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="text-xs opacity-60 p-3">The league table appears here once the Premier League data has been built.</p>
+            {% endif %}
+        </div>
+
+        <!-- Appearance: theme (light / dark / amoled) and accent colour; folded away until you open it -->
+        <details id="appearance" class="mt-4 pt-3 border-t border-line">
+            <summary class="flex items-center justify-between cursor-pointer select-none list-none text-sm font-semibold py-1">
+                <span><i class="fas fa-palette mr-1 text-accent"></i> Appearance</span>
+                <i class="fas fa-chevron-down text-xs chev" style="color: var(--muted)"></i>
+            </summary>
+            <div class="mt-3">
+                <div class="seg" role="radiogroup" aria-label="Theme">
+                    <button type="button" role="radio" aria-checked="false" data-theme-choice="light"><i class="fas fa-sun"></i>Light</button>
+                    <button type="button" role="radio" aria-checked="false" data-theme-choice="dark"><i class="fas fa-moon"></i>Dark</button>
+                    <button type="button" role="radio" aria-checked="false" data-theme-choice="amoled"><i class="fas fa-circle"></i>AMOLED</button>
+                </div>
+                <div class="swatches mt-3 px-1" role="radiogroup" aria-label="Accent colour">
+                    <button type="button" role="radio" aria-checked="false" aria-label="Red" title="Red" data-accent-choice="red"></button>
+                    <button type="button" role="radio" aria-checked="false" aria-label="Green" title="Green" data-accent-choice="green"></button>
+                    <button type="button" role="radio" aria-checked="false" aria-label="Blue" title="Blue" data-accent-choice="blue"></button>
+                    <button type="button" role="radio" aria-checked="false" aria-label="Orange" title="Orange" data-accent-choice="orange"></button>
+                    <button type="button" role="radio" aria-checked="false" aria-label="Purple" title="Purple" data-accent-choice="purple"></button>
+                    <button type="button" role="radio" aria-checked="false" aria-label="Pink" title="Pink" data-accent-choice="pink"></button>
+                    <button type="button" role="radio" aria-checked="false" aria-label="Yellow" title="Yellow" data-accent-choice="yellow"></button>
+                </div>
+            </div>
+        </details>
+    </div>
+</aside>
+
+<!-- Opens the sidebar again once it is collapsed -->
+<button id="sidebarToggle" type="button" aria-label="Open sidebar" title="Open sidebar"
+    class="fixed top-6 left-6 z-40 card hov p-3">
+    <i class="fas fa-bars text-accent"></i>
+</button>

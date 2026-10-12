@@ -1,0 +1,630 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack@11/dist/gridstack.min.css">
+<style>
+    /* ---------- widget chrome ---------- */
+    .widget-card { height: 100%; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 30px -16px rgba(0, 0, 0, 0.55); }
+    .widget-handle {
+        flex: none; display: flex; align-items: center; justify-content: space-between;
+        padding: 11px 16px; cursor: grab; user-select: none; border-bottom: 1px solid var(--border);
+    }
+    .widget-handle:active { cursor: grabbing; }
+    .widget-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .widget-title i { margin-right: 8px; color: var(--accent-text); font-size: 0.85rem; }
+    .widget-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .widget-link .widget-out { margin: 0 0 0 8px; font-size: 0.65rem; color: var(--muted); }
+    .widget-remove { color: var(--muted); padding: 2px 6px; border-radius: 6px; transition: color 0.15s, background-color 0.15s; }
+    .widget-remove:hover { color: var(--loss); background: var(--hover); }
+    .fit { height: 100%; }
+    .widget-body { flex: 1; min-height: 0; overflow: auto; padding: 16px 18px; font-size: 0.92rem; }
+    .grid-stack > .grid-stack-placeholder > .placeholder-content {
+        border: 1px dashed var(--accent); background: var(--accent-soft); border-radius: var(--radius);
+    }
+    summary::-webkit-details-marker { display: none; }
+
+    /* ---------- resize handles: the whole length of every edge, plus the corners ---------- */
+    .grid-stack-item > .ui-resizable-handle { background-image: none !important; transform: none !important; z-index: 5; }
+    .grid-stack-item > .ui-resizable-n, .grid-stack-item > .ui-resizable-s { left: 14px; right: 14px; height: 8px; width: auto; }
+    .grid-stack-item > .ui-resizable-e, .grid-stack-item > .ui-resizable-w { top: 14px; bottom: 14px; width: 8px; height: auto; }
+    .grid-stack-item > .ui-resizable-nw, .grid-stack-item > .ui-resizable-ne,
+    .grid-stack-item > .ui-resizable-sw, .grid-stack-item > .ui-resizable-se { width: 14px; height: 14px; }
+    .grid-stack-item > .ui-resizable-n { top: 0; } .grid-stack-item > .ui-resizable-s { bottom: 0; top: auto; }
+    .grid-stack-item > .ui-resizable-w { left: 0; } .grid-stack-item > .ui-resizable-e { right: 0; left: auto; }
+    .grid-stack-item > .ui-resizable-nw { top: 0; left: 0; } .grid-stack-item > .ui-resizable-ne { top: 0; right: 0; left: auto; }
+    .grid-stack-item > .ui-resizable-sw { bottom: 0; left: 0; top: auto; } .grid-stack-item > .ui-resizable-se { bottom: 0; right: 0; top: auto; left: auto; }
+    /* the edge you are about to drag lights up in the accent colour */
+    .grid-stack-item > .ui-resizable-n:hover { box-shadow: inset 0 3px 0 var(--accent); }
+    .grid-stack-item > .ui-resizable-s:hover { box-shadow: inset 0 -3px 0 var(--accent); }
+    .grid-stack-item > .ui-resizable-w:hover { box-shadow: inset 3px 0 0 var(--accent); }
+    .grid-stack-item > .ui-resizable-e:hover { box-shadow: inset -3px 0 0 var(--accent); }
+    .grid-stack-item > .ui-resizable-nw:hover, .grid-stack-item > .ui-resizable-ne:hover,
+    .grid-stack-item > .ui-resizable-sw:hover, .grid-stack-item > .ui-resizable-se:hover { background: var(--accent-soft); }
+
+    /* ---------- responsive: every widget is a container, content adapts to the box it is given ---------- */
+    .widget-body { container-type: inline-size; }
+    .widget-body:has(.formation-wrap) { container-type: size; overflow: hidden; }
+    .formation-wrap { align-items: center; }
+    .formation-wrap > div:first-child { align-self: flex-start; }
+    .formation-wrap .pitch {
+        flex: none; min-height: 0; aspect-ratio: 680 / 900; width: auto; align-self: center;
+        height: min(calc(100cqh - 68px), calc(100cqw * 900 / 680));
+        padding: 8% 2% 3.5%; justify-content: space-between;
+    }
+    .formation-wrap .pitch-dot { width: clamp(22px, 8cqw, 38px); height: clamp(22px, 8cqw, 38px); font-size: clamp(0.5rem, 2.2cqw, 0.7rem); }
+    .formation-wrap .pitch-player { max-width: clamp(48px, 18cqw, 84px); }
+    .formation-wrap .pitch-name { max-width: clamp(48px, 18cqw, 84px); font-size: clamp(0.56rem, 2.3cqw, 0.72rem); }
+    .hero-name { font-size: clamp(1.7rem, 5.5cqw, 2.4rem); }
+    .kpis { grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); }
+    @container (max-width: 480px) {
+        .rank { margin-left: 0; text-align: left; }
+        .rank b { font-size: 3rem; }
+        .hero-crest { width: 64px; height: 64px; }
+        .gbar { grid-template-columns: 4.2rem 1fr 1.6rem; }
+        .kv > div { grid-template-columns: 7rem minmax(0, 1fr); }
+    }
+    @container (max-width: 340px) {
+        .kpi b { font-size: 1.7rem; }
+        .legend { flex-wrap: wrap; gap: 6px 12px; }
+        .coach-card { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ---------- design components ---------- */
+    .eyebrow { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    .hero {
+        position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 26px; padding: 18px 22px;
+        border-radius: 16px; overflow: hidden; isolation: isolate; border: 1px solid var(--border);
+        background: linear-gradient(115deg, color-mix(in srgb, var(--club-a, var(--accent)) 34%, var(--surface)) 0%, var(--surface-2) 62%);
+    }
+    .hero::after {
+        content: ""; position: absolute; right: -50px; top: -70px; width: 280px; height: 280px; border-radius: 50%; z-index: -1;
+        background: radial-gradient(circle, color-mix(in srgb, var(--club-b, var(--accent)) 38%, transparent), transparent 66%);
+    }
+    .hero-crest { width: 84px; height: 84px; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.4)); flex: none; }
+    .hero-name { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; line-height: 1; }
+    .rank { margin-left: auto; text-align: right; line-height: 1; }
+    .rank b { font-family: var(--font-display); font-size: 4rem; font-weight: 700; color: var(--accent-text); }
+    .rank sup { font-size: 1.3rem; font-weight: 700; margin-left: 2px; color: var(--accent-text); }
+    .rank small { display: block; margin-top: 4px; font-size: 0.72rem; color: var(--muted); }
+    .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(128, 128, 128, 0.55); margin-right: 5px; vertical-align: -1px; }
+    .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-top: 12px; }
+    .fact { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--border); min-width: 0; }
+    .fact > i { flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); }
+    .fact small { display: block; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    .fact b { display: block; font-weight: 600; font-size: 0.88rem; overflow-wrap: anywhere; line-height: 1.25; }
+    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .kpi { padding: 10px 12px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--border); }
+    .kpi small { display: block; font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    .kpi b { display: block; font-family: var(--font-display); font-size: 2.1rem; line-height: 1.05; }
+    .kpi em { font-style: normal; font-size: 0.68rem; color: var(--muted); }
+    .section-label { margin: 16px 0 6px; display: flex; justify-content: space-between; align-items: baseline; }
+    .wdl { display: flex; height: 12px; border-radius: 999px; overflow: hidden; gap: 2px; background: var(--surface-2); }
+    .wdl i { display: block; height: 100%; }
+    .wdl .w { background: var(--win); } .wdl .d { background: var(--draw); } .wdl .l { background: var(--loss); }
+    .legend { display: flex; gap: 16px; margin-top: 8px; font-size: 0.78rem; color: var(--muted); }
+    .legend b { color: inherit; font-weight: 700; margin-right: 3px; }
+    .legend .w b { color: var(--win); } .legend .d b { color: var(--draw); } .legend .l b { color: var(--loss); }
+    .pills { display: flex; gap: 6px; }
+    .pill { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-size: 0.72rem; font-weight: 800; color: #0b0f14; }
+    .pill.W { background: var(--win); } .pill.D { background: var(--draw); } .pill.L { background: var(--loss); }
+    .gbar { display: grid; grid-template-columns: 5.2rem 1fr 1.8rem; gap: 10px; align-items: center; font-size: 0.8rem; margin-top: 6px; }
+    .gbar .track { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+    .gbar .track i { display: block; height: 100%; border-radius: 999px; }
+    .gbar .gf { background: var(--accent); } .gbar .ga { background: var(--loss); }
+    .gbar b { text-align: right; font-variant-numeric: tabular-nums; }
+    .ring { --p: 0; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; flex: none;
+            background: conic-gradient(var(--accent) calc(var(--p) * 1%), var(--surface-2) 0); }
+    .ring::before { content: ""; grid-area: 1 / 1; width: 56px; height: 56px; border-radius: 50%; background: var(--surface); }
+    .ring b { grid-area: 1 / 1; z-index: 1; font-size: 0.8rem; font-weight: 800; }
+    .coach-card { display: flex; align-items: center; gap: 14px; }
+    .avatar-lg { flex: none; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
+                 background: linear-gradient(135deg, var(--club-a, var(--accent)), var(--club-b, var(--accent))); box-shadow: 0 6px 14px -4px rgba(0, 0, 0, 0.5); }
+    .coach-name { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; line-height: 1.05; }
+    .meter { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; margin-top: 6px; }
+    .meter i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--club-b, var(--accent))); }
+
+    /* ---------- shared bits ---------- */
+    .placeholder-note {
+        display: flex; gap: 10px; align-items: flex-start; font-size: 0.8rem; line-height: 1.4;
+        color: var(--muted); padding: 10px; border: 1px dashed var(--border); border-radius: 10px;
+    }
+    .placeholder-note i { margin-top: 2px; flex: none; }
+    .placeholder-note p { min-width: 0; overflow-wrap: anywhere; }
+    .placeholder-note code, .widget-body code { overflow-wrap: anywhere; font-size: 0.95em; }
+    .chip { display: inline-block; font-size: 0.7rem; padding: 2px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); }
+    /* label on the left, value right next to it: nothing is pushed to the far edge of a wide widget */
+    .kv { max-width: 30rem; }
+    .kv > div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); column-gap: 12px; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; text-align: left; }
+    .kv dt { color: var(--muted); min-width: 0; }
+    .kv dd { font-weight: 600; text-align: left; margin: 0; min-width: 0; overflow-wrap: anywhere; }
+    .kv.info-kv { max-width: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(19rem, 24rem)); column-gap: 28px; justify-content: start; }
+    .kv.info-kv > div.wide { grid-column: 1 / -1; max-width: 52rem; }
+    .kv dd.mono { white-space: nowrap; }
+
+    /* ---------- squad strip: manager + position columns scroll sideways ---------- */
+    .widget-body:has(.squad-strip), .widget-body:has(.info-strip) { padding: 0; overflow-x: auto; overflow-y: hidden; }
+    .squad-strip, .info-strip { display: flex; gap: 14px; height: 100%; padding: 14px 18px; width: max-content; min-width: 100%; }
+    .squad-col { flex: none; width: 260px; display: flex; flex-direction: column; min-height: 0; padding: 12px 14px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--border); }
+    .squad-col ul { flex: 1; min-height: 0; overflow-y: auto; margin: 0 -4px; padding: 0 4px; }
+    .manager-col { width: 280px; background: linear-gradient(150deg, color-mix(in srgb, var(--club-a, var(--accent)) 24%, var(--surface-2)), var(--surface-2)); }
+    .col-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800; color: var(--muted); }
+    .col-head:hover { color: var(--accent-text); }
+    .col-head .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gc, var(--accent)); }
+    .col-head .count { padding: 1px 8px; border-radius: 999px; background: var(--surface); font-size: 0.68rem; }
+    .col-head i { margin-left: auto; font-size: 0.65rem; opacity: 0.6; }
+    .squad-strip, .info-strip { scrollbar-width: thin; scroll-snap-type: x proximity; }
+    .squad-col, .panel { scroll-snap-align: start; }
+    /* ---------- team info strip ---------- */
+    .panel { flex: none; display: flex; flex-direction: column; min-height: 0; border-radius: 16px; border: 1px solid var(--border); background: var(--surface-2); padding: 14px 16px; position: relative; overflow: hidden; }
+    .panel-hero { width: 520px; padding: 0; background: none; border: 0; }
+    .panel-hero .hero { height: 100%; }
+    .panel-stadium { width: 420px; isolation: isolate;
+        background: linear-gradient(140deg, color-mix(in srgb, var(--club-a, var(--accent)) 22%, var(--surface-2)), var(--surface-2) 70%); }
+    .panel-facts { width: 270px; gap: 8px; }
+    .panel-facts .fact { flex: 1; }
+    .panel-table { width: 300px; }
+    .stadium-art { width: 100%; height: 108px; margin: 2px 0 8px; display: block; }
+    .stadium-name { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; line-height: 1.05; }
+    .stadium-cap { font-family: var(--font-display); font-size: 2.6rem; font-weight: 700; line-height: 1; color: var(--accent-text); }
+    .stadium-cap small { font-family: inherit; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-left: 6px; font-weight: 700; }
+    .mini-table { width: 100%; font-size: 0.86rem; }
+    .mini-table a { display: grid; grid-template-columns: 1.6rem 1.5rem 1fr auto; gap: 8px; align-items: center; padding: 7px 8px; border-radius: 10px; }
+    .mini-table a:hover { background: var(--hover); }
+    .mini-table a.me { background: var(--accent-soft); font-weight: 800; box-shadow: inset 3px 0 0 var(--accent); }
+    .mini-table img { width: 20px; height: 20px; object-fit: contain; }
+    .mini-table .pos { color: var(--muted); font-variant-numeric: tabular-nums; }
+    .mini-table .pts { font-variant-numeric: tabular-nums; font-weight: 700; }
+    /* ---------- squad ---------- */
+    .squad-group h4 { display: flex; align-items: center; gap: 8px; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800; color: var(--muted); margin: 14px 0 4px; }
+    .squad-group h4:first-of-type { margin-top: 6px; }
+    .squad-group h4 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gc); }
+    .squad-group h4 .count { margin-left: auto; font-size: 0.68rem; padding: 1px 8px; border-radius: 999px; background: var(--surface-2); }
+    .squad-group li { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 0.9rem; border-bottom: 1px solid var(--border); }
+    .squad-group li:last-child { border-bottom: 0; }
+    .squad-group .shirt { flex: none; width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+                          background: color-mix(in srgb, var(--gc) 18%, transparent); color: var(--gc); font-variant-numeric: tabular-nums; }
+    .squad-group .who { flex: 1; min-width: 0; }
+    .squad-group .name { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; line-height: 1.2; }
+    .squad-group .sub { display: block; font-size: 0.7rem; color: var(--muted); line-height: 1.2; }
+    .squad-group .inj { color: var(--loss); margin-left: 6px; font-size: 0.75rem; }
+    .squad-group .ga { flex: none; display: flex; gap: 6px; font-size: 0.7rem; color: var(--muted); }
+    .squad-group .ga span { padding: 2px 7px; border-radius: 999px; background: var(--surface-2); }
+    .squad-group .ga b { color: var(--fg, inherit); font-weight: 800; margin-right: 2px; }
+    .g-goalkeeper { --gc: #f59e0b; } .g-defence { --gc: #3b82f6; } .g-midfield { --gc: #22c55e; } .g-offence { --gc: #ef4444; } .g-unknown { --gc: #94a3b8; }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if team %}
+
+<!-- Toolbar -->
+<div class="sidebar-offset flex flex-wrap items-center justify-between gap-3 mb-4">
+    <div class="flex items-center gap-3">
+        {% if team.crest %}<img src="{{ team.crest }}" alt="{{ team.name }} badge" class="w-12 h-12 object-contain">{% endif %}
+        <h1 class="display text-3xl font-bold">Club Dashboard</h1>
+        <h6 class="text-sm text-muted"> Drag & Re-Size Widget's </h6>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+        <details id="addWidgetMenu" class="relative">
+            <summary class="list-none cursor-pointer select-none text-sm field hov px-3 py-2">
+                <i class="fas fa-plus mr-1 text-accent"></i> Add widget
+                <span id="addWidgetCount" class="ml-1 text-xs bg-accent-soft rounded-full px-2 py-0.5">0</span>
+            </summary>
+            <ul id="addWidgetList"
+                class="absolute right-0 mt-2 w-56 p-1 menu-panel z-50"></ul>
+        </details>
+
+        <button id="resetLayout" type="button"
+            class="text-sm field hov px-3 py-2">
+            <i class="fas fa-undo mr-1 text-accent"></i> Reset layout
+        </button>
+    </div>
+</div>
+
+<div id="dashboardGrid" class="grid-stack"></div>
+
+{{ default_layout|json_script:"default-layout" }}
+
+<!-- ===================== Widget bodies (cloned into the grid by the script) ===================== -->
+
+<template id="tpl-info">
+    <div class="info-strip" {% if team.brand_a %}style="--club-a: {{ team.brand_a }}; --club-b: {{ team.brand_b }}"{% endif %}>
+        <section class="panel panel-hero">
+            <div class="hero">
+                {% if team.crest %}<img class="hero-crest" src="{{ team.crest }}" alt="">{% endif %}
+                <div class="min-w-0">
+                    <div class="eyebrow">Premier League club</div>
+                    <h2 class="hero-name mt-1">{{ team.name }}</h2>
+                    <div class="flex flex-wrap items-center gap-2 mt-2">
+                        {% if team.tla %}<span class="chip">{{ team.tla }}</span>{% endif %}
+                        {% if team.colours %}<span class="chip">{% for c in team.colours %}<span class="swatch" style="background: {{ c.hex }}"></span>{% endfor %}{{ team.clubColors }}</span>{% elif team.clubColors %}<span class="chip">{{ team.clubColors }}</span>{% endif %}
+                    </div>
+                </div>
+                <div class="rank">
+                    <div class="eyebrow mb-1">League position</div>
+                    {% if team.rank %}<b>{{ team.rank }}</b><sup>{{ team.rank_suffix }}</sup>
+                    <small>of {{ team.table_size|default:"20" }}{% if team.points is not None %} · {{ team.points }} pts{% endif %}</small>
+                    {% else %}<b>—</b>{% endif %}
+                </div>
+            </div>
+        </section>
+
+        <section class="panel panel-stadium">
+            <div class="eyebrow">Home ground</div>
+            <svg class="stadium-art" viewBox="0 0 240 110" fill="none" aria-hidden="true">
+                <rect x="4" y="4" width="232" height="102" rx="46" stroke="currentColor" stroke-opacity="0.35" stroke-width="2"/>
+                <rect x="16" y="14" width="208" height="82" rx="36" stroke="currentColor" stroke-opacity="0.25" stroke-width="2"/>
+                <rect x="40" y="26" width="160" height="58" rx="6" fill="#15803d" fill-opacity="0.85" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
+                <line x1="120" y1="26" x2="120" y2="84" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
+                <circle cx="120" cy="55" r="11" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
+                <rect x="40" y="40" width="22" height="30" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
+                <rect x="178" y="40" width="22" height="30" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
+            </svg>
+            <div class="stadium-name">{{ stadium.name|default:"Stadium not listed" }}</div>
+            {% if stadium.capacity %}
+            <div class="stadium-cap mt-1">{{ stadium.capacity }}<small>seats</small></div>
+            {% if stadium.capacity_pct is not None %}
+            <div class="meter" role="img" aria-label="{{ stadium.capacity_pct }}% of the biggest ground in the league"><i style="width: {{ stadium.capacity_pct }}%"></i></div>
+            <p class="text-xs mt-1" style="color: var(--muted)">{{ stadium.capacity_rank }} · biggest is {{ stadium.capacity_biggest }}</p>
+            {% endif %}
+            {% endif %}
+            <div class="flex flex-wrap gap-2 mt-3">
+                {% if stadium.city %}<span class="chip"><i class="fas fa-location-dot mr-1"></i>{{ stadium.city }}</span>{% endif %}
+                {% if stadium.opened %}<span class="chip"><i class="fas fa-calendar-check mr-1"></i>Opened {{ stadium.opened }}</span>{% endif %}
+            </div>
+            {% if not stadium.capacity %}<p class="text-[0.68rem] opacity-50 mt-2">Only the stadium name comes from the API. Add <code>stadium</code> details in <code>club_extras.json</code>.</p>{% endif %}
+        </section>
+
+        <section class="panel panel-facts">
+            <div class="fact"><i class="fas fa-calendar-days"></i><span><small>Founded</small><b>{{ team.founded|default:"—" }}</b></span></div>
+            <div class="fact"><i class="fas fa-earth-europe"></i><span><small>Country</small><b>{{ team.area.name|default:"—" }}</b></span></div>
+            <div class="fact"><i class="fas fa-globe"></i><span><small>Website</small><b>{% if team.website %}<a href="{{ team.website }}" target="_blank" rel="noopener noreferrer" class="text-accent underline">Visit site <i class="fas fa-external-link-alt text-xs"></i></a>{% else %}—{% endif %}</b></span></div>
+            <div class="fact"><i class="fas fa-location-dot"></i><span><small>Address</small><b>{{ team.address|default:"—" }}</b></span></div>
+        </section>
+
+        {% if neighbours %}
+        <section class="panel panel-table">
+            <div class="eyebrow mb-2">Around them in the table</div>
+            <nav class="mini-table" aria-label="League table around {{ team.name }}">
+                {% for r in neighbours %}
+                <a href="{% url 'ufd_app:dashboard' r.team.id %}" class="{% if r.current %}me{% endif %}">
+                    <span class="pos">{{ r.position }}</span>
+                    {% if r.team.crest %}<img src="{{ r.team.crest }}" alt="">{% else %}<span></span>{% endif %}
+                    <span class="truncate">{{ r.team.shortName|default:r.team.name }}</span>
+                    <span class="pts">{{ r.points }}</span>
+                </a>
+                {% endfor %}
+            </nav>
+        </section>
+        {% endif %}
+    </div>
+</template>
+
+<template id="tpl-revenue">
+    {% if revenue %}
+    <div class="display text-4xl font-bold text-accent">{{ revenue.display }}</div>
+    <p class="text-xs opacity-70 mt-1">{% if revenue.season %}Season {{ revenue.season }}{% endif %}</p>
+    {% if revenue.source %}<p class="text-[0.68rem] opacity-50 mt-2">Source: {{ revenue.source }}</p>{% endif %}
+    {% else %}
+    <div class="placeholder-note"><i class="fas fa-screwdriver-wrench"></i><p>This widget is under development</p></div>
+    {% endif %}
+</template>
+
+<template id="tpl-stats">
+    {% if stats %}
+    <div class="kpis">
+        <div class="kpi"><small>Played</small><b>{{ stats.played }}</b></div>
+        <div class="kpi"><small>Points</small><b class="text-accent">{{ stats.points }}</b><em>{{ stats.avg_points }} per match</em></div>
+        <div class="kpi"><small>Clean sheets</small><b>{{ stats.clean_sheets|default_if_none:"—" }}</b></div>
+    </div>
+
+    <div class="section-label"><span class="eyebrow">Results</span><span class="eyebrow">{{ stats.win_pct }}% wins</span></div>
+    <div class="wdl" role="img" aria-label="{{ stats.won }} wins, {{ stats.draw }} draws, {{ stats.lost }} losses">
+        {% if stats.won %}<i class="w" style="flex: {{ stats.won }}"></i>{% endif %}{% if stats.draw %}<i class="d" style="flex: {{ stats.draw }}"></i>{% endif %}{% if stats.lost %}<i class="l" style="flex: {{ stats.lost }}"></i>{% endif %}
+    </div>
+    <div class="legend"><span class="w"><b>{{ stats.won }}</b>W</span><span class="d"><b>{{ stats.draw }}</b>D</span><span class="l"><b>{{ stats.lost }}</b>L</span></div>
+
+    {% if stats.form %}
+    <div class="section-label"><span class="eyebrow">Last {{ stats.form|length }}</span></div>
+    <div class="pills">{% for r in stats.form %}<span class="pill {{ r }}">{{ r }}</span>{% endfor %}</div>
+    {% endif %}
+
+    <div class="section-label"><span class="eyebrow">Goals</span><span class="eyebrow">{% if stats.goal_difference > 0 %}+{% endif %}{{ stats.goal_difference }} difference</span></div>
+    <div class="gbar"><span>Scored</span><span class="track"><i class="gf" style="width: {{ stats.gf_pct }}%"></i></span><b>{{ stats.goals_for }}</b></div>
+    <div class="gbar"><span>Conceded</span><span class="track"><i class="ga" style="width: {{ stats.ga_pct }}%"></i></span><b>{{ stats.goals_against }}</b></div>
+
+    <div class="section-label"><span class="eyebrow">Possession</span></div>
+    {% if stats.possession is not None %}
+    <div class="flex items-center gap-3" title="Average over the matches that have recorded possession">
+        <div class="ring" style="--p: {{ stats.possession|floatformat:0 }}"><b>{{ stats.possession }}%</b></div>
+        <span class="text-xs" style="color: var(--muted)">Average ball share across recorded matches</span>
+    </div>
+    {% else %}
+    <p class="text-sm opacity-60" title="Needs apifootball or footballdata.io match statistics (run build_pl_data with their keys)">N/A</p>
+    {% endif %}
+    {% else %}
+    <div class="placeholder-note"><i class="fas fa-triangle-exclamation"></i><p>Season stats come from the league table, which is unavailable right now.</p></div>
+    {% endif %}
+</template>
+
+<template id="tpl-coaches">
+    {% if assistants %}
+    <ul class="text-sm">
+        {% for a in assistants %}
+        <li class="flex justify-between gap-2 py-1 border-b border-line"><span class="font-semibold">{{ a.name }}</span><span class="opacity-60 text-xs">{{ a.role|default:"" }}</span></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="placeholder-note"><i class="fas fa-screwdriver-wrench"></i><p>This widget is under development</p></div>
+    {% endif %}
+</template>
+
+<template id="tpl-trophies">
+    {% if trophies.honours %}
+    <ul>
+        {% for h in trophies.honours %}
+        <li class="flex items-center gap-3 py-2 border-b border-line">
+            <i class="fas fa-trophy text-accent"></i>
+            <span class="flex-1 text-sm font-semibold">{{ h.name }}</span>
+            {% if h.count is not None %}<b class="font-mono">×{{ h.count }}</b>{% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="placeholder-note"><i class="fas fa-screwdriver-wrench"></i><p>This widget is under development</p></div>
+    {% endif %}
+</template>
+
+<template id="tpl-formation">
+    {% if formation %}
+    <div class="formation-wrap">
+        <div class="text-left leading-tight">
+            <div class="text-xs opacity-60">{% if formation.kind == "manual" %}Default formation{% else %}Most used formation{% endif %}{% if not formation.has_names %} · positions only{% endif %}</div>
+            <div class="display text-3xl font-bold text-accent whitespace-nowrap">{{ formation.label }}</div>
+        </div>
+        <div class="pitch">
+            {% include "partials/pitch_art.html" %}
+            {% for line in formation.lines %}
+            <div class="pitch-line">
+                {% for slot in line.slots %}
+                <div class="pitch-player">
+                    <span class="pitch-dot {% if line.role == 'GK' %}gk{% endif %}">{{ slot.label }}</span>
+                    {% if slot.name %}{% if slot.id %}<a class="pitch-name player-link" href="{% url 'ufd_app:player' team_id slot.id %}" target="_blank" rel="noopener">{{ slot.name }}</a>{% else %}<span class="pitch-name">{{ slot.name }}</span>{% endif %}{% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="placeholder-note"><i class="fas fa-lock"></i><p>No default formation set for this club. Add <code>default_formation</code> (for example <code>"4-3-3"</code>) in <code>data/club_extras.json</code>. Optionally add <code>starting_xi</code> (11 player ids) to show names.</p></div>
+    {% endif %}
+</template>
+
+<template id="tpl-squad">
+    <div class="squad-strip">
+        <section class="squad-col manager-col" {% if team.brand_a %}style="--club-a: {{ team.brand_a }}; --club-b: {{ team.brand_b }}"{% endif %}>
+            <a class="col-head" href="{% url 'ufd_app:manager' team_id %}" target="_blank" rel="noopener" title="Open the manager page"><span class="dot"></span><span>Manager</span><i class="fas fa-arrow-up-right-from-square"></i></a>
+            {% if coach %}
+            <div class="coach-card">
+                <div class="avatar-lg">{{ coach.initials }}</div>
+                <div class="min-w-0">
+                    <a class="coach-name player-link" href="{% url 'ufd_app:manager' team_id %}" target="_blank" rel="noopener">{{ coach.name|default:"Unknown" }}</a>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        {% if coach.nationality %}<span class="chip">{{ coach.nationality }}</span>{% endif %}
+                        {% if coach.age %}<span class="chip">Age {{ coach.age }}</span>{% endif %}
+                    </div>
+                </div>
+            </div>
+            {% if coach.contract %}
+            <div class="section-label"><span class="eyebrow">Contract</span><span class="text-xs" style="color: var(--muted)">{{ coach.contract.start|default:"—" }} → {{ coach.contract.until|default:"—" }}</span></div>
+            {% if coach.progress is not None %}<div class="meter" role="img" aria-label="{{ coach.progress }}% of contract served"><i style="width: {{ coach.progress }}%"></i></div>{% endif %}
+            {% endif %}
+            {% else %}
+            <div class="placeholder-note"><i class="fas fa-user-slash"></i><p>No manager listed by the API for this club.</p></div>
+            {% endif %}
+        </section>
+        {% if squad_groups %}
+        {% for group, players in squad_groups %}
+        <section class="squad-col squad-group g-{{ group|lower }}">
+            <a class="col-head" href="{% url 'ufd_app:squad' team_id %}?group={{ group|urlencode }}" target="_blank" rel="noopener" title="Open the squad page filtered to {{ group }}"><span class="dot"></span><span>{{ group }}</span><span class="count">{{ players|length }}</span><i class="fas fa-arrow-up-right-from-square"></i></a>
+            <ul>
+                {% for p in players %}
+                <li>
+                    <span class="shirt">{{ p.shirt|default_if_none:"–" }}</span>
+                    <span class="who">
+                        <span class="name" title="{{ p.position }}">{% if p.id %}<a class="player-link" href="{% url 'ufd_app:player' team_id p.id %}" target="_blank" rel="noopener">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}{% if p.injured %}<i class="fas fa-user-injured inj" title="Injured"></i>{% endif %}</span>
+                        <span class="sub">{{ p.nationality }}{% if p.age %} · {{ p.age }}{% endif %}{% if p.goals is not None %} · {{ p.goals }}G {{ p.assists|default:0 }}A{% endif %}</span>
+                    </span>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endfor %}
+        {% else %}
+        <div class="placeholder-note"><i class="fas fa-triangle-exclamation"></i><p>No squad data returned for this club.</p></div>
+        {% endif %}
+    </div>
+</template>
+
+{% else %}
+<div class="card p-12 text-center max-w-xl mx-auto mt-16">
+    <i class="fas fa-circle-exclamation text-4xl text-accent mb-4"></i>
+    {% if data_missing %}
+    <h2 class="text-2xl font-bold mb-2">No Premier League data yet</h2>
+    <p class="opacity-70 mb-4">The dashboard reads a data file that hasn't been built. In your project folder run:</p>
+    <pre class="text-left text-sm bg-soft border border-line rounded-xl p-4 mb-6 overflow-x-auto">cd ufd
+python manage.py build_pl_data</pre>
+    <p class="opacity-60 text-xs mb-6">Set FOOTBALL_DATA_API_KEY and APIFOOTBALL_API_KEY first. It takes a few minutes because of API rate limits. Reload this page afterwards.</p>
+    {% else %}
+    <h2 class="text-2xl font-bold mb-2">Dashboard unavailable</h2>
+    <p class="opacity-70 mb-6">We couldn't load that club. Check the message above, then try again.</p>
+    {% endif %}
+    {% if not data_missing %}<a href="{% url 'ufd_app:dashboard_home' %}" class="btn-accent inline-block rounded-xl px-5 py-3">Back to dashboard</a>{% endif %}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+{% if team %}
+<script src="https://cdn.jsdelivr.net/npm/gridstack@11/dist/gridstack-all.js"></script>
+<script>
+(function () {
+    var defaults = JSON.parse(document.getElementById('default-layout').textContent);
+    var shown = defaults.filter(function (w) { return !w.hidden; });
+    var meta = {};
+    defaults.forEach(function (w) { meta[w.id] = w; });
+    var STORAGE_KEY = 'ufd.dashboard.layout.v10';
+    var building = true;
+
+    // GridStack 11 inserts `content` as plain text by default. Our widget markup is rendered
+    // (and auto-escaped) by Django on the server, so inserting it as HTML is safe here.
+    GridStack.renderCB = function (el, w) {
+        if (el && w && w.content) el.innerHTML = w.content;
+    };
+
+    var grid = GridStack.init({
+        column: 12,
+        cellHeight: 80,
+        margin: 8,
+        float: false,
+        animate: true,
+        handle: '.widget-handle',
+        // Resize from any edge or corner, not just the bottom-right one.
+        resizable: { handles: 'n, ne, e, se, s, sw, w, nw' },
+        columnOpts: { breakpoints: [{ w: 768, c: 1 }] }
+    }, '#dashboardGrid');
+
+    function widgetHTML(id) {
+        var m = meta[id];
+        var body = document.getElementById('tpl-' + id).innerHTML;
+        return '<div class="widget-card card">' +
+            '<div class="widget-handle">' +
+            (m.url
+                ? '<a class="widget-title widget-link" href="' + m.url + '" target="_blank" rel="noopener" title="Open ' + m.title + ' in a new tab"><i class="fas ' + m.icon + '"></i>' + m.title + '<i class="fas fa-arrow-up-right-from-square widget-out"></i></a>'
+                : '<span class="widget-title"><i class="fas ' + m.icon + '"></i>' + m.title + '</span>') +
+            '<button type="button" class="widget-remove" title="Remove widget" aria-label="Remove ' + m.title + '"><i class="fas fa-times"></i></button>' +
+            '</div><div class="widget-body"><div class="fit">' + body + '</div></div>';
+    }
+
+    // Scale a widget's content to its box: bigger widget -> bigger content, smaller -> content shrinks (no clipping).
+    // Event-driven only (no ResizeObserver): recomputed when the user resizes/moves a widget or the window changes,
+    // never as a reaction to the content itself, so it cannot feed back into itself and shake.
+    var canZoom = window.CSS && CSS.supports && CSS.supports('zoom', '1');
+    function fitWidget(item) {
+        var m = item && item.gridstackNode && meta[item.gridstackNode.id];
+        if (!canZoom || !m || !m.fit) return;
+        var body = item.querySelector('.widget-body'), inner = body && body.firstElementChild;
+        if (!inner) return;
+        var cs = getComputedStyle(body);
+        var w = body.offsetWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+        var h = body.offsetHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+        var r = [];
+        if (m.fit.w) r.push(w / m.fit.w);
+        if (m.fit.h) r.push(h / m.fit.h);
+        var z = Math.round(Math.max(0.6, Math.min(1.5, Math.min.apply(null, r))) * 20) / 20;
+        if (inner.dataset.zoom !== String(z)) { inner.dataset.zoom = z; inner.style.zoom = z; }
+    }
+    function watch(item) { fitWidget(item); }
+    var fitQueued = false;
+    function queueFitAll() {
+        if (fitQueued) return;
+        fitQueued = true;
+        requestAnimationFrame(function () {
+            fitQueued = false;
+            document.querySelectorAll('#dashboardGrid .grid-stack-item').forEach(fitWidget);
+        });
+        clearTimeout(fitLate);
+        fitLate = setTimeout(function () { document.querySelectorAll('#dashboardGrid .grid-stack-item').forEach(fitWidget); }, 350);
+    }
+    window.addEventListener('resize', queueFitAll);
+    // Grid cells animate to their new size; refit once the animation has finished (only for the grid item itself).
+    document.getElementById('dashboardGrid').addEventListener('transitionend', function (e) { if (e.target.classList.contains('grid-stack-item')) queueFitAll(); });
+    var fitLate = 0;
+    grid.on('resize resizestop change added removed dragstop', queueFitAll);
+
+    function readSaved() {
+        try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return null;
+            var parsed = JSON.parse(raw);
+            if (!Array.isArray(parsed)) return null;
+            return parsed.filter(function (i) {
+                return meta[i.id] && ['x', 'y', 'w', 'h'].every(function (k) { return isFinite(i[k]); });
+            });
+        } catch (e) { return null; }
+    }
+
+    function persist() {
+        // Only the desktop (12-column) layout is worth saving; the 1-column phone layout isn't.
+        if (building || grid.getColumn() !== 12) return;
+        try {
+            var items = grid.save(false).map(function (n) { return { id: n.id, x: n.x, y: n.y, w: n.w, h: n.h }; });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+        } catch (e) { /* storage blocked: layout just won't persist */ }
+    }
+
+    function renderMenu() {
+        var visible = {};
+        grid.getGridItems().forEach(function (el) { visible[el.gridstackNode.id] = true; });
+        var hidden = defaults.filter(function (w) { return !visible[w.id]; });
+        var list = document.getElementById('addWidgetList');
+        document.getElementById('addWidgetCount').textContent = hidden.length;
+        list.innerHTML = '';
+        if (!hidden.length) {
+            list.innerHTML = '<li class="px-3 py-2 text-sm opacity-60">All widgets are on the dashboard</li>';
+            return;
+        }
+        hidden.forEach(function (w) {
+            var li = document.createElement('li');
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.dataset.add = w.id;
+            btn.className = 'w-full text-left text-sm px-3 py-2 rounded-lg hov';
+            btn.innerHTML = '<i class="fas ' + w.icon + ' mr-2 text-accent"></i>' + w.title;
+            li.appendChild(btn);
+            list.appendChild(li);
+        });
+    }
+
+    function build(layout) {
+        building = true;
+        grid.removeAll();
+        layout.forEach(function (i) {
+            watch(grid.addWidget({ id: i.id, x: i.x, y: i.y, w: i.w, h: i.h, minW: meta[i.id].minW || 2, minH: meta[i.id].minH || 2, content: widgetHTML(i.id) }));
+        });
+        building = false;
+        renderMenu();
+    }
+
+    var saved = readSaved();
+    build(saved !== null ? saved : shown);
+    grid.on('change', persist);
+
+    document.addEventListener('click', function (e) {
+        var remove = e.target.closest('.widget-remove');
+        if (remove) {
+            grid.removeWidget(remove.closest('.grid-stack-item'));
+            persist();
+            renderMenu();
+            return;
+        }
+        var add = e.target.closest('[data-add]');
+        if (add) {
+            var w = meta[add.dataset.add];
+            watch(grid.addWidget({ id: w.id, w: w.w, h: w.h, minW: w.minW || 2, minH: w.minH || 2, autoPosition: true, content: widgetHTML(w.id) }));
+            persist();
+            renderMenu();
+            document.getElementById('addWidgetMenu').removeAttribute('open');
+            return;
+        }
+        if (e.target.closest('#resetLayout')) {
+            try { localStorage.removeItem(STORAGE_KEY); } catch (err) { /* ignore */ }
+            build(shown);
+        }
+    });
+
+})();
+</script>
+{% endif %}
+{% endblock %}

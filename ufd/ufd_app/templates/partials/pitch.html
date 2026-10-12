@@ -1,0 +1,13 @@
+<div class="pitch{% if large %} large{% endif %}">
+    {% include "partials/pitch_art.html" %}
+    {% for line in formation.lines %}
+    <div class="pitch-line">
+        {% for slot in line.slots %}
+        <div class="pitch-player" data-n="{{ slot.n }}" data-label="{{ slot.label }}"{% if slot.id %} data-id="{{ slot.id }}"{% endif %}>
+            <span class="pitch-dot {% if line.role == 'GK' %}gk{% endif %}">{{ slot.label }}</span>
+            {% if slot.name %}{% if slot.id %}<a class="pitch-name player-link" href="{% url 'ufd_app:player' team_id slot.id %}" target="_blank" rel="noopener">{{ slot.name }}</a>{% else %}<span class="pitch-name">{{ slot.name }}</span>{% endif %}{% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>

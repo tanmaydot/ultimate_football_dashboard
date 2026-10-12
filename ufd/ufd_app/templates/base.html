@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="green">
+
+<head>
+    {% include "partials/head.html" %}
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body class="min-h-screen flex flex-col">
+    {% include "partials/mobile_gate.html" %}
+    <script>
+        // Decide before first paint so the sidebar doesn't flash: open on desktop unless it was collapsed last time.
+        (function () {
+            var closed = false;
+            try { closed = localStorage.getItem('ufd.sidebar') === 'closed'; } catch (e) { /* storage blocked */ }
+            if (window.innerWidth >= 1024 && !closed) document.body.classList.add('sidebar-open');
+        })();
+    </script>
+
+    <div class="flex relative z-10 flex-1">
+        {% include "partials/sidebar.html" %}
+
+        <div id="contentWrapper" class="flex-1 min-w-0 flex flex-col min-h-screen transition-all duration-500">
+
+            {% include "partials/messages.html" %}
+
+            <main class="container mx-auto flex-grow px-6 py-8">
+                {% block content %}{% endblock %}
+            </main>
+
+            {% include "partials/footer.html" %}
+        </div>
+    </div>
+
+    {% include "partials/scripts.html" %}
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>
