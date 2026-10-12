@@ -1,7 +1,7 @@
 {
   "version": 1,
   "season_start": "2026-08-21",
-  "updated_at": "2026-10-12T09:54:55+00:00",
+  "updated_at": "2026-10-12T13:58:10+00:00",
   "matches": {
     "812650": {
       "match_id": "812650",
@@ -10363,6 +10363,20 @@
         "goal_difference": 5,
         "clean_sheets": 3,
         "possession": 52.2
+      },
+      {
+        "date": "2026-10-12",
+        "position": 2,
+        "played": 6,
+        "won": 5,
+        "draw": 0,
+        "lost": 1,
+        "points": 15,
+        "goals_for": 10,
+        "goals_against": 5,
+        "goal_difference": 5,
+        "clean_sheets": 3,
+        "possession": 59
       }
     ],
     "58": [
@@ -10406,7 +10420,7 @@
         "goals_against": 11,
         "goal_difference": -5,
         "clean_sheets": 1,
-        "possession": 58.5
+        "possession": 47
       }
     ],
     "61": [
@@ -10450,7 +10464,7 @@
         "goals_against": 13,
         "goal_difference": 2,
         "clean_sheets": 0,
-        "possession": 19.2
+        "possession": 48
       }
     ],
     "62": [
@@ -10494,7 +10508,7 @@
         "goals_against": 5,
         "goal_difference": 3,
         "clean_sheets": 3,
-        "possession": 46.2
+        "possession": 47
       }
     ],
     "63": [
@@ -10525,6 +10539,20 @@
         "goal_difference": -4,
         "clean_sheets": 1,
         "possession": 31.0
+      },
+      {
+        "date": "2026-10-12",
+        "position": 20,
+        "played": 6,
+        "won": 0,
+        "draw": 2,
+        "lost": 4,
+        "points": 2,
+        "goals_for": 6,
+        "goals_against": 10,
+        "goal_difference": -4,
+        "clean_sheets": 1,
+        "possession": 54
       }
     ],
     "64": [
@@ -10568,7 +10596,7 @@
         "goals_against": 7,
         "goal_difference": 0,
         "clean_sheets": 3,
-        "possession": 50.0
+        "possession": 55
       }
     ],
     "65": [
@@ -10598,7 +10626,7 @@
         "goals_against": 5,
         "goal_difference": 11,
         "clean_sheets": 3,
-        "possession": 48.8
+        "possession": 64
       }
     ],
     "66": [
@@ -10642,7 +10670,7 @@
         "goals_against": 9,
         "goal_difference": 0,
         "clean_sheets": 0,
-        "possession": 45.5
+        "possession": 58
       }
     ],
     "67": [
@@ -10673,6 +10701,20 @@
         "goal_difference": 0,
         "clean_sheets": 1,
         "possession": 35.0
+      },
+      {
+        "date": "2026-10-12",
+        "position": 11,
+        "played": 5,
+        "won": 2,
+        "draw": 2,
+        "lost": 1,
+        "points": 8,
+        "goals_for": 9,
+        "goals_against": 9,
+        "goal_difference": 0,
+        "clean_sheets": 1,
+        "possession": 49
       }
     ],
     "71": [
@@ -10703,6 +10745,20 @@
         "goal_difference": -6,
         "clean_sheets": 1,
         "possession": 41.5
+      },
+      {
+        "date": "2026-10-12",
+        "position": 16,
+        "played": 6,
+        "won": 1,
+        "draw": 1,
+        "lost": 4,
+        "points": 4,
+        "goals_for": 6,
+        "goals_against": 12,
+        "goal_difference": -6,
+        "clean_sheets": 1,
+        "possession": 51
       }
     ],
     "73": [
@@ -10733,6 +10789,20 @@
         "goal_difference": -6,
         "clean_sheets": 2,
         "possession": 30.7
+      },
+      {
+        "date": "2026-10-12",
+        "position": 18,
+        "played": 6,
+        "won": 0,
+        "draw": 3,
+        "lost": 3,
+        "points": 3,
+        "goals_for": 3,
+        "goals_against": 9,
+        "goal_difference": -6,
+        "clean_sheets": 2,
+        "possession": 59
       }
     ],
     "322": [
@@ -10776,7 +10846,7 @@
         "goals_against": 6,
         "goal_difference": 2,
         "clean_sheets": 3,
-        "possession": 26.5
+        "possession": 33
       }
     ],
     "341": [
@@ -10820,7 +10890,7 @@
         "goals_against": 5,
         "goal_difference": 3,
         "clean_sheets": 2,
-        "possession": 50.5
+        "possession": 45
       }
     ],
     "349": [
@@ -10864,7 +10934,7 @@
         "goals_against": 12,
         "goal_difference": -3,
         "clean_sheets": 0,
-        "possession": 37.2
+        "possession": 46
       }
     ],
     "351": [
@@ -10894,7 +10964,7 @@
         "goals_against": 8,
         "goal_difference": -3,
         "clean_sheets": 1,
-        "possession": 45.3
+        "possession": 49
       }
     ],
     "354": [
@@ -10924,7 +10994,7 @@
         "goals_against": 12,
         "goal_difference": -3,
         "clean_sheets": 1,
-        "possession": 36.7
+        "possession": 43
       }
     ],
     "397": [
@@ -10955,6 +11025,20 @@
         "goal_difference": 13,
         "clean_sheets": 4,
         "possession": 50.3
+      },
+      {
+        "date": "2026-10-12",
+        "position": 3,
+        "played": 6,
+        "won": 4,
+        "draw": 1,
+        "lost": 1,
+        "points": 13,
+        "goals_for": 18,
+        "goals_against": 5,
+        "goal_difference": 13,
+        "clean_sheets": 4,
+        "possession": 60
       }
     ],
     "402": [
@@ -10985,6 +11069,20 @@
         "goal_difference": 6,
         "clean_sheets": 2,
         "possession": 37.0
+      },
+      {
+        "date": "2026-10-12",
+        "position": 4,
+        "played": 6,
+        "won": 2,
+        "draw": 4,
+        "lost": 0,
+        "points": 10,
+        "goals_for": 12,
+        "goals_against": 6,
+        "goal_difference": 6,
+        "clean_sheets": 2,
+        "possession": 46
       }
     ],
     "1044": [
@@ -11015,6 +11113,20 @@
         "goal_difference": -6,
         "clean_sheets": 0,
         "possession": 38.0
+      },
+      {
+        "date": "2026-10-12",
+        "position": 17,
+        "played": 6,
+        "won": 0,
+        "draw": 3,
+        "lost": 3,
+        "points": 3,
+        "goals_for": 7,
+        "goals_against": 13,
+        "goal_difference": -6,
+        "clean_sheets": 0,
+        "possession": 48
       }
     ],
     "1076": [
@@ -11045,6 +11157,20 @@
         "goal_difference": -9,
         "clean_sheets": 1,
         "possession": 31.0
+      },
+      {
+        "date": "2026-10-12",
+        "position": 19,
+        "played": 5,
+        "won": 1,
+        "draw": 0,
+        "lost": 4,
+        "points": 3,
+        "goals_for": 1,
+        "goals_against": 10,
+        "goal_difference": -9,
+        "clean_sheets": 1,
+        "possession": 39
       }
     ]
   },
