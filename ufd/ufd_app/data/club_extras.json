@@ -1,12 +1,23 @@
 {
-  "_readme": "Data football-data.org does not provide. Add one entry per club, keyed by its football-data team id (the number in /dashboard/<id>/). Keys starting with an underscore are ignored. Every field is optional; a missing field just shows a placeholder in its widget.",
-
+  "_readme": "Data football-data.org does not provide. Add one entry per club, keyed by its football-data team id (the number in /dashboard/\u003Cid\u003E/). Keys starting with an underscore are ignored. Every field is optional; a missing field just shows a placeholder in its widget.",
   "_example": {
     "_note": "EXAMPLE ONLY - copy this block, rename the key to a real team id, and replace every value with sourced data.",
     "default_formation": "4-3-3",
-    "starting_xi": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    "starting_xi": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
     "revenue": {
-      "amount_m": 100.0,
+      "amount_m": 100,
       "currency": "GBP",
       "season": "2024/25",
       "source": "Where the figure came from"
@@ -17,11 +28,20 @@
       "opened": 1900
     },
     "honours": [
-      { "name": "Premier League", "count": 1 },
-      { "name": "FA Cup", "count": 1 }
+      {
+        "name": "Premier League",
+        "count": 1
+      },
+      {
+        "name": "FA Cup",
+        "count": 1
+      }
     ],
     "assistant_coaches": [
-      { "name": "Coach Name", "role": "Assistant Manager" }
+      {
+        "name": "Coach Name",
+        "role": "Assistant Manager"
+      }
     ]
   }
 }
