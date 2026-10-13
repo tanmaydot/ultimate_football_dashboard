@@ -1,7 +1,7 @@
 {
   "version": 1,
   "season_start": "2026-08-21",
-  "updated_at": "2026-10-13T03:06:14+00:00",
+  "updated_at": "2026-10-13T13:19:45+00:00",
   "matches": {
     "812650": {
       "match_id": "812650",
@@ -10332,6 +10332,14 @@
       "home_goals": 0,
       "away_goals": 3,
       "matchday": 6
+    },
+    "560597": {
+      "date": "2026-10-12",
+      "home": 1076,
+      "away": 67,
+      "home_goals": 4,
+      "away_goals": 1,
+      "matchday": 6
     }
   },
   "team_stats": {
@@ -10653,7 +10661,7 @@
         "goals_for": 16,
         "goals_against": 5,
         "goal_difference": 11,
-        "clean_sheets": 2,
+        "clean_sheets": 3,
         "possession": 64
       }
     ],
