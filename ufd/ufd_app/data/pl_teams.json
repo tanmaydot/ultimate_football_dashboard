@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": 1,
-    "generated_at": "2026-10-13T13:45:46+00:00",
+    "generated_at": "2026-10-13T14:29:33+00:00",
     "competition": {
       "code": "PL",
       "name": "Premier League"
@@ -46,7 +46,7 @@
         {
           "name": "match events (formations, possession)",
           "ok": true,
-          "detail": "fetched 10 since 2026-10-08: 0 new, 1 updated; 60 stored"
+          "detail": "fetched 10 since 2026-10-09: 0 new, 0 updated; 60 stored"
         },
         {
           "name": "team matching",
@@ -61,12 +61,12 @@
         {
           "name": "footballdata.io team stats",
           "ok": true,
-          "detail": "20/20 teams"
+          "detail": "20/20 teams (20 reused from the last 24h)"
         },
         {
           "name": "history",
           "ok": true,
-          "detail": "matches stored 60, results stored 60, last match date 2026-10-11, team snapshots 65, player snapshots 582"
+          "detail": "matches stored 60, results stored 60, last match date 2026-10-12, team snapshots 77, player snapshots 592"
         }
       ],
       "unmatched_football_data": [],
@@ -76,9 +76,9 @@
     "history": {
       "matches_stored": 60,
       "results_stored": 60,
-      "last_match_date": "2026-10-11",
-      "team_snapshots": 65,
-      "player_snapshots": 582
+      "last_match_date": "2026-10-12",
+      "team_snapshots": 77,
+      "player_snapshots": 592
     }
   },
   "standings": [
@@ -24332,9 +24332,9 @@
         "avg_points": 1.33,
         "form": null,
         "clean_sheets": 1,
-        "possession": 52,
+        "possession": 38.5,
         "possession_matches": 6,
-        "possession_source": "footballdata.io",
+        "possession_source": "apifootball",
         "xg_for": 7.87,
         "shots_per_match": 11.67,
         "shots_on_target_per_match": 4,
@@ -57501,9 +57501,9 @@
         "avg_points": 1.0,
         "form": null,
         "clean_sheets": 1,
-        "possession": 38,
+        "possession": 33.2,
         "possession_matches": 6,
-        "possession_source": "footballdata.io",
+        "possession_source": "apifootball",
         "xg_for": 7.07,
         "shots_per_match": 10,
         "shots_on_target_per_match": 3.67,

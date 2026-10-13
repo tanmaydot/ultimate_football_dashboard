@@ -1,7 +1,7 @@
 {
   "version": 1,
   "season_start": "2026-08-21",
-  "updated_at": "2026-10-13T13:45:46+00:00",
+  "updated_at": "2026-10-13T14:29:33+00:00",
   "matches": {
     "812650": {
       "match_id": "812650",
@@ -10605,7 +10605,7 @@
         "goals_against": 11,
         "goal_difference": -5,
         "clean_sheets": 1,
-        "possession": 47
+        "possession": 58.5
       }
     ],
     "61": [
@@ -10881,7 +10881,7 @@
         "goals_against": 5,
         "goal_difference": 11,
         "clean_sheets": 3,
-        "possession": 64
+        "possession": 48.8
       }
     ],
     "66": [
@@ -10997,7 +10997,7 @@
         "goals_against": 13,
         "goal_difference": -3,
         "clean_sheets": 1,
-        "possession": 52
+        "possession": 38.5
       }
     ],
     "71": [
@@ -11055,7 +11055,7 @@
         "goals_against": 12,
         "goal_difference": -6,
         "clean_sheets": 1,
-        "possession": 51
+        "possession": 41.5
       }
     ],
     "73": [
@@ -11113,7 +11113,7 @@
         "goals_against": 9,
         "goal_difference": -6,
         "clean_sheets": 2,
-        "possession": 59
+        "possession": 30.7
       }
     ],
     "322": [
@@ -11331,7 +11331,7 @@
         "goals_against": 8,
         "goal_difference": -3,
         "clean_sheets": 1,
-        "possession": 49
+        "possession": 45.3
       }
     ],
     "354": [
@@ -11549,7 +11549,7 @@
         "goals_against": 13,
         "goal_difference": -6,
         "clean_sheets": 0,
-        "possession": 48
+        "possession": 38.0
       }
     ],
     "1076": [
@@ -11607,7 +11607,7 @@
         "goals_against": 11,
         "goal_difference": -6,
         "clean_sheets": 1,
-        "possession": 38
+        "possession": 33.2
       }
     ]
   },
