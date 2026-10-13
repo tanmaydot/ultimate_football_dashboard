@@ -1,0 +1,1480 @@
+{
+  "57": {
+    "name": "Arsenal FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q9617",
+        "label": "Arsenal F.C.",
+        "url": "https://www.wikidata.org/wiki/Q9617"
+      },
+      "stadium": {
+        "venue": "Emirates Stadium",
+        "capacity": 60338,
+        "opened": 2006,
+        "city": "London Borough of Islington"
+      },
+      "revenue": null,
+      "honours": [
+        {
+          "name": "BBC Sports Personality Team of the Year Award",
+          "count": 1
+        }
+      ],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "11",
+        "name": "Arsenal FC",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/11",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Emirates Stadium",
+        "capacity": 60704,
+        "opened": 2006,
+        "city": "N5 1BU London"
+      },
+      "coach": {
+        "id": "47620",
+        "name": "Mikel Arteta",
+        "since": "2019-12-22"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "English Champion",
+          "name": "English League Champions",
+          "count": 14
+        },
+        {
+          "tm_title": "Cup Winners Cup Winner",
+          "name": "Cup Winners' Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 14
+        },
+        {
+          "tm_title": "English League Cup winner",
+          "name": "League Cup",
+          "count": 2
+        },
+        {
+          "tm_title": "English Supercup Winner",
+          "name": "Community Shield",
+          "count": 18
+        },
+        {
+          "tm_title": "Inter-Cities Fairs Cup winner",
+          "name": "Inter-Cities Fairs Cup",
+          "count": 1
+        }
+      ],
+      "honours_untitled_groups": 11,
+      "error": null
+    }
+  },
+  "58": {
+    "name": "Aston Villa FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q18711",
+        "label": "Aston Villa F.C.",
+        "url": "https://www.wikidata.org/wiki/Q18711"
+      },
+      "stadium": {
+        "venue": "Villa Park",
+        "capacity": 42640,
+        "opened": 1896,
+        "city": "Birmingham"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "405",
+        "name": "Aston Villa",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/405",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Villa Park",
+        "capacity": 36887,
+        "opened": 1897,
+        "city": "B6 6HE Birmingham"
+      },
+      "coach": {
+        "id": "5075",
+        "name": "Unai Emery",
+        "since": "2022-11-01"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "European Champion Clubs' Cup winner",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "English Champion",
+          "name": "English League Champions",
+          "count": 7
+        },
+        {
+          "tm_title": "UEFA Supercup Winner",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "Europa League Winner",
+          "name": "Europa League",
+          "count": 1
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 7
+        },
+        {
+          "tm_title": "English League Cup winner",
+          "name": "League Cup",
+          "count": 5
+        },
+        {
+          "tm_title": "English Supercup Winner",
+          "name": "Community Shield",
+          "count": 1
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 2
+        },
+        {
+          "tm_title": "Intertoto Cup Champion",
+          "name": null,
+          "count": 1
+        }
+      ],
+      "honours_untitled_groups": 10,
+      "error": null
+    }
+  },
+  "61": {
+    "name": "Chelsea FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q9616",
+        "label": "Chelsea F.C.",
+        "url": "https://www.wikidata.org/wiki/Q9616"
+      },
+      "stadium": {
+        "venue": "Stamford Bridge",
+        "capacity": 41875,
+        "opened": 1877,
+        "city": "Fulham"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "631",
+        "name": "Chelsea FC",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/631",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Stamford Bridge",
+        "capacity": 40044,
+        "opened": 1877,
+        "city": "SW6 1HS London"
+      },
+      "coach": {
+        "id": "63052",
+        "name": "Xabi Alonso",
+        "since": "2026-07-01"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "UEFA Champions League winner",
+          "name": null,
+          "count": 2
+        },
+        {
+          "tm_title": "English Champion",
+          "name": "English League Champions",
+          "count": 6
+        },
+        {
+          "tm_title": "UEFA Supercup Winner",
+          "name": null,
+          "count": 2
+        },
+        {
+          "tm_title": "Europa League Winner",
+          "name": "Europa League",
+          "count": 2
+        },
+        {
+          "tm_title": "Cup Winners Cup Winner",
+          "name": "Cup Winners' Cup",
+          "count": 2
+        },
+        {
+          "tm_title": "Conference League winner",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "FIFA Club World Cup winner",
+          "name": "Club World Cup",
+          "count": 2
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 8
+        },
+        {
+          "tm_title": "English League Cup winner",
+          "name": "League Cup",
+          "count": 5
+        },
+        {
+          "tm_title": "English Supercup Winner",
+          "name": "Community Shield",
+          "count": 4
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 2
+        }
+      ],
+      "honours_untitled_groups": 12,
+      "error": null
+    }
+  },
+  "62": {
+    "name": "Everton FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q5794",
+        "label": "Everton F.C.",
+        "url": "https://www.wikidata.org/wiki/Q5794"
+      },
+      "stadium": {
+        "venue": "Hill Dickinson Stadium",
+        "capacity": 52769,
+        "opened": 2021,
+        "city": "City of Liverpool"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "29",
+        "name": "Everton FC",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/29",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Hill Dickinson Stadium",
+        "capacity": 52769,
+        "opened": 2025,
+        "city": "Liverpool"
+      },
+      "coach": {
+        "id": "450",
+        "name": "David Moyes",
+        "since": "2025-01-11"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "English Champion",
+          "name": "English League Champions",
+          "count": 9
+        },
+        {
+          "tm_title": "Cup Winners Cup Winner",
+          "name": "Cup Winners' Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 5
+        },
+        {
+          "tm_title": "English Supercup Winner",
+          "name": "Community Shield",
+          "count": 9
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 1
+        }
+      ],
+      "honours_untitled_groups": 6,
+      "error": null
+    }
+  },
+  "63": {
+    "name": "Fulham FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q18708",
+        "label": "Fulham F.C.",
+        "url": "https://www.wikidata.org/wiki/Q18708"
+      },
+      "stadium": {
+        "venue": "Craven Cottage",
+        "capacity": 25700,
+        "opened": 1780,
+        "city": "Fulham"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "931",
+        "name": "Fulham FC",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/931",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Craven Cottage",
+        "capacity": 28107,
+        "opened": 1896,
+        "city": "SW6 6HH London"
+      },
+      "coach": {
+        "id": "87908",
+        "name": "Álvaro Arbeloa",
+        "since": "2026-07-07"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 3
+        },
+        {
+          "tm_title": "English 3rd tier champion",
+          "name": null,
+          "count": 2
+        },
+        {
+          "tm_title": "Intertoto Cup Champion",
+          "name": null,
+          "count": 1
+        }
+      ],
+      "honours_untitled_groups": 7,
+      "error": null
+    }
+  },
+  "64": {
+    "name": "Liverpool FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q1130849",
+        "label": "Liverpool F.C.",
+        "url": "https://www.wikidata.org/wiki/Q1130849"
+      },
+      "stadium": {
+        "venue": "Anfield",
+        "capacity": 61276,
+        "opened": 1884,
+        "city": "Anfield"
+      },
+      "revenue": null,
+      "honours": [
+        {
+          "name": "BBC Sports Personality Team of the Year Award",
+          "count": 4
+        }
+      ],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "31",
+        "name": "Liverpool FC",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/31",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Anfield",
+        "capacity": 61276,
+        "opened": 1884,
+        "city": "L4 0TH Liverpool"
+      },
+      "coach": {
+        "id": "60677",
+        "name": "Andoni Iraola",
+        "since": "2026-07-01"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "UEFA Champions League winner",
+          "name": null,
+          "count": 2
+        },
+        {
+          "tm_title": "European Champion Clubs' Cup winner",
+          "name": null,
+          "count": 4
+        },
+        {
+          "tm_title": "English Champion",
+          "name": "English League Champions",
+          "count": 20
+        },
+        {
+          "tm_title": "UEFA Supercup Winner",
+          "name": null,
+          "count": 4
+        },
+        {
+          "tm_title": "UEFA Cup Winner",
+          "name": "UEFA Cup",
+          "count": 3
+        },
+        {
+          "tm_title": "FIFA Club World Cup winner",
+          "name": "Club World Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 8
+        },
+        {
+          "tm_title": "English League Cup winner",
+          "name": "League Cup",
+          "count": 10
+        },
+        {
+          "tm_title": "English Supercup Winner",
+          "name": "Community Shield",
+          "count": 16
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 4
+        }
+      ],
+      "honours_untitled_groups": 15,
+      "error": null
+    }
+  },
+  "65": {
+    "name": "Manchester City FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q50602",
+        "label": "Manchester City F.C.",
+        "url": "https://www.wikidata.org/wiki/Q50602"
+      },
+      "stadium": {
+        "venue": "Etihad Stadium",
+        "capacity": 52900,
+        "opened": 1999,
+        "city": "Manchester"
+      },
+      "revenue": null,
+      "honours": [
+        {
+          "name": "BBC Sports Personality Team of the Year Award",
+          "count": 1
+        }
+      ],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "281",
+        "name": "Manchester City",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/281",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Etihad Stadium",
+        "capacity": 61038,
+        "opened": 2002,
+        "city": "M11 3FF Manchester"
+      },
+      "coach": {
+        "id": "53749",
+        "name": "Enzo Maresca",
+        "since": "2026-07-01"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "UEFA Champions League winner",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "English Champion",
+          "name": "English League Champions",
+          "count": 10
+        },
+        {
+          "tm_title": "UEFA Supercup Winner",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "Cup Winners Cup Winner",
+          "name": "Cup Winners' Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "FIFA Club World Cup winner",
+          "name": "Club World Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 8
+        },
+        {
+          "tm_title": "English League Cup winner",
+          "name": "League Cup",
+          "count": 9
+        },
+        {
+          "tm_title": "English Supercup Winner",
+          "name": "Community Shield",
+          "count": 7
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 7
+        }
+      ],
+      "honours_untitled_groups": 11,
+      "error": null
+    }
+  },
+  "66": {
+    "name": "Manchester United FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q18656",
+        "label": "Manchester United F.C.",
+        "url": "https://www.wikidata.org/wiki/Q18656"
+      },
+      "stadium": {
+        "venue": "Old Trafford",
+        "capacity": 75731,
+        "opened": null,
+        "city": "England"
+      },
+      "revenue": null,
+      "honours": [
+        {
+          "name": "BBC Sports Personality Team of the Year Award",
+          "count": 2
+        },
+        {
+          "name": "Laureus World Sports Award for Team of the Year",
+          "count": 1
+        }
+      ],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "985",
+        "name": "Manchester United",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/985",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Old Trafford",
+        "capacity": 74158,
+        "opened": 1910,
+        "city": "M16 ORA Manchester"
+      },
+      "coach": {
+        "id": "65647",
+        "name": "Michael Carrick",
+        "since": "2026-05-22"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "UEFA Champions League winner",
+          "name": null,
+          "count": 2
+        },
+        {
+          "tm_title": "European Champion Clubs' Cup winner",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "English Champion",
+          "name": "English League Champions",
+          "count": 20
+        },
+        {
+          "tm_title": "UEFA Supercup Winner",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "Europa League Winner",
+          "name": "Europa League",
+          "count": 1
+        },
+        {
+          "tm_title": "Cup Winners Cup Winner",
+          "name": "Cup Winners' Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "FIFA Club World Cup winner",
+          "name": "Club World Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 13
+        },
+        {
+          "tm_title": "English League Cup winner",
+          "name": "League Cup",
+          "count": 6
+        },
+        {
+          "tm_title": "English Supercup Winner",
+          "name": "Community Shield",
+          "count": 21
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 2
+        },
+        {
+          "tm_title": "Intercontinental Cup Winner",
+          "name": null,
+          "count": 1
+        }
+      ],
+      "honours_untitled_groups": 12,
+      "error": null
+    }
+  },
+  "67": {
+    "name": "Newcastle United FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q18716",
+        "label": "Newcastle United F.C.",
+        "url": "https://www.wikidata.org/wiki/Q18716"
+      },
+      "stadium": {
+        "venue": "St James’ Park",
+        "capacity": 52305,
+        "opened": 1892,
+        "city": "Newcastle upon Tyne"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "762",
+        "name": "Newcastle United",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/762",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "St James' Park",
+        "capacity": 52729,
+        "opened": 1880,
+        "city": "NE1 4ST Newcastle upon Tyne"
+      },
+      "coach": {
+        "id": "45555",
+        "name": "Matthias Jaissle",
+        "since": "2026-08-05"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "English Champion",
+          "name": "English League Champions",
+          "count": 4
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 6
+        },
+        {
+          "tm_title": "English League Cup winner",
+          "name": "League Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "English Supercup Winner",
+          "name": "Community Shield",
+          "count": 2
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 4
+        },
+        {
+          "tm_title": "Inter-Cities Fairs Cup winner",
+          "name": "Inter-Cities Fairs Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "Intertoto Cup Champion",
+          "name": null,
+          "count": 1
+        }
+      ],
+      "honours_untitled_groups": 6,
+      "error": null
+    }
+  },
+  "71": {
+    "name": "Sunderland AFC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q18739",
+        "label": "Sunderland A.F.C.",
+        "url": "https://www.wikidata.org/wiki/Q18739"
+      },
+      "stadium": {
+        "venue": "Stadium of Light",
+        "capacity": 48339,
+        "opened": null,
+        "city": "Sunderland"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "289",
+        "name": "Sunderland AFC",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/289",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Stadium of Light",
+        "capacity": 48095,
+        "opened": 1997,
+        "city": "SR5 1SU Sunderland"
+      },
+      "coach": {
+        "id": "40910",
+        "name": "Régis Le Bris",
+        "since": "2024-07-01"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "English Champion",
+          "name": "English League Champions",
+          "count": 6
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 2
+        },
+        {
+          "tm_title": "English Supercup Winner",
+          "name": "Community Shield",
+          "count": 1
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 5
+        },
+        {
+          "tm_title": "English 3rd tier champion",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "Football League Trophy Winner",
+          "name": null,
+          "count": 1
+        }
+      ],
+      "honours_untitled_groups": 6,
+      "error": null
+    }
+  },
+  "73": {
+    "name": "Tottenham Hotspur FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q18741",
+        "label": "Tottenham Hotspur F.C.",
+        "url": "https://www.wikidata.org/wiki/Q18741"
+      },
+      "stadium": {
+        "venue": "Tottenham Hotspur Stadium",
+        "capacity": 62850,
+        "opened": null,
+        "city": "Tottenham"
+      },
+      "revenue": null,
+      "honours": [
+        {
+          "name": "BBC Sports Personality Team of the Year Award",
+          "count": 1
+        }
+      ],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "148",
+        "name": "Tottenham Hotspur",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/148",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Tottenham Hotspur Stadium",
+        "capacity": 62850,
+        "opened": 2019,
+        "city": "N17 0BX London"
+      },
+      "coach": {
+        "id": "32157",
+        "name": "Roberto De Zerbi",
+        "since": "2026-03-31"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "English Champion",
+          "name": "English League Champions",
+          "count": 2
+        },
+        {
+          "tm_title": "UEFA Cup Winner",
+          "name": "UEFA Cup",
+          "count": 2
+        },
+        {
+          "tm_title": "Europa League Winner",
+          "name": "Europa League",
+          "count": 1
+        },
+        {
+          "tm_title": "Cup Winners Cup Winner",
+          "name": "Cup Winners' Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 8
+        },
+        {
+          "tm_title": "English League Cup winner",
+          "name": "League Cup",
+          "count": 4
+        },
+        {
+          "tm_title": "English Supercup Winner",
+          "name": "Community Shield",
+          "count": 7
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 2
+        }
+      ],
+      "honours_untitled_groups": 11,
+      "error": null
+    }
+  },
+  "322": {
+    "name": "Hull City AFC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q19477",
+        "label": "Hull City A.F.C.",
+        "url": "https://www.wikidata.org/wiki/Q19477"
+      },
+      "stadium": {
+        "venue": "MKM Stadium",
+        "capacity": 25400,
+        "opened": 2002,
+        "city": "Kingston upon Hull"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "3008",
+        "name": "Hull City",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/3008",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "MKM Stadium",
+        "capacity": 24983,
+        "opened": 2002,
+        "city": "HU3 6HU Hull"
+      },
+      "coach": {
+        "id": "55762",
+        "name": "Sergej Jakirovic",
+        "since": "2025-07-01"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "English 3rd tier champion",
+          "name": null,
+          "count": 4
+        }
+      ],
+      "honours_untitled_groups": 5,
+      "error": null
+    }
+  },
+  "341": {
+    "name": "Leeds United FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q1128631",
+        "label": "Leeds United F.C.",
+        "url": "https://www.wikidata.org/wiki/Q1128631"
+      },
+      "stadium": {
+        "venue": "Elland Road",
+        "capacity": 37792,
+        "opened": 1897,
+        "city": "Leeds"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "399",
+        "name": "Leeds United",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/399",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Elland Road",
+        "capacity": 37633,
+        "opened": 1897,
+        "city": "LS11 0ES Leeds"
+      },
+      "coach": {
+        "id": "10939",
+        "name": "Daniel Farke",
+        "since": "2023-07-04"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "English Champion",
+          "name": "English League Champions",
+          "count": 3
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "English League Cup winner",
+          "name": "League Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "English Supercup Winner",
+          "name": "Community Shield",
+          "count": 2
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 5
+        },
+        {
+          "tm_title": "Inter-Cities Fairs Cup winner",
+          "name": "Inter-Cities Fairs Cup",
+          "count": 2
+        }
+      ],
+      "honours_untitled_groups": 10,
+      "error": null
+    }
+  },
+  "349": {
+    "name": "Ipswich Town FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q9653",
+        "label": "Ipswich Town F.C.",
+        "url": "https://www.wikidata.org/wiki/Q9653"
+      },
+      "stadium": {
+        "venue": "Portman Road",
+        "capacity": 30311,
+        "opened": 1884,
+        "city": "Ipswich"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "677",
+        "name": "Ipswich Town",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/677",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Portman Road",
+        "capacity": 30294,
+        "opened": 1884,
+        "city": "IP1 2DA Ipswich"
+      },
+      "coach": {
+        "id": "82647",
+        "name": "Gary O'Neil",
+        "since": "2026-07-01"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "English Champion",
+          "name": "English League Champions",
+          "count": 1
+        },
+        {
+          "tm_title": "UEFA Cup Winner",
+          "name": "UEFA Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 3
+        },
+        {
+          "tm_title": "English 3rd tier champion",
+          "name": null,
+          "count": 2
+        }
+      ],
+      "honours_untitled_groups": 4,
+      "error": null
+    }
+  },
+  "351": {
+    "name": "Nottingham Forest FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q19490",
+        "label": "Nottingham Forest F.C.",
+        "url": "https://www.wikidata.org/wiki/Q19490"
+      },
+      "stadium": {
+        "venue": "City Ground",
+        "capacity": 30404,
+        "opened": null,
+        "city": "Rushcliffe"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "703",
+        "name": "Nottingham Forest",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/703",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "The City Ground",
+        "capacity": 31212,
+        "opened": 1898,
+        "city": "NG2 5FJ West Bridgford"
+      },
+      "coach": {
+        "id": "22891",
+        "name": "Oliver Glasner",
+        "since": "2026-07-06"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "European Champion Clubs' Cup winner",
+          "name": null,
+          "count": 2
+        },
+        {
+          "tm_title": "English Champion",
+          "name": "English League Champions",
+          "count": 1
+        },
+        {
+          "tm_title": "UEFA Supercup Winner",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 2
+        },
+        {
+          "tm_title": "English League Cup winner",
+          "name": "League Cup",
+          "count": 4
+        },
+        {
+          "tm_title": "English Supercup Winner",
+          "name": "Community Shield",
+          "count": 1
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 3
+        },
+        {
+          "tm_title": "English 3rd tier champion",
+          "name": null,
+          "count": 1
+        }
+      ],
+      "honours_untitled_groups": 6,
+      "error": null
+    }
+  },
+  "354": {
+    "name": "Crystal Palace FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q19467",
+        "label": "Crystal Palace F.C.",
+        "url": "https://www.wikidata.org/wiki/Q19467"
+      },
+      "stadium": {
+        "venue": "Selhurst Park",
+        "capacity": 26255,
+        "opened": 1924,
+        "city": "South Norwood"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "873",
+        "name": "Crystal Palace",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/873",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Selhurst Park",
+        "capacity": 25194,
+        "opened": 1924,
+        "city": "SE25 6PU London"
+      },
+      "coach": {
+        "id": "110443",
+        "name": "Pierre Sage",
+        "since": "2026-07-01"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "Conference League winner",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "English Supercup Winner",
+          "name": "Community Shield",
+          "count": 1
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 2
+        },
+        {
+          "tm_title": "English 3rd tier champion",
+          "name": null,
+          "count": 1
+        }
+      ],
+      "honours_untitled_groups": 3,
+      "error": null
+    }
+  },
+  "397": {
+    "name": "Brighton & Hove Albion FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q19453",
+        "label": "Brighton & Hove Albion F.C.",
+        "url": "https://www.wikidata.org/wiki/Q19453"
+      },
+      "stadium": {
+        "venue": "Brighton Community Stadium",
+        "capacity": 31800,
+        "opened": 2008,
+        "city": "Moulsecoomb and Bevendean"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": null,
+      "stadium": null,
+      "coach": null,
+      "honours_titled": [],
+      "honours_untitled_groups": 0,
+      "error": "no search result"
+    }
+  },
+  "402": {
+    "name": "Brentford FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q19571",
+        "label": "Brentford F.C.",
+        "url": "https://www.wikidata.org/wiki/Q19571"
+      },
+      "stadium": {
+        "venue": "Griffin Park",
+        "capacity": 14863,
+        "opened": null,
+        "city": "Brentford"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "1148",
+        "name": "Brentford FC",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/1148",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Gtech Community Stadium",
+        "capacity": 17250,
+        "opened": 2020,
+        "city": "TW8 0RU London"
+      },
+      "coach": {
+        "id": "68347",
+        "name": "Keith Andrews",
+        "since": "2025-07-01"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "English 3rd tier champion",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "English 4th tier champion",
+          "name": null,
+          "count": 3
+        }
+      ],
+      "honours_untitled_groups": 2,
+      "error": null
+    }
+  },
+  "1044": {
+    "name": "AFC Bournemouth",
+    "wikidata": {
+      "matched": {
+        "qid": "Q19568",
+        "label": "AFC Bournemouth",
+        "url": "https://www.wikidata.org/wiki/Q19568"
+      },
+      "stadium": {
+        "venue": "Dean Court",
+        "capacity": 12000,
+        "opened": 1910,
+        "city": "Bournemouth"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "989",
+        "name": "AFC Bournemouth",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/989",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Vitality Stadium",
+        "capacity": 12357,
+        "opened": 1910,
+        "city": "BH7 7AF   Bournemouth"
+      },
+      "coach": {
+        "id": "24197",
+        "name": "Marco Rose",
+        "since": "2026-07-01"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "English 3rd tier champion",
+          "name": null,
+          "count": 1
+        },
+        {
+          "tm_title": "Football League Trophy Winner",
+          "name": null,
+          "count": 1
+        }
+      ],
+      "honours_untitled_groups": 5,
+      "error": null
+    }
+  },
+  "1076": {
+    "name": "Coventry City FC",
+    "wikidata": {
+      "matched": {
+        "qid": "Q19580",
+        "label": "Coventry City F.C.",
+        "url": "https://www.wikidata.org/wiki/Q19580"
+      },
+      "stadium": {
+        "venue": "Coventry Building Society Arena",
+        "capacity": 32609,
+        "opened": 2005,
+        "city": "Coventry"
+      },
+      "revenue": null,
+      "honours": [],
+      "error": null
+    },
+    "transfermarkt": {
+      "matched": {
+        "id": "990",
+        "name": "Coventry City",
+        "url": "https://www.transfermarkt.com/-/startseite/verein/990",
+        "country": "England",
+        "league": null
+      },
+      "stadium": {
+        "venue": "Coventry Building Society Arena",
+        "capacity": 32609,
+        "opened": 2005,
+        "city": "CV6 6AQ Coventry"
+      },
+      "coach": {
+        "id": "60805",
+        "name": "Frank Lampard",
+        "since": "2024-11-28"
+      },
+      "honours_titled": [
+        {
+          "tm_title": "FA Cup Winner",
+          "name": "FA Cup",
+          "count": 1
+        },
+        {
+          "tm_title": "English 2nd tier champion",
+          "name": null,
+          "count": 2
+        },
+        {
+          "tm_title": "English 3rd tier champion",
+          "name": null,
+          "count": 2
+        },
+        {
+          "tm_title": "Football League Trophy Winner",
+          "name": null,
+          "count": 1
+        }
+      ],
+      "honours_untitled_groups": 5,
+      "error": null
+    }
+  }
+}

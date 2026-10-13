@@ -1,0 +1,477 @@
+{
+  "_readme": "SUGGESTED ONLY. Review every value, then copy entries into club_extras.json.",
+  "57": {
+    "_note": "Arsenal FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 60338,
+      "city": "London Borough of Islington",
+      "opened": 2006
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 14
+      },
+      {
+        "name": "Cup Winners' Cup",
+        "count": 1
+      },
+      {
+        "name": "FA Cup",
+        "count": 14
+      },
+      {
+        "name": "League Cup",
+        "count": 2
+      },
+      {
+        "name": "Community Shield",
+        "count": 18
+      },
+      {
+        "name": "Inter-Cities Fairs Cup",
+        "count": 1
+      }
+    ]
+  },
+  "58": {
+    "_note": "Aston Villa FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 42640,
+      "city": "Birmingham",
+      "opened": 1896
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 7
+      },
+      {
+        "name": "Europa League",
+        "count": 1
+      },
+      {
+        "name": "FA Cup",
+        "count": 7
+      },
+      {
+        "name": "League Cup",
+        "count": 5
+      },
+      {
+        "name": "Community Shield",
+        "count": 1
+      }
+    ]
+  },
+  "61": {
+    "_note": "Chelsea FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 41875,
+      "city": "Fulham",
+      "opened": 1877
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 6
+      },
+      {
+        "name": "Europa League",
+        "count": 2
+      },
+      {
+        "name": "Cup Winners' Cup",
+        "count": 2
+      },
+      {
+        "name": "Club World Cup",
+        "count": 2
+      },
+      {
+        "name": "FA Cup",
+        "count": 8
+      },
+      {
+        "name": "League Cup",
+        "count": 5
+      },
+      {
+        "name": "Community Shield",
+        "count": 4
+      }
+    ]
+  },
+  "62": {
+    "_note": "Everton FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 52769,
+      "city": "City of Liverpool",
+      "opened": 2021
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 9
+      },
+      {
+        "name": "Cup Winners' Cup",
+        "count": 1
+      },
+      {
+        "name": "FA Cup",
+        "count": 5
+      },
+      {
+        "name": "Community Shield",
+        "count": 9
+      }
+    ]
+  },
+  "63": {
+    "_note": "Fulham FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata",
+    "stadium": {
+      "capacity": 25700,
+      "city": "Fulham",
+      "opened": 1780
+    }
+  },
+  "64": {
+    "_note": "Liverpool FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 61276,
+      "city": "Anfield",
+      "opened": 1884
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 20
+      },
+      {
+        "name": "UEFA Cup",
+        "count": 3
+      },
+      {
+        "name": "Club World Cup",
+        "count": 1
+      },
+      {
+        "name": "FA Cup",
+        "count": 8
+      },
+      {
+        "name": "League Cup",
+        "count": 10
+      },
+      {
+        "name": "Community Shield",
+        "count": 16
+      }
+    ]
+  },
+  "65": {
+    "_note": "Manchester City FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 52900,
+      "city": "Manchester",
+      "opened": 1999
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 10
+      },
+      {
+        "name": "Cup Winners' Cup",
+        "count": 1
+      },
+      {
+        "name": "Club World Cup",
+        "count": 1
+      },
+      {
+        "name": "FA Cup",
+        "count": 8
+      },
+      {
+        "name": "League Cup",
+        "count": 9
+      },
+      {
+        "name": "Community Shield",
+        "count": 7
+      }
+    ]
+  },
+  "66": {
+    "_note": "Manchester United FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from transfermarkt; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 75731,
+      "city": "England",
+      "opened": 1910
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 20
+      },
+      {
+        "name": "Europa League",
+        "count": 1
+      },
+      {
+        "name": "Cup Winners' Cup",
+        "count": 1
+      },
+      {
+        "name": "Club World Cup",
+        "count": 1
+      },
+      {
+        "name": "FA Cup",
+        "count": 13
+      },
+      {
+        "name": "League Cup",
+        "count": 6
+      },
+      {
+        "name": "Community Shield",
+        "count": 21
+      }
+    ]
+  },
+  "67": {
+    "_note": "Newcastle United FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 52305,
+      "city": "Newcastle upon Tyne",
+      "opened": 1892
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 4
+      },
+      {
+        "name": "FA Cup",
+        "count": 6
+      },
+      {
+        "name": "League Cup",
+        "count": 1
+      },
+      {
+        "name": "Community Shield",
+        "count": 2
+      },
+      {
+        "name": "Inter-Cities Fairs Cup",
+        "count": 1
+      }
+    ]
+  },
+  "71": {
+    "_note": "Sunderland AFC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from transfermarkt; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 48339,
+      "city": "Sunderland",
+      "opened": 1997
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 6
+      },
+      {
+        "name": "FA Cup",
+        "count": 2
+      },
+      {
+        "name": "Community Shield",
+        "count": 1
+      }
+    ]
+  },
+  "73": {
+    "_note": "Tottenham Hotspur FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from transfermarkt; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 62850,
+      "city": "Tottenham",
+      "opened": 2019
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 2
+      },
+      {
+        "name": "UEFA Cup",
+        "count": 2
+      },
+      {
+        "name": "Europa League",
+        "count": 1
+      },
+      {
+        "name": "Cup Winners' Cup",
+        "count": 1
+      },
+      {
+        "name": "FA Cup",
+        "count": 8
+      },
+      {
+        "name": "League Cup",
+        "count": 4
+      },
+      {
+        "name": "Community Shield",
+        "count": 7
+      }
+    ]
+  },
+  "322": {
+    "_note": "Hull City AFC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata",
+    "stadium": {
+      "capacity": 25400,
+      "city": "Kingston upon Hull",
+      "opened": 2002
+    }
+  },
+  "341": {
+    "_note": "Leeds United FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 37792,
+      "city": "Leeds",
+      "opened": 1897
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 3
+      },
+      {
+        "name": "FA Cup",
+        "count": 1
+      },
+      {
+        "name": "League Cup",
+        "count": 1
+      },
+      {
+        "name": "Community Shield",
+        "count": 2
+      },
+      {
+        "name": "Inter-Cities Fairs Cup",
+        "count": 2
+      }
+    ]
+  },
+  "349": {
+    "_note": "Ipswich Town FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 30311,
+      "city": "Ipswich",
+      "opened": 1884
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 1
+      },
+      {
+        "name": "UEFA Cup",
+        "count": 1
+      },
+      {
+        "name": "FA Cup",
+        "count": 1
+      }
+    ]
+  },
+  "351": {
+    "_note": "Nottingham Forest FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from transfermarkt; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 30404,
+      "city": "Rushcliffe",
+      "opened": 1898
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 1
+      },
+      {
+        "name": "FA Cup",
+        "count": 2
+      },
+      {
+        "name": "League Cup",
+        "count": 4
+      },
+      {
+        "name": "Community Shield",
+        "count": 1
+      }
+    ]
+  },
+  "354": {
+    "_note": "Crystal Palace FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 26255,
+      "city": "South Norwood",
+      "opened": 1924
+    },
+    "honours": [
+      {
+        "name": "FA Cup",
+        "count": 1
+      },
+      {
+        "name": "Community Shield",
+        "count": 1
+      }
+    ]
+  },
+  "397": {
+    "_note": "Brighton & Hove Albion FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata",
+    "stadium": {
+      "capacity": 31800,
+      "city": "Moulsecoomb and Bevendean",
+      "opened": 2008
+    }
+  },
+  "402": {
+    "_note": "Brentford FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from transfermarkt",
+    "stadium": {
+      "capacity": 14863,
+      "city": "Brentford",
+      "opened": 2020
+    }
+  },
+  "1044": {
+    "_note": "AFC Bournemouth: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata",
+    "stadium": {
+      "capacity": 12000,
+      "city": "Bournemouth",
+      "opened": 1910
+    }
+  },
+  "1076": {
+    "_note": "Coventry City FC: stadium.capacity from wikidata; stadium.city from wikidata; stadium.opened from wikidata; honours from transfermarkt (League titles pre-1992 are 'First Division'; no Premier League row)",
+    "stadium": {
+      "capacity": 32609,
+      "city": "Coventry",
+      "opened": 2005
+    },
+    "honours": [
+      {
+        "name": "FA Cup",
+        "count": 1
+      }
+    ]
+  }
+}

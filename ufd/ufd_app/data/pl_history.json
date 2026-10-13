@@ -1,7 +1,11 @@
 {
   "version": 1,
   "season_start": "2026-08-21",
+<<<<<<< HEAD
   "updated_at": "2026-10-13T13:45:46+00:00",
+=======
+  "updated_at": "2026-10-13T13:23:23+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
   "matches": {
     "812650": {
       "match_id": "812650",
@@ -9844,20 +9848,169 @@
       "match_id": "812703",
       "match_date": "2026-10-12",
       "match_time": "21:00",
-      "match_status": "Not Started",
+      "match_status": "Finished",
       "match_hometeam_id": "3094",
       "match_awayteam_id": "3100",
       "match_hometeam_name": "Coventry",
       "match_awayteam_name": "Newcastle",
+      "match_hometeam_score": "4",
+      "match_awayteam_score": "1",
+      "match_hometeam_system": "4-2-3-1",
+      "match_awayteam_system": "4-2-3-1",
       "lineup": {
         "home": {
-          "starting_lineups": []
+          "starting_lineups": [
+            {
+              "lineup_player": "Carl Rushworth",
+              "lineup_number": "19",
+              "lineup_position": "1",
+              "player_key": "1158592702"
+            },
+            {
+              "lineup_player": "Milan van Ewijk",
+              "lineup_number": "27",
+              "lineup_position": "2",
+              "player_key": "2908540951"
+            },
+            {
+              "lineup_player": "Bobby Thomas",
+              "lineup_number": "4",
+              "lineup_position": "3",
+              "player_key": "3801150947"
+            },
+            {
+              "lineup_player": "Ethan Pinnock",
+              "lineup_number": "2",
+              "lineup_position": "4",
+              "player_key": "3132405546"
+            },
+            {
+              "lineup_player": "Jay DaSilva",
+              "lineup_number": "3",
+              "lineup_position": "5",
+              "player_key": "898622514"
+            },
+            {
+              "lineup_player": "Caleb Yirenkyi",
+              "lineup_number": "8",
+              "lineup_position": "6",
+              "player_key": "1336226147"
+            },
+            {
+              "lineup_player": "Matt Grimes",
+              "lineup_number": "6",
+              "lineup_position": "7",
+              "player_key": "2694160098"
+            },
+            {
+              "lineup_player": "Brandon Thomas-Asante",
+              "lineup_number": "23",
+              "lineup_position": "8",
+              "player_key": "637934509"
+            },
+            {
+              "lineup_player": "Jack Rudoni",
+              "lineup_number": "5",
+              "lineup_position": "9",
+              "player_key": "4273481772"
+            },
+            {
+              "lineup_player": "Ephron Mason-Clark",
+              "lineup_number": "10",
+              "lineup_position": "10",
+              "player_key": "1151947364"
+            },
+            {
+              "lineup_player": "Sidiki Cherif",
+              "lineup_number": "49",
+              "lineup_position": "11",
+              "player_key": "1780546906"
+            }
+          ]
         },
         "away": {
-          "starting_lineups": []
+          "starting_lineups": [
+            {
+              "lineup_player": "Lukáš Horníček",
+              "lineup_number": "21",
+              "lineup_position": "1",
+              "player_key": "128201375"
+            },
+            {
+              "lineup_player": "Lewis Miley",
+              "lineup_number": "67",
+              "lineup_position": "2",
+              "player_key": "400306928"
+            },
+            {
+              "lineup_player": "Malick Thiaw",
+              "lineup_number": "12",
+              "lineup_position": "3",
+              "player_key": "3273755215"
+            },
+            {
+              "lineup_player": "Sven Botman",
+              "lineup_number": "4",
+              "lineup_position": "4",
+              "player_key": "559212774"
+            },
+            {
+              "lineup_player": "Lewis Hall",
+              "lineup_number": "3",
+              "lineup_position": "5",
+              "player_key": "2321822486"
+            },
+            {
+              "lineup_player": "Nico González",
+              "lineup_number": "6",
+              "lineup_position": "6",
+              "player_key": "2690268063"
+            },
+            {
+              "lineup_player": "Joe Willock",
+              "lineup_number": "28",
+              "lineup_position": "7",
+              "player_key": "2886133965"
+            },
+            {
+              "lineup_player": "Jacob Murphy",
+              "lineup_number": "23",
+              "lineup_position": "8",
+              "player_key": "2802751417"
+            },
+            {
+              "lineup_player": "Yoane Wissa",
+              "lineup_number": "9",
+              "lineup_position": "9",
+              "player_key": "3997136875"
+            },
+            {
+              "lineup_player": "Harvey Barnes",
+              "lineup_number": "11",
+              "lineup_position": "10",
+              "player_key": "1067884178"
+            },
+            {
+              "lineup_player": "Matías Fernández-Pardo",
+              "lineup_number": "20",
+              "lineup_position": "11",
+              "player_key": "2552307951"
+            }
+          ]
         }
       },
-      "statistics": []
+      "statistics": [
+        {
+          "type": "Ball Possession",
+          "home": "44%",
+          "away": "56%"
+        },
+        {
+          "type": "Ball Possession",
+          "home": "33%",
+          "away": "67%"
+        }
+      ]
     }
   },
   "results": {
@@ -10385,6 +10538,20 @@
         "goal_difference": 5,
         "clean_sheets": 3,
         "possession": 59
+      },
+      {
+        "date": "2026-10-13",
+        "position": 2,
+        "played": 6,
+        "won": 5,
+        "draw": 0,
+        "lost": 1,
+        "points": 15,
+        "goals_for": 10,
+        "goals_against": 5,
+        "goal_difference": 5,
+        "clean_sheets": 3,
+        "possession": 52.2
       }
     ],
     "58": [
@@ -10442,7 +10609,11 @@
         "goals_against": 11,
         "goal_difference": -5,
         "clean_sheets": 1,
+<<<<<<< HEAD
         "possession": 47
+=======
+        "possession": 58.5
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "61": [
@@ -10487,6 +10658,20 @@
         "goal_difference": 2,
         "clean_sheets": 0,
         "possession": 48
+      },
+      {
+        "date": "2026-10-13",
+        "position": 6,
+        "played": 6,
+        "won": 3,
+        "draw": 1,
+        "lost": 2,
+        "points": 10,
+        "goals_for": 15,
+        "goals_against": 13,
+        "goal_difference": 2,
+        "clean_sheets": 0,
+        "possession": 19.2
       }
     ],
     "62": [
@@ -10531,6 +10716,20 @@
         "goal_difference": 3,
         "clean_sheets": 3,
         "possession": 47
+      },
+      {
+        "date": "2026-10-13",
+        "position": 5,
+        "played": 6,
+        "won": 2,
+        "draw": 4,
+        "lost": 0,
+        "points": 10,
+        "goals_for": 8,
+        "goals_against": 5,
+        "goal_difference": 3,
+        "clean_sheets": 3,
+        "possession": 46.2
       }
     ],
     "63": [
@@ -10575,6 +10774,20 @@
         "goal_difference": -4,
         "clean_sheets": 1,
         "possession": 54
+      },
+      {
+        "date": "2026-10-13",
+        "position": 20,
+        "played": 6,
+        "won": 0,
+        "draw": 2,
+        "lost": 4,
+        "points": 2,
+        "goals_for": 6,
+        "goals_against": 10,
+        "goal_difference": -4,
+        "clean_sheets": 1,
+        "possession": 31.0
       }
     ],
     "64": [
@@ -10619,6 +10832,20 @@
         "goal_difference": 0,
         "clean_sheets": 3,
         "possession": 55
+      },
+      {
+        "date": "2026-10-13",
+        "position": 9,
+        "played": 6,
+        "won": 2,
+        "draw": 3,
+        "lost": 1,
+        "points": 9,
+        "goals_for": 7,
+        "goals_against": 7,
+        "goal_difference": 0,
+        "clean_sheets": 3,
+        "possession": 50.0
       }
     ],
     "65": [
@@ -10662,7 +10889,11 @@
         "goals_against": 5,
         "goal_difference": 11,
         "clean_sheets": 3,
+<<<<<<< HEAD
         "possession": 64
+=======
+        "possession": 48.8
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "66": [
@@ -10707,6 +10938,20 @@
         "goal_difference": 0,
         "clean_sheets": 0,
         "possession": 58
+      },
+      {
+        "date": "2026-10-13",
+        "position": 13,
+        "played": 6,
+        "won": 1,
+        "draw": 3,
+        "lost": 2,
+        "points": 6,
+        "goals_for": 9,
+        "goals_against": 9,
+        "goal_difference": 0,
+        "clean_sheets": 0,
+        "possession": 45.5
       }
     ],
     "67": [
@@ -10764,7 +11009,11 @@
         "goals_against": 13,
         "goal_difference": -3,
         "clean_sheets": 1,
+<<<<<<< HEAD
         "possession": 52
+=======
+        "possession": 38.5
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "71": [
@@ -10822,7 +11071,11 @@
         "goals_against": 12,
         "goal_difference": -6,
         "clean_sheets": 1,
+<<<<<<< HEAD
         "possession": 51
+=======
+        "possession": 41.5
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "73": [
@@ -10880,7 +11133,11 @@
         "goals_against": 9,
         "goal_difference": -6,
         "clean_sheets": 2,
+<<<<<<< HEAD
         "possession": 59
+=======
+        "possession": 30.7
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "322": [
@@ -10925,6 +11182,20 @@
         "goal_difference": 2,
         "clean_sheets": 3,
         "possession": 33
+      },
+      {
+        "date": "2026-10-13",
+        "position": 8,
+        "played": 6,
+        "won": 2,
+        "draw": 3,
+        "lost": 1,
+        "points": 9,
+        "goals_for": 8,
+        "goals_against": 6,
+        "goal_difference": 2,
+        "clean_sheets": 3,
+        "possession": 26.5
       }
     ],
     "341": [
@@ -10969,6 +11240,20 @@
         "goal_difference": 3,
         "clean_sheets": 2,
         "possession": 45
+      },
+      {
+        "date": "2026-10-13",
+        "position": 7,
+        "played": 6,
+        "won": 2,
+        "draw": 3,
+        "lost": 1,
+        "points": 9,
+        "goals_for": 8,
+        "goals_against": 5,
+        "goal_difference": 3,
+        "clean_sheets": 2,
+        "possession": 50.5
       }
     ],
     "349": [
@@ -11013,6 +11298,20 @@
         "goal_difference": -3,
         "clean_sheets": 0,
         "possession": 46
+      },
+      {
+        "date": "2026-10-13",
+        "position": 10,
+        "played": 6,
+        "won": 3,
+        "draw": 0,
+        "lost": 3,
+        "points": 9,
+        "goals_for": 9,
+        "goals_against": 12,
+        "goal_difference": -3,
+        "clean_sheets": 0,
+        "possession": 37.2
       }
     ],
     "351": [
@@ -11056,7 +11355,11 @@
         "goals_against": 8,
         "goal_difference": -3,
         "clean_sheets": 1,
+<<<<<<< HEAD
         "possession": 49
+=======
+        "possession": 45.3
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "354": [
@@ -11087,6 +11390,20 @@
         "goal_difference": -3,
         "clean_sheets": 1,
         "possession": 43
+      },
+      {
+        "date": "2026-10-13",
+        "position": 12,
+        "played": 6,
+        "won": 2,
+        "draw": 1,
+        "lost": 3,
+        "points": 7,
+        "goals_for": 9,
+        "goals_against": 12,
+        "goal_difference": -3,
+        "clean_sheets": 1,
+        "possession": 36.7
       }
     ],
     "397": [
@@ -11131,6 +11448,20 @@
         "goal_difference": 13,
         "clean_sheets": 4,
         "possession": 60
+      },
+      {
+        "date": "2026-10-13",
+        "position": 3,
+        "played": 6,
+        "won": 4,
+        "draw": 1,
+        "lost": 1,
+        "points": 13,
+        "goals_for": 18,
+        "goals_against": 5,
+        "goal_difference": 13,
+        "clean_sheets": 4,
+        "possession": 50.3
       }
     ],
     "402": [
@@ -11175,6 +11506,20 @@
         "goal_difference": 6,
         "clean_sheets": 2,
         "possession": 46
+      },
+      {
+        "date": "2026-10-13",
+        "position": 4,
+        "played": 6,
+        "won": 2,
+        "draw": 4,
+        "lost": 0,
+        "points": 10,
+        "goals_for": 12,
+        "goals_against": 6,
+        "goal_difference": 6,
+        "clean_sheets": 2,
+        "possession": 37.0
       }
     ],
     "1044": [
@@ -11232,7 +11577,11 @@
         "goals_against": 13,
         "goal_difference": -6,
         "clean_sheets": 0,
+<<<<<<< HEAD
         "possession": 48
+=======
+        "possession": 38.0
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "1076": [
@@ -11290,7 +11639,11 @@
         "goals_against": 11,
         "goal_difference": -6,
         "clean_sheets": 1,
+<<<<<<< HEAD
         "possession": 38
+=======
+        "possession": 33.2
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ]
   },
@@ -12611,6 +12964,15 @@
             "pass_accuracy": 16.0
           }
         ]
+      },
+      "204460": {
+        "name": "James Wright",
+        "snapshots": [
+          {
+            "date": "2026-10-13",
+            "injured": false
+          }
+        ]
       }
     },
     "61": {
@@ -13627,6 +13989,15 @@
         "snapshots": [
           {
             "date": "2026-10-08",
+            "injured": false
+          }
+        ]
+      },
+      "244747": {
+        "name": "Briaden Graham",
+        "snapshots": [
+          {
+            "date": "2026-10-13",
             "injured": false
           }
         ]
@@ -14834,6 +15205,24 @@
             "passes": 36.0,
             "pass_accuracy": 31.0,
             "key_passes": 6.0
+          }
+        ]
+      },
+      "214502": {
+        "name": "James McConnell",
+        "snapshots": [
+          {
+            "date": "2026-10-13",
+            "injured": false
+          }
+        ]
+      },
+      "244989": {
+        "name": "Lewis Koumas",
+        "snapshots": [
+          {
+            "date": "2026-10-13",
+            "injured": false
           }
         ]
       }
@@ -16228,6 +16617,30 @@
             "passes": 119.0,
             "pass_accuracy": 98.0,
             "key_passes": 1.0
+          },
+          {
+            "date": "2026-10-13",
+            "appearances": 5,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.18,
+            "injured": true,
+            "goals_conceded": 0.0,
+            "tackles": 1.0,
+            "crosses": 7.0,
+            "interceptions": 2.0,
+            "clearances": 11.0,
+            "dispossessed": 5.0,
+            "duels": 20.0,
+            "duels_won": 9.0,
+            "dribble_attempts": 4.0,
+            "dribbles": 2.0,
+            "pen_scored": 0.0,
+            "pen_missed": 0.0,
+            "passes": 119.0,
+            "pass_accuracy": 98.0,
+            "key_passes": 1.0
           }
         ]
       },
@@ -16356,6 +16769,32 @@
             "passes": 161.0,
             "pass_accuracy": 143.0,
             "key_passes": 2.0
+          },
+          {
+            "date": "2026-10-13",
+            "appearances": 9,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.7,
+            "injured": true,
+            "shots": 1.0,
+            "goals_conceded": 0.0,
+            "fouls": 6.0,
+            "tackles": 13.0,
+            "crosses": 1.0,
+            "interceptions": 8.0,
+            "clearances": 1.0,
+            "dispossessed": 5.0,
+            "duels": 44.0,
+            "duels_won": 26.0,
+            "dribble_attempts": 5.0,
+            "dribbles": 3.0,
+            "pen_scored": 0.0,
+            "pen_missed": 0.0,
+            "passes": 161.0,
+            "pass_accuracy": 143.0,
+            "key_passes": 2.0
           }
         ]
       },
@@ -16365,6 +16804,10 @@
           {
             "date": "2026-10-08",
             "injured": true
+          },
+          {
+            "date": "2026-10-13",
+            "injured": false
           }
         ]
       },
@@ -22182,6 +22625,30 @@
             "passes": 51.0,
             "pass_accuracy": 43.0,
             "key_passes": 1.0
+          },
+          {
+            "date": "2026-10-13",
+            "appearances": 1,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 7.3,
+            "injured": true,
+            "goals_conceded": 0.0,
+            "fouls": 2.0,
+            "tackles": 2.0,
+            "blocks": 3.0,
+            "crosses": 3.0,
+            "interceptions": 1.0,
+            "clearances": 2.0,
+            "dispossessed": 1.0,
+            "duels": 16.0,
+            "duels_won": 7.0,
+            "pen_scored": 0.0,
+            "pen_missed": 0.0,
+            "passes": 51.0,
+            "pass_accuracy": 43.0,
+            "key_passes": 1.0
           }
         ]
       },
@@ -22200,6 +22667,10 @@
           {
             "date": "2026-10-08",
             "injured": false
+          },
+          {
+            "date": "2026-10-13",
+            "injured": true
           }
         ]
       },
@@ -22443,12 +22914,25 @@
             "injured": false
           }
         ]
+      },
+      "80175": {
+        "name": "Yann Gboho",
+        "snapshots": [
+          {
+            "date": "2026-10-13",
+            "injured": false
+          }
+        ]
       }
     }
   },
   "io_stats": {
     "57": {
+<<<<<<< HEAD
       "fetched_at": "2026-10-13T03:06:00+00:00",
+=======
+      "fetched_at": "2026-10-13T13:23:04+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 57,
@@ -22706,11 +23190,19 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 17
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "58": {
       "fetched_at": "2026-10-13T03:06:01+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "58": {
+      "fetched_at": "2026-10-13T13:23:05+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 142,
@@ -22968,11 +23460,19 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "61": {
       "fetched_at": "2026-10-13T03:06:02+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "61": {
+      "fetched_at": "2026-10-13T13:23:06+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 136,
@@ -23230,11 +23730,19 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "62": {
       "fetched_at": "2026-10-13T03:06:03+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "62": {
+      "fetched_at": "2026-10-13T13:23:07+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 128,
@@ -23492,11 +24000,19 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "63": {
       "fetched_at": "2026-10-13T03:06:03+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "63": {
+      "fetched_at": "2026-10-13T13:23:08+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 146,
@@ -23754,11 +24270,19 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "64": {
       "fetched_at": "2026-10-13T03:06:04+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "64": {
+      "fetched_at": "2026-10-13T13:23:09+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 135,
@@ -24016,11 +24540,19 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 33
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "65": {
       "fetched_at": "2026-10-13T03:06:05+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "65": {
+      "fetched_at": "2026-10-13T13:23:10+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 87,
@@ -24278,11 +24810,19 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "66": {
       "fetched_at": "2026-10-13T03:06:05+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "66": {
+      "fetched_at": "2026-10-13T13:23:12+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 133,
@@ -24540,11 +25080,19 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 17
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "67": {
       "fetched_at": "2026-10-13T03:06:06+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "67": {
+      "fetched_at": "2026-10-13T13:23:13+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 141,
@@ -24802,11 +25350,19 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 33
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "71": {
       "fetched_at": "2026-10-13T03:06:07+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "71": {
+      "fetched_at": "2026-10-13T13:23:13+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 140,
@@ -25064,11 +25620,19 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 33
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "73": {
       "fetched_at": "2026-10-13T03:06:07+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "73": {
+      "fetched_at": "2026-10-13T13:23:14+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 86,
@@ -25326,11 +25890,19 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "322": {
       "fetched_at": "2026-10-13T03:06:08+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "322": {
+      "fetched_at": "2026-10-13T13:23:15+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 134,
@@ -25588,11 +26160,19 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "341": {
       "fetched_at": "2026-10-13T03:06:09+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "341": {
+      "fetched_at": "2026-10-13T13:23:16+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 193,
@@ -25850,11 +26430,19 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "349": {
       "fetched_at": "2026-10-13T03:06:10+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "349": {
+      "fetched_at": "2026-10-13T13:23:17+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 191,
@@ -26112,11 +26700,19 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 17
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "351": {
       "fetched_at": "2026-10-13T03:06:10+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "351": {
+      "fetched_at": "2026-10-13T13:23:18+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 182,
@@ -26374,11 +26970,19 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 17
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "354": {
       "fetched_at": "2026-10-13T03:06:11+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "354": {
+      "fetched_at": "2026-10-13T13:23:19+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 127,
@@ -26636,11 +27240,19 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "397": {
       "fetched_at": "2026-10-13T03:06:12+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "397": {
+      "fetched_at": "2026-10-13T13:23:20+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 180,
@@ -26898,11 +27510,19 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 17
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "402": {
       "fetched_at": "2026-10-13T03:06:12+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "402": {
+      "fetched_at": "2026-10-13T13:23:21+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 189,
@@ -27160,11 +27780,19 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 17
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "1044": {
       "fetched_at": "2026-10-13T03:06:13+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "1044": {
+      "fetched_at": "2026-10-13T13:23:22+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 132,
@@ -27422,11 +28050,19 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "1076": {
       "fetched_at": "2026-10-13T03:06:14+00:00",
+=======
+        "last_updated": "2026-10-13 13:00:23"
+      }
+    },
+    "1076": {
+      "fetched_at": "2026-10-13T13:23:23+00:00",
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 209,
@@ -27684,7 +28320,11 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 33
         },
+<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
+=======
+        "last_updated": "2026-10-13 13:00:23"
+>>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     }
   }

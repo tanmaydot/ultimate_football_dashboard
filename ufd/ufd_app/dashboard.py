@@ -4,10 +4,16 @@ The page is filled from ``data/pl_teams.json``, built by
 ``python manage.py build_pl_data`` (see ``pl_data.py``). The dashboard makes no
 API calls itself, so it is fast and can't hit a rate limit.
 
-``data/club_extras.json`` is the hand-kept layer for what neither API provides
-(revenue, honours, assistant coaches) and can also override stadium details and
-the default formation. Missing data never breaks the page: the widget shows a
-placeholder.
+Two extras files sit on top of that, merged per club:
+
+* ``data/club_extras.auto.json`` - generated weekly by
+  ``python manage.py refresh_club_extras`` (stadium + honours from the
+  Transfermarkt API / Wikidata). Do not edit by hand.
+* ``data/club_extras.json`` - hand-kept, for what no free source has (revenue,
+  assistant coaches) and for overriding anything in the generated file or the
+  default formation. It always wins.
+
+Missing data never breaks the page: the widget shows a placeholder.
 """
 import json
 import logging
@@ -26,6 +32,7 @@ logger = logging.getLogger(__name__)
 LEAGUE_CODE = "PL"
 PL_DATA_PATH = pl_data.DEFAULT_OUTPUT
 EXTRAS_PATH = Path(__file__).resolve().parent / "data" / "club_extras.json"
+AUTO_EXTRAS_PATH = Path(__file__).resolve().parent / "data" / "club_extras.auto.json"
 
 # Default layout on a 12-column grid: squad on the right, everything else on the left.
 # (The league table lives in the collapsible sidebar, not in the grid.)
@@ -34,10 +41,11 @@ DEFAULT_LAYOUT = [
     {"id": "squad", "title": "Squad & manager", "icon": "fa-users", "x": 0, "y": 5, "w": 12, "h": 7, "minW": 4, "minH": 5, "fit": {"h": 556}},
     {"id": "stats", "title": "Season stats", "icon": "fa-chart-bar", "x": 0, "y": 12, "w": 6, "h": 7, "minW": 3, "minH": 6, "fit": {"w": 534, "h": 524}},
     {"id": "formation", "title": "Formation", "icon": "fa-chess-board", "x": 6, "y": 12, "w": 6, "h": 9, "minW": 3, "minH": 6},
-    # Hidden until the user adds them from the "Add widget" menu.
-    {"id": "revenue", "title": "Revenue", "icon": "fa-coins", "x": 0, "y": 21, "w": 4, "h": 5, "minW": 2, "minH": 3, "hidden": True},
-    {"id": "trophies", "title": "Trophies won", "icon": "fa-trophy", "x": 4, "y": 21, "w": 4, "h": 4, "minW": 2, "minH": 3, "hidden": True},
-    {"id": "coaches", "title": "Coaches & assistants", "icon": "fa-clipboard-list", "x": 8, "y": 21, "w": 4, "h": 4, "minW": 2, "minH": 3, "hidden": True},
+    # Revenue and coaches stay hidden until added from the "Add widget" menu (no free source fills them).
+    # Trophies is shown by default now that the generated club_extras.auto.json fills it for every club.
+    {"id": "trophies", "title": "Trophies won", "icon": "fa-trophy", "x": 0, "y": 21, "w": 6, "h": 7, "minW": 2, "minH": 3},
+    {"id": "revenue", "title": "Revenue", "icon": "fa-coins", "x": 6, "y": 21, "w": 3, "h": 5, "minW": 2, "minH": 3, "hidden": True},
+    {"id": "coaches", "title": "Coaches & assistants", "icon": "fa-clipboard-list", "x": 9, "y": 21, "w": 3, "h": 4, "minW": 2, "minH": 3, "hidden": True},
 ]
 
 # Widgets whose title opens a full page in a new tab: widget id -> URL name (each takes the club id).
@@ -103,15 +111,15 @@ def load_pl_data():
     return data
 
 
-def load_club_extras():
-    """Read the hand-maintained club data. Keys starting with '_' are comments."""
+def _read_extras_file(path):
+    """One extras file as {team_id: dict}. Keys starting with '_' are comments."""
     try:
-        with EXTRAS_PATH.open(encoding="utf-8") as fh:
+        with path.open(encoding="utf-8") as fh:
             raw = json.load(fh)
     except FileNotFoundError:
         return {}
     except (OSError, ValueError) as exc:
-        logger.warning("Could not read %s: %s", EXTRAS_PATH, exc)
+        logger.warning("Could not read %s: %s", path, exc)
         return {}
     if not isinstance(raw, dict):
         return {}
@@ -120,6 +128,30 @@ def load_club_extras():
         for key, value in raw.items()
         if not str(key).startswith("_") and isinstance(value, dict)
     }
+
+
+def merge_extras(auto, manual):
+    """Per club: the hand-kept entry wins field by field over the generated one.
+
+    ``stadium`` is merged key by key (so you can fix just the capacity and keep the
+    generated city and year); every other field, including the ``honours`` list, is
+    replaced as a whole when the hand-kept file has it.
+    """
+    merged = {}
+    for team_id in set(auto) | set(manual):
+        entry = dict(auto.get(team_id, {}))
+        for key, value in manual.get(team_id, {}).items():
+            if isinstance(value, dict) and isinstance(entry.get(key), dict):
+                entry[key] = {**entry[key], **value}
+            else:
+                entry[key] = value
+        merged[team_id] = entry
+    return merged
+
+
+def load_club_extras():
+    """Generated extras with the hand-kept ones laid on top (hand-kept wins)."""
+    return merge_extras(_read_extras_file(AUTO_EXTRAS_PATH), _read_extras_file(EXTRAS_PATH))
 
 
 # --------------------------------------------------------------------------- #
@@ -344,7 +376,8 @@ def build_dashboard_context(team_id, data=None, extras_by_team=None):
     if not entry:
         return None, "That club isn't in the Premier League data file."
 
-    extras = (extras_by_team if extras_by_team is not None else load_club_extras()).get(str(team_id), {})
+    all_extras = extras_by_team if extras_by_team is not None else load_club_extras()
+    extras = all_extras.get(str(team_id), {})
     profile = entry.get("profile") or {}
     squad = profile.get("squad") or []
 
@@ -383,14 +416,20 @@ def build_dashboard_context(team_id, data=None, extras_by_team=None):
     stadium_extras = extras.get("stadium") if isinstance(extras.get("stadium"), dict) else {}
     capacity = stadium_extras.get("capacity", venue.get("capacity"))
     stadium = {
-        "name": venue.get("name"),
+        "name": stadium_extras.get("name") or venue.get("name"),
         "capacity": f"{capacity:,}" if isinstance(capacity, int) else None,
         "city": stadium_extras.get("city") or venue.get("city"),
         "opened": stadium_extras.get("opened"),
     }
     # How big is the ground next to the rest of the league?
+    # (every club's capacity: the extras files first, the API data file otherwise)
+    def _capacity_of(tid, team_entry):
+        club_stadium = (all_extras.get(str(tid), {}) or {}).get("stadium")
+        cap = club_stadium.get("capacity") if isinstance(club_stadium, dict) else None
+        return cap if cap is not None else ((team_entry.get("profile") or {}).get("venue") or {}).get("capacity")
+
     capacities = sorted(
-        (c for c in ((t.get("profile") or {}).get("venue", {}).get("capacity") for t in data["teams"].values())
+        (c for c in (_capacity_of(tid, t) for tid, t in data["teams"].items())
          if isinstance(c, int) and c > 0), reverse=True)
     if isinstance(capacity, int) and capacity > 0 and capacities:
         rank = 1 + sum(1 for c in capacities if c > capacity)

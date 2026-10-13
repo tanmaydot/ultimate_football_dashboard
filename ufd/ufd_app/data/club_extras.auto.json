@@ -1,0 +1,638 @@
+{
+  "57": {
+    "stadium": {
+      "name": "Emirates Stadium",
+      "capacity": 60704,
+      "city": "London",
+      "opened": 2006
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 14
+      },
+      {
+        "name": "FA Cup",
+        "count": 14
+      },
+      {
+        "name": "League Cup",
+        "count": 2
+      },
+      {
+        "name": "Community Shield",
+        "count": 18
+      },
+      {
+        "name": "Cup Winners' Cup",
+        "count": 1
+      },
+      {
+        "name": "Inter-Cities Fairs Cup",
+        "count": 1
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "58": {
+    "stadium": {
+      "name": "Villa Park",
+      "capacity": 36887,
+      "city": "Birmingham",
+      "opened": 1897
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 7
+      },
+      {
+        "name": "FA Cup",
+        "count": 7
+      },
+      {
+        "name": "League Cup",
+        "count": 5
+      },
+      {
+        "name": "Community Shield",
+        "count": 1
+      },
+      {
+        "name": "European Cup / Champions League",
+        "count": 1
+      },
+      {
+        "name": "Europa League",
+        "count": 1
+      },
+      {
+        "name": "UEFA Super Cup",
+        "count": 1
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 2
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "61": {
+    "stadium": {
+      "name": "Stamford Bridge",
+      "capacity": 40044,
+      "city": "London",
+      "opened": 1877
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 6
+      },
+      {
+        "name": "FA Cup",
+        "count": 8
+      },
+      {
+        "name": "League Cup",
+        "count": 5
+      },
+      {
+        "name": "Community Shield",
+        "count": 4
+      },
+      {
+        "name": "European Cup / Champions League",
+        "count": 2
+      },
+      {
+        "name": "Europa League",
+        "count": 2
+      },
+      {
+        "name": "Cup Winners' Cup",
+        "count": 2
+      },
+      {
+        "name": "Conference League",
+        "count": 1
+      },
+      {
+        "name": "UEFA Super Cup",
+        "count": 2
+      },
+      {
+        "name": "Club World Cup",
+        "count": 2
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 2
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "62": {
+    "stadium": {
+      "name": "Hill Dickinson Stadium",
+      "capacity": 52888,
+      "city": "Liverpool",
+      "opened": 2025
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 9
+      },
+      {
+        "name": "FA Cup",
+        "count": 5
+      },
+      {
+        "name": "Community Shield",
+        "count": 9
+      },
+      {
+        "name": "Cup Winners' Cup",
+        "count": 1
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 1
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "63": {
+    "stadium": {
+      "name": "Craven Cottage",
+      "capacity": 29600,
+      "city": "London",
+      "opened": 1896
+    },
+    "honours": [
+      {
+        "name": "Second Tier Champions",
+        "count": 3
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "64": {
+    "stadium": {
+      "name": "Anfield",
+      "capacity": 61276,
+      "city": "Liverpool",
+      "opened": 1884
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 20
+      },
+      {
+        "name": "FA Cup",
+        "count": 8
+      },
+      {
+        "name": "League Cup",
+        "count": 10
+      },
+      {
+        "name": "Community Shield",
+        "count": 16
+      },
+      {
+        "name": "European Cup / Champions League",
+        "count": 6
+      },
+      {
+        "name": "UEFA Cup",
+        "count": 3
+      },
+      {
+        "name": "UEFA Super Cup",
+        "count": 4
+      },
+      {
+        "name": "Club World Cup",
+        "count": 1
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 4
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "65": {
+    "stadium": {
+      "name": "Etihad Stadium",
+      "capacity": 61038,
+      "city": "Manchester",
+      "opened": 2002
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 10
+      },
+      {
+        "name": "FA Cup",
+        "count": 8
+      },
+      {
+        "name": "League Cup",
+        "count": 9
+      },
+      {
+        "name": "Community Shield",
+        "count": 7
+      },
+      {
+        "name": "European Cup / Champions League",
+        "count": 1
+      },
+      {
+        "name": "Cup Winners' Cup",
+        "count": 1
+      },
+      {
+        "name": "UEFA Super Cup",
+        "count": 1
+      },
+      {
+        "name": "Club World Cup",
+        "count": 1
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 7
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "66": {
+    "stadium": {
+      "name": "Old Trafford",
+      "capacity": 74158,
+      "city": "Manchester",
+      "opened": 1910
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 20
+      },
+      {
+        "name": "FA Cup",
+        "count": 13
+      },
+      {
+        "name": "League Cup",
+        "count": 6
+      },
+      {
+        "name": "Community Shield",
+        "count": 21
+      },
+      {
+        "name": "European Cup / Champions League",
+        "count": 3
+      },
+      {
+        "name": "Europa League",
+        "count": 1
+      },
+      {
+        "name": "Cup Winners' Cup",
+        "count": 1
+      },
+      {
+        "name": "UEFA Super Cup",
+        "count": 1
+      },
+      {
+        "name": "Club World Cup",
+        "count": 1
+      },
+      {
+        "name": "Intercontinental Cup",
+        "count": 1
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 2
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "67": {
+    "stadium": {
+      "name": "St James' Park",
+      "capacity": 52729,
+      "city": "Newcastle upon Tyne",
+      "opened": 1880
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 4
+      },
+      {
+        "name": "FA Cup",
+        "count": 6
+      },
+      {
+        "name": "League Cup",
+        "count": 1
+      },
+      {
+        "name": "Community Shield",
+        "count": 2
+      },
+      {
+        "name": "Inter-Cities Fairs Cup",
+        "count": 1
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 4
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "71": {
+    "stadium": {
+      "name": "Stadium of Light",
+      "capacity": 48095,
+      "city": "Sunderland",
+      "opened": 1997
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 6
+      },
+      {
+        "name": "FA Cup",
+        "count": 2
+      },
+      {
+        "name": "Community Shield",
+        "count": 1
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 5
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "73": {
+    "stadium": {
+      "name": "Tottenham Hotspur Stadium",
+      "capacity": 62850,
+      "city": "London",
+      "opened": 2019
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 2
+      },
+      {
+        "name": "FA Cup",
+        "count": 8
+      },
+      {
+        "name": "League Cup",
+        "count": 4
+      },
+      {
+        "name": "Community Shield",
+        "count": 7
+      },
+      {
+        "name": "UEFA Cup",
+        "count": 2
+      },
+      {
+        "name": "Europa League",
+        "count": 1
+      },
+      {
+        "name": "Cup Winners' Cup",
+        "count": 1
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 2
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "322": {
+    "stadium": {
+      "name": "MKM Stadium",
+      "capacity": 24983,
+      "city": "Hull",
+      "opened": 2002
+    },
+    "_updated": "2026-10-13"
+  },
+  "341": {
+    "stadium": {
+      "name": "Elland Road",
+      "capacity": 37633,
+      "city": "Leeds",
+      "opened": 1897
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 3
+      },
+      {
+        "name": "FA Cup",
+        "count": 1
+      },
+      {
+        "name": "League Cup",
+        "count": 1
+      },
+      {
+        "name": "Community Shield",
+        "count": 2
+      },
+      {
+        "name": "Inter-Cities Fairs Cup",
+        "count": 2
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 5
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "349": {
+    "stadium": {
+      "name": "Portman Road",
+      "capacity": 30294,
+      "city": "Ipswich",
+      "opened": 1884
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 1
+      },
+      {
+        "name": "FA Cup",
+        "count": 1
+      },
+      {
+        "name": "UEFA Cup",
+        "count": 1
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 3
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "351": {
+    "stadium": {
+      "name": "The City Ground",
+      "capacity": 31212,
+      "city": "West Bridgford",
+      "opened": 1898
+    },
+    "honours": [
+      {
+        "name": "English League Champions",
+        "count": 1
+      },
+      {
+        "name": "FA Cup",
+        "count": 2
+      },
+      {
+        "name": "League Cup",
+        "count": 4
+      },
+      {
+        "name": "Community Shield",
+        "count": 1
+      },
+      {
+        "name": "European Cup / Champions League",
+        "count": 2
+      },
+      {
+        "name": "UEFA Super Cup",
+        "count": 1
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 3
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "354": {
+    "stadium": {
+      "name": "Selhurst Park",
+      "capacity": 25194,
+      "city": "London",
+      "opened": 1924
+    },
+    "honours": [
+      {
+        "name": "FA Cup",
+        "count": 1
+      },
+      {
+        "name": "Community Shield",
+        "count": 1
+      },
+      {
+        "name": "Conference League",
+        "count": 1
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 2
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "397": {
+    "stadium": {
+      "name": "American Express Stadium",
+      "capacity": 32176,
+      "city": "Brighton",
+      "opened": 2011
+    },
+    "honours": [
+      {
+        "name": "Community Shield",
+        "count": 1
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "402": {
+    "stadium": {
+      "name": "Gtech Community Stadium",
+      "capacity": 17250,
+      "city": "London",
+      "opened": 2020
+    },
+    "honours": [
+      {
+        "name": "Second Tier Champions",
+        "count": 1
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "1044": {
+    "stadium": {
+      "name": "Vitality Stadium",
+      "capacity": 12357,
+      "city": "Bournemouth",
+      "opened": 1910
+    },
+    "honours": [
+      {
+        "name": "Second Tier Champions",
+        "count": 1
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "1076": {
+    "stadium": {
+      "name": "Coventry Building Society Arena",
+      "capacity": 32609,
+      "city": "Coventry",
+      "opened": 2005
+    },
+    "honours": [
+      {
+        "name": "FA Cup",
+        "count": 1
+      },
+      {
+        "name": "Second Tier Champions",
+        "count": 2
+      }
+    ],
+    "_updated": "2026-10-13"
+  },
+  "_readme": "GENERATED by `python manage.py refresh_club_extras` - do not edit by hand. Anything in club_extras.json overrides this file. Keys starting with _ are ignored.",
+  "_generated_at": "2026-10-13T00:00:00Z"
+}

@@ -1,0 +1,43 @@
+name: Refresh club extras (stadium + honours)
+
+on:
+  schedule:
+    - cron: "0 23 * * 1"    # Mondays 23:00 UTC = Tuesday 04:30 IST (honours only change when a trophy is won)
+  workflow_dispatch:         # press "Run workflow" by hand, e.g. right after a cup final
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-club-extras
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ufd/requirements.txt
+
+      - run: pip install -r ufd/requirements.txt
+
+      - name: "Fetch stadium + honours (Transfermarkt API and Wikidata, no API keys needed)"
+        run: python ufd/manage.py refresh_club_extras
+
+      - name: Commit the new data (the push makes Render redeploy)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ufd/ufd_app/data/club_extras.auto.json
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "Refresh club extras ($(date -u +%F))"
+            git push
+          fi

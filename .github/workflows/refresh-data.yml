@@ -6,7 +6,7 @@ on:
   workflow_dispatch:         # lets you press "Run workflow" by hand
 
 permissions:
-  contents: write            # needed to commit the refreshed JSON back
+  contents: write
 
 concurrency:
   group: refresh-data
