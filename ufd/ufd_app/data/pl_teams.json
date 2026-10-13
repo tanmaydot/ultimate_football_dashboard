@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": 1,
-    "generated_at": "2026-10-13T13:32:30+00:00",
+    "generated_at": "2026-10-13T13:36:09+00:00",
     "competition": {
       "code": "PL",
       "name": "Premier League"
@@ -31,7 +31,7 @@
         {
           "name": "finished matches (clean sheets)",
           "ok": true,
-          "detail": "60 matches"
+          "detail": "56 matches"
         },
         {
           "name": "apifootball league lookup",
@@ -5759,7 +5759,7 @@
         "points": 18,
         "avg_points": 3.0,
         "form": null,
-        "clean_sheets": 3,
+        "clean_sheets": 2,
         "possession": 64,
         "possession_matches": 6,
         "possession_source": "footballdata.io",
