@@ -1,7 +1,7 @@
 {
   "version": 1,
   "season_start": "2026-08-21",
-  "updated_at": "2026-10-13T13:36:09+00:00",
+  "updated_at": "2026-10-13T13:45:46+00:00",
   "matches": {
     "812650": {
       "match_id": "812650",
@@ -10661,7 +10661,7 @@
         "goals_for": 16,
         "goals_against": 5,
         "goal_difference": 11,
-        "clean_sheets": 2,
+        "clean_sheets": 3,
         "possession": 64
       }
     ],
