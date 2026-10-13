@@ -1,11 +1,7 @@
 {
   "version": 1,
   "season_start": "2026-08-21",
-<<<<<<< HEAD
   "updated_at": "2026-10-13T13:45:46+00:00",
-=======
-  "updated_at": "2026-10-13T13:23:23+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
   "matches": {
     "812650": {
       "match_id": "812650",
@@ -10609,11 +10605,7 @@
         "goals_against": 11,
         "goal_difference": -5,
         "clean_sheets": 1,
-<<<<<<< HEAD
         "possession": 47
-=======
-        "possession": 58.5
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "61": [
@@ -10889,11 +10881,7 @@
         "goals_against": 5,
         "goal_difference": 11,
         "clean_sheets": 3,
-<<<<<<< HEAD
         "possession": 64
-=======
-        "possession": 48.8
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "66": [
@@ -11009,11 +10997,7 @@
         "goals_against": 13,
         "goal_difference": -3,
         "clean_sheets": 1,
-<<<<<<< HEAD
         "possession": 52
-=======
-        "possession": 38.5
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "71": [
@@ -11071,11 +11055,7 @@
         "goals_against": 12,
         "goal_difference": -6,
         "clean_sheets": 1,
-<<<<<<< HEAD
         "possession": 51
-=======
-        "possession": 41.5
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "73": [
@@ -11133,11 +11113,7 @@
         "goals_against": 9,
         "goal_difference": -6,
         "clean_sheets": 2,
-<<<<<<< HEAD
         "possession": 59
-=======
-        "possession": 30.7
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "322": [
@@ -11355,11 +11331,7 @@
         "goals_against": 8,
         "goal_difference": -3,
         "clean_sheets": 1,
-<<<<<<< HEAD
         "possession": 49
-=======
-        "possession": 45.3
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "354": [
@@ -11577,11 +11549,7 @@
         "goals_against": 13,
         "goal_difference": -6,
         "clean_sheets": 0,
-<<<<<<< HEAD
         "possession": 48
-=======
-        "possession": 38.0
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ],
     "1076": [
@@ -11639,11 +11607,7 @@
         "goals_against": 11,
         "goal_difference": -6,
         "clean_sheets": 1,
-<<<<<<< HEAD
         "possession": 38
-=======
-        "possession": 33.2
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     ]
   },
@@ -22928,11 +22892,7 @@
   },
   "io_stats": {
     "57": {
-<<<<<<< HEAD
       "fetched_at": "2026-10-13T03:06:00+00:00",
-=======
-      "fetched_at": "2026-10-13T13:23:04+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 57,
@@ -23190,19 +23150,11 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 17
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "58": {
       "fetched_at": "2026-10-13T03:06:01+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "58": {
-      "fetched_at": "2026-10-13T13:23:05+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 142,
@@ -23460,19 +23412,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "61": {
       "fetched_at": "2026-10-13T03:06:02+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "61": {
-      "fetched_at": "2026-10-13T13:23:06+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 136,
@@ -23730,19 +23674,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "62": {
       "fetched_at": "2026-10-13T03:06:03+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "62": {
-      "fetched_at": "2026-10-13T13:23:07+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 128,
@@ -24000,19 +23936,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "63": {
       "fetched_at": "2026-10-13T03:06:03+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "63": {
-      "fetched_at": "2026-10-13T13:23:08+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 146,
@@ -24270,19 +24198,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "64": {
       "fetched_at": "2026-10-13T03:06:04+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "64": {
-      "fetched_at": "2026-10-13T13:23:09+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 135,
@@ -24540,19 +24460,11 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 33
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "65": {
       "fetched_at": "2026-10-13T03:06:05+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "65": {
-      "fetched_at": "2026-10-13T13:23:10+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 87,
@@ -24810,19 +24722,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "66": {
       "fetched_at": "2026-10-13T03:06:05+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "66": {
-      "fetched_at": "2026-10-13T13:23:12+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 133,
@@ -25080,19 +24984,11 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 17
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "67": {
       "fetched_at": "2026-10-13T03:06:06+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "67": {
-      "fetched_at": "2026-10-13T13:23:13+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 141,
@@ -25350,19 +25246,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 33
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "71": {
       "fetched_at": "2026-10-13T03:06:07+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "71": {
-      "fetched_at": "2026-10-13T13:23:13+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 140,
@@ -25620,19 +25508,11 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 33
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "73": {
       "fetched_at": "2026-10-13T03:06:07+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "73": {
-      "fetched_at": "2026-10-13T13:23:14+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 86,
@@ -25890,19 +25770,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "322": {
       "fetched_at": "2026-10-13T03:06:08+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "322": {
-      "fetched_at": "2026-10-13T13:23:15+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 134,
@@ -26160,19 +26032,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "341": {
       "fetched_at": "2026-10-13T03:06:09+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "341": {
-      "fetched_at": "2026-10-13T13:23:16+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 193,
@@ -26430,19 +26294,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "349": {
       "fetched_at": "2026-10-13T03:06:10+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "349": {
-      "fetched_at": "2026-10-13T13:23:17+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 191,
@@ -26700,19 +26556,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 17
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "351": {
       "fetched_at": "2026-10-13T03:06:10+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "351": {
-      "fetched_at": "2026-10-13T13:23:18+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 182,
@@ -26970,19 +26818,11 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 17
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "354": {
       "fetched_at": "2026-10-13T03:06:11+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "354": {
-      "fetched_at": "2026-10-13T13:23:19+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 127,
@@ -27240,19 +27080,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "397": {
       "fetched_at": "2026-10-13T03:06:12+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "397": {
-      "fetched_at": "2026-10-13T13:23:20+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 180,
@@ -27510,19 +27342,11 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 17
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "402": {
       "fetched_at": "2026-10-13T03:06:12+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "402": {
-      "fetched_at": "2026-10-13T13:23:21+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 189,
@@ -27780,19 +27604,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 17
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "1044": {
       "fetched_at": "2026-10-13T03:06:13+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "1044": {
-      "fetched_at": "2026-10-13T13:23:22+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 132,
@@ -28050,19 +27866,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
       }
     },
     "1076": {
       "fetched_at": "2026-10-13T03:06:14+00:00",
-=======
-        "last_updated": "2026-10-13 13:00:23"
-      }
-    },
-    "1076": {
-      "fetched_at": "2026-10-13T13:23:23+00:00",
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       "data": {
         "team": {
           "team_id": 209,
@@ -28320,11 +28128,7 @@
           "won_per_match": 0.17,
           "match_with_penalty_percentage": 33
         },
-<<<<<<< HEAD
         "last_updated": "2026-10-13 03:00:24"
-=======
-        "last_updated": "2026-10-13 13:00:23"
->>>>>>> 9be548c (Add club extras refresh functionality with Transfermarkt and Wikidata integration)
       }
     }
   }
