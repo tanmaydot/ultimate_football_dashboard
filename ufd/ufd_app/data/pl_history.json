@@ -1,7 +1,7 @@
 {
   "version": 1,
   "season_start": "2026-08-21",
-  "updated_at": "2026-10-13T14:29:33+00:00",
+  "updated_at": "2026-10-14T01:18:17+00:00",
   "matches": {
     "812650": {
       "match_id": "812650",
@@ -11736,6 +11736,10 @@
           {
             "date": "2026-10-11",
             "injured": true
+          },
+          {
+            "date": "2026-10-14",
+            "injured": false
           }
         ]
       },
@@ -11847,6 +11851,33 @@
             "red_cards": 0,
             "rating": 7.01,
             "injured": false,
+            "shots": 4.0,
+            "goals_conceded": 0.0,
+            "fouls": 2.0,
+            "tackles": 21.0,
+            "blocks": 3.0,
+            "crosses": 10.0,
+            "interceptions": 9.0,
+            "clearances": 14.0,
+            "dispossessed": 4.0,
+            "duels": 62.0,
+            "duels_won": 41.0,
+            "dribble_attempts": 5.0,
+            "dribbles": 2.0,
+            "pen_scored": 0.0,
+            "pen_missed": 0.0,
+            "passes": 264.0,
+            "pass_accuracy": 212.0,
+            "key_passes": 2.0
+          },
+          {
+            "date": "2026-10-14",
+            "appearances": 10,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 7.01,
+            "injured": true,
             "shots": 4.0,
             "goals_conceded": 0.0,
             "fouls": 2.0,
@@ -12116,6 +12147,33 @@
             "passes": 639.0,
             "pass_accuracy": 561.0,
             "key_passes": 17.0
+          },
+          {
+            "date": "2026-10-14",
+            "appearances": 13,
+            "assists": 2,
+            "yellow_cards": 4,
+            "red_cards": 0,
+            "rating": 7.0,
+            "injured": true,
+            "shots": 2.0,
+            "goals_conceded": 0.0,
+            "fouls": 20.0,
+            "tackles": 14.0,
+            "blocks": 5.0,
+            "crosses": 3.0,
+            "interceptions": 10.0,
+            "clearances": 17.0,
+            "dispossessed": 7.0,
+            "duels": 91.0,
+            "duels_won": 43.0,
+            "dribble_attempts": 6.0,
+            "dribbles": 3.0,
+            "pen_scored": 0.0,
+            "pen_missed": 0.0,
+            "passes": 639.0,
+            "pass_accuracy": 561.0,
+            "key_passes": 17.0
           }
         ]
       },
@@ -12189,6 +12247,32 @@
             "red_cards": 0,
             "rating": 7.3,
             "injured": true,
+            "shots": 4.0,
+            "goals_conceded": 0.0,
+            "fouls": 8.0,
+            "tackles": 1.0,
+            "crosses": 1.0,
+            "clearances": 1.0,
+            "dispossessed": 3.0,
+            "duels": 41.0,
+            "duels_won": 19.0,
+            "dribble_attempts": 3.0,
+            "dribbles": 2.0,
+            "pen_scored": 1.0,
+            "pen_missed": 0.0,
+            "passes": 74.0,
+            "pass_accuracy": 55.0,
+            "key_passes": 5.0
+          },
+          {
+            "date": "2026-10-14",
+            "appearances": 6,
+            "goals": 4,
+            "assists": 1,
+            "yellow_cards": 1,
+            "red_cards": 0,
+            "rating": 7.3,
+            "injured": false,
             "shots": 4.0,
             "goals_conceded": 0.0,
             "fouls": 8.0,
@@ -15874,6 +15958,10 @@
           {
             "date": "2026-10-08",
             "injured": false
+          },
+          {
+            "date": "2026-10-14",
+            "injured": true
           }
         ]
       },
@@ -16283,6 +16371,10 @@
           {
             "date": "2026-10-08",
             "injured": true
+          },
+          {
+            "date": "2026-10-14",
+            "injured": false
           }
         ]
       },
@@ -16365,6 +16457,15 @@
             "passes": 7.0,
             "pass_accuracy": 7.0,
             "key_passes": 1.0
+          }
+        ]
+      },
+      "302252": {
+        "name": "Daniel Armer",
+        "snapshots": [
+          {
+            "date": "2026-10-14",
+            "injured": false
           }
         ]
       }

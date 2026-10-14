@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": 1,
-    "generated_at": "2026-10-13T14:29:33+00:00",
+    "generated_at": "2026-10-14T01:18:17+00:00",
     "competition": {
       "code": "PL",
       "name": "Premier League"
@@ -66,7 +66,7 @@
         {
           "name": "history",
           "ok": true,
-          "detail": "matches stored 60, results stored 60, last match date 2026-10-12, team snapshots 77, player snapshots 592"
+          "detail": "matches stored 60, results stored 60, last match date 2026-10-12, team snapshots 77, player snapshots 599"
         }
       ],
       "unmatched_football_data": [],
@@ -78,7 +78,7 @@
       "results_stored": 60,
       "last_match_date": "2026-10-12",
       "team_snapshots": 77,
-      "player_snapshots": 592
+      "player_snapshots": 599
     }
   },
   "standings": [
@@ -606,7 +606,7 @@
               "yellow_cards": null,
               "red_cards": null,
               "rating": null,
-              "injured": true,
+              "injured": false,
               "image": "https://apiv3.apifootball.com/badges/players/65396_e-konsa.jpg",
               "full_name": "Ezri Konsa",
               "captain": false,
@@ -758,7 +758,7 @@
               "yellow_cards": 0,
               "red_cards": 0,
               "rating": 7.01,
-              "injured": false,
+              "injured": true,
               "image": "https://apiv3.apifootball.com/badges/players/115201_p-hincapie.jpg",
               "full_name": "Piero Hincapie",
               "captain": false,
@@ -1075,7 +1075,7 @@
               "yellow_cards": 4,
               "red_cards": 0,
               "rating": 7.0,
-              "injured": false,
+              "injured": true,
               "image": "https://apiv3.apifootball.com/badges/players/81904_m-zubimendi.jpg",
               "full_name": "Martin Zubimendi",
               "captain": false,
@@ -1161,7 +1161,7 @@
               "yellow_cards": 1,
               "red_cards": 0,
               "rating": 7.3,
-              "injured": true,
+              "injured": false,
               "image": "https://apiv3.apifootball.com/badges/players/68259_k-havertz.jpg",
               "full_name": "Kai Havertz",
               "captain": false,
@@ -1373,6 +1373,15 @@
                 "key_passes": 1.0
               }
             }
+          },
+          {
+            "id": 302255,
+            "name": "Maalik Hashi",
+            "position": null,
+            "nationality": "England",
+            "date_of_birth": "2008-09-03",
+            "shirt_number": null,
+            "apifootball": null
           }
         ],
         "running_competitions": [
@@ -1693,6 +1702,13 @@
               "position": "Offence",
               "dateOfBirth": "2009-12-31",
               "nationality": "England"
+            },
+            {
+              "id": 302255,
+              "name": "Maalik Hashi",
+              "position": null,
+              "dateOfBirth": "2008-09-03",
+              "nationality": "England"
             }
           ],
           "staff": [],
@@ -1943,7 +1959,7 @@
               "player_image": "https://apiv3.apifootball.com/badges/players/250864_b-clarke.jpg",
               "player_name": "Brayden Clarke",
               "player_complete_name": "Brayden Clarke",
-              "player_number": "4",
+              "player_number": "38",
               "player_country": "",
               "player_type": "Defenders",
               "player_age": "19",
@@ -2041,7 +2057,7 @@
               "player_goals": "",
               "player_yellow_cards": "0",
               "player_red_cards": "0",
-              "player_injured": "No",
+              "player_injured": "Yes",
               "player_substitute_out": "",
               "player_substitutes_on_bench": "",
               "player_assists": "0",
@@ -2086,7 +2102,7 @@
               "player_goals": "",
               "player_yellow_cards": "",
               "player_red_cards": "",
-              "player_injured": "Yes",
+              "player_injured": "No",
               "player_substitute_out": "",
               "player_substitutes_on_bench": "",
               "player_assists": "",
@@ -2258,7 +2274,7 @@
               "player_image": "",
               "player_name": "Marli Salmon",
               "player_complete_name": "Marli Salmon",
-              "player_number": "89",
+              "player_number": "4",
               "player_country": "",
               "player_type": "Defenders",
               "player_age": "17",
@@ -2573,7 +2589,7 @@
               "player_image": "https://apiv3.apifootball.com/badges/players/340034_i-ibrahim.jpg",
               "player_name": "Ifeoluwa Ibrahim",
               "player_complete_name": "Ifeoluwa Ibrahim",
-              "player_number": "6",
+              "player_number": "44",
               "player_country": "",
               "player_type": "Midfielders",
               "player_age": "18",
@@ -2618,7 +2634,7 @@
               "player_image": "https://apiv3.apifootball.com/badges/players/340029_t-julienne.jpg",
               "player_name": "Theo Julienne",
               "player_complete_name": "Theo Julienne",
-              "player_number": "8",
+              "player_number": "45",
               "player_country": "",
               "player_type": "Midfielders",
               "player_age": "18",
@@ -2806,7 +2822,7 @@
               "player_goals": "",
               "player_yellow_cards": "4",
               "player_red_cards": "0",
-              "player_injured": "No",
+              "player_injured": "Yes",
               "player_substitute_out": "",
               "player_substitutes_on_bench": "",
               "player_assists": "2",
@@ -2888,7 +2904,7 @@
               "player_image": "https://apiv3.apifootball.com/badges/players/336025_a-harriman-annous.jpg",
               "player_name": "Andre Harriman-Annous",
               "player_complete_name": "Andre Harriman-Annous",
-              "player_number": "9",
+              "player_number": "43",
               "player_country": "",
               "player_type": "Forwards",
               "player_age": "18",
@@ -2941,7 +2957,7 @@
               "player_goals": "4",
               "player_yellow_cards": "1",
               "player_red_cards": "0",
-              "player_injured": "Yes",
+              "player_injured": "No",
               "player_substitute_out": "",
               "player_substitutes_on_bench": "",
               "player_assists": "1",
@@ -20563,7 +20579,7 @@
               "yellow_cards": null,
               "red_cards": null,
               "rating": null,
-              "injured": false,
+              "injured": true,
               "image": "https://apiv3.apifootball.com/badges/players/19649_l-shaw.jpg",
               "full_name": "Luke Shaw",
               "captain": false,
@@ -20971,7 +20987,7 @@
             "apifootball": {
               "apifootball_key": 1959159696,
               "type": "Midfielders",
-              "shirt_number": 6,
+              "shirt_number": 39,
               "appearances": null,
               "goals": null,
               "assists": null,
@@ -21160,7 +21176,7 @@
               "yellow_cards": null,
               "red_cards": null,
               "rating": null,
-              "injured": true,
+              "injured": false,
               "image": "https://apiv3.apifootball.com/badges/players/105030_a-diallo.jpg",
               "full_name": "Amad Diallo",
               "captain": false,
@@ -21243,6 +21259,30 @@
                 "pass_accuracy": 7.0,
                 "key_passes": 1.0
               }
+            }
+          },
+          {
+            "id": 302252,
+            "name": "Daniel Armer",
+            "position": null,
+            "nationality": "England",
+            "date_of_birth": "2007-10-22",
+            "shirt_number": null,
+            "apifootball": {
+              "apifootball_key": 63002374,
+              "type": "Defenders",
+              "shirt_number": 4,
+              "appearances": null,
+              "goals": null,
+              "assists": null,
+              "yellow_cards": null,
+              "red_cards": null,
+              "rating": null,
+              "injured": false,
+              "image": "https://apiv3.apifootball.com/badges/players/332506_d-armer.jpg",
+              "full_name": "Daniel Armer",
+              "captain": false,
+              "extra": {}
             }
           }
         ],
@@ -21598,6 +21638,13 @@
               "name": "Shea Lacey",
               "position": "Offence",
               "dateOfBirth": "2007-04-14",
+              "nationality": "England"
+            },
+            {
+              "id": 302252,
+              "name": "Daniel Armer",
+              "position": null,
+              "dateOfBirth": "2007-10-22",
               "nationality": "England"
             }
           ],
@@ -22217,7 +22264,7 @@
               "player_goals": "",
               "player_yellow_cards": "",
               "player_red_cards": "",
-              "player_injured": "No",
+              "player_injured": "Yes",
               "player_substitute_out": "",
               "player_substitutes_on_bench": "",
               "player_assists": "",
@@ -22479,7 +22526,7 @@
               "player_image": "https://apiv3.apifootball.com/badges/players/332505_t-fletcher.jpg",
               "player_name": "Tyler Fletcher",
               "player_complete_name": "Tyler Fletcher",
-              "player_number": "6",
+              "player_number": "39",
               "player_country": "",
               "player_type": "Midfielders",
               "player_age": "19",
@@ -22757,7 +22804,7 @@
               "player_goals": "",
               "player_yellow_cards": "",
               "player_red_cards": "",
-              "player_injured": "Yes",
+              "player_injured": "No",
               "player_substitute_out": "",
               "player_substitutes_on_bench": "",
               "player_assists": "",
