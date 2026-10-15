@@ -174,6 +174,37 @@
     .mini-table img { width: 20px; height: 20px; object-fit: contain; }
     .mini-table .pos { color: var(--muted); font-variant-numeric: tabular-nums; }
     .mini-table .pts { font-variant-numeric: tabular-nums; font-weight: 700; }
+    /* ---------- trophy cabinet (inside the team info strip) ---------- */
+    .panel-cabinet { width: 190px; justify-content: center; gap: 4px;
+        background: linear-gradient(150deg, color-mix(in srgb, #f5c542 16%, var(--surface-2)), var(--surface-2) 75%); }
+    .cabinet-total { font-family: var(--font-display); font-size: 4.2rem; font-weight: 700; line-height: 1; color: var(--accent-text); }
+    .cabinet-hint { margin-top: 10px; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .panel-trophy { width: 170px; align-items: center; justify-content: center; text-align: center; gap: 4px;
+        background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--tc, #f5c542) 20%, var(--surface-2)), var(--surface-2) 70%); }
+    .trophy-art { width: 120px; height: 140px; flex: none; filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.45)); --tc: #f5c542; --td: #b8860b; --tl: #fff6c9; }
+    .trophy-art .t-body { fill: var(--tc); }
+    .trophy-art .t-dark { fill: var(--td); }
+    .trophy-art .t-base { fill: #2b2f38; }
+    .trophy-art .t-plate { fill: var(--tc); opacity: 0.8; }
+    .trophy-art .t-handle { stroke: var(--tc); stroke-width: 5; stroke-linecap: round; fill: none; }
+    .trophy-art .t-line { stroke: var(--td); stroke-width: 2; fill: none; opacity: 0.8; }
+    .trophy-art .t-band { stroke: var(--tb, #1d4ed8); stroke-width: 6; fill: none; }
+    .trophy-art .t-shine { stroke: var(--tl); stroke-width: 3; stroke-linecap: round; fill: none; opacity: 0.55; }
+    .trophy-art .t-num { font: 700 28px var(--font-display, serif); fill: var(--tc); }
+    .trophy-art.k-fa, .trophy-art.k-leaguecup, .trophy-art.k-european, .trophy-art.k-europa, .trophy-art.k-uefa, .trophy-art.k-fairs
+        { --tc: #d7dde6; --td: #8893a3; --tl: #ffffff; }
+    .trophy-art.k-europa { --tc: #f2a33a; --td: #b36b0c; }
+    .trophy-art.k-conference { --tc: #34d399; --td: #0f7a55; --tb: #065f46; }
+    .trophy-art.k-super { --tb: #1d4ed8; }
+    .trophy-art.k-globe { --tc: #60a5fa; --td: #1d4ed8; --tl: #e0f2fe; }
+    .trophy-art.k-tier2 { --tc: #d99560; --td: #8a4b1f; --tl: #ffe2c7; }
+    .panel-trophy:has(.k-fa), .panel-trophy:has(.k-leaguecup), .panel-trophy:has(.k-european), .panel-trophy:has(.k-uefa), .panel-trophy:has(.k-fairs) { --tc: #d7dde6; }
+    .panel-trophy:has(.k-europa) { --tc: #f2a33a; }
+    .panel-trophy:has(.k-conference) { --tc: #34d399; }
+    .panel-trophy:has(.k-globe) { --tc: #60a5fa; }
+    .panel-trophy:has(.k-tier2) { --tc: #d99560; }
+    .trophy-count { margin-top: 2px; font-family: var(--font-display); font-size: 2.1rem; font-weight: 700; line-height: 1; color: var(--accent-text); }
+    .trophy-name { min-height: 2.5em; display: flex; align-items: flex-start; justify-content: center; font-size: 0.78rem; font-weight: 700; line-height: 1.25; color: var(--muted); letter-spacing: 0.02em; }
     /* ---------- squad ---------- */
     .squad-group h4 { display: flex; align-items: center; gap: 8px; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800; color: var(--muted); margin: 14px 0 4px; }
     .squad-group h4:first-of-type { margin-top: 6px; }
@@ -282,21 +313,21 @@
             <div class="fact"><i class="fas fa-location-dot"></i><span><small>Address</small><b>{{ team.address|default:"—" }}</b></span></div>
         </section>
 
-        {% if neighbours %}
-        <section class="panel panel-table">
-            <div class="eyebrow mb-2">Around them in the table</div>
-            <nav class="mini-table" aria-label="League table around {{ team.name }}">
-                {% for r in neighbours %}
-                <a href="{% url 'ufd_app:dashboard' r.team.id %}" class="{% if r.current %}me{% endif %}">
-                    <span class="pos">{{ r.position }}</span>
-                    {% if r.team.crest %}<img src="{{ r.team.crest }}" alt="">{% else %}<span></span>{% endif %}
-                    <span class="truncate">{{ r.team.shortName|default:r.team.name }}</span>
-                    <span class="pts">{{ r.points }}</span>
-                </a>
-                {% endfor %}
-            </nav>
+        {# Trophy cabinet: every honour is its own card in the same sideways-scrolling strip #}
+        <section class="panel panel-cabinet">
+            <div class="eyebrow">Trophy cabinet</div>
+            <div class="cabinet-total">{{ trophies.total|default:"—" }}</div>
+            <p class="text-xs" style="color: var(--muted)">{% if trophies.honours %}trophies across {{ trophies.honours|length }} competition{{ trophies.honours|length|pluralize }}{% else %}No trophy history on file yet.{% endif %}</p>
+            {% if trophies.honours %}<p class="cabinet-hint"><i class="fas fa-arrow-right-long"></i> scroll sideways</p>{% endif %}
         </section>
-        {% endif %}
+        {% for h in trophies.honours %}
+        <section class="panel panel-trophy">
+            {% include "partials/trophy_art.html" with kind=h.kind %}
+            {% if h.count is not None %}<div class="trophy-count">×{{ h.count }}</div>{% endif %}
+            <div class="trophy-name">{{ h.name }}</div>
+        </section>
+        {% endfor %}
+
     </div>
 </template>
 
@@ -352,22 +383,6 @@
     <ul class="text-sm">
         {% for a in assistants %}
         <li class="flex justify-between gap-2 py-1 border-b border-line"><span class="font-semibold">{{ a.name }}</span><span class="opacity-60 text-xs">{{ a.role|default:"" }}</span></li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <div class="placeholder-note"><i class="fas fa-screwdriver-wrench"></i><p>This widget is under development</p></div>
-    {% endif %}
-</template>
-
-<template id="tpl-trophies">
-    {% if trophies.honours %}
-    <ul>
-        {% for h in trophies.honours %}
-        <li class="flex items-center gap-3 py-2 border-b border-line">
-            <i class="fas fa-trophy text-accent"></i>
-            <span class="flex-1 text-sm font-semibold">{{ h.name }}</span>
-            {% if h.count is not None %}<b class="font-mono">×{{ h.count }}</b>{% endif %}
-        </li>
         {% endfor %}
     </ul>
     {% else %}

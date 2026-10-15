@@ -1,0 +1,69 @@
+{# Stylised trophy drawings, one per honour kind. Pass `kind`. Colours come from CSS (.trophy-art.k-<kind>). #}
+<svg class="trophy-art k-{{ kind }}" viewBox="0 0 96 112" fill="none" aria-hidden="true">
+{% if kind == "globe" %}
+    <circle cx="48" cy="38" r="28" class="t-body"/>
+    <ellipse cx="48" cy="38" rx="12" ry="28" class="t-line"/>
+    <path d="M20 38H76M24 24H72M24 52H72" class="t-line"/>
+    <path d="M30 18C34 14 40 12 44 12" class="t-shine"/>
+    <rect x="44" y="64" width="8" height="22" class="t-dark"/>
+    <rect x="30" y="84" width="36" height="8" rx="2" class="t-body"/>
+{% elif kind == "shield" %}
+    <path d="M16 12H80V50C80 72 64 84 48 91C32 84 16 72 16 50Z" class="t-body"/>
+    <path d="M24 20H72V50C72 66 60 75 48 81C36 75 24 66 24 50Z" class="t-dark"/>
+    <path d="M48 28V72M30 46H66" class="t-line"/>
+    <path d="M28 22C28 38 30 46 34 52" class="t-shine"/>
+{% elif kind == "tier2" %}
+    <circle cx="48" cy="44" r="30" class="t-body"/>
+    <circle cx="48" cy="44" r="22" class="t-dark"/>
+    <path d="M22 70C14 56 16 40 24 30M74 70C82 56 80 40 72 30" class="t-line"/>
+    <text x="48" y="55" text-anchor="middle" class="t-num">2</text>
+    <path d="M38 74L34 98L48 90L62 98L58 74" class="t-body"/>
+{% else %}
+    {# every cup shares a stem and a plinth; the bowl, handles and lid change per kind #}
+    {% if kind == "european" %}
+    <path d="M32 20C-2 6 0 64 36 52M64 20C98 6 96 64 60 52" class="t-handle t-big"/>
+    <path d="M30 14H66C66 40 60 54 48 60C36 54 30 40 30 14Z" class="t-body"/>
+    {% elif kind == "fa" %}
+    <path d="M24 30C6 28 8 50 28 54M72 30C90 28 88 50 68 54" class="t-handle"/>
+    <path d="M32 26C32 6 64 6 64 26Z" class="t-body"/>
+    <path d="M44 6H52L48 -0Z" class="t-body"/>
+    <circle cx="48" cy="7" r="4" class="t-body"/>
+    <path d="M24 26H72C72 46 62 58 48 62C34 58 24 46 24 26Z" class="t-body"/>
+    {% elif kind == "league" %}
+    <path d="M26 26C10 26 10 48 30 52M70 26C86 26 86 48 66 52" class="t-handle"/>
+    <path d="M34 20C34 8 62 8 62 20Z" class="t-body"/>
+    <circle cx="48" cy="6" r="4" class="t-body"/>
+    <path d="M26 20H70C70 46 62 58 48 62C34 58 26 46 26 20Z" class="t-body"/>
+    <path d="M48 28L51 36H59L53 41L55 49L48 44L41 49L43 41L37 36H45Z" class="t-dark"/>
+    {% elif kind == "cwc" or kind == "fairs" %}
+    <path d="M22 24C8 24 8 44 28 48M74 24C88 24 88 44 68 48" class="t-handle"/>
+    <path d="M20 20H76C76 44 66 54 56 58H40C30 54 20 44 20 20Z" class="t-body"/>
+    <path d="M24 32H72" class="t-line"/>
+    <path d="M40 58H56L52 70H44Z" class="t-body"/>
+    {% elif kind == "conference" %}
+    <path d="M24 28C10 28 10 46 28 48M72 28C86 28 86 46 68 48" class="t-handle"/>
+    <path d="M22 22H74C74 44 64 56 48 58C32 56 22 44 22 22Z" class="t-body"/>
+    <path d="M23 34H73" class="t-band"/>
+    {% elif kind == "super" %}
+    <path d="M26 22C12 22 12 42 30 46M70 22C84 22 84 42 66 46" class="t-handle"/>
+    <path d="M26 16H70C70 42 62 54 48 58C34 54 26 42 26 16Z" class="t-body"/>
+    <path d="M26 30H70" class="t-band"/>
+    {% elif kind == "europa" or kind == "uefa" %}
+    <path d="M32 18C14 16 14 44 34 46M64 18C82 16 82 44 62 46" class="t-handle"/>
+    <path d="M32 12H64C64 38 58 50 48 56C38 50 32 38 32 12Z" class="t-body"/>
+    {% if kind == "uefa" %}<path d="M48 22L50.5 29H58L52 33.5L54 41L48 36.5L42 41L44 33.5L38 29H45.5Z" class="t-dark"/>{% endif %}
+    {% elif kind == "leaguecup" %}
+    <path d="M24 24C8 24 8 46 28 50M72 24C88 24 88 46 68 50" class="t-handle"/>
+    <path d="M22 18H74C74 44 64 56 48 60C32 56 22 44 22 18Z" class="t-body"/>
+    <path d="M22 18H74" class="t-line"/>
+    {% else %}
+    <path d="M26 20C10 20 10 44 30 50M70 20C86 20 86 44 66 50" class="t-handle"/>
+    <path d="M26 14H70C70 42 62 56 48 60C34 56 26 42 26 14Z" class="t-body"/>
+    {% endif %}
+    <path d="M32 22C32 38 36 48 42 54" class="t-shine"/>
+    <rect x="44" y="60" width="8" height="26" class="t-dark"/>
+    <rect x="30" y="84" width="36" height="8" rx="2" class="t-body"/>
+{% endif %}
+    <rect x="22" y="92" width="52" height="12" rx="3" class="t-base"/>
+    <rect x="30" y="96" width="36" height="4" rx="1" class="t-plate"/>
+</svg>

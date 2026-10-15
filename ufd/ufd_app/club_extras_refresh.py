@@ -14,7 +14,7 @@ lineups by ``build_pl_data``. Keep those in the hand-kept ``club_extras.json``,
 which always wins over this file (see ``dashboard.load_club_extras``).
 
 The Transfermarkt API (transfermarkt-api.fly.dev) is an unofficial scraper of
-Transfermarkt, hosted for free, so this is meant to run weekly, not on every
+Transfermarkt, hosted for free, so this is meant to run once a quarter (1 Jan, Apr, Jul, Oct), not on every
 request. If a club's fetch fails, its previous entry is kept, so an outage can
 never wipe data.
 """

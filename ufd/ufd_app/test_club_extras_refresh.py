@@ -158,11 +158,11 @@ class MergeAndLoaderTests(TestCase):
 
 
 class DefaultLayoutTests(SimpleTestCase):
-    def test_trophies_is_visible_by_default_and_the_widgets_do_not_overlap_when_added(self):
+    def test_trophies_live_in_team_info_and_the_widgets_do_not_overlap_when_added(self):
         by_id = {w["id"]: w for w in dashboard.DEFAULT_LAYOUT}
-        self.assertFalse(by_id["trophies"].get("hidden"))
+        self.assertNotIn("trophies", by_id)  # no separate widget: the cabinet is part of Team info
         self.assertTrue(by_id["revenue"]["hidden"] and by_id["coaches"]["hidden"])
-        row = sorted((by_id[i]["x"], by_id[i]["x"] + by_id[i]["w"]) for i in ("trophies", "revenue", "coaches"))
+        row = sorted((by_id[i]["x"], by_id[i]["x"] + by_id[i]["w"]) for i in ("revenue", "coaches"))
         for (_, end), (start, _) in zip(row, row[1:]):
             self.assertLessEqual(end, start)  # side by side, 12-column grid
         self.assertLessEqual(row[-1][1], 12)

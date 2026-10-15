@@ -43,7 +43,7 @@ class DashboardFromJsonTests(TestCase):
         response = self.page()
         self.assertEqual(response.status_code, 200)
         html = response.content.decode()
-        self.assertEqual(html.count('<template id="tpl-'), 7)  # no league table (sidebar) and no badge (it's beside the title)
+        self.assertEqual(html.count('<template id="tpl-'), 6)  # no league table (sidebar) and no badge (it's beside the title)
         ctx = response.context
         self.assertEqual(ctx["stats"]["avg_points"], "2.33")
         self.assertEqual(ctx["stats"]["clean_sheets"], 2)
@@ -76,7 +76,7 @@ class DashboardFromJsonTests(TestCase):
 
     def test_widgets_without_data_say_under_development(self):
         html = self.page().content.decode()
-        self.assertEqual(html.count("This widget is under development"), 3)  # revenue, assistants, trophies
+        self.assertEqual(html.count("This widget is under development"), 2)  # revenue, assistants (trophies live in Team info now)
         self.assertIn("Most used formation", html)
         self.assertNotIn("Premier League titles", html)
 
@@ -126,6 +126,8 @@ class DashboardFromJsonTests(TestCase):
         self.assertEqual(ctx["stadium"]["capacity"], "41,000")
         self.assertEqual(ctx["revenue"]["display"], "£612m")
         self.assertEqual(ctx["trophies"]["honours"][0]["count"], 6)
+        self.assertContains(response, "panel-trophy")  # each honour is a card in the team info strip
+        self.assertContains(response, "k-league")
         self.assertNotContains(response, "×6 under")  # real data replaces the notice for those widgets
         self.assertEqual(response.content.decode().count("This widget is under development"), 1)  # only assistants left
 

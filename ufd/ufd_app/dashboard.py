@@ -6,7 +6,7 @@ API calls itself, so it is fast and can't hit a rate limit.
 
 Two extras files sit on top of that, merged per club:
 
-* ``data/club_extras.auto.json`` - generated weekly by
+* ``data/club_extras.auto.json`` - generated quarterly (first day of Jan/Apr/Jul/Oct) by
   ``python manage.py refresh_club_extras`` (stadium + honours from the
   Transfermarkt API / Wikidata). Do not edit by hand.
 * ``data/club_extras.json`` - hand-kept, for what no free source has (revenue,
@@ -40,10 +40,9 @@ DEFAULT_LAYOUT = [
     {"id": "info", "title": "Team info", "icon": "fa-info-circle", "x": 0, "y": 0, "w": 12, "h": 5, "minW": 4, "minH": 4, "fit": {"h": 356}},
     {"id": "squad", "title": "Squad & manager", "icon": "fa-users", "x": 0, "y": 5, "w": 12, "h": 7, "minW": 4, "minH": 5, "fit": {"h": 556}},
     {"id": "stats", "title": "Season stats", "icon": "fa-chart-bar", "x": 0, "y": 12, "w": 6, "h": 7, "minW": 3, "minH": 6, "fit": {"w": 534, "h": 524}},
-    {"id": "formation", "title": "Formation", "icon": "fa-chess-board", "x": 6, "y": 12, "w": 6, "h": 9, "minW": 3, "minH": 6},
+    {"id": "formation", "title": "Formation", "icon": "fa-chess-board", "x": 6, "y": 12, "w": 6, "h": 7, "minW": 3, "minH": 6},
     # Revenue and coaches stay hidden until added from the "Add widget" menu (no free source fills them).
-    # Trophies is shown by default now that the generated club_extras.auto.json fills it for every club.
-    {"id": "trophies", "title": "Trophies won", "icon": "fa-trophy", "x": 0, "y": 21, "w": 6, "h": 7, "minW": 2, "minH": 3},
+    # Trophies now live inside the Team info strip (see the trophy cards in dashboard.html).
     {"id": "revenue", "title": "Revenue", "icon": "fa-coins", "x": 6, "y": 21, "w": 3, "h": 5, "minW": 2, "minH": 3, "hidden": True},
     {"id": "coaches", "title": "Coaches & assistants", "icon": "fa-clipboard-list", "x": 9, "y": 21, "w": 3, "h": 4, "minW": 2, "minH": 3, "hidden": True},
 ]
@@ -85,6 +84,31 @@ _data_cache = {"path": None, "mtime": None, "data": None}
 # --------------------------------------------------------------------------- #
 # Loading
 # --------------------------------------------------------------------------- #
+# Honour name (as written in club_extras) -> which trophy drawing to use in partials/trophy_art.html.
+HONOUR_KINDS = {
+    "english league champions": "league",
+    "premier league": "league",
+    "fa cup": "fa",
+    "league cup": "leaguecup",
+    "community shield": "shield",
+    "european cup / champions league": "european",
+    "uefa cup": "uefa",
+    "europa league": "europa",
+    "cup winners' cup": "cwc",
+    "conference league": "conference",
+    "inter-cities fairs cup": "fairs",
+    "uefa super cup": "super",
+    "club world cup": "globe",
+    "intercontinental cup": "globe",
+    "second tier champions": "tier2",
+}
+
+
+def honour_kind(name):
+    """Which trophy drawing fits an honour; anything unknown gets a plain golden cup."""
+    return HONOUR_KINDS.get((name or "").strip().lower(), "cup")
+
+
 def load_pl_data():
     """The generated dataset, or None if it hasn't been built (or can't be read).
 
@@ -455,11 +479,14 @@ def build_dashboard_context(team_id, data=None, extras_by_team=None):
 
     # Honours: hand-kept list if present, otherwise the title count the API history gives
     honours = [
-        {"name": h.get("name"), "count": h.get("count")}
+        {"name": h.get("name"), "count": h.get("count"), "kind": honour_kind(h.get("name"))}
         for h in extras.get("honours", [])
         if isinstance(h, dict) and h.get("name")
     ]
-    trophies = {"honours": honours}  # hand-kept only; no API has a trophy history
+    trophies = {
+        "honours": honours,  # hand-kept / generated only; no API has a trophy history
+        "total": sum(h["count"] for h in honours if isinstance(h["count"], int)),
+    }
 
     # Formation: a hand-set default wins; otherwise the club's most used formation (with the XI from its latest use).
     formation_data = entry.get("formation") or {}

@@ -2,7 +2,7 @@ name: Refresh club extras (stadium + honours)
 
 on:
   schedule:
-    - cron: "0 23 * * 1"    # Mondays 23:00 UTC = Tuesday 04:30 IST (honours only change when a trophy is won)
+    - cron: "0 0 1 1,4,7,10 *"   # 00:00 UTC on 1 Jan / Apr / Jul / Oct = 05:30 IST on the first day of each quarter
   workflow_dispatch:         # press "Run workflow" by hand, e.g. right after a cup final
 
 permissions:
