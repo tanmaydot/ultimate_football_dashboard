@@ -1,7 +1,7 @@
 {
   "version": 1,
   "season_start": "2026-08-21",
-  "updated_at": "2026-10-15T00:40:05+00:00",
+  "updated_at": "2026-10-16T00:31:51+00:00",
   "matches": {
     "812650": {
       "match_id": "812650",
@@ -17278,6 +17278,10 @@
           {
             "date": "2026-10-08",
             "injured": false
+          },
+          {
+            "date": "2026-10-16",
+            "injured": true
           }
         ]
       },
@@ -20858,6 +20862,10 @@
           {
             "date": "2026-10-08",
             "injured": true
+          },
+          {
+            "date": "2026-10-16",
+            "injured": false
           }
         ]
       },
@@ -22499,6 +22507,30 @@
             "red_cards": 0,
             "rating": 8.2,
             "injured": true,
+            "shots": 2.0,
+            "goals_conceded": 0.0,
+            "tackles": 1.0,
+            "crosses": 2.0,
+            "clearances": 1.0,
+            "duels": 4.0,
+            "duels_won": 2.0,
+            "dribble_attempts": 1.0,
+            "dribbles": 1.0,
+            "pen_scored": 0.0,
+            "pen_missed": 0.0,
+            "passes": 27.0,
+            "pass_accuracy": 20.0,
+            "key_passes": 2.0
+          },
+          {
+            "date": "2026-10-16",
+            "appearances": 1,
+            "goals": 1,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 8.2,
+            "injured": false,
             "shots": 2.0,
             "goals_conceded": 0.0,
             "tackles": 1.0,

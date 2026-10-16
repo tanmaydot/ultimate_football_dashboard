@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": 1,
-    "generated_at": "2026-10-15T00:40:05+00:00",
+    "generated_at": "2026-10-16T00:31:51+00:00",
     "competition": {
       "code": "PL",
       "name": "Premier League"
@@ -9,7 +9,7 @@
     "season": {
       "start": "2026-08-21",
       "end": "2027-05-30",
-      "current_matchday": 6
+      "current_matchday": 7
     },
     "report": {
       "stages": [
@@ -61,12 +61,12 @@
         {
           "name": "footballdata.io team stats",
           "ok": true,
-          "detail": "20/20 teams"
+          "detail": "20/20 teams (20 reused from the last 24h)"
         },
         {
           "name": "history",
           "ok": true,
-          "detail": "matches stored 60, results stored 60, last match date 2026-10-12, team snapshots 77, player snapshots 606"
+          "detail": "matches stored 60, results stored 60, last match date 2026-10-12, team snapshots 77, player snapshots 609"
         }
       ],
       "unmatched_football_data": [],
@@ -78,7 +78,7 @@
       "results_stored": 60,
       "last_match_date": "2026-10-12",
       "team_snapshots": 77,
-      "player_snapshots": 606
+      "player_snapshots": 609
     }
   },
   "standings": [
@@ -26632,7 +26632,7 @@
               "yellow_cards": null,
               "red_cards": null,
               "rating": null,
-              "injured": false,
+              "injured": true,
               "image": "https://apiv3.apifootball.com/badges/players/110045_t-meunier.jpg",
               "full_name": "Thomas Meunier",
               "captain": false,
@@ -26899,7 +26899,7 @@
             "apifootball": {
               "apifootball_key": 1524231978,
               "type": "Defenders",
-              "shirt_number": 42,
+              "shirt_number": 5,
               "appearances": null,
               "goals": null,
               "assists": null,
@@ -27418,7 +27418,7 @@
             "apifootball": {
               "apifootball_key": 766583867,
               "type": "Midfielders",
-              "shirt_number": 7,
+              "shirt_number": 37,
               "appearances": 1,
               "goals": null,
               "assists": 0,
@@ -27997,7 +27997,7 @@
               "player_image": "https://apiv3.apifootball.com/badges/players/76308_a-alese.jpg",
               "player_name": "Ajibola Alese",
               "player_complete_name": "Ajibola Alese",
-              "player_number": "42",
+              "player_number": "5",
               "player_country": "",
               "player_type": "Defenders",
               "player_age": "25",
@@ -28177,7 +28177,7 @@
               "player_image": "https://apiv3.apifootball.com/badges/players/330115_j-jones.jpg",
               "player_name": "Jenson Jones",
               "player_complete_name": "Jenson Jones",
-              "player_number": "48",
+              "player_number": "3",
               "player_country": "",
               "player_type": "Defenders",
               "player_age": "20",
@@ -28222,7 +28222,7 @@
               "player_image": "",
               "player_name": "Ben Kindon",
               "player_complete_name": "Ben Kindon",
-              "player_number": "58",
+              "player_number": "6",
               "player_country": "",
               "player_type": "Defenders",
               "player_age": "19",
@@ -28267,7 +28267,7 @@
               "player_image": "",
               "player_name": "Archie Lightfoot",
               "player_complete_name": "Archie Lightfoot",
-              "player_number": "59",
+              "player_number": "14",
               "player_country": "",
               "player_type": "Defenders",
               "player_age": "18",
@@ -28410,7 +28410,7 @@
               "player_goals": "",
               "player_yellow_cards": "",
               "player_red_cards": "",
-              "player_injured": "No",
+              "player_injured": "Yes",
               "player_substitute_out": "",
               "player_substitutes_on_bench": "",
               "player_assists": "",
@@ -28672,7 +28672,7 @@
               "player_image": "",
               "player_name": "Charlie Dinsdale",
               "player_complete_name": "Charlie Dinsdale",
-              "player_number": "38",
+              "player_number": "7",
               "player_country": "",
               "player_type": "Midfielders",
               "player_age": "19",
@@ -28807,7 +28807,7 @@
               "player_image": "https://apiv3.apifootball.com/badges/players/407452_tom-proctor.jpg",
               "player_name": "Tom Proctor",
               "player_complete_name": "Tom Proctor",
-              "player_number": "77",
+              "player_number": "10",
               "player_country": "",
               "player_type": "Midfielders",
               "player_age": "17",
@@ -28942,7 +28942,7 @@
               "player_image": "",
               "player_name": "Jocelin Ta Bi",
               "player_complete_name": "Ta Bi Jocelin",
-              "player_number": "7",
+              "player_number": "37",
               "player_country": "",
               "player_type": "Midfielders",
               "player_age": "21",
@@ -28987,10 +28987,10 @@
               "player_image": "",
               "player_name": "Jack Whittaker",
               "player_complete_name": "Jack Whittaker",
-              "player_number": "40",
+              "player_number": "4",
               "player_country": "",
               "player_type": "Midfielders",
-              "player_age": "19",
+              "player_age": "20",
               "player_match_played": "",
               "player_goals": "",
               "player_yellow_cards": "",
@@ -29077,7 +29077,7 @@
               "player_image": "https://apiv3.apifootball.com/badges/players/378830_juan-angulo.jpg",
               "player_name": "Juan Angulo",
               "player_complete_name": "Juan Angulo",
-              "player_number": "9",
+              "player_number": "50",
               "player_country": "",
               "player_type": "Forwards",
               "player_age": "18",
@@ -29392,7 +29392,7 @@
               "player_image": "https://apiv3.apifootball.com/badges/players/277545_t-samuel-ogunsuyi.jpg",
               "player_name": "Trey Samuel-Ogunsuyi",
               "player_complete_name": "Trey Samuel-Ogunsuyi",
-              "player_number": "47",
+              "player_number": "9",
               "player_country": "",
               "player_type": "Forwards",
               "player_age": "19",
@@ -29437,7 +29437,7 @@
               "player_image": "",
               "player_name": "Felix Scott",
               "player_complete_name": "Felix Scott",
-              "player_number": "49",
+              "player_number": "16",
               "player_country": "",
               "player_type": "Forwards",
               "player_age": "18",
@@ -42137,30 +42137,6 @@
             }
           },
           {
-            "id": 184747,
-            "name": "Ousmane Diomande",
-            "position": "Defence",
-            "nationality": "Cote d'Ivoire",
-            "date_of_birth": "2004-11-16",
-            "shirt_number": null,
-            "apifootball": {
-              "apifootball_key": 1056866742,
-              "type": "Defenders",
-              "shirt_number": 2,
-              "appearances": null,
-              "goals": null,
-              "assists": null,
-              "yellow_cards": null,
-              "red_cards": null,
-              "rating": null,
-              "injured": false,
-              "image": "https://apiv3.apifootball.com/badges/players/186912_o-diomande.jpg",
-              "full_name": "Ousmane Diomande",
-              "captain": false,
-              "extra": {}
-            }
-          },
-          {
             "id": 191730,
             "name": "Nicolò Savona",
             "position": "Defence",
@@ -42882,13 +42858,6 @@
               "position": "Defence",
               "dateOfBirth": "2005-03-07",
               "nationality": "Brazil"
-            },
-            {
-              "id": 184747,
-              "name": "Ousmane Diomande",
-              "position": "Defence",
-              "dateOfBirth": "2004-11-16",
-              "nationality": "Cote d'Ivoire"
             },
             {
               "id": 191730,
@@ -44930,7 +44899,7 @@
               "yellow_cards": null,
               "red_cards": null,
               "rating": null,
-              "injured": true,
+              "injured": false,
               "image": "https://apiv3.apifootball.com/badges/players/151096_a-khalaili.jpg",
               "full_name": "Anan Khalaili",
               "captain": false,
@@ -47034,7 +47003,7 @@
               "player_goals": "",
               "player_yellow_cards": "",
               "player_red_cards": "",
-              "player_injured": "Yes",
+              "player_injured": "No",
               "player_substitute_out": "",
               "player_substitutes_on_bench": "",
               "player_assists": "",
@@ -54028,7 +53997,7 @@
             "apifootball": {
               "apifootball_key": 2996189403,
               "type": "Defenders",
-              "shirt_number": 3,
+              "shirt_number": 24,
               "appearances": null,
               "goals": null,
               "assists": null,
@@ -54304,7 +54273,7 @@
               "yellow_cards": 0,
               "red_cards": 0,
               "rating": 8.2,
-              "injured": true,
+              "injured": false,
               "image": "https://apiv3.apifootball.com/badges/players/51772_d-brooks.jpg",
               "full_name": "David Brooks",
               "captain": false,
@@ -55359,7 +55328,7 @@
               "player_image": "https://apiv3.apifootball.com/badges/players/133301_j-sanchez.jpg",
               "player_name": "Juanlu Sanchez",
               "player_complete_name": "Juanlu Sanchez",
-              "player_number": "3",
+              "player_number": "24",
               "player_country": "",
               "player_type": "Defenders",
               "player_age": "23",
@@ -56042,7 +56011,7 @@
               "player_goals": "1",
               "player_yellow_cards": "0",
               "player_red_cards": "0",
-              "player_injured": "Yes",
+              "player_injured": "No",
               "player_substitute_out": "",
               "player_substitutes_on_bench": "",
               "player_assists": "0",
