@@ -45,6 +45,7 @@ if DEBUG:
 APIFOOTBALL_API_KEY = os.environ.get('APIFOOTBALL_API_KEY', '')
 FOOTBALL_DATA_API_KEY = os.environ.get('FOOTBALL_DATA_API_KEY', '')
 FOOTBALLDATA_IO_API_KEY = os.environ.get('FOOTBALLDATA_IO_API_KEY', '')
+PITCHAPI_API_KEY = os.environ.get('PITCHAPI_API_KEY', '')
 
 # Application definition
 INSTALLED_APPS = [

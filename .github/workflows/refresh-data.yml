@@ -31,6 +31,7 @@ jobs:
         env:
           APIFOOTBALL_API_KEY: ${{ secrets.APIFOOTBALL_API_KEY }}
           FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+          PITCHAPI_API_KEY: ${{ secrets.PITCHAPI_API_KEY }}
           FOOTBALLDATA_IO_API_KEY: ${{ secrets.FOOTBALLDATA_IO_API_KEY }}
         run: python ufd/manage.py build_pl_data
 

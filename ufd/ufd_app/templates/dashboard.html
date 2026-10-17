@@ -371,7 +371,7 @@
         <span class="text-xs" style="color: var(--muted)">Average ball share across recorded matches</span>
     </div>
     {% else %}
-    <p class="text-sm opacity-60" title="Needs apifootball or footballdata.io match statistics (run build_pl_data with their keys)">N/A</p>
+    <p class="text-sm opacity-60" title="Needs PitchAPI, apifootball or footballdata.io match statistics (run build_pl_data with their keys)">N/A</p>
     {% endif %}
     {% else %}
     <div class="placeholder-note"><i class="fas fa-triangle-exclamation"></i><p>Season stats come from the league table, which is unavailable right now.</p></div>
@@ -470,7 +470,7 @@
     <p class="opacity-70 mb-4">The dashboard reads a data file that hasn't been built. In your project folder run:</p>
     <pre class="text-left text-sm bg-soft border border-line rounded-xl p-4 mb-6 overflow-x-auto">cd ufd
 python manage.py build_pl_data</pre>
-    <p class="opacity-60 text-xs mb-6">Set FOOTBALL_DATA_API_KEY and APIFOOTBALL_API_KEY first. It takes a few minutes because of API rate limits. Reload this page afterwards.</p>
+    <p class="opacity-60 text-xs mb-6">Set FOOTBALL_DATA_API_KEY and PITCHAPI_API_KEY (or APIFOOTBALL_API_KEY) first. It takes a few minutes because of API rate limits. Reload this page afterwards.</p>
     {% else %}
     <h2 class="text-2xl font-bold mb-2">Dashboard unavailable</h2>
     <p class="opacity-70 mb-6">We couldn't load that club. Check the message above, then try again.</p>

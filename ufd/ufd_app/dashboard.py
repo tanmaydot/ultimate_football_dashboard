@@ -221,7 +221,7 @@ def group_squad(squad):
     for player in squad or []:
         raw_position = player.get("position") or "Unknown"
         group = POSITION_GROUPS.get(raw_position, raw_position)
-        extra = player.get("apifootball") or {}
+        extra = pl_data.player_numbers(player)
         entry = {
             "id": player.get("id"),
             "name": player.get("name") or "Unknown player",

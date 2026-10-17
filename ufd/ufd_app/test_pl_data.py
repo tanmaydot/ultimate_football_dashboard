@@ -168,7 +168,9 @@ class BuildDatasetTests(SimpleTestCase):
         self.assertEqual(chelsea["profile"]["premier_league_titles"], {"count": 1, "since": 2023})
         self.assertEqual(chelsea["sources"], {"football_data": True, "apifootball": True,
                                               "apifootball_team_key": "100", "matched_by": "exact",
-                                              "footballdata_io": False, "footballdata_io_team_id": None})
+                                              "footballdata_io": False, "footballdata_io_team_id": None,
+                                              "pitchapi": False, "pitchapi_team_id": None,
+                                              "pitchapi_unmatched_players": []})
         self.assertIn("squad", chelsea["raw"]["football_data"])
         self.assertIn("players", chelsea["raw"]["apifootball"])
         self.assertEqual([r["position"] for r in data["standings"]], [1, 2, 3])

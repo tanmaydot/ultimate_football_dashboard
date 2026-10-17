@@ -44,3 +44,6 @@ Thumbs.db
 dist/
 build/
 
+
+# Raw PitchAPI harvest (large; keep it out of git, zip it instead)
+ufd/pitchapi_raw/

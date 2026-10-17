@@ -1,0 +1,1843 @@
+diff --git a/.github/workflows/refresh-data.yml b/.github/workflows/refresh-data.yml
+index e0c181e..fda7242 100644
+--- a/.github/workflows/refresh-data.yml
++++ b/.github/workflows/refresh-data.yml
+@@ -31,6 +31,7 @@ jobs:
+         env:
+           APIFOOTBALL_API_KEY: ${{ secrets.APIFOOTBALL_API_KEY }}
+           FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
++          PITCHAPI_API_KEY: ${{ secrets.PITCHAPI_API_KEY }}
+           FOOTBALLDATA_IO_API_KEY: ${{ secrets.FOOTBALLDATA_IO_API_KEY }}
+         run: python ufd/manage.py build_pl_data
+ 
+diff --git a/readme.md b/readme.md
+index 708fb06..c8ce14f 100644
+--- a/readme.md
++++ b/readme.md
+@@ -11,7 +11,8 @@ A football dashboard built with Django that brings football data, match informat
+ - **API Sources:**
+   - [FootballData.io](https://footballdata.io/documentation/)
+   - [football-data.org](https://www.football-data.org/)
+-  - [API-Football](https://apifootball.com/)
++  - [PitchAPI](https://pitchapi.dev) (formations, lineups, possession, player season numbers)
++  - [API-Football](https://apifootball.com/) (venue details only, when PitchAPI is in use)
+ 
+ ---
+ 
+@@ -30,3 +31,22 @@ python manage.py harvest_pitchapi --seasons 2026/2027,2025/2026 --include-upcomi
+ Useful options: `--endpoints lineups,stats,events,players` (only some), `--per-player` (4 extra calls per player per match),
+ `--max-minutes 60` / `--max-requests 5000` (stop cleanly), `--refresh` (download again). `ufd/pitchapi_raw/_index.json`
+ summarises what was fetched, what the API said is unavailable, and any failures. The key is never written to disk.
++
++### Using PitchAPI in the daily build
++
++`build_pl_data` now takes formations, starting XIs, possession and every player's season numbers from PitchAPI
++(add a `PITCHAPI_API_KEY` secret next to the others). It fetches each finished match once (4 requests: lineups, stats,
++players, events), re-fetches the last 3 days in case of corrections, and keeps them in `pl_history.json`; season totals
++are summed from those. football-data.org still supplies the squads, coaches and club details, footballdata.io the xG,
++and apifootball.com is only asked for venue capacity / city / surface.
++
++```bash
++python manage.py build_pl_data                                   # live: uses PITCHAPI_API_KEY
++python manage.py build_pl_data --pitchapi-harvest pitchapi_raw   # from a harvest folder, no key or network for PitchAPI
++python manage.py build_pl_data --skip-pitchapi                   # the old apifootball path
++python manage.py audit_pitchapi pitchapi_raw                     # consistency checks on a harvest
++```
++
++If PitchAPI fails, the build uses the matches it stored earlier; with nothing stored it falls back to apifootball.
++The build report lists clubs that did not match, players who appeared but are in no squad list, and matches whose
++card counts do not add up to the team statistics.
+diff --git a/ufd/ufd_app/dashboard.py b/ufd/ufd_app/dashboard.py
+index 0b7b6dc..e075ff6 100644
+--- a/ufd/ufd_app/dashboard.py
++++ b/ufd/ufd_app/dashboard.py
+@@ -221,7 +221,7 @@ def group_squad(squad):
+     for player in squad or []:
+         raw_position = player.get("position") or "Unknown"
+         group = POSITION_GROUPS.get(raw_position, raw_position)
+-        extra = player.get("apifootball") or {}
++        extra = pl_data.player_numbers(player)
+         entry = {
+             "id": player.get("id"),
+             "name": player.get("name") or "Unknown player",
+diff --git a/ufd/ufd_app/history.py b/ufd/ufd_app/history.py
+index 3dcad61..441c4f2 100644
+--- a/ufd/ufd_app/history.py
++++ b/ufd/ufd_app/history.py
+@@ -8,6 +8,10 @@ sees to this file instead of starting from scratch:
+ * ``team_stats``    per club, one snapshot per day (only when something changed)
+ * ``player_stats``  per club and player, one snapshot per day (only when something changed)
+ * ``io_stats``      footballdata.io team stats with the time they were fetched (so they are not re-fetched every run)
++* ``pitch_matches`` PitchAPI finished matches, keyed by PitchAPI match id: the match in apifootball's event
++                    shape (formations, XIs, possession), each player's numbers for that match (sparse), and
++                    whether the cards added up to the team statistics. Season totals are summed from these.
++* ``pitch_players`` PitchAPI player id -> name, image and club (stable details, kept once)
+ 
+ Formations, possession and clean sheets are derived from the stored matches, so they keep
+ growing across runs even when the API only returns the latest few.
+@@ -51,7 +55,8 @@ def trim_event(event):
+ 
+ def _fresh(season_start=None):
+     return {"version": HISTORY_VERSION, "season_start": season_start, "updated_at": None,
+-            "matches": {}, "results": {}, "team_stats": {}, "player_stats": {}, "io_stats": {}}
++            "matches": {}, "results": {}, "team_stats": {}, "player_stats": {}, "io_stats": {},
++            "pitch_matches": {}, "pitch_players": {}}
+ 
+ 
+ def _now():
+@@ -148,6 +153,26 @@ class History:
+                 updated += 1
+         return new, updated
+ 
++    # ---- PitchAPI matches --------------------------------------------------
++    @property
++    def pitch_matches(self):
++        return self.data["pitch_matches"]
++
++    def pitch_match(self, match_id):
++        return self.pitch_matches.get(str(match_id))
++
++    def add_pitch_match(self, match_id, record):
++        """Store one finished match (replacing an older copy); the player details are kept once, newest wins."""
++        record = dict(record)
++        for pid, info in (record.pop("info", None) or {}).items():
++            self.data["pitch_players"][pid] = {k: v for k, v in info.items() if v}
++        self.pitch_matches[str(match_id)] = record
++
++    def pitch_records(self):
++        """Stored PitchAPI matches, oldest first (so 'latest' values such as shirt numbers end up newest)."""
++        return sorted(self.pitch_matches.values(), key=lambda r: ((r.get("event") or {}).get("match_date") or "",
++                                                                   (r.get("event") or {}).get("match_time") or ""))
++
+     # ---- football-data results ---------------------------------------------
+     def add_results(self, matches):
+         added = 0
+@@ -215,6 +240,7 @@ class History:
+             "matches_stored": len(self.matches),
+             "results_stored": len(self.data["results"]),
+             "last_match_date": self.last_match_date(),
++            "pitch_matches_stored": len(self.pitch_matches),
+             "team_snapshots": sum(len(s) for s in self.data["team_stats"].values()),
+             "player_snapshots": sum(len(p["snapshots"]) for club in self.data["player_stats"].values() for p in club.values()),
+         }
+diff --git a/ufd/ufd_app/management/commands/audit_pitchapi.py b/ufd/ufd_app/management/commands/audit_pitchapi.py
+new file mode 100644
+index 0000000..f793fde
+--- /dev/null
++++ b/ufd/ufd_app/management/commands/audit_pitchapi.py
+@@ -0,0 +1,19 @@
++from django.core.management.base import BaseCommand, CommandError
++
++from ufd_app import pitchapi_audit
++
++
++class Command(BaseCommand):
++    help = "Check that a harvest_pitchapi folder agrees with itself (scores, formations, possession, cards)."
++
++    def add_arguments(self, parser):
++        parser.add_argument("folder", help="The harvest folder, e.g. ufd/pitchapi_raw")
++
++    def handle(self, *args, **options):
++        report = pitchapi_audit.audit(options["folder"])
++        if not report["matches"]:
++            raise CommandError("No finished matches found in that folder.")
++        self.stdout.write(f"{report['matches']} finished matches")
++        for check in report["checks"]:
++            line = f"  [{'ok' if check['ok'] else 'CHECK'}] {check['name']}: {check['detail']}"
++            self.stdout.write(self.style.SUCCESS(line) if check["ok"] else self.style.WARNING(line))
+diff --git a/ufd/ufd_app/management/commands/build_pl_data.py b/ufd/ufd_app/management/commands/build_pl_data.py
+index cc38004..6af55b6 100644
+--- a/ufd/ufd_app/management/commands/build_pl_data.py
++++ b/ufd/ufd_app/management/commands/build_pl_data.py
+@@ -2,13 +2,13 @@ from pathlib import Path
+ 
+ from django.core.management.base import BaseCommand, CommandError
+ 
+-from ufd_app import history, pl_data
++from ufd_app import history, pitchapi_source, pl_data
+ 
+ 
+ class Command(BaseCommand):
+     help = (
+-        "Fetch Premier League team data from football-data.org, apifootball.com and footballdata.io "
+-        "and write the JSON file the dashboard reads."
++        "Fetch Premier League team data from football-data.org, PitchAPI (formations, possession, player numbers), "
++        "apifootball.com (venues) and footballdata.io and write the JSON file the dashboard reads."
+     )
+ 
+     def add_arguments(self, parser):
+@@ -16,6 +16,10 @@ class Command(BaseCommand):
+                             help="Where to write the JSON (default: ufd_app/data/pl_teams.json)")
+         parser.add_argument("--skip-events", action="store_true",
+                             help="Skip the per-match apifootball calls (no formations / possession, fewer requests)")
++        parser.add_argument("--skip-pitchapi", action="store_true",
++                            help="Don't use PitchAPI: formations, possession and player numbers come from apifootball again")
++        parser.add_argument("--pitchapi-harvest", default=None, metavar="FOLDER",
++                            help="Read PitchAPI data from a harvest_pitchapi folder instead of calling the API (no key needed)")
+         parser.add_argument("--skip-footballdata-io", action="store_true",
+                             help="Don't call footballdata.io (about 23 of its 2,000 monthly requests)")
+         parser.add_argument("--history", default=str(history.DEFAULT_HISTORY),
+@@ -32,6 +36,19 @@ class Command(BaseCommand):
+         if not fd.is_configured():
+             raise CommandError("FOOTBALL_DATA_API_KEY is not set.")
+         ap = pl_data.ApiFootballSource()
++        pa = None
++        if not options["skip_pitchapi"]:
++            if options["pitchapi_harvest"]:
++                pa = pitchapi_source.HarvestSource(options["pitchapi_harvest"])
++                if not pa.is_configured():
++                    raise CommandError(
++                        f"No PitchAPI harvest at {Path(options['pitchapi_harvest']).resolve()} (it needs a 'matches' folder inside). "
++                        "The path is relative to where you run the command: from the repo root use ufd/pitchapi_raw.")
++            else:
++                pa = pitchapi_source.PitchApiSource()
++            if not pa.is_configured():
++                self.stdout.write(self.style.WARNING(
++                    "PitchAPI is not configured (PITCHAPI_API_KEY is not set): using apifootball for formations and player numbers."))
+         io = None if options["skip_footballdata_io"] else pl_data.FootballDataIoSource()
+ 
+         store = None
+@@ -42,7 +59,7 @@ class Command(BaseCommand):
+         self.stdout.write("Building Premier League data. This takes a few minutes because of API rate limits.")
+         try:
+             dataset = pl_data.build_dataset(fd, ap, log=self.stdout.write, include_events=not options["skip_events"], io=io,
+-                                           history=store, io_max_age_hours=options["io_max_age_hours"])
++                                           history=store, pa=pa, io_max_age_hours=options["io_max_age_hours"])
+         except pl_data.FetchError as exc:
+             raise CommandError(str(exc))
+ 
+@@ -52,10 +69,19 @@ class Command(BaseCommand):
+             store.save()
+             self.stdout.write(f"History saved to {store.path}")
+         teams = len(dataset["teams"])
++        with_pa = sum(1 for t in dataset["teams"].values() if t["sources"].get("pitchapi"))
++        pitch_note = f"{with_pa} from PitchAPI, " if with_pa else ""
+         with_ap = sum(1 for t in dataset["teams"].values() if t["sources"]["apifootball"])
+         with_io = sum(1 for t in dataset["teams"].values() if t["sources"]["footballdata_io"])
+         self.stdout.write(self.style.SUCCESS(
+-            f"Wrote {teams} teams ({with_ap} enriched from apifootball, {with_io} from footballdata.io) to {output}"))
++            f"Wrote {teams} teams ({pitch_note}{with_ap} enriched from apifootball, {with_io} from footballdata.io) to {output}"))
++        unmatched_pa = dataset["meta"]["report"].get("unmatched_pitchapi") or []
++        if unmatched_pa:
++            self.stdout.write(self.style.WARNING("No PitchAPI match for: " + ", ".join(unmatched_pa)))
++        unmatched_players = dataset["meta"]["report"].get("unmatched_pitchapi_players") or []
++        if unmatched_players:
++            self.stdout.write(self.style.WARNING(
++                f"{len(unmatched_players)} PitchAPI players who appeared are not in the squad lists: " + ", ".join(unmatched_players[:10])))
+         unmatched = dataset["meta"]["report"]["unmatched_football_data"]
+         if unmatched:
+             self.stdout.write(self.style.WARNING("No apifootball match for: " + ", ".join(unmatched)))
+diff --git a/ufd/ufd_app/pitchapi_audit.py b/ufd/ufd_app/pitchapi_audit.py
+new file mode 100644
+index 0000000..a952af4
+--- /dev/null
++++ b/ufd/ufd_app/pitchapi_audit.py
+@@ -0,0 +1,96 @@
++"""Consistency checks on a PitchAPI harvest folder (no network, no key).
++
++These are the checks that showed PitchAPI is trustworthy enough to replace apifootball for matches and players:
++the data must agree with itself. ``audit(folder)`` returns {"checks": [{name, ok, detail}], "matches": n}.
++"""
++import math
++from collections import defaultdict
++
++from . import pitchapi_source as ps
++
++NEEDED = ("lineups", "stats", "players", "events")
++
++
++def _correlation(xs, ys):
++    if len(xs) < 3:
++        return None
++    mx, my = sum(xs) / len(xs), sum(ys) / len(ys)
++    sxx, syy = sum((x - mx) ** 2 for x in xs), sum((y - my) ** 2 for y in ys)
++    if not sxx or not syy:
++        return None
++    return sum((x - mx) * (y - my) for x, y in zip(xs, ys)) / math.sqrt(sxx * syy)
++
++
++def _pass_share(stats):
++    home, away = ps.team_stat_pair(stats, "passes")
++    return 100 * home / (home + away) if home is not None and (home + away) else None
++
++
++def audit(folder):
++    source = ps.HarvestSource(folder)
++    matches = source.finished_matches()
++    checks = []
++
++    def add(name, ok, detail):
++        checks.append({"name": name, "ok": ok, "detail": detail})
++
++    missing, goal_bad, dup_goals, geometry_bad, cards_bad = [], [], 0, [], []
++    possession, shares = [], []
++    table = defaultdict(lambda: [0, 0, 0, 0, 0, 0])
++    for m in matches:
++        bundle = source.bundle(m["id"])
++        gone = [n for n in NEEDED if not bundle.get(n)]
++        if gone:
++            missing.append(f"{m['id']} ({', '.join(gone)})")
++            continue
++        home, away = m["home_team"]["id"], m["away_team"]["id"]
++        # goals: the event's team_id is the side the goal counts for (own goals included)
++        raw = [e for e in bundle["events"].get("events") or [] if e.get("event_type") == "goal"]
++        kept = [e for e in ps.dedupe_events(bundle["events"].get("events")) if e.get("event_type") == "goal"]
++        dup_goals += len(raw) - len(kept)
++        got = (sum(1 for e in kept if e.get("team_id") == home), sum(1 for e in kept if e.get("team_id") == away))
++        if got != (m.get("score_home"), m.get("score_away")):
++            goal_bad.append(f"{m['id']} events {got} vs score {(m.get('score_home'), m.get('score_away'))}")
++        for side in ("home", "away"):
++            side_data = bundle["lineups"].get(side) or {}
++            formation, xi = side_data.get("formation"), side_data.get("starters") or []
++            ordered = ps._starters_in_order(side_data)
++            lines = 0
++            last = None
++            for p in ordered:
++                x = p.get("pitch_x") or 0
++                if last is None or x - last > 0.05:
++                    lines += 1
++                last = x
++            if not formation or len(xi) != 11 or lines != len(formation.split("-")) + 1:
++                geometry_bad.append(f"{m['id']} {side} {formation}")
++        lines_, _ = ps.player_lines(bundle["players"], bundle["lineups"], bundle["events"].get("events"))
++        if ps.cards_reconcile(lines_, bundle["stats"]) is False:
++            cards_bad.append(m["id"])
++        ph = ps._stat_value(bundle["stats"], "BallPossesion", "home")
++        share = _pass_share(bundle["stats"])
++        if ph not in (None, "") and share is not None:
++            possession.append(float(ph))
++            shares.append(share)
++        sh, sa = m.get("score_home") or 0, m.get("score_away") or 0
++        for team, gf, ga in ((home, sh, sa), (away, sa, sh)):
++            row = table[team]
++            row[0] += 1; row[4] += gf; row[5] += ga
++            row[1] += gf > ga; row[2] += gf == ga; row[3] += gf < ga
++
++    add("endpoints present for every finished match", not missing,
++        f"{len(matches) - len(missing)}/{len(matches)} complete" + (f"; missing: {', '.join(missing[:5])}" if missing else ""))
++    add("goal events add up to the final score", not goal_bad,
++        f"{len(matches) - len(goal_bad) - len(missing)} exact; {dup_goals} duplicated goal events removed"
++        + (f"; off: {'; '.join(goal_bad[:3])}" if goal_bad else ""))
++    add("formation matches the starters' pitch positions", not geometry_bad,
++        "all consistent" if not geometry_bad else f"{len(geometry_bad)} sides differ, e.g. {', '.join(geometry_bad[:3])}")
++    corr = _correlation(possession, shares)
++    add("possession agrees with pass share", corr is not None and corr > 0.95,
++        "not enough matches" if corr is None else f"correlation {corr:.3f} over {len(possession)} matches")
++    add("cards add up to the team statistics", not cards_bad,
++        f"{len(matches) - len(cards_bad) - len(missing)} of {len(matches) - len(missing)} reconcile"
++        + (" (a few are off by one or two: shown in the build report)" if cards_bad else ""))
++    add("a league table can be rebuilt from the results", bool(table),
++        f"{len(table)} clubs, {sum(r[4] for r in table.values())} goals")
++    return {"matches": len(matches), "checks": checks}
+diff --git a/ufd/ufd_app/pitchapi_harvest.py b/ufd/ufd_app/pitchapi_harvest.py
+index 2023060..87d7fdc 100644
+--- a/ufd/ufd_app/pitchapi_harvest.py
++++ b/ufd/ufd_app/pitchapi_harvest.py
+@@ -81,8 +81,8 @@ def find_league(leagues_body, wanted="Premier League", country="england"):
+     if not candidates:
+         return None
+     def english(d):
+-        text = json.dumps(d).lower()
+-        return country in text
++        # /v1/leagues has four "Premier League"s (England, Russia, Egypt, Canada); country_code tells them apart
++        return str(d.get("country_code") or "").upper() == "ENG" or country in json.dumps(d).lower()
+     return next((d for d in candidates if english(d)), candidates[0])
+ 
+ 
+diff --git a/ufd/ufd_app/pitchapi_source.py b/ufd/ufd_app/pitchapi_source.py
+new file mode 100644
+index 0000000..db099ac
+--- /dev/null
++++ b/ufd/ufd_app/pitchapi_source.py
+@@ -0,0 +1,568 @@
++"""PitchAPI as the source of formations, lineups, possession and player season numbers.
++
++It replaces what ``apifootball`` used to provide for those, and the numbers are checked (see
++``pitchapi_audit``): possession agrees with the pass share of the same match (apifootball's did not),
++and goals summed over players add up to the real league total.
++
++Two interchangeable sources feed the build:
++
++* ``PitchApiSource``  calls the live API (about 4 requests per finished match, once per match);
++* ``HarvestSource``   reads a folder made by ``manage.py harvest_pitchapi`` (no key, no network).
++
++Both expose ``is_configured()``, ``all_teams()``, ``finished_matches()`` and ``bundle(match_id)``.
++
++Findings from the real data that this module works around:
++  * ``/leagues`` lists four leagues called "Premier League" (England, Russia, Egypt, Canada): the English
++    one is picked by ``country_code == "ENG"``, never by name alone;
++  * an event is sometimes logged twice, one minute apart (a goal, or a yellow card): ``dedupe_events``;
++  * yellow / red cards still don't always add up to the match's team statistics, so every stored match
++    records whether they did (``cards_ok``) and the build report counts the ones that did not;
++  * a player's team and shirt number come from the lineups; there are no birth dates or positions at all;
++  * the same coach can be spelled with and without accents ("Jakirovic" / "Jakirović"): ``pick_spelling``.
++
++The API key is never written anywhere (the client in ``pitchapi.py`` only sends it as a header).
++"""
++import json
++import logging
++import re
++import unicodedata
++from collections import Counter, defaultdict
++from datetime import date, timedelta
++from difflib import SequenceMatcher
++from pathlib import Path
++
++from .pitchapi import PitchApiAuthError, PitchApiClient, PitchApiError
++
++logger = logging.getLogger(__name__)
++
++LEAGUE_NAME = "Premier League"
++LEAGUE_COUNTRY = "ENG"
++REFETCH_DAYS = 3  # matches this recent are fetched again, so a late correction is picked up
++
++
++# --------------------------------------------------------------------------- #
++# Small helpers
++# --------------------------------------------------------------------------- #
++_NO_DECOMPOSITION = str.maketrans({"đ": "d", "Đ": "D", "ł": "l", "Ł": "L", "ø": "o", "Ø": "O", "æ": "ae", "Æ": "AE", "ß": "ss"})
++
++
++def fold(text):
++    """Lower-case ASCII form used to compare names ('Jakirović' == 'jakirovic', 'Đorđe' == 'dorde')."""
++    return unicodedata.normalize("NFKD", (text or "").translate(_NO_DECOMPOSITION)).encode("ascii", "ignore").decode().lower()
++
++
++def name_tokens(name):
++    """Words of a name, folded; apostrophes are dropped, not split on (M'Baye -> mbaye)."""
++    return re.sub(r"[^a-z ]+", " ", re.sub(r"['’`]", "", fold(name))).split()
++
++
++def pick_spelling(variants):
++    """One spelling out of the variants of the same name: the accented one if there is one, else the commonest."""
++    counts = Counter(v for v in variants if v)
++    if not counts:
++        return None
++    accented = [v for v in counts if re.search(r"[^\x00-\x7f]", v)]
++    pool = accented or list(counts)
++    return max(pool, key=lambda v: (counts[v], v))
++
++
++def pick_league(leagues_body, name=LEAGUE_NAME, country=LEAGUE_COUNTRY):
++    """The league entry for ``name`` in ``country``; None when there is no such league."""
++    leagues = ((leagues_body or {}).get("data") or {}).get("leagues") or []
++    for league in leagues:
++        if (str(league.get("name") or "").strip().lower() == name.lower()
++                and str(league.get("country_code") or "").upper() == country):
++            return league
++    return None
++
++
++def _num(value):
++    return value if isinstance(value, (int, float)) and not isinstance(value, bool) else None
++
++
++def _minute(event):
++    return (_num(event.get("minute")) or 0) + (_num(event.get("minute_added")) or 0)
++
++
++def dedupe_events(events):
++    """Drop an event that is logged a second time within a minute (same type, player and period).
++
++    Goals must also carry the same running score, so two real goals can never be merged.
++    """
++    kept = []
++    for event in sorted(events or [], key=lambda e: (_minute(e), e.get("event_type") or "")):
++        if event.get("event_type") in ("goal", "yellowcard", "redcard"):
++            player = (event.get("player") or {}).get("id")
++            if any(
++                prev.get("event_type") == event.get("event_type")
++                and (prev.get("player") or {}).get("id") == player
++                and prev.get("period") == event.get("period")
++                and abs(_minute(prev) - _minute(event)) <= 1
++                and (event.get("event_type") != "goal"
++                     or (prev.get("score_home"), prev.get("score_away")) == (event.get("score_home"), event.get("score_away")))
++                for prev in kept[-8:]
++            ):
++                continue
++        kept.append(event)
++    return kept
++
++
++# --------------------------------------------------------------------------- #
++# Sources
++# --------------------------------------------------------------------------- #
++def _teams_from(matches):
++    seen, teams = set(), []
++    for match in matches:
++        for side in ("home_team", "away_team"):
++            team = match.get(side) or {}
++            if team.get("id") and team["id"] not in seen:
++                seen.add(team["id"])
++                teams.append({"id": team["id"], "name": team.get("name"), "image_url": team.get("image_url")})
++    return teams
++
++
++class PitchApiSource:
++    """Live PitchAPI. Never calls anything twice for the same match unless it is recent."""
++
++    BUNDLE = (("lineups", "/lineups"), ("stats", "/stats"), ("players", "/players"), ("events", "/events"))
++
++    def __init__(self, client=None):
++        self.client = client or PitchApiClient()
++        self._league = None
++        self._cache = {}
++
++    def is_configured(self):
++        return self.client.is_configured()
++
++    def league_id(self):
++        if self._league is None:
++            league = pick_league(self.client.get("/v1/leagues"))
++            if not league:
++                raise PitchApiError(f"no {LEAGUE_NAME} with country_code {LEAGUE_COUNTRY} in /v1/leagues")
++            self._league = league["id"]
++        return self._league
++
++    def _matches(self, status):
++        if status not in self._cache:
++            body = self.client.get(f"/v1/leagues/{self.league_id()}/matches", {"status": status})
++            self._cache[status] = (body.get("data") or {}).get("matches") or []
++        return self._cache[status]
++
++    def finished_matches(self):
++        return [m for m in self._matches("played") if m.get("status") == "finished"]
++
++    def all_teams(self):
++        return _teams_from(self._matches("played") + self._matches("upcoming"))
++
++    def bundle(self, match_id):
++        """{'lineups': ..., 'stats': ..., 'players': ..., 'events': ...} (each the response's data), None for any that is missing."""
++        out = {}
++        for name, suffix in self.BUNDLE:
++            try:
++                out[name] = self.client.get(f"/v1/matches/{match_id}{suffix}").get("data")
++            except PitchApiAuthError:
++                raise
++            except PitchApiError as exc:
++                if exc.status == 404:
++                    out[name] = None
++                else:
++                    raise
++        return out
++
++
++class HarvestSource:
++    """Reads the folder written by ``manage.py harvest_pitchapi`` (the same four endpoints, from disk)."""
++
++    def __init__(self, folder):
++        self.folder = Path(folder)
++
++    def is_configured(self):
++        return (self.folder / "matches").is_dir()
++
++    def _read(self, path):
++        try:
++            body = json.loads(path.read_text(encoding="utf-8"))
++        except (OSError, ValueError):
++            return None
++        return None if isinstance(body, dict) and "_error" in body else body
++
++    def _matches(self, kind):
++        found = []
++        for path in sorted((self.folder / "matches").glob(f"*.{kind}.json")):
++            found += ((self._read(path) or {}).get("data") or {}).get("matches") or []
++        return found
++
++    def finished_matches(self):
++        return [m for m in self._matches("played") if m.get("status") == "finished"]
++
++    def all_teams(self):
++        return _teams_from(self._matches("played") + self._matches("upcoming"))
++
++    def bundle(self, match_id):
++        folder = self.folder / "match" / match_id
++        out = {}
++        for name in ("lineups", "stats", "players", "events"):
++            body = self._read(folder / f"{name}.json")
++            out[name] = (body or {}).get("data") if body else None
++        return out
++
++
++# --------------------------------------------------------------------------- #
++# One match -> what the build stores
++# --------------------------------------------------------------------------- #
++def _starters_in_order(side):
++    """Starting XI as GK, then defence -> attack, each line in the order the formation page expects.
++
++    ``pitch_x`` is the line (0.1 is the goalkeeper), ``pitch_y`` the width. Lines are found by gaps in x rather
++    than by rounding, because a back five can arrive as 0.36 and 0.37 on what is one line.
++    """
++    players = sorted(side.get("starters") or [], key=lambda s: _num(s.get("pitch_x")) or 0)
++    line, last, keyed = -1, None, []
++    for p in players:
++        x = _num(p.get("pitch_x")) or 0
++        if last is None or x - last > 0.05:
++            line += 1
++        last = x
++        keyed.append((line, -(_num(p.get("pitch_y")) or 0), p))
++    return [p for _line, _y, p in sorted(keyed, key=lambda k: (k[0], k[1]))]
++
++
++def _stat_value(stats_body, key, side):
++    """The 'All periods' value of a team statistic as text ('64', '282 (77%)'), None when absent."""
++    for period in (stats_body or {}).get("periods") or []:
++        if period.get("period") != "All":
++            continue
++        for group in period.get("groups") or []:
++            for item in group.get("items") or []:
++                if item.get("key") == key:
++                    return item.get(side)
++    return None
++
++
++def team_stat_pair(stats_body, key):
++    home, away = _stat_value(stats_body, key, "home"), _stat_value(stats_body, key, "away")
++    to_int = lambda v: int(float(str(v).split(" ")[0])) if v not in (None, "") else None
++    try:
++        return to_int(home), to_int(away)
++    except ValueError:
++        return None, None
++
++
++def adapt_match(match, lineups, stats):
++    """A PitchAPI match in the shape ``pl_data.derive_from_events`` already reads (apifootball's event shape)."""
++    possession = [_stat_value(stats, "BallPossesion", "home"), _stat_value(stats, "BallPossesion", "away")]
++    event = {
++        "match_id": match["id"],
++        "match_date": match.get("date"),
++        "match_time": (match.get("time_utc") or "")[11:16] or None,
++        "match_status": "Finished",
++        "match_hometeam_id": (match.get("home_team") or {}).get("id"),
++        "match_awayteam_id": (match.get("away_team") or {}).get("id"),
++        "match_hometeam_name": (match.get("home_team") or {}).get("name"),
++        "match_awayteam_name": (match.get("away_team") or {}).get("name"),
++        "match_hometeam_score": str(match.get("score_home")),
++        "match_awayteam_score": str(match.get("score_away")),
++        "match_hometeam_system": ((lineups or {}).get("home") or {}).get("formation") or "",
++        "match_awayteam_system": ((lineups or {}).get("away") or {}).get("formation") or "",
++        "lineup": {
++            side: {"starting_lineups": [
++                {"lineup_player": s.get("name"), "lineup_number": s.get("shirt_number"),
++                 "lineup_position": str(n), "player_key": s.get("player_id")}
++                for n, s in enumerate(_starters_in_order((lineups or {}).get(side) or {}), 1)]}
++            for side in ("home", "away")
++        },
++        "statistics": [],
++    }
++    if all(v not in (None, "") for v in possession):
++        event["statistics"] = [{"type": "Ball Possession", "home": f"{possession[0]}%", "away": f"{possession[1]}%"}]
++    for side in ("home", "away"):
++        coach = (((lineups or {}).get(side) or {}).get("coach") or {}).get("name")
++        if coach:
++            event[f"match_{side}team_coach"] = coach
++    return event
++
++
++# (short key stored, PitchAPI stat key, 'value' or 'total'). Only non-zero numbers are stored.
++_FIELDS = [
++    ("min", "minutes_played", "value"), ("g", "goals", "value"), ("a", "assists", "value"),
++    ("og", "owngoal", "value"), ("sh", "total_shots", "value"), ("sv", "saves", "value"),
++    ("gc", "goals_conceded", "value"), ("sib", "saves_inside_box", "value"), ("fl", "fouls", "value"),
++    ("tk", "matchstats.headers.tackles", "value"), ("bl", "shot_blocks", "value"),
++    ("cr", "accurate_crosses", "value"), ("crt", "accurate_crosses", "total"),
++    ("in", "interceptions", "value"), ("cl", "clearances", "value"), ("dp", "dispossessed", "value"),
++    ("dw", "duel_won", "value"), ("dl", "duel_lost", "value"),
++    ("dbs", "dribbles_succeeded", "value"), ("dba", "dribbles_succeeded", "total"),
++    ("ps", "accurate_passes", "value"), ("pst", "accurate_passes", "total"),
++    ("kp", "chances_created", "value"), ("ww", "shots_woodwork", "value"),
++    ("pw", "penalties_won", "value"), ("pc", "conceded_penalties", "value"), ("pm", "missed_penalty", "value"),
++    ("xg", "expected_goals", "value"), ("xa", "expected_assists", "value"),
++]
++
++
++def _flat(player):
++    """{stat key: stat dict}. A key can appear in several groups with the same numbers: the first one wins."""
++    flat = {}
++    for group in player.get("stats") or []:
++        for item in (group.get("stats") or {}).values():
++            key = item.get("key")
++            if key and isinstance(item.get("stat"), dict):
++                flat.setdefault(key, item["stat"])
++    return flat
++
++
++def player_lines(players_body, lineups, events):
++    """{player id: {'t': team id, short numbers...}} for one match, with cards and penalty goals from the events."""
++    shirts, captains = {}, set()
++    for side in ("home", "away"):
++        for group in ("starters", "subs"):
++            for p in ((lineups or {}).get(side) or {}).get(group) or []:
++                if p.get("player_id"):
++                    shirts[p["player_id"]] = p.get("shirt_number")
++                    if p.get("is_captain") and group == "starters":
++                        captains.add(p["player_id"])
++    lines, info = {}, {}
++    for entry in players_body or []:
++        player = entry.get("player") or {}
++        pid = player.get("id")
++        if not pid:
++            continue
++        flat = _flat(entry)
++        line = {"t": entry.get("team_id")}
++        for short, key, kind in _FIELDS:
++            value = _num((flat.get(key) or {}).get(kind))
++            if value:
++                line[short] = round(value, 2) if isinstance(value, float) else value
++        rating = _num((flat.get("rating_title") or {}).get("value"))
++        if rating:
++            line["rt"] = rating
++        if shirts.get(pid) not in (None, ""):
++            line["no"] = shirts[pid]
++        if pid in captains:
++            line["c"] = 1
++        lines[pid] = line
++        info[pid] = {"name": player.get("name"), "image": player.get("image_url"), "team": entry.get("team_id")}
++    for event in dedupe_events(events):
++        kind = event.get("event_type")
++        player = event.get("player") or {}
++        pid = player.get("id")
++        if not pid or kind not in ("goal", "yellowcard", "redcard"):
++            continue
++        if pid not in lines:  # carded without being listed (rare): keep the card
++            lines[pid] = {"t": event.get("team_id")}
++            info[pid] = {"name": player.get("name"), "image": player.get("image_url"), "team": event.get("team_id")}
++        line = lines[pid]
++        if kind == "yellowcard":
++            line["yc"] = line.get("yc", 0) + 1
++        elif kind == "redcard":
++            line["rc"] = line.get("rc", 0) + 1
++        elif event.get("is_penalty") and not event.get("is_own_goal"):
++            line["pg"] = line.get("pg", 0) + 1
++    return lines, info
++
++
++def cards_reconcile(lines, stats_body):
++    """True when the cards credited to players equal the match's team statistics (None when those are missing)."""
++    yellow, red = team_stat_pair(stats_body, "yellow_cards"), team_stat_pair(stats_body, "red_cards")
++    if None in yellow or None in red:
++        return None
++    return (sum(l.get("yc", 0) for l in lines.values()) == sum(yellow)
++            and sum(l.get("rc", 0) for l in lines.values()) == sum(red))
++
++
++def build_match_record(match, bundle):
++    """What the history keeps for one finished match, or None when the essentials (lineups, stats) are missing."""
++    lineups, stats = bundle.get("lineups"), bundle.get("stats")
++    if not lineups or not stats:
++        return None
++    lines, info = player_lines(bundle.get("players"), lineups, (bundle.get("events") or {}).get("events"))
++    return {
++        "event": adapt_match(match, lineups, stats),
++        "players": lines,
++        "info": info,
++        "cards_ok": cards_reconcile(lines, stats),
++    }
++
++
++# --------------------------------------------------------------------------- #
++# Refreshing the stored matches
++# --------------------------------------------------------------------------- #
++def refresh_history(source, history, today=None, log=print):
++    """Fetch the finished matches the history doesn't have yet (and the last few days again).
++
++    Returns {"finished", "new", "refreshed", "failed": [match ids]}. A missing match never aborts the build;
++    a rejected key does (PitchApiAuthError propagates).
++    """
++    today = today or date.today()
++    cutoff = (today - timedelta(days=REFETCH_DAYS)).isoformat()
++    result = {"finished": 0, "new": 0, "refreshed": 0, "failed": []}
++    for match in source.finished_matches():
++        result["finished"] += 1
++        stored = history.pitch_match(match["id"])
++        if stored is not None and (match.get("date") or "") < cutoff:
++            continue
++        try:
++            record = build_match_record(match, source.bundle(match["id"]))
++        except PitchApiAuthError:
++            raise
++        except PitchApiError as exc:
++            log(f"    {match['id']}: {exc}")
++            record = None
++        if record is None:
++            result["failed"].append(match["id"])
++            continue
++        history.add_pitch_match(match["id"], record)
++        result["refreshed" if stored is not None else "new"] += 1
++    return result
++
++
++# --------------------------------------------------------------------------- #
++# Season numbers per player, and attaching them to a squad
++# --------------------------------------------------------------------------- #
++def aggregate_players(records):
++    """{player id: season totals} over stored match records."""
++    totals = defaultdict(lambda: defaultdict(float))
++    rated = defaultdict(list)
++    for record in records:
++        for pid, line in (record.get("players") or {}).items():
++            t = totals[pid]
++            t["team"] = line.get("t") or t.get("team")
++            t["apps"] += 1 if line.get("min") else 0
++            for short, _key, _kind in _FIELDS:
++                t[short] += line.get(short, 0)
++            for short in ("yc", "rc", "pg"):
++                t[short] += line.get(short, 0)
++            if line.get("rt") and line.get("min"):
++                rated[pid].append(line["rt"])
++            if line.get("no") is not None:
++                t["no"] = line["no"]  # records come oldest first, so this ends as the latest shirt
++            if line.get("c"):
++                t["captain"] = 1
++    out = {}
++    for pid, t in totals.items():
++        d = dict(t)
++        d["rating"] = round(sum(rated[pid]) / len(rated[pid]), 2) if rated.get(pid) else None
++        out[pid] = d
++    return out
++
++
++def _whole(value):
++    return int(value) if isinstance(value, float) and value == int(value) else value
++
++
++def player_record(total, info, injured=False):
++    """A season record in the shape the dashboard reads (see ``pl_data.player_numbers``)."""
++    t = total or {}
++    g = lambda k: _whole(t.get(k, 0))
++    passes = t.get("pst", 0)
++    extra = {
++        "minutes": g("min"), "shots": g("sh"), "goals_conceded": g("gc"), "saves": g("sv"),
++        "inside_box_saves": g("sib"), "fouls": g("fl"), "tackles": g("tk"), "blocks": g("bl"),
++        "crosses": g("crt"), "interceptions": g("in"), "clearances": g("cl"), "dispossessed": g("dp"),
++        "duels": _whole(t.get("dw", 0) + t.get("dl", 0)), "duels_won": g("dw"),
++        "dribble_attempts": g("dba"), "dribbles": g("dbs"),
++        "pen_won": g("pw"), "pen_committed": g("pc"), "pen_scored": g("pg"), "pen_missed": g("pm"),
++        "passes": _whole(passes), "key_passes": g("kp"), "woodwork": g("ww"),
++        "xg": round(t.get("xg", 0), 2), "xa": round(t.get("xa", 0), 2),
++    }
++    if passes:
++        extra["pass_accuracy"] = round(100 * t.get("ps", 0) / passes, 1)
++    return {
++        "source": "pitchapi",
++        "pitchapi_id": (info or {}).get("id"),
++        "matched": bool(total),
++        "shirt_number": _num(_to_int(t.get("no"))),
++        "appearances": g("apps"),
++        "goals": g("g"),
++        "assists": g("a"),
++        "own_goals": g("og"),
++        "yellow_cards": g("yc"),
++        "red_cards": g("rc"),
++        "rating": t.get("rating"),
++        "injured": bool(injured),  # PitchAPI has no injury list: kept from another source when there is one
++        "image": (info or {}).get("image"),
++        "full_name": None,
++        "captain": bool(t.get("captain")),
++        "extra": extra,
++    }
++
++
++def _to_int(value):
++    try:
++        return int(float(str(value).strip()))
++    except (TypeError, ValueError):
++        return None
++
++
++def match_players(squad, pool):
++    """Pair squad players with PitchAPI players of the same club: {squad index: player id}.
++
++    ``pool`` is {player id: {'name': ...}}. Four passes, each only accepting a unique candidate:
++    same full name; one name contained in the other; same surname and first initial; near-identical surname and
++    the same first initial.
++    """
++    pairs, taken = {}, set()
++    squad_tokens = [name_tokens(p.get("name")) for p in squad]
++    pool_tokens = {pid: name_tokens(info.get("name")) for pid, info in pool.items()}
++
++    def run(test):
++        for i, tokens in enumerate(squad_tokens):
++            if i in pairs or not tokens:
++                continue
++            found = [pid for pid, other in pool_tokens.items() if pid not in taken and other and test(tokens, other)]
++            if len(found) == 1:
++                pairs[i] = found[0]
++                taken.add(found[0])
++
++    run(lambda a, b: a == b)
++    run(lambda a, b: len(set(a) & set(b)) >= 1 and (set(a) <= set(b) or set(b) <= set(a)) and max(len(t) for t in set(a) & set(b)) >= 4)
++    run(lambda a, b: a[-1] == b[-1] and a[0][:1] == b[0][:1])
++    # transliterations (Yarmoliuk / Yarmolyuk): near-identical surname and the same first initial
++    run(lambda a, b: a[0][:1] == b[0][:1] and SequenceMatcher(None, a[-1], b[-1]).ratio() >= 0.85)
++    return pairs
++
++
++def attach_pitch_stats(squad, team_players, played):
++    """Add ``player['pitchapi']`` to every squad entry. Returns the club's PitchAPI players that matched nobody.
++
++    ``team_players`` is {player id: {'name', 'image', 'total': season totals}}; ``played`` is how many matches
++    the club has stored (a player who never appeared gets an honest all-zero record, but only if the club has played).
++    """
++    pairs = match_players(squad, team_players)
++    for i, player in enumerate(squad):
++        pid = pairs.get(i)
++        injured = (player.get("apifootball") or {}).get("injured")
++        if pid:
++            data = team_players[pid]
++            player["pitchapi"] = player_record(data.get("total"), {"id": pid, "image": data.get("image")}, injured)
++        elif played:
++            player["pitchapi"] = player_record(None, None, injured)
++    used = set(pairs.values())
++    return [info["name"] for pid, info in team_players.items()
++            if pid not in used and (info.get("total") or {}).get("min")]
++
++
++def teams_from_records(records):
++    """Clubs named by stored matches (for when the API can't be asked): [{'id', 'name'}]."""
++    matches = []
++    for record in records:
++        event = record.get("event") or {}
++        matches.append({side + "_team": {"id": event.get(f"match_{side}team_id"), "name": event.get(f"match_{side}team_name")}
++                        for side in ("home", "away")})
++    return _teams_from(matches)
++
++
++def latest_coaches(records):
++    """{team id: coach name} from the newest lineup, with accent variants folded to one spelling."""
++    seen = defaultdict(list)  # team -> [(date, name)]
++    for record in records:
++        event = record.get("event") or {}
++        for side in ("home", "away"):
++            name, team = event.get(f"match_{side}team_coach"), event.get(f"match_{side}team_id")
++            if name and team:
++                seen[team].append((event.get("match_date") or "", name))
++    coaches = {}
++    for team, items in seen.items():
++        items.sort()
++        newest = fold(items[-1][1])
++        coaches[team] = pick_spelling([n for _d, n in items if fold(n) == newest])
++    return coaches
+diff --git a/ufd/ufd_app/pl_data.py b/ufd/ufd_app/pl_data.py
+index 99ba4b5..6f23b93 100644
+--- a/ufd/ufd_app/pl_data.py
++++ b/ufd/ufd_app/pl_data.py
+@@ -31,8 +31,9 @@ from pathlib import Path
+ import requests
+ from django.conf import settings
+ 
+-from . import apifootball
++from . import apifootball, pitchapi_source
+ from .footballdata_io import FootballDataIoError, FootballDataIoSource, clean_name
++from .pitchapi import PitchApiAuthError, PitchApiError
+ 
+ logger = logging.getLogger(__name__)
+ 
+@@ -67,6 +68,12 @@ def _to_float(value):
+         return None
+ 
+ 
++def player_numbers(player):
++    """A player's season numbers: PitchAPI's when there are any, else apifootball's (an empty dict for neither)."""
++    player = player or {}
++    return player.get("pitchapi") or player.get("apifootball") or {}
++
++
+ def _ascii_lower(text):
+     return unicodedata.normalize("NFKD", text or "").encode("ascii", "ignore").decode().lower()
+ 
+@@ -443,6 +450,16 @@ _AP_EXTRA_FIELDS = [
+ ]
+ 
+ 
++def attach_pitch_stats(squad, pitch_players, pitch_played):
++    return pitchapi_source.attach_pitch_stats(squad, pitch_players, pitch_played)
++
++
++def _pitch_pool(totals, info, team_id):
++    """{PitchAPI player id: name, image and season totals} for one club."""
++    return {pid: {"name": (info.get(pid) or {}).get("name"), "image": (info.get(pid) or {}).get("image"), "total": total}
++            for pid, total in totals.items() if total.get("team") == team_id}
++
++
+ def merge_squad(fd_squad, ap_players):
+     """football-data squad enriched with apifootball stats (birth date first, then name)."""
+     ap_players = [p for p in ap_players or [] if isinstance(p, dict)]
+@@ -507,7 +524,8 @@ def extract_io_stats(data):
+     }
+ 
+ 
+-def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived, titles, io_team=None, io_raw_stats=None):
++def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived, titles, io_team=None, io_raw_stats=None,
++               pitch_team=None, pitch_players=None, pitch_played=0, pitch_coach=None):
+     ap_team = ap_team or {}
+     io_team = io_team or {}
+     io_stats = extract_io_stats(io_raw_stats)
+@@ -529,13 +547,16 @@ def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived,
+     elif ap_coaches and coach and ap_coaches[0]["coach_name"] == coach.get("name"):
+         ap_coaches = ap_coaches[1:]
+ 
++    if not (coach and coach.get("name")) and pitch_coach:
++        coach = {"name": pitch_coach, "nationality": None, "date_of_birth": None, "contract": None}
++
+     staff = [{"name": s.get("name"), "role": s.get("role") or s.get("position")}
+              for s in fd_team.get("staff") or [] if isinstance(s, dict) and s.get("name")]
+     staff += [{"name": c["coach_name"], "role": None} for c in ap_coaches]
+ 
+     possession = derived["possession"] if derived else []
+     if possession:
+-        possession_value, possession_source, possession_matches = round(sum(possession) / len(possession), 1), "apifootball", len(possession)
++        possession_value, possession_source, possession_matches = round(sum(possession) / len(possession), 1), derived.get("source", "apifootball"), len(possession)
+     elif io_stats["possession"]:
+         possession_value, possession_source, possession_matches = round(io_stats["possession"], 1), "footballdata.io", io_stats["matches"]
+     else:
+@@ -568,6 +589,9 @@ def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived,
+         "cards_per_match": io_stats["cards_per_match"],
+     }
+ 
++    squad = merge_squad(fd_team.get("squad"), ap_team.get("players"))
++    pitch_unmatched = attach_pitch_stats(squad, pitch_players, pitch_played) if pitch_players is not None else []
++
+     profile = {
+         "id": fd_team["id"],
+         "name": fd_team.get("name"),
+@@ -589,7 +613,7 @@ def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived,
+         },
+         "coach": coach,
+         "staff": staff,
+-        "squad": merge_squad(fd_team.get("squad"), ap_team.get("players")),
++        "squad": squad,
+         "running_competitions": [c.get("name") for c in fd_team.get("runningCompetitions") or []],
+         "premier_league_titles": titles,
+     }
+@@ -604,6 +628,9 @@ def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived,
+             "matched_by": how_matched,
+             "footballdata_io": bool(io_team),
+             "footballdata_io_team_id": io_team.get("team_id"),
++            "pitchapi": bool(pitch_team),
++            "pitchapi_team_id": (pitch_team or {}).get("id"),
++            "pitchapi_unmatched_players": pitch_unmatched,
+         },
+         "raw": {
+             "football_data": fd_team,
+@@ -616,10 +643,12 @@ def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived,
+ # --------------------------------------------------------------------------- #
+ # The whole build
+ # --------------------------------------------------------------------------- #
+-def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=None, history=None, io_max_age_hours=24, now=None):
++def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=None, history=None, io_max_age_hours=24, now=None,
++                  pa=None):
+     """Fetch everything and return the dataset dict. Raises FetchError if the 20-team spine can't be built."""
+     today = today or date.today()
+-    report = {"stages": [], "unmatched_football_data": [], "unmatched_apifootball": [], "unmatched_footballdata_io": []}
++    report = {"stages": [], "unmatched_football_data": [], "unmatched_apifootball": [], "unmatched_footballdata_io": [],
++              "unmatched_pitchapi": [], "unmatched_pitchapi_players": [], "pitchapi": None}
+ 
+     def stage(name, ok, detail=""):
+         report["stages"].append({"name": name, "ok": ok, "detail": detail})
+@@ -660,6 +689,53 @@ def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=No
+         clean_sheets = count_clean_sheets(stored) if stored else {}
+         stage("finished matches (clean sheets)", bool(stored), f"{exc}" + (f"; used {len(stored)} stored results" if stored else ""))
+ 
++    # --- PitchAPI: formations, lineups, possession, player season numbers ------------
++    pitch_by_team, pitch_derived, pitch_totals, pitch_info, pitch_coaches = {}, {}, {}, {}, {}
++    pitch_played = defaultdict(int)
++    store = None
++    if pa is None or not pa.is_configured():
++        stage("pitchapi", False, "no PITCHAPI_API_KEY or harvest folder; formations, possession and player numbers fall back to apifootball")
++    else:
++        log("PitchAPI")
++        from .history import History  # local import: history imports this module when saving
++        store = history if history is not None else History(path=None)
++        teams_list = None
++        try:
++            teams_list = pa.all_teams()
++            result = pitchapi_source.refresh_history(pa, store, today=today, log=log)
++            stage("pitchapi matches (lineups, formations, possession, player numbers)",
++                  not result["failed"] and bool(store.pitch_matches),
++                  f"{result['finished']} finished; {result['new']} new, {result['refreshed']} refreshed; "
++                  f"{len(store.pitch_matches)} stored"
++                  + (f"; failed: {', '.join(result['failed'][:5])}" if result["failed"] else ""))
++        except (PitchApiError, PitchApiAuthError) as exc:
++            stage("pitchapi", False, str(exc) + ("; using the matches stored earlier" if store.pitch_matches else ""))
++        if store.pitch_matches:
++            records = store.pitch_records()
++            if teams_list is None:  # the API is down: the stored matches still name both clubs
++                teams_list = pitchapi_source.teams_from_records(records)
++            candidates = [{"team_name": t["name"], "team_key": t["id"], "pitch": t} for t in teams_list]
++            found, report["unmatched_pitchapi"], _ = match_teams(fd_teams, candidates)
++            pitch_by_team = {fd_id: cand["pitch"] for fd_id, (cand, _how) in found.items()}
++            stage("pitchapi team matching", not report["unmatched_pitchapi"],
++                  f"{len(pitch_by_team)}/{len(fd_teams)} matched"
++                  + (f"; unmatched: {', '.join(report['unmatched_pitchapi'])}" if report["unmatched_pitchapi"] else ""))
++            pitch_derived = derive_from_events([r["event"] for r in records])
++            for derived_team in pitch_derived.values():
++                derived_team["source"] = "pitchapi"
++            pitch_totals = pitchapi_source.aggregate_players(records)
++            pitch_info = store.data["pitch_players"]
++            pitch_coaches = pitchapi_source.latest_coaches(records)
++            for record in records:
++                for side in ("home", "away"):
++                    pitch_played[record["event"].get(f"match_{side}team_id")] += 1
++            off = sum(1 for r in records if r.get("cards_ok") is False)
++            report["pitchapi"] = {"matches": len(records), "cards_not_reconciled": off}
++            if off:
++                stage("pitchapi cards", False,
++                      f"in {off} of {len(records)} matches the cards don't add up to the team statistics (counts can be off by one or two)")
++    pitch_ok = bool(pitch_derived)
++
+     # --- apifootball: enrichment ---------------------------------------------
+     ap_teams, ap_standings, derived = [], [], {}
+     if ap is None or not ap.is_configured():
+@@ -673,8 +749,11 @@ def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=No
+             data = ap.get_teams(league_id)
+             ap_teams = [t for t in data or [] if isinstance(t, dict)]
+             stage("teams, players, coaches, venues", bool(ap_teams), f"{len(ap_teams)} teams" if ap_teams else "no data returned")
+-            ap_standings = ap.get_standings(league_id) or []
+-            stage("standings", bool(ap_standings), f"{len(ap_standings)} rows" if ap_standings else "no data returned")
++            if pitch_ok:
++                stage("standings", True, "skipped: not used (standings come from football-data)")
++            else:
++                ap_standings = ap.get_standings(league_id) or []
++                stage("standings", bool(ap_standings), f"{len(ap_standings)} rows" if ap_standings else "no data returned")
+ 
+             season = competition.get("currentSeason") or {}
+             try:
+@@ -682,7 +761,9 @@ def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=No
+                 end = min(today, date.fromisoformat((season.get("endDate") or "")[:10]))
+             except ValueError:
+                 start = end = None
+-            if not include_events:
++            if pitch_ok:
++                stage("match events (formations, possession)", True, "skipped: they come from PitchAPI")
++            elif not include_events:
+                 if history is not None and history.matches:
+                     derived = derive_from_events(history.events())
+                 stage("match events (formations, possession)", bool(derived),
+@@ -766,13 +847,28 @@ def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=No
+     teams = {}
+     for fd_team in fd_teams:
+         ap_team, how = matches_map.get(fd_team["id"], (None, None))
+-        team_derived = derived.get(str(ap_team.get("team_key"))) if ap_team else None
++        pitch_team = pitch_by_team.get(fd_team["id"])
++        if pitch_ok:
++            team_derived = pitch_derived.get(pitch_team["id"]) if pitch_team else None
++        else:
++            team_derived = derived.get(str(ap_team.get("team_key"))) if ap_team else None
+         teams[str(fd_team["id"])] = build_team(
+             fd_team, ap_team, how, stats_by_team.get(fd_team["id"]),
+             clean_sheets.get(fd_team["id"], 0 if clean_sheets else None), team_derived,
+             premier_league_titles(competition, fd_team["id"]),
+             io_team=io_by_team.get(fd_team["id"]), io_raw_stats=io_stats_by_team.get(fd_team["id"]),
++            pitch_team=pitch_team,
++            pitch_players=_pitch_pool(pitch_totals, pitch_info, pitch_team["id"]) if pitch_ok and pitch_team else None,
++            pitch_played=pitch_played.get(pitch_team["id"], 0) if pitch_team else 0,
++            pitch_coach=pitch_coaches.get(pitch_team["id"]) if pitch_team else None,
+         )
++    if pitch_ok:
++        report["unmatched_pitchapi_players"] = [
++            f"{team['profile']['name']}: {name}" for team in teams.values()
++            for name in team["sources"]["pitchapi_unmatched_players"]]
++        if report["unmatched_pitchapi_players"]:
++            stage("pitchapi players", False, f"{len(report['unmatched_pitchapi_players'])} players who appeared match nobody in the squad lists: "
++                  + ", ".join(report["unmatched_pitchapi_players"][:6]))
+ 
+     if history is not None:
+         day = today.isoformat()
+@@ -782,7 +878,7 @@ def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=No
+                 "position", "played", "won", "draw", "lost", "points", "goals_for", "goals_against",
+                 "goal_difference", "clean_sheets", "possession", "form")})
+             for player in (team.get("profile") or {}).get("squad") or []:
+-                ap_rec = player.get("apifootball") or {}
++                ap_rec = player_numbers(player)
+                 if player.get("id") is None or not ap_rec:
+                     continue
+                 numbers = {k: ap_rec.get(k) for k in ("appearances", "goals", "assists", "yellow_cards", "red_cards", "rating", "injured")}
+diff --git a/ufd/ufd_app/team_pages.py b/ufd/ufd_app/team_pages.py
+index 1002d86..bc7a43e 100644
+--- a/ufd/ufd_app/team_pages.py
++++ b/ufd/ufd_app/team_pages.py
+@@ -41,7 +41,7 @@ def squad_rows(squad):
+     for player in squad or []:
+         raw_position = player.get("position") or "Unknown"
+         group = dashboard.POSITION_GROUPS.get(raw_position, raw_position)
+-        extra = player.get("apifootball") or {}
++        extra = dashboard.pl_data.player_numbers(player)
+         rating = extra.get("rating")
+         shirt = player.get("shirt_number") if player.get("shirt_number") is not None else extra.get("shirt_number")
+         rows.append({
+@@ -263,7 +263,7 @@ def build_player_context(team_id, player_id, data=None):
+     if player is None:
+         return None, "That player isn't in this club's squad data."
+     row = next(r for r in squad_rows([player]))
+-    extra = player.get("apifootball") or {}
++    extra = dashboard.pl_data.player_numbers(player)
+     numbers = extra.get("extra") or {}
+ 
+     sections = []
+diff --git a/ufd/ufd_app/templates/dashboard.html b/ufd/ufd_app/templates/dashboard.html
+index 447e27b..2722f08 100644
+--- a/ufd/ufd_app/templates/dashboard.html
++++ b/ufd/ufd_app/templates/dashboard.html
+@@ -371,7 +371,7 @@
+         <span class="text-xs" style="color: var(--muted)">Average ball share across recorded matches</span>
+     </div>
+     {% else %}
+-    <p class="text-sm opacity-60" title="Needs apifootball or footballdata.io match statistics (run build_pl_data with their keys)">N/A</p>
++    <p class="text-sm opacity-60" title="Needs PitchAPI, apifootball or footballdata.io match statistics (run build_pl_data with their keys)">N/A</p>
+     {% endif %}
+     {% else %}
+     <div class="placeholder-note"><i class="fas fa-triangle-exclamation"></i><p>Season stats come from the league table, which is unavailable right now.</p></div>
+@@ -470,7 +470,7 @@
+     <p class="opacity-70 mb-4">The dashboard reads a data file that hasn't been built. In your project folder run:</p>
+     <pre class="text-left text-sm bg-soft border border-line rounded-xl p-4 mb-6 overflow-x-auto">cd ufd
+ python manage.py build_pl_data</pre>
+-    <p class="opacity-60 text-xs mb-6">Set FOOTBALL_DATA_API_KEY and APIFOOTBALL_API_KEY first. It takes a few minutes because of API rate limits. Reload this page afterwards.</p>
++    <p class="opacity-60 text-xs mb-6">Set FOOTBALL_DATA_API_KEY and PITCHAPI_API_KEY (or APIFOOTBALL_API_KEY) first. It takes a few minutes because of API rate limits. Reload this page afterwards.</p>
+     {% else %}
+     <h2 class="text-2xl font-bold mb-2">Dashboard unavailable</h2>
+     <p class="opacity-70 mb-6">We couldn't load that club. Check the message above, then try again.</p>
+diff --git a/ufd/ufd_app/templates/formation.html b/ufd/ufd_app/templates/formation.html
+index 2d0fe5f..1ddf1d6 100644
+--- a/ufd/ufd_app/templates/formation.html
++++ b/ufd/ufd_app/templates/formation.html
+@@ -108,7 +108,7 @@
+     <div class="card p-10 text-center">
+         <i class="fas fa-chess-board text-3xl text-accent mb-3"></i>
+         <h2 class="text-xl font-semibold mb-1">No formation data for this club yet</h2>
+-        <p style="color: var(--muted)">Formations come from apifootball match details. Run <code>python manage.py build_pl_data</code> with its key set, then reload.</p>
++        <p style="color: var(--muted)">Formations come from PitchAPI match details. Run <code>python manage.py build_pl_data</code> with PITCHAPI_API_KEY set, then reload.</p>
+     </div>
+     {% endif %}
+ </div>
+diff --git a/ufd/ufd_app/templates/manager.html b/ufd/ufd_app/templates/manager.html
+index 7a02889..822ccef 100644
+--- a/ufd/ufd_app/templates/manager.html
++++ b/ufd/ufd_app/templates/manager.html
+@@ -81,7 +81,7 @@
+                 {% endfor %}
+             </ul>
+             {% else %}
+-            <div class="placeholder-note"><i class="fas fa-triangle-exclamation mt-1"></i><p>No formation data yet. It needs apifootball match details (run <code>build_pl_data</code> with its key).</p></div>
++            <div class="placeholder-note"><i class="fas fa-triangle-exclamation mt-1"></i><p>No formation data yet. It needs PitchAPI (or apifootball) match details: run <code>build_pl_data</code> with their keys.</p></div>
+             {% endif %}
+         </section>
+ 
+diff --git a/ufd/ufd_app/templates/player.html b/ufd/ufd_app/templates/player.html
+index cd594f9..8a023f9 100644
+--- a/ufd/ufd_app/templates/player.html
++++ b/ufd/ufd_app/templates/player.html
+@@ -72,7 +72,7 @@
+             </dl>
+             {% endif %}
+             {% else %}
+-            <div class="placeholder-note"><i class="fas fa-circle-info mt-1"></i><p>No season numbers for this player yet. They come from apifootball.com and this player couldn't be matched there.</p></div>
++            <div class="placeholder-note"><i class="fas fa-circle-info mt-1"></i><p>No season numbers for this player yet. They come from PitchAPI match data, and this player couldn't be matched to it.</p></div>
+             {% endif %}
+         </section>
+     </div>
+diff --git a/ufd/ufd_app/templates/squad.html b/ufd/ufd_app/templates/squad.html
+index d782414..4101b35 100644
+--- a/ufd/ufd_app/templates/squad.html
++++ b/ufd/ufd_app/templates/squad.html
+@@ -103,7 +103,7 @@
+ 
+     <p class="text-xs mt-3" style="color: var(--muted)">
+         Names, positions, birth dates and nationalities come from football-data.org.
+-        Appearances, goals, assists, cards and ratings come from apifootball.com
++        Appearances, goals, assists, cards and ratings come from PitchAPI match data
+         {% if summary.without_stats %}and are blank (—) for the {{ summary.without_stats }} player{{ summary.without_stats|pluralize }} it couldn't be matched to{% endif %}.
+     </p>
+     {% else %}
+diff --git a/ufd/ufd_app/test_pitchapi_source.py b/ufd/ufd_app/test_pitchapi_source.py
+new file mode 100644
+index 0000000..fdb1e67
+--- /dev/null
++++ b/ufd/ufd_app/test_pitchapi_source.py
+@@ -0,0 +1,571 @@
++"""Tests for pitchapi_source (formations, possession and player numbers from PitchAPI). No network, no key."""
++import json
++import tempfile
++from datetime import date
++from unittest import mock
++from pathlib import Path
++
++from django.test import SimpleTestCase
++
++from . import dashboard, pitchapi_source as ps, pl_data
++from .history import History
++from .pitchapi import PitchApiAuthError, PitchApiError
++from .pl_fixtures import FakeApiFootball, FakeFootballData, FakeFootballDataIo, TODAY
++
++
++# --------------------------------------------------------------------------- #
++# Synthetic PitchAPI bodies (same shapes as the real harvest)
++# --------------------------------------------------------------------------- #
++def starters(team, formation, shirt_start=1):
++    """GK on x=0.1, then one x level per line; within a line y runs left (low) to right (high), as in the real data."""
++    out = [{"player_id": f"p_{team}0", "name": f"{team} Keeper", "shirt_number": str(shirt_start), "position_id": 11,
++            "is_captain": False, "pitch_x": 0.1, "pitch_y": 0.5}]
++    index = 1
++    for level, count in enumerate(int(n) for n in formation.split("-")):
++        for k in range(count):
++            out.append({"player_id": f"p_{team}{index}", "name": f"{team} P{index}", "shirt_number": str(shirt_start + index),
++                        "position_id": 30 + level, "is_captain": index == 1, "pitch_x": round(0.1 + 0.25 * (level + 1), 2),
++                        "pitch_y": round((k + 1) / (count + 1), 2)})
++            index += 1
++    return out
++
++
++def lineups(home="H", away="A", hf="4-3-3", af="4-4-2", coaches=("Home Boss", "Away Boss")):
++    return {"home": {"formation": hf, "confirmed": True, "coach": {"name": coaches[0]}, "starters": starters(home, hf),
++                     "subs": [{"player_id": f"p_{home}s", "name": f"{home} Sub", "shirt_number": "30", "is_captain": False}]},
++            "away": {"formation": af, "confirmed": True, "coach": {"name": coaches[1]}, "starters": starters(away, af, 21),
++                     "subs": []}}
++
++
++def stats(possession=(60, 40), yellow=(1, 0), red=(0, 0)):
++    def item(key, h, a):
++        return {"key": key, "home": str(h), "away": str(a)}
++    return {"periods": [
++        {"period": "All", "groups": [{"group_name": "Top", "items": [
++            item("BallPossesion", *possession), item("yellow_cards", *yellow), item("red_cards", *red)]}]},
++        {"period": "FirstHalf", "groups": [{"items": [item("BallPossesion", 99, 1)]}]},
++    ]}
++
++
++def stat(key, value, total=None, kind="integer"):
++    body = {"type": kind, "value": value}
++    if total is not None:
++        body["total"] = total
++    return {"key": key, "stat": body}
++
++
++def player_entry(pid, name, team, minutes=90, goals=0, assists=0, rating=7.0, passes=(40, 50), tackles=2, shots=1):
++    return {"player": {"id": pid, "name": name, "image_url": f"https://img/{pid}.webp"}, "team_id": team, "stats": [
++        {"key": "top_stats", "stats": {
++            "Goals": stat("goals", goals), "Assists": stat("assists", assists), "Minutes played": stat("minutes_played", minutes),
++            "Rating": stat("rating_title", rating, kind="double"), "Accurate passes": stat("accurate_passes", passes[0], passes[1]),
++            "Total shots": stat("total_shots", shots)}},
++        {"key": "defense", "stats": {"Tackles": stat("matchstats.headers.tackles", tackles)}},
++    ]}
++
++
++def goal(minute, team, pid, score=(0, 0), own=False, pen=False, added=0):
++    return {"event_type": "goal", "minute": minute, "minute_added": added, "period": "FirstHalf", "team_id": team,
++            "player": {"id": pid, "name": pid}, "is_own_goal": own, "is_penalty": pen,
++            "score_home": score[0], "score_away": score[1]}
++
++
++def card(kind, minute, team, pid, added=0):
++    return {"event_type": kind, "minute": minute, "minute_added": added, "period": "SecondHalf", "team_id": team,
++            "player": {"id": pid, "name": pid}, "is_own_goal": False, "is_penalty": False}
++
++
++def match(mid, home, away, day, score=(1, 0), status="finished"):
++    return {"id": mid, "date": day, "time_utc": f"{day}T14:00:00Z", "status": status,
++            "home_team": {"id": home[0], "name": home[1]}, "away_team": {"id": away[0], "name": away[1]},
++            "score_home": score[0], "score_away": score[1]}
++
++
++class SimpleSource:
++    """A source with a fixed match list; bundles come from a dict."""
++
++    def __init__(self, matches, bundles, teams=None, configured=True):
++        self.matches, self.bundles, self.configured = matches, bundles, configured
++        self.fetched = []
++        self._teams = teams
++
++    def is_configured(self):
++        return self.configured
++
++    def finished_matches(self):
++        return self.matches
++
++    def all_teams(self):
++        if self._teams is not None:
++            return self._teams
++        return ps._teams_from(self.matches)
++
++    def bundle(self, match_id):
++        self.fetched.append(match_id)
++        result = self.bundles[match_id]
++        if isinstance(result, Exception):
++            raise result
++        return result
++
++
++# --------------------------------------------------------------------------- #
++class HelperTests(SimpleTestCase):
++    def test_league_is_picked_by_country_not_by_name(self):
++        body = {"data": {"leagues": [
++            {"id": "l_ru", "name": "Premier League", "country_code": "RUS"},
++            {"id": "l_en", "name": "Premier League", "country_code": "ENG"},
++            {"id": "l_eg", "name": "Premier League", "country_code": "EGY"}]}}
++        self.assertEqual(ps.pick_league(body)["id"], "l_en")
++        self.assertIsNone(ps.pick_league({"data": {"leagues": [{"id": "x", "name": "Premier League", "country_code": "RUS"}]}}))
++
++    def test_the_harvester_also_prefers_the_english_league(self):
++        from .pitchapi_harvest import find_league
++        body = {"data": {"leagues": [{"id": "l_ru", "name": "Premier League", "country_code": "RUS"},
++                                     {"id": "l_en", "name": "Premier League", "country_code": "ENG"}]}}
++        self.assertEqual(find_league(body)["id"], "l_en")
++
++    def test_accented_spelling_wins(self):
++        self.assertEqual(ps.pick_spelling(["Sergej Jakirovic", "Sergej Jakirović", "Sergej Jakirovic"]), "Sergej Jakirović")
++        self.assertEqual(ps.pick_spelling(["A B", "A B", "A C"]), "A B")
++        self.assertIsNone(ps.pick_spelling([None, ""]))
++
++    def test_a_goal_logged_twice_a_minute_apart_counts_once(self):
++        events = [goal(84, "t1", "p1", (0, 1)), goal(85, "t1", "p1", (0, 1)), goal(90, "t2", "p2", (1, 1))]
++        kept = ps.dedupe_events(events)
++        self.assertEqual([e["minute"] for e in kept], [84, 90])
++
++    def test_two_real_goals_in_a_row_are_both_kept(self):
++        events = [goal(70, "t1", "p1", (1, 0)), goal(71, "t1", "p1", (2, 0))]  # the running score differs
++        self.assertEqual(len(ps.dedupe_events(events)), 2)
++
++    def test_cards_are_deduped_but_substitutions_are_not(self):
++        events = [card("yellowcard", 94, "t1", "p1"), card("yellowcard", 95, "t1", "p1"),
++                  {"event_type": "substitution", "minute": 60, "minute_added": 0, "period": "SecondHalf",
++                   "team_id": "t1", "player": {"id": "p3"}},
++                  {"event_type": "substitution", "minute": 61, "minute_added": 0, "period": "SecondHalf",
++                   "team_id": "t1", "player": {"id": "p3"}}]
++        kept = ps.dedupe_events(events)
++        self.assertEqual([e["event_type"] for e in kept].count("yellowcard"), 1)
++        self.assertEqual([e["event_type"] for e in kept].count("substitution"), 2)
++
++
++class AdaptMatchTests(SimpleTestCase):
++    def setUp(self):
++        self.match = match("m_1", ("t_h", "Home FC"), ("t_a", "Away FC"), "2026-09-01", (2, 1))
++        self.event = ps.adapt_match(self.match, lineups(), stats())
++
++    def test_shape_is_what_derive_from_events_reads(self):
++        e = self.event
++        self.assertEqual((e["match_id"], e["match_date"], e["match_status"]), ("m_1", "2026-09-01", "Finished"))
++        self.assertEqual((e["match_hometeam_system"], e["match_awayteam_system"]), ("4-3-3", "4-4-2"))
++        self.assertEqual(e["statistics"], [{"type": "Ball Possession", "home": "60%", "away": "40%"}])  # 'All' period, not the half
++        self.assertEqual(e["match_hometeam_coach"], "Home Boss")
++
++    def test_xi_runs_goalkeeper_then_defence_to_attack_and_right_side_first_in_each_line(self):
++        xi = [p["lineup_player"] for p in self.event["lineup"]["home"]["starting_lineups"]]
++        self.assertEqual(len(xi), 11)
++        self.assertEqual(xi[0], "H Keeper")
++        # back four: y runs 0.2 (left) .. 0.8 (right); the page mirrors each row, so the right-back is listed first
++        self.assertEqual(xi[1:5], ["H P4", "H P3", "H P2", "H P1"])
++        positions = [p["lineup_position"] for p in self.event["lineup"]["home"]["starting_lineups"]]
++        self.assertEqual(positions, [str(n) for n in range(1, 12)])
++
++    def test_derive_and_build_formation_work_on_it_unchanged(self):
++        derived = pl_data.derive_from_events([self.event])
++        home = derived["t_h"]
++        self.assertEqual(home["possession"], [60.0])
++        summary = pl_data.formation_summary(home)
++        self.assertEqual(summary["default"], "4-3-3")
++        self.assertEqual(len(summary["starting_xi"]), 11)
++        pitch = dashboard.build_formation("4-3-3", summary["starting_xi"], [])
++        self.assertEqual([len(line["slots"]) for line in pitch["lines"]], [1, 4, 3, 3])
++
++    def test_a_back_five_split_across_two_x_values_stays_one_line(self):
++        side = lineups(hf="5-4-1")["home"]
++        for s in side["starters"][1:6]:
++            s["pitch_x"] = 0.37 if s["player_id"].endswith("3") else 0.36
++        ordered = ps._starters_in_order(side)
++        self.assertEqual(ordered[0]["player_id"], "p_H0")
++        self.assertEqual({s["player_id"] for s in ordered[1:6]}, {f"p_H{i}" for i in range(1, 6)})  # all five before midfield
++        ys = [s["pitch_y"] for s in ordered[1:6]]
++        self.assertEqual(ys, sorted(ys, reverse=True))                                          # right side first
++
++    def test_missing_possession_gives_no_statistics(self):
++        e = ps.adapt_match(self.match, lineups(), {"periods": []})
++        self.assertEqual(e["statistics"], [])
++
++
++class PlayerLineTests(SimpleTestCase):
++    def test_numbers_cards_penalties_and_shirts(self):
++        body = [player_entry("p_1", "Ann", "t_h", goals=2, assists=1, passes=(30, 40)),
++                player_entry("p_2", "Bob", "t_a", minutes=0, rating=0)]
++        events = [goal(10, "t_h", "p_1", (1, 0), pen=True), goal(40, "t_h", "p_1", (2, 0)),
++                  goal(50, "t_a", "p_9", (2, 1), own=True),
++                  card("yellowcard", 30, "t_h", "p_1"), card("yellowcard", 31, "t_h", "p_1"),  # a duplicate
++                  card("redcard", 80, "t_a", "p_2")]
++        lines, info = ps.player_lines(body, {"home": {"starters": [{"player_id": "p_1", "shirt_number": "9", "is_captain": True}]}}, events)
++        ann = lines["p_1"]
++        self.assertEqual((ann["g"], ann["a"], ann["min"], ann["ps"], ann["pst"], ann["tk"]), (2, 1, 90, 30, 40, 2))
++        self.assertEqual((ann["yc"], ann["pg"], ann["no"], ann["c"]), (1, 1, "9", 1))
++        self.assertEqual(lines["p_2"]["rc"], 1)
++        self.assertNotIn("min", lines["p_2"])                    # zero numbers are not stored
++        self.assertNotIn("pg", lines["p_9"] if "p_9" in lines else {})  # an own goal is never a penalty goal
++        self.assertEqual(info["p_1"], {"name": "Ann", "image": "https://img/p_1.webp", "team": "t_h"})
++
++    def test_a_card_for_a_player_who_is_not_listed_is_kept(self):
++        lines, info = ps.player_lines([], {}, [card("yellowcard", 20, "t_h", "p_x")])
++        self.assertEqual(lines["p_x"]["yc"], 1)
++        self.assertIn("p_x", info)
++
++    def test_cards_reconcile_against_team_statistics(self):
++        lines = {"a": {"yc": 1}, "b": {"yc": 1, "rc": 1}}
++        self.assertTrue(ps.cards_reconcile(lines, stats(yellow=(1, 1), red=(0, 1))))
++        self.assertFalse(ps.cards_reconcile(lines, stats(yellow=(1, 0), red=(0, 1))))
++        self.assertIsNone(ps.cards_reconcile(lines, {"periods": []}))
++
++
++class AggregationTests(SimpleTestCase):
++    def records(self):
++        def rec(day, players):
++            return {"event": {"match_date": day}, "players": players}
++        return [
++            rec("2026-08-21", {"p_1": {"t": "t_h", "min": 90, "g": 1, "a": 0, "ps": 30, "pst": 40, "rt": 8.0, "no": "9", "dw": 3, "dl": 1}}),
++            rec("2026-08-28", {"p_1": {"t": "t_h", "min": 30, "g": 2, "ps": 10, "pst": 10, "rt": 6.0, "no": "10", "pg": 1, "c": 1},
++                               "p_2": {"t": "t_h"}}),   # listed but never played
++            rec("2026-09-04", {"p_1": {"t": "t_h", "min": 0}}),
++        ]
++
++    def test_totals(self):
++        totals = ps.aggregate_players(self.records())
++        p = totals["p_1"]
++        self.assertEqual((p["apps"], p["min"], p["g"], p["pg"], p["no"], p["captain"]), (2, 120, 3, 1, "10", 1))
++        self.assertEqual(p["rating"], 7.0)
++        self.assertIsNone(totals["p_2"]["rating"])
++        self.assertEqual(totals["p_2"]["apps"], 0)
++
++    def test_record_shape_for_the_dashboard(self):
++        total = ps.aggregate_players(self.records())["p_1"]
++        record = ps.player_record(total, {"id": "p_1", "image": "https://img/p_1"}, injured=True)
++        self.assertEqual((record["appearances"], record["goals"], record["rating"], record["shirt_number"]), (2, 3, 7.0, 10))
++        self.assertEqual(record["extra"]["pass_accuracy"], 80.0)       # (30+10) / (40+10)
++        self.assertEqual((record["extra"]["duels"], record["extra"]["duels_won"], record["extra"]["pen_scored"]), (4, 3, 1))
++        self.assertTrue(record["injured"] and record["captain"] and record["matched"])
++        unused = ps.player_record(None, None)
++        self.assertEqual((unused["appearances"], unused["goals"], unused["matched"], unused["rating"]), (0, 0, False, None))
++        self.assertNotIn("pass_accuracy", unused["extra"])
++
++
++class PlayerMatchingTests(SimpleTestCase):
++    def pool(self, *names):
++        return {f"p_{i}": {"name": n} for i, n in enumerate(names)}
++
++    def test_exact_then_contained_then_initial_and_surname(self):
++        squad = [{"name": "Erling Haaland"}, {"name": "Igor Thiago"}, {"name": "H. Kane"}, {"name": "Unknown Guy"}]
++        pairs = ps.match_players(squad, self.pool("Erling Haaland", "Thiago", "Harry Kane", "Somebody Else"))
++        self.assertEqual(pairs, {0: "p_0", 1: "p_1", 2: "p_2"})
++
++    def test_accents_do_not_matter(self):
++        pairs = ps.match_players([{"name": "Joško Gvardiol"}], self.pool("Josko Gvardiol"))
++        self.assertEqual(pairs, {0: "p_0"})
++
++    def test_apostrophes_stroked_letters_and_transliterations(self):
++        squad = [{"name": "Ibrahim M'Baye"}, {"name": "Đorđe Petrović"}, {"name": "Yegor Yarmolyuk"}]
++        pairs = ps.match_players(squad, self.pool("Ibrahim Mbaye", "Djordje Petrović", "Yehor Yarmoliuk"))
++        self.assertEqual(pairs, {0: "p_0", 1: "p_1", 2: "p_2"})
++
++    def test_similar_surnames_with_different_initials_are_not_paired(self):
++        self.assertEqual(ps.match_players([{"name": "Tom Smyth"}], self.pool("Sam Smith")), {})
++
++    def test_an_ambiguous_name_is_left_unmatched_rather_than_guessed(self):
++        squad = [{"name": "Jack Smith"}]
++        self.assertEqual(ps.match_players(squad, self.pool("John Smith", "Jake Smith")), {})
++
++    def test_a_pitch_player_is_never_used_twice(self):
++        squad = [{"name": "Ben Davies"}, {"name": "Ben Davies"}]
++        self.assertEqual(len(ps.match_players(squad, self.pool("Ben Davies"))), 1)
++
++    def test_unmatched_players_who_played_are_reported(self):
++        squad = [{"name": "Ann One"}]
++        team = {"p_1": {"name": "Ann One", "image": None, "total": {"min": 90, "g": 1}},
++                "p_2": {"name": "Zed Nobody", "image": None, "total": {"min": 45}},
++                "p_3": {"name": "Bench Warmer", "image": None, "total": {"min": 0}}}
++        left = ps.attach_pitch_stats(squad, team, played=3)
++        self.assertEqual(left, ["Zed Nobody"])
++        self.assertEqual(squad[0]["pitchapi"]["goals"], 1)
++
++    def test_a_squad_player_who_never_appeared_gets_an_honest_zero_only_once_the_club_has_played(self):
++        squad = [{"name": "Reserve Keeper"}]
++        ps.attach_pitch_stats(squad, {}, played=0)
++        self.assertNotIn("pitchapi", squad[0])
++        ps.attach_pitch_stats(squad, {}, played=2)
++        self.assertEqual(squad[0]["pitchapi"]["appearances"], 0)
++
++    def test_injured_flag_survives_from_apifootball(self):
++        squad = [{"name": "Ann One", "apifootball": {"injured": True}}]
++        ps.attach_pitch_stats(squad, {"p_1": {"name": "Ann One", "total": {"min": 90}}}, 1)
++        self.assertTrue(squad[0]["pitchapi"]["injured"])
++
++
++class CoachTests(SimpleTestCase):
++    def test_newest_coach_with_one_spelling(self):
++        def rec(day, home, away):
++            return {"event": {"match_date": day, "match_hometeam_id": "t1", "match_awayteam_id": "t2",
++                              "match_hometeam_coach": home, "match_awayteam_coach": away}}
++        coaches = ps.latest_coaches([rec("2026-08-21", "Old Boss", "Sergej Jakirovic"),
++                                     rec("2026-08-28", "New Boss", "Sergej Jakirović"),
++                                     rec("2026-09-04", "New Boss", "Sergej Jakirovic")])
++        self.assertEqual(coaches, {"t1": "New Boss", "t2": "Sergej Jakirović"})
++
++
++class RefreshTests(SimpleTestCase):
++    def setUp(self):
++        h, a = ("t_h", "Home FC"), ("t_a", "Away FC")
++        self.matches = [match("m_old", h, a, "2026-08-21"), match("m_new", a, h, "2026-10-04", (0, 2))]
++        good = lambda: {"lineups": lineups("H", "A"), "stats": stats(), "players": [player_entry("p_H1", "H P1", "t_h", goals=1)],
++                        "events": {"events": []}}
++        self.bundles = {"m_old": good(), "m_new": good()}
++
++    def test_first_run_fetches_everything_then_only_recent_matches(self):
++        source, history = SimpleSource(self.matches, self.bundles), History(path=None)
++        first = ps.refresh_history(source, history, today=date(2026, 10, 5), log=lambda *_: None)
++        self.assertEqual((first["finished"], first["new"], first["refreshed"], first["failed"]), (2, 2, 0, []))
++        source.fetched.clear()
++        second = ps.refresh_history(source, history, today=date(2026, 10, 5), log=lambda *_: None)
++        self.assertEqual(source.fetched, ["m_new"])      # m_old is older than 3 days: not asked for again
++        self.assertEqual((second["new"], second["refreshed"]), (0, 1))
++        self.assertEqual(len(history.pitch_matches), 2)
++
++    def test_a_match_without_lineups_is_reported_not_stored(self):
++        self.bundles["m_new"]["lineups"] = None
++        history = History(path=None)
++        result = ps.refresh_history(SimpleSource(self.matches, self.bundles), history, today=date(2026, 10, 5), log=lambda *_: None)
++        self.assertEqual(result["failed"], ["m_new"])
++        self.assertEqual(list(history.pitch_matches), ["m_old"])
++
++    def test_one_failing_request_does_not_stop_the_rest(self):
++        self.bundles["m_old"] = PitchApiError("boom", status=500)
++        history = History(path=None)
++        result = ps.refresh_history(SimpleSource(self.matches, self.bundles), history, today=date(2026, 10, 5), log=lambda *_: None)
++        self.assertEqual((result["new"], result["failed"]), (1, ["m_old"]))
++
++    def test_a_rejected_key_stops_everything(self):
++        self.bundles["m_old"] = PitchApiAuthError("nope", status=401)
++        with self.assertRaises(PitchApiAuthError):
++            ps.refresh_history(SimpleSource(self.matches, self.bundles), History(path=None), today=date(2026, 10, 5), log=lambda *_: None)
++
++    def test_history_keeps_player_details_once_and_survives_a_save_and_load(self):
++        history = History(path=None)
++        ps.refresh_history(SimpleSource(self.matches, self.bundles), history, today=date(2026, 10, 5), log=lambda *_: None)
++        self.assertEqual(history.data["pitch_players"]["p_H1"]["name"], "H P1")
++        self.assertNotIn("info", next(iter(history.pitch_matches.values())))
++        with tempfile.TemporaryDirectory() as folder:
++            history.path = Path(folder) / "h.json"
++            history.save()
++            again = History.load(history.path)
++        self.assertEqual(len(again.pitch_matches), 2)
++        self.assertEqual([r["event"]["match_date"] for r in again.pitch_records()], ["2026-08-21", "2026-10-04"])
++
++    def test_an_old_history_file_without_pitch_sections_still_loads(self):
++        with tempfile.TemporaryDirectory() as folder:
++            path = Path(folder) / "h.json"
++            path.write_text(json.dumps({"version": 1, "season_start": "2026-08-21", "matches": {}, "results": {},
++                                        "team_stats": {}, "player_stats": {}, "io_stats": {}}))
++            history = History.load(path)
++        self.assertEqual(history.pitch_matches, {})
++        self.assertEqual(history.summary()["pitch_matches_stored"], 0)
++
++
++class HarvestSourceTests(SimpleTestCase):
++    def test_reads_a_harvest_folder_and_skips_error_stubs(self):
++        with tempfile.TemporaryDirectory() as folder:
++            root = Path(folder)
++            (root / "matches").mkdir()
++            played = [match("m_1", ("t_h", "Home"), ("t_a", "Away"), "2026-08-21"),
++                      match("m_2", ("t_h", "Home"), ("t_a", "Away"), "2026-08-28", status="postponed")]
++            upcoming = [match("m_3", ("t_b", "Other"), ("t_h", "Home"), "2026-11-01", status="not_started")]
++            (root / "matches" / "current.played.json").write_text(json.dumps({"data": {"matches": played}}))
++            (root / "matches" / "current.upcoming.json").write_text(json.dumps({"data": {"matches": upcoming}}))
++            (root / "match" / "m_1").mkdir(parents=True)
++            (root / "match" / "m_1" / "lineups.json").write_text(json.dumps({"data": lineups()}))
++            (root / "match" / "m_1" / "stats.json").write_text(json.dumps({"_error": {"status": 404}, "_path": "x"}))
++            source = ps.HarvestSource(root)
++            self.assertTrue(source.is_configured())
++            self.assertEqual([m["id"] for m in source.finished_matches()], ["m_1"])
++            self.assertEqual({t["id"] for t in source.all_teams()}, {"t_h", "t_a", "t_b"})
++            bundle = source.bundle("m_1")
++        self.assertEqual(bundle["lineups"]["home"]["formation"], "4-3-3")
++        self.assertIsNone(bundle["stats"])
++        self.assertIsNone(bundle["players"])
++        self.assertFalse(ps.HarvestSource("/no/such/folder").is_configured())
++
++
++# --------------------------------------------------------------------------- #
++# The whole build, with PitchAPI in place of apifootball for matches and players
++# --------------------------------------------------------------------------- #
++CHELSEA, MUN, WOLVES = ("t_che", "Chelsea"), ("t_mun", "Manchester United"), ("t_wol", "Wolverhampton Wanderers")
++
++
++def full_source(extra_matches=()):
++    matches = [match("m_1", CHELSEA, MUN, "2026-08-22", (2, 0)), match("m_2", WOLVES, CHELSEA, "2026-09-12", (1, 1)),
++               match("m_3", CHELSEA, WOLVES, "2026-09-26", (3, 0)), *extra_matches]
++    bundles = {}
++    for m in matches:
++        h, a = m["home_team"]["id"], m["away_team"]["id"]
++        players = [player_entry(f"p_{t}{role}", f"Chelsea {role_name}" if t == "t_che" else f"{t} {role_name}", t, goals=goals)
++                   for t in (h, a) for role, role_name, goals in (("k", "Keeper", 0), ("w", "Winger", 1))]
++        if "t_che" in (h, a):
++            players.append(player_entry("p_mystery", "Mystery Man", "t_che", minutes=30))
++        bundles[m["id"]] = {"lineups": lineups(h, a, "4-2-3-1" if h == "t_che" else "4-3-3", "4-3-3" if a == "t_che" else "5-4-1",
++                                               coaches=("Chelsea Boss" if h == "t_che" else "Other Boss",
++                                                        "Chelsea Boss" if a == "t_che" else "Other Boss")),
++                            "stats": stats(possession=(60, 40) if h == "t_che" else (45, 55)),
++                            "players": players, "events": {"events": []}}
++    return SimpleSource(matches, bundles, teams=ps._teams_from(matches))
++
++
++class FullBuildTests(SimpleTestCase):
++    def build(self, pa, ap=None, history=None):
++        with mock.patch.object(pl_data, "MIN_TEAMS", 3):
++            return self._build(pa, ap, history)
++
++    def _build(self, pa, ap, history):
++        return pl_data.build_dataset(FakeFootballData(), ap if ap is not None else FakeApiFootball(), log=lambda *_: None,
++                                     today=TODAY, io=FakeFootballDataIo(configured=False), history=history, pa=pa)
++
++    def test_formation_possession_and_players_come_from_pitchapi(self):
++        data = self.build(full_source())
++        chelsea = data["teams"]["61"]
++        self.assertEqual(chelsea["sources"]["pitchapi"], True)
++        self.assertEqual(chelsea["sources"]["pitchapi_team_id"], "t_che")
++        self.assertEqual(chelsea["formation"]["default"], "4-2-3-1")                  # played twice at home
++        self.assertEqual(chelsea["formation"]["usage"], {"4-2-3-1": 2, "4-3-3": 1})
++        self.assertEqual(chelsea["stats"]["possession_source"], "pitchapi")
++        self.assertEqual(chelsea["stats"]["possession"], round((60 + 55 + 60) / 3, 1))
++        winger = next(p for p in chelsea["profile"]["squad"] if p["name"] == "Chelsea Winger")
++        self.assertEqual((winger["pitchapi"]["goals"], winger["pitchapi"]["appearances"]), (3, 3))
++        self.assertTrue(winger["pitchapi"]["injured"])        # apifootball's flag is kept: PitchAPI has none
++        self.assertEqual(pl_data.player_numbers(winger)["goals"], 3)                  # not apifootball's 4
++        self.assertEqual(data["meta"]["report"]["unmatched_pitchapi"], [])
++
++    def test_apifootball_is_still_used_for_the_venue_but_not_for_matches(self):
++        ap = FakeApiFootball()
++        data = self.build(full_source(), ap=ap)
++        self.assertEqual(ap.event_windows, [])                                       # no per-month event calls
++        self.assertEqual(data["teams"]["61"]["profile"]["venue"]["capacity"], 40173)
++        stages = {s["name"]: s for s in data["meta"]["report"]["stages"]}
++        self.assertIn("skipped", stages["match events (formations, possession)"]["detail"])
++
++    def test_players_who_appeared_but_match_nobody_are_reported(self):
++        data = self.build(full_source())
++        self.assertIn("Chelsea FC: Mystery Man", data["meta"]["report"]["unmatched_pitchapi_players"])
++
++    def test_the_build_stores_matches_so_a_second_run_asks_for_nothing_old(self):
++        history = History(path=None)
++        self.build(full_source(), history=history)
++        self.assertEqual(len(history.pitch_matches), 3)
++        again = full_source()
++        self.build(again, history=history)
++        self.assertEqual(again.fetched, [])                                          # all three are older than 3 days
++
++    def test_without_pitchapi_the_old_apifootball_path_is_unchanged(self):
++        data = self.build(None)
++        chelsea = data["teams"]["61"]
++        self.assertEqual(chelsea["stats"]["possession_source"], "apifootball")
++        self.assertEqual(chelsea["formation"]["default"], "4-2-3-1")
++        self.assertNotIn("pitchapi", chelsea["profile"]["squad"][0])
++        stages = {s["name"]: s for s in data["meta"]["report"]["stages"]}
++        self.assertFalse(stages["pitchapi"]["ok"])
++
++    def test_a_pitchapi_outage_falls_back_to_what_was_stored(self):
++        history = History(path=None)
++        self.build(full_source(), history=history)
++
++        class Down(SimpleSource):
++            def all_teams(self):
++                raise PitchApiError("down", status=503)
++
++        data = self.build(Down([], {}), history=history)
++        chelsea = data["teams"]["61"]
++        self.assertEqual(chelsea["stats"]["possession_source"], "pitchapi")
++        self.assertEqual(chelsea["sources"]["pitchapi"], True)                       # clubs are re-found from the stored matches
++        stages = [s for s in data["meta"]["report"]["stages"] if s["name"] == "pitchapi"]
++        self.assertIn("stored earlier", stages[0]["detail"])
++
++    def test_a_pitchapi_outage_with_nothing_stored_falls_back_to_apifootball(self):
++        class Down(SimpleSource):
++            def all_teams(self):
++                raise PitchApiError("down", status=503)
++
++        data = self.build(Down([], {}), history=History(path=None))
++        self.assertEqual(data["teams"]["61"]["stats"]["possession_source"], "apifootball")
++
++    def test_coach_falls_back_to_the_lineup_name_when_football_data_has_none(self):
++        teams = [dict(t) for t in __import__("ufd_app.pl_fixtures", fromlist=["FD_TEAMS"]).FD_TEAMS]
++        for t in teams:
++            t["coach"] = None
++        with mock.patch.object(pl_data, "MIN_TEAMS", 3):
++            data = pl_data.build_dataset(FakeFootballData(teams=teams), None, log=lambda *_: None, today=TODAY,
++                                         io=FakeFootballDataIo(configured=False), history=History(path=None), pa=full_source())
++        self.assertEqual(data["teams"]["61"]["profile"]["coach"]["name"], "Chelsea Boss")
++
++
++class ConsumerTests(SimpleTestCase):
++    def test_player_numbers_prefer_pitchapi_and_fall_back(self):
++        self.assertEqual(pl_data.player_numbers({"pitchapi": {"goals": 3}, "apifootball": {"goals": 9}}), {"goals": 3})
++        self.assertEqual(pl_data.player_numbers({"pitchapi": None, "apifootball": {"goals": 9}}), {"goals": 9})
++        self.assertEqual(pl_data.player_numbers({}), {})
++        self.assertEqual(pl_data.player_numbers(None), {})
++
++    def test_squad_widget_uses_pitchapi_numbers(self):
++        squad = [{"id": 1, "name": "Ann One", "position": "Centre-Forward", "pitchapi": ps.player_record(
++            {"min": 90, "g": 4, "a": 2, "no": "9"}, {"id": "p"})}]
++        groups = dashboard.group_squad(squad)
++        entry = groups[0][1][0]
++        self.assertEqual((entry["goals"], entry["assists"], entry["shirt"]), (4, 2, 9))
++
++
++class CommandTests(SimpleTestCase):
++    """build_pl_data --pitchapi-harvest, end to end through the management command."""
++
++    def write_harvest(self, root, source):
++        (root / "matches").mkdir()
++        (root / "matches" / "current.played.json").write_text(json.dumps({"data": {"matches": source.matches}}))
++        for mid, bundle in source.bundles.items():
++            folder = root / "match" / mid
++            folder.mkdir(parents=True)
++            for name, body in bundle.items():
++                (folder / f"{name}.json").write_text(json.dumps({"data": body}))
++
++    def run_command(self, *args):
++        from io import StringIO
++        from django.core.management import call_command
++        out = StringIO()
++        with tempfile.TemporaryDirectory() as folder, \
++             mock.patch.object(pl_data, "MIN_TEAMS", 3), \
++             mock.patch("ufd_app.pl_data.FootballDataClient", return_value=FakeFootballData()), \
++             mock.patch("ufd_app.pl_data.ApiFootballSource", return_value=FakeApiFootball()), \
++             mock.patch("ufd_app.pl_data.FootballDataIoSource", return_value=FakeFootballDataIo()):
++            root = Path(folder)
++            harvest = root / "harvest"
++            harvest.mkdir()
++            self.write_harvest(harvest, full_source())
++            target = root / "teams.json"
++            call_command("build_pl_data", "--output", str(target), "--no-history",
++                         *[a.replace("HARVEST", str(harvest)) for a in args], stdout=out)
++            return json.loads(target.read_text(encoding="utf-8")), out.getvalue()
++
++    def test_harvest_option_builds_from_the_folder(self):
++        data, output = self.run_command("--pitchapi-harvest", "HARVEST")
++        self.assertEqual(data["teams"]["61"]["stats"]["possession_source"], "pitchapi")
++        self.assertIn("3 from PitchAPI", output)
++
++    def test_a_missing_harvest_folder_is_an_error_not_a_silent_fallback(self):
++        from django.core.management.base import CommandError
++        with self.assertRaises(CommandError) as ctx:
++            self.run_command("--pitchapi-harvest", "/no/such/folder")
++        self.assertIn("ufd/pitchapi_raw", str(ctx.exception))
++
++    def test_skip_pitchapi_keeps_the_old_path(self):
++        data, output = self.run_command("--pitchapi-harvest", "HARVEST", "--skip-pitchapi")
++        self.assertEqual(data["teams"]["61"]["stats"]["possession_source"], "apifootball")
++        self.assertNotIn("from PitchAPI", output)
+diff --git a/ufd/ufd_app/test_pl_data.py b/ufd/ufd_app/test_pl_data.py
+index c1922fe..9d71676 100644
+--- a/ufd/ufd_app/test_pl_data.py
++++ b/ufd/ufd_app/test_pl_data.py
+@@ -168,7 +168,9 @@ class BuildDatasetTests(SimpleTestCase):
+         self.assertEqual(chelsea["profile"]["premier_league_titles"], {"count": 1, "since": 2023})
+         self.assertEqual(chelsea["sources"], {"football_data": True, "apifootball": True,
+                                               "apifootball_team_key": "100", "matched_by": "exact",
+-                                              "footballdata_io": False, "footballdata_io_team_id": None})
++                                              "footballdata_io": False, "footballdata_io_team_id": None,
++                                              "pitchapi": False, "pitchapi_team_id": None,
++                                              "pitchapi_unmatched_players": []})
+         self.assertIn("squad", chelsea["raw"]["football_data"])
+         self.assertIn("players", chelsea["raw"]["apifootball"])
+         self.assertEqual([r["position"] for r in data["standings"]], [1, 2, 3])

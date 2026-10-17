@@ -31,8 +31,9 @@ from pathlib import Path
 import requests
 from django.conf import settings
 
-from . import apifootball
+from . import apifootball, pitchapi_source
 from .footballdata_io import FootballDataIoError, FootballDataIoSource, clean_name
+from .pitchapi import PitchApiAuthError, PitchApiError
 
 logger = logging.getLogger(__name__)
 
@@ -65,6 +66,12 @@ def _to_float(value):
         return float(str(value).strip().rstrip("%"))
     except (TypeError, ValueError):
         return None
+
+
+def player_numbers(player):
+    """A player's season numbers: PitchAPI's when there are any, else apifootball's (an empty dict for neither)."""
+    player = player or {}
+    return player.get("pitchapi") or player.get("apifootball") or {}
 
 
 def _ascii_lower(text):
@@ -443,6 +450,16 @@ _AP_EXTRA_FIELDS = [
 ]
 
 
+def attach_pitch_stats(squad, pitch_players, pitch_played):
+    return pitchapi_source.attach_pitch_stats(squad, pitch_players, pitch_played)
+
+
+def _pitch_pool(totals, info, team_id):
+    """{PitchAPI player id: name, image and season totals} for one club."""
+    return {pid: {"name": (info.get(pid) or {}).get("name"), "image": (info.get(pid) or {}).get("image"), "total": total}
+            for pid, total in totals.items() if total.get("team") == team_id}
+
+
 def merge_squad(fd_squad, ap_players):
     """football-data squad enriched with apifootball stats (birth date first, then name)."""
     ap_players = [p for p in ap_players or [] if isinstance(p, dict)]
@@ -507,7 +524,8 @@ def extract_io_stats(data):
     }
 
 
-def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived, titles, io_team=None, io_raw_stats=None):
+def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived, titles, io_team=None, io_raw_stats=None,
+               pitch_team=None, pitch_players=None, pitch_played=0, pitch_coach=None):
     ap_team = ap_team or {}
     io_team = io_team or {}
     io_stats = extract_io_stats(io_raw_stats)
@@ -529,13 +547,16 @@ def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived, 
     elif ap_coaches and coach and ap_coaches[0]["coach_name"] == coach.get("name"):
         ap_coaches = ap_coaches[1:]
 
+    if not (coach and coach.get("name")) and pitch_coach:
+        coach = {"name": pitch_coach, "nationality": None, "date_of_birth": None, "contract": None}
+
     staff = [{"name": s.get("name"), "role": s.get("role") or s.get("position")}
              for s in fd_team.get("staff") or [] if isinstance(s, dict) and s.get("name")]
     staff += [{"name": c["coach_name"], "role": None} for c in ap_coaches]
 
     possession = derived["possession"] if derived else []
     if possession:
-        possession_value, possession_source, possession_matches = round(sum(possession) / len(possession), 1), "apifootball", len(possession)
+        possession_value, possession_source, possession_matches = round(sum(possession) / len(possession), 1), derived.get("source", "apifootball"), len(possession)
     elif io_stats["possession"]:
         possession_value, possession_source, possession_matches = round(io_stats["possession"], 1), "footballdata.io", io_stats["matches"]
     else:
@@ -568,6 +589,9 @@ def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived, 
         "cards_per_match": io_stats["cards_per_match"],
     }
 
+    squad = merge_squad(fd_team.get("squad"), ap_team.get("players"))
+    pitch_unmatched = attach_pitch_stats(squad, pitch_players, pitch_played) if pitch_players is not None else []
+
     profile = {
         "id": fd_team["id"],
         "name": fd_team.get("name"),
@@ -589,7 +613,7 @@ def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived, 
         },
         "coach": coach,
         "staff": staff,
-        "squad": merge_squad(fd_team.get("squad"), ap_team.get("players")),
+        "squad": squad,
         "running_competitions": [c.get("name") for c in fd_team.get("runningCompetitions") or []],
         "premier_league_titles": titles,
     }
@@ -604,6 +628,9 @@ def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived, 
             "matched_by": how_matched,
             "footballdata_io": bool(io_team),
             "footballdata_io_team_id": io_team.get("team_id"),
+            "pitchapi": bool(pitch_team),
+            "pitchapi_team_id": (pitch_team or {}).get("id"),
+            "pitchapi_unmatched_players": pitch_unmatched,
         },
         "raw": {
             "football_data": fd_team,
@@ -616,10 +643,12 @@ def build_team(fd_team, ap_team, how_matched, stats_row, clean_sheets, derived, 
 # --------------------------------------------------------------------------- #
 # The whole build
 # --------------------------------------------------------------------------- #
-def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=None, history=None, io_max_age_hours=24, now=None):
+def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=None, history=None, io_max_age_hours=24, now=None,
+                  pa=None):
     """Fetch everything and return the dataset dict. Raises FetchError if the 20-team spine can't be built."""
     today = today or date.today()
-    report = {"stages": [], "unmatched_football_data": [], "unmatched_apifootball": [], "unmatched_footballdata_io": []}
+    report = {"stages": [], "unmatched_football_data": [], "unmatched_apifootball": [], "unmatched_footballdata_io": [],
+              "unmatched_pitchapi": [], "unmatched_pitchapi_players": [], "pitchapi": None}
 
     def stage(name, ok, detail=""):
         report["stages"].append({"name": name, "ok": ok, "detail": detail})
@@ -660,6 +689,53 @@ def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=No
         clean_sheets = count_clean_sheets(stored) if stored else {}
         stage("finished matches (clean sheets)", bool(stored), f"{exc}" + (f"; used {len(stored)} stored results" if stored else ""))
 
+    # --- PitchAPI: formations, lineups, possession, player season numbers ------------
+    pitch_by_team, pitch_derived, pitch_totals, pitch_info, pitch_coaches = {}, {}, {}, {}, {}
+    pitch_played = defaultdict(int)
+    store = None
+    if pa is None or not pa.is_configured():
+        stage("pitchapi", False, "no PITCHAPI_API_KEY or harvest folder; formations, possession and player numbers fall back to apifootball")
+    else:
+        log("PitchAPI")
+        from .history import History  # local import: history imports this module when saving
+        store = history if history is not None else History(path=None)
+        teams_list = None
+        try:
+            teams_list = pa.all_teams()
+            result = pitchapi_source.refresh_history(pa, store, today=today, log=log)
+            stage("pitchapi matches (lineups, formations, possession, player numbers)",
+                  not result["failed"] and bool(store.pitch_matches),
+                  f"{result['finished']} finished; {result['new']} new, {result['refreshed']} refreshed; "
+                  f"{len(store.pitch_matches)} stored"
+                  + (f"; failed: {', '.join(result['failed'][:5])}" if result["failed"] else ""))
+        except (PitchApiError, PitchApiAuthError) as exc:
+            stage("pitchapi", False, str(exc) + ("; using the matches stored earlier" if store.pitch_matches else ""))
+        if store.pitch_matches:
+            records = store.pitch_records()
+            if teams_list is None:  # the API is down: the stored matches still name both clubs
+                teams_list = pitchapi_source.teams_from_records(records)
+            candidates = [{"team_name": t["name"], "team_key": t["id"], "pitch": t} for t in teams_list]
+            found, report["unmatched_pitchapi"], _ = match_teams(fd_teams, candidates)
+            pitch_by_team = {fd_id: cand["pitch"] for fd_id, (cand, _how) in found.items()}
+            stage("pitchapi team matching", not report["unmatched_pitchapi"],
+                  f"{len(pitch_by_team)}/{len(fd_teams)} matched"
+                  + (f"; unmatched: {', '.join(report['unmatched_pitchapi'])}" if report["unmatched_pitchapi"] else ""))
+            pitch_derived = derive_from_events([r["event"] for r in records])
+            for derived_team in pitch_derived.values():
+                derived_team["source"] = "pitchapi"
+            pitch_totals = pitchapi_source.aggregate_players(records)
+            pitch_info = store.data["pitch_players"]
+            pitch_coaches = pitchapi_source.latest_coaches(records)
+            for record in records:
+                for side in ("home", "away"):
+                    pitch_played[record["event"].get(f"match_{side}team_id")] += 1
+            off = sum(1 for r in records if r.get("cards_ok") is False)
+            report["pitchapi"] = {"matches": len(records), "cards_not_reconciled": off}
+            if off:
+                stage("pitchapi cards", False,
+                      f"in {off} of {len(records)} matches the cards don't add up to the team statistics (counts can be off by one or two)")
+    pitch_ok = bool(pitch_derived)
+
     # --- apifootball: enrichment ---------------------------------------------
     ap_teams, ap_standings, derived = [], [], {}
     if ap is None or not ap.is_configured():
@@ -673,8 +749,11 @@ def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=No
             data = ap.get_teams(league_id)
             ap_teams = [t for t in data or [] if isinstance(t, dict)]
             stage("teams, players, coaches, venues", bool(ap_teams), f"{len(ap_teams)} teams" if ap_teams else "no data returned")
-            ap_standings = ap.get_standings(league_id) or []
-            stage("standings", bool(ap_standings), f"{len(ap_standings)} rows" if ap_standings else "no data returned")
+            if pitch_ok:
+                stage("standings", True, "skipped: not used (standings come from football-data)")
+            else:
+                ap_standings = ap.get_standings(league_id) or []
+                stage("standings", bool(ap_standings), f"{len(ap_standings)} rows" if ap_standings else "no data returned")
 
             season = competition.get("currentSeason") or {}
             try:
@@ -682,7 +761,9 @@ def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=No
                 end = min(today, date.fromisoformat((season.get("endDate") or "")[:10]))
             except ValueError:
                 start = end = None
-            if not include_events:
+            if pitch_ok:
+                stage("match events (formations, possession)", True, "skipped: they come from PitchAPI")
+            elif not include_events:
                 if history is not None and history.matches:
                     derived = derive_from_events(history.events())
                 stage("match events (formations, possession)", bool(derived),
@@ -766,13 +847,28 @@ def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=No
     teams = {}
     for fd_team in fd_teams:
         ap_team, how = matches_map.get(fd_team["id"], (None, None))
-        team_derived = derived.get(str(ap_team.get("team_key"))) if ap_team else None
+        pitch_team = pitch_by_team.get(fd_team["id"])
+        if pitch_ok:
+            team_derived = pitch_derived.get(pitch_team["id"]) if pitch_team else None
+        else:
+            team_derived = derived.get(str(ap_team.get("team_key"))) if ap_team else None
         teams[str(fd_team["id"])] = build_team(
             fd_team, ap_team, how, stats_by_team.get(fd_team["id"]),
             clean_sheets.get(fd_team["id"], 0 if clean_sheets else None), team_derived,
             premier_league_titles(competition, fd_team["id"]),
             io_team=io_by_team.get(fd_team["id"]), io_raw_stats=io_stats_by_team.get(fd_team["id"]),
+            pitch_team=pitch_team,
+            pitch_players=_pitch_pool(pitch_totals, pitch_info, pitch_team["id"]) if pitch_ok and pitch_team else None,
+            pitch_played=pitch_played.get(pitch_team["id"], 0) if pitch_team else 0,
+            pitch_coach=pitch_coaches.get(pitch_team["id"]) if pitch_team else None,
         )
+    if pitch_ok:
+        report["unmatched_pitchapi_players"] = [
+            f"{team['profile']['name']}: {name}" for team in teams.values()
+            for name in team["sources"]["pitchapi_unmatched_players"]]
+        if report["unmatched_pitchapi_players"]:
+            stage("pitchapi players", False, f"{len(report['unmatched_pitchapi_players'])} players who appeared match nobody in the squad lists: "
+                  + ", ".join(report["unmatched_pitchapi_players"][:6]))
 
     if history is not None:
         day = today.isoformat()
@@ -782,7 +878,7 @@ def build_dataset(fd, ap=None, log=print, include_events=True, today=None, io=No
                 "position", "played", "won", "draw", "lost", "points", "goals_for", "goals_against",
                 "goal_difference", "clean_sheets", "possession", "form")})
             for player in (team.get("profile") or {}).get("squad") or []:
-                ap_rec = player.get("apifootball") or {}
+                ap_rec = player_numbers(player)
                 if player.get("id") is None or not ap_rec:
                     continue
                 numbers = {k: ap_rec.get(k) for k in ("appearances", "goals", "assists", "yellow_cards", "red_cards", "rating", "injured")}

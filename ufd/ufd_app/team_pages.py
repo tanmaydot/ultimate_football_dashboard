@@ -41,7 +41,7 @@ def squad_rows(squad):
     for player in squad or []:
         raw_position = player.get("position") or "Unknown"
         group = dashboard.POSITION_GROUPS.get(raw_position, raw_position)
-        extra = player.get("apifootball") or {}
+        extra = dashboard.pl_data.player_numbers(player)
         rating = extra.get("rating")
         shirt = player.get("shirt_number") if player.get("shirt_number") is not None else extra.get("shirt_number")
         rows.append({
@@ -263,7 +263,7 @@ def build_player_context(team_id, player_id, data=None):
     if player is None:
         return None, "That player isn't in this club's squad data."
     row = next(r for r in squad_rows([player]))
-    extra = player.get("apifootball") or {}
+    extra = dashboard.pl_data.player_numbers(player)
     numbers = extra.get("extra") or {}
 
     sections = []

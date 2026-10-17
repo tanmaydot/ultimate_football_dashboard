@@ -8,6 +8,10 @@ sees to this file instead of starting from scratch:
 * ``team_stats``    per club, one snapshot per day (only when something changed)
 * ``player_stats``  per club and player, one snapshot per day (only when something changed)
 * ``io_stats``      footballdata.io team stats with the time they were fetched (so they are not re-fetched every run)
+* ``pitch_matches`` PitchAPI finished matches, keyed by PitchAPI match id: the match in apifootball's event
+                    shape (formations, XIs, possession), each player's numbers for that match (sparse), and
+                    whether the cards added up to the team statistics. Season totals are summed from these.
+* ``pitch_players`` PitchAPI player id -> name, image and club (stable details, kept once)
 
 Formations, possession and clean sheets are derived from the stored matches, so they keep
 growing across runs even when the API only returns the latest few.
@@ -51,7 +55,8 @@ def trim_event(event):
 
 def _fresh(season_start=None):
     return {"version": HISTORY_VERSION, "season_start": season_start, "updated_at": None,
-            "matches": {}, "results": {}, "team_stats": {}, "player_stats": {}, "io_stats": {}}
+            "matches": {}, "results": {}, "team_stats": {}, "player_stats": {}, "io_stats": {},
+            "pitch_matches": {}, "pitch_players": {}}
 
 
 def _now():
@@ -148,6 +153,26 @@ class History:
                 updated += 1
         return new, updated
 
+    # ---- PitchAPI matches --------------------------------------------------
+    @property
+    def pitch_matches(self):
+        return self.data["pitch_matches"]
+
+    def pitch_match(self, match_id):
+        return self.pitch_matches.get(str(match_id))
+
+    def add_pitch_match(self, match_id, record):
+        """Store one finished match (replacing an older copy); the player details are kept once, newest wins."""
+        record = dict(record)
+        for pid, info in (record.pop("info", None) or {}).items():
+            self.data["pitch_players"][pid] = {k: v for k, v in info.items() if v}
+        self.pitch_matches[str(match_id)] = record
+
+    def pitch_records(self):
+        """Stored PitchAPI matches, oldest first (so 'latest' values such as shirt numbers end up newest)."""
+        return sorted(self.pitch_matches.values(), key=lambda r: ((r.get("event") or {}).get("match_date") or "",
+                                                                   (r.get("event") or {}).get("match_time") or ""))
+
     # ---- football-data results ---------------------------------------------
     def add_results(self, matches):
         added = 0
@@ -215,6 +240,7 @@ class History:
             "matches_stored": len(self.matches),
             "results_stored": len(self.data["results"]),
             "last_match_date": self.last_match_date(),
+            "pitch_matches_stored": len(self.pitch_matches),
             "team_snapshots": sum(len(s) for s in self.data["team_stats"].values()),
             "player_snapshots": sum(len(p["snapshots"]) for club in self.data["player_stats"].values() for p in club.values()),
         }
