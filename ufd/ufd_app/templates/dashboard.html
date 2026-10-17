@@ -378,17 +378,7 @@
     {% endif %}
 </template>
 
-<template id="tpl-coaches">
-    {% if assistants %}
-    <ul class="text-sm">
-        {% for a in assistants %}
-        <li class="flex justify-between gap-2 py-1 border-b border-line"><span class="font-semibold">{{ a.name }}</span><span class="opacity-60 text-xs">{{ a.role|default:"" }}</span></li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <div class="placeholder-note"><i class="fas fa-screwdriver-wrench"></i><p>This widget is under development</p></div>
-    {% endif %}
-</template>
+
 
 <template id="tpl-formation">
     {% if formation %}
@@ -416,6 +406,18 @@
     {% endif %}
 </template>
 
+<template id="tpl-coaches">
+    {% if assistants %}
+    <ul class="text-sm">
+        {% for a in assistants %}
+        <li class="flex justify-between gap-2 py-1 border-b border-line"><span class="font-semibold">{{ a.name }}</span><span class="opacity-60 text-xs">{{ a.role|default:"" }}</span></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="placeholder-note"><i class="fas fa-screwdriver-wrench"></i><p>This widget is under development</p></div>
+    {% endif %}
+</template>
+
 <template id="tpl-squad">
     <div class="squad-strip">
         <section class="squad-col manager-col" {% if team.brand_a %}style="--club-a: {{ team.brand_a }}; --club-b: {{ team.brand_b }}"{% endif %}>
@@ -431,10 +433,6 @@
                     </div>
                 </div>
             </div>
-            {% if coach.contract %}
-            <div class="section-label"><span class="eyebrow">Contract</span><span class="text-xs" style="color: var(--muted)">{{ coach.contract.start|default:"—" }} → {{ coach.contract.until|default:"—" }}</span></div>
-            {% if coach.progress is not None %}<div class="meter" role="img" aria-label="{{ coach.progress }}% of contract served"><i style="width: {{ coach.progress }}%"></i></div>{% endif %}
-            {% endif %}
             {% else %}
             <div class="placeholder-note"><i class="fas fa-user-slash"></i><p>No manager listed by the API for this club.</p></div>
             {% endif %}
@@ -468,8 +466,7 @@
     {% if data_missing %}
     <h2 class="text-2xl font-bold mb-2">No Premier League data yet</h2>
     <p class="opacity-70 mb-4">The dashboard reads a data file that hasn't been built. In your project folder run:</p>
-    <pre class="text-left text-sm bg-soft border border-line rounded-xl p-4 mb-6 overflow-x-auto">cd ufd
-python manage.py build_pl_data</pre>
+    <pre class="text-left text-sm bg-soft border border-line rounded-xl p-4 mb-6 overflow-x-auto">cd ufd python manage.py build_pl_data</pre>
     <p class="opacity-60 text-xs mb-6">Set FOOTBALL_DATA_API_KEY and PITCHAPI_API_KEY (or APIFOOTBALL_API_KEY) first. It takes a few minutes because of API rate limits. Reload this page afterwards.</p>
     {% else %}
     <h2 class="text-2xl font-bold mb-2">Dashboard unavailable</h2>

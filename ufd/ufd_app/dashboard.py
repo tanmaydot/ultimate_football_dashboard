@@ -36,16 +36,33 @@ AUTO_EXTRAS_PATH = Path(__file__).resolve().parent / "data" / "club_extras.auto.
 
 # Default layout on a 12-column grid: squad on the right, everything else on the left.
 # (The league table lives in the collapsible sidebar, not in the grid.)
+
 DEFAULT_LAYOUT = [
-    {"id": "info", "title": "Team info", "icon": "fa-info-circle", "x": 0, "y": 0, "w": 12, "h": 5, "minW": 4, "minH": 4, "fit": {"h": 356}},
-    {"id": "squad", "title": "Squad & manager", "icon": "fa-users", "x": 0, "y": 5, "w": 12, "h": 7, "minW": 4, "minH": 5, "fit": {"h": 556}},
-    {"id": "stats", "title": "Season stats", "icon": "fa-chart-bar", "x": 0, "y": 12, "w": 6, "h": 7, "minW": 3, "minH": 6, "fit": {"w": 534, "h": 524}},
-    {"id": "formation", "title": "Formation", "icon": "fa-chess-board", "x": 6, "y": 12, "w": 6, "h": 7, "minW": 3, "minH": 6},
-    # Revenue and coaches stay hidden until added from the "Add widget" menu (no free source fills them).
-    # Trophies now live inside the Team info strip (see the trophy cards in dashboard.html).
-    {"id": "revenue", "title": "Revenue", "icon": "fa-coins", "x": 6, "y": 21, "w": 3, "h": 5, "minW": 2, "minH": 3, "hidden": True},
-    {"id": "coaches", "title": "Coaches & assistants", "icon": "fa-clipboard-list", "x": 9, "y": 21, "w": 3, "h": 4, "minW": 2, "minH": 3, "hidden": True},
+    {"id": "info", "title": "Team info", "icon": "fa-info-circle",
+     "x": 0, "y": 0, "w": 12, "h": 5, "minW": 4, "minH": 4,
+     "fit": {"h": 356}},
+
+    {"id": "stats", "title": "Season stats", "icon": "fa-chart-bar",
+     "x": 0, "y": 5, "w": 6, "h": 7, "minW": 3, "minH": 6,
+     "fit": {"w": 534, "h": 524}},
+
+    {"id": "formation", "title": "Formation", "icon": "fa-chess-board",
+     "x": 6, "y": 5, "w": 6, "h": 7, "minW": 3, "minH": 6},
+
+    {"id": "squad", "title": "Squad & manager", "icon": "fa-users",
+     "x": 0, "y": 12, "w": 12, "h": 7, "minW": 4, "minH": 5,
+     "fit": {"h": 556}},
+
+    # Revenue and coaches remain hidden until added from the Add Widget menu.
+    {"id": "revenue", "title": "Revenue", "icon": "fa-coins",
+     "x": 6, "y": 21, "w": 3, "h": 5, "minW": 2, "minH": 3,
+     "hidden": True},
+
+    {"id": "coaches", "title": "Coaches & assistants",
+     "icon": "fa-clipboard-list", "x": 9, "y": 21, "w": 3, "h": 4,
+     "minW": 2, "minH": 3, "hidden": True},
 ]
+
 
 # Widgets whose title opens a full page in a new tab: widget id -> URL name (each takes the club id).
 PAGE_ROUTES = {"squad": "ufd_app:squad", "coaches": "ufd_app:manager", "formation": "ufd_app:formation"}
