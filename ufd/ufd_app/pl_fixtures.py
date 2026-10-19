@@ -1,5 +1,5 @@
-"""Small, hand-checkable API responses shaped like football-data.org and apifootball.com (for tests)."""
-from . import pl_data
+"""Small, hand-checkable API responses shaped like football-data.org, PitchAPI and footballdata.io (for tests)."""
+from . import pitchapi_source, pl_data
 
 SEASON = {"startDate": "2026-08-15", "endDate": "2027-05-24", "currentMatchday": 7}
 TODAY = pl_data.date(2026, 10, 5)
@@ -71,46 +71,6 @@ FD_MATCHES = {"matches": [match(61, 66, 2, 0), match(76, 61, 1, 1), match(61, 76
                           match(66, 76, None, None)]}
 
 
-AP_LEAGUES = [{"apifootball_id": "152", "name": "Premier League"}]
-
-
-def ap_team(key, name, dob_prefix, capacity):
-    return {
-        "team_key": key, "team_name": name, "team_country": "England", "team_founded": "1905",
-        "team_badge": f"https://ap.example/{key}.png",
-        "venue": {"venue_name": f"{name} Stadium", "venue_address": "1 Road", "venue_city": "Town",
-                  "venue_capacity": capacity, "venue_surface": "grass"},
-        "coaches": [{"coach_name": f"{name} Boss", "coach_country": "England", "coach_age": "50"},
-                    {"coach_name": f"{name} Assistant", "coach_country": "Wales", "coach_age": "45"}],
-        "players": [
-            # matched to the keeper by birth date even though the name differs
-            {"player_key": f"{key}1", "player_name": "G. Keeper", "player_birthdate": f"{dob_prefix}-01-01",
-             "player_number": "1", "player_type": "Goalkeepers", "player_match_played": "3", "player_goals": "0",
-             "player_assists": "0", "player_yellow_cards": "1", "player_red_cards": "0", "player_rating": "6.9",
-             "player_injured": "No"},
-            # matched by exact name (birth date missing on this side)
-            {"player_key": f"{key}2", "player_name": f"{name.split()[0]} Winger", "player_birthdate": "",
-             "player_number": "11", "player_type": "Forwards", "player_match_played": "3", "player_goals": "4",
-             "player_assists": "2", "player_yellow_cards": "0", "player_red_cards": "0", "player_rating": "7.6",
-             "player_injured": "Yes", "player_complete_name": "Winger Complete", "player_is_captain": "Yes",
-             "player_minutes": "270", "player_shots_total": "9", "player_passes": "100", "player_passes_accuracy": "85",
-             "player_pen_scored": "2", "player_pen_missed": "0", "player_pen_won": "1", "player_pen_comm": "0", "player_tackles": "0", "player_interceptions": "0", "player_saves": "0"},
-            {"player_key": f"{key}9", "player_name": "Somebody Else", "player_birthdate": "1990-09-09",
-             "player_number": "99", "player_type": "Midfielders"},
-        ],
-    }
-
-
-AP_TEAMS = [
-    ap_team("100", "Chelsea", "2000", "40173"),
-    ap_team("200", "Manchester United", "2001", "74310"),
-    ap_team("300", "Wolves", "2002", "31750"),
-]
-# Wolves matches the football-data "Wolverhampton" player names, so give it matching winger/keeper names
-AP_TEAMS[1]["players"][1]["player_name"] = "Man United Winger"
-AP_TEAMS[2]["players"][1]["player_name"] = "Wolverhampton Winger"
-
-
 def lineup(prefix, shuffle=True):
     players = [{"lineup_player": f"{prefix} Player {i}", "lineup_number": str(i), "lineup_position": str(i),
                 "player_key": f"{prefix}{i}"} for i in range(1, 12)]
@@ -131,7 +91,7 @@ def event(match_id, day, home_key, away_key, home_system, away_system, home_poss
 
 
 # Chelsea (key 100): 4-2-3-1 twice, 4-3-3 once -> default 4-2-3-1; possession (60 + 55 + 52) / 3 = 55.7
-AP_EVENTS = [
+MATCH_RECORDS = [
     event("m1", "2026-08-20", "100", "200", "4-2-3-1", "4-3-3", 60, 40),
     event("m2", "2026-09-10", "300", "100", "3-4-3", "4-2-3-1", 45, 55),
     event("m3", "2026-09-20", "100", "300", "4-3-3", "3-4-3", 52, 48),
@@ -162,30 +122,6 @@ class FakeFootballData:
         if isinstance(payload, Exception):
             raise payload
         return payload
-
-
-class FakeApiFootball:
-    def __init__(self, configured=True, events=None, league_id="152"):
-        self.configured = configured
-        self.events = AP_EVENTS if events is None else events
-        self.league_id = league_id
-        self.event_windows = []
-
-    def is_configured(self):
-        return self.configured
-
-    def premier_league_id(self):
-        return self.league_id
-
-    def get_teams(self, league_id):
-        return [dict(t) for t in AP_TEAMS]
-
-    def get_standings(self, league_id):
-        return [{"team_id": "100", "overall_league_position": "1"}]
-
-    def get_events(self, league_id, date_from, date_to):
-        self.event_windows.append((date_from, date_to))
-        return [e for e in self.events if date_from <= e["match_date"] <= date_to] or None
 
 
 # --------------------------------------------------------------------------- #
@@ -238,11 +174,13 @@ class FakeFootballDataIo:
         self.stats = {901: io_stats(901), 902: io_stats(902, possession=0), 903: None} if stats is None else stats
         self.error = error
         self.stat_calls = []
+        self.directory_calls = 0  # how often the league / club list was looked up
 
     def is_configured(self):
         return self.configured
 
     def premier_league_id(self):
+        self.directory_calls += 1
         return self.league_id
 
     def get_current_teams(self, league_id):
@@ -253,3 +191,130 @@ class FakeFootballDataIo:
         if self.error:
             raise self.error
         return self.stats.get(team_id)
+
+
+# --------------------------------------------------------------------------- #
+# Synthetic PitchAPI bodies (same shapes as the real harvest)
+# --------------------------------------------------------------------------- #
+def starters(team, formation, shirt_start=1):
+    """GK on x=0.1, then one x level per line; within a line y runs left (low) to right (high), as in the real data."""
+    out = [{"player_id": f"p_{team}0", "name": f"{team} Keeper", "shirt_number": str(shirt_start), "position_id": 11,
+            "is_captain": False, "pitch_x": 0.1, "pitch_y": 0.5}]
+    index = 1
+    for level, count in enumerate(int(n) for n in formation.split("-")):
+        for k in range(count):
+            out.append({"player_id": f"p_{team}{index}", "name": f"{team} P{index}", "shirt_number": str(shirt_start + index),
+                        "position_id": 30 + level, "is_captain": index == 1, "pitch_x": round(0.1 + 0.25 * (level + 1), 2),
+                        "pitch_y": round((k + 1) / (count + 1), 2)})
+            index += 1
+    return out
+
+
+def lineups(home="H", away="A", hf="4-3-3", af="4-4-2", coaches=("Home Boss", "Away Boss")):
+    return {"home": {"formation": hf, "confirmed": True, "coach": {"name": coaches[0]}, "starters": starters(home, hf),
+                     "subs": [{"player_id": f"p_{home}s", "name": f"{home} Sub", "shirt_number": "30", "is_captain": False}]},
+            "away": {"formation": af, "confirmed": True, "coach": {"name": coaches[1]}, "starters": starters(away, af, 21),
+                     "subs": []}}
+
+
+def stats(possession=(60, 40), yellow=(1, 0), red=(0, 0)):
+    def item(key, h, a):
+        return {"key": key, "home": str(h), "away": str(a)}
+    return {"periods": [
+        {"period": "All", "groups": [{"group_name": "Top", "items": [
+            item("BallPossesion", *possession), item("yellow_cards", *yellow), item("red_cards", *red)]}]},
+        {"period": "FirstHalf", "groups": [{"items": [item("BallPossesion", 99, 1)]}]},
+    ]}
+
+
+def stat(key, value, total=None, kind="integer"):
+    body = {"type": kind, "value": value}
+    if total is not None:
+        body["total"] = total
+    return {"key": key, "stat": body}
+
+
+def player_entry(pid, name, team, minutes=90, goals=0, assists=0, rating=7.0, passes=(40, 50), tackles=2, shots=1):
+    return {"player": {"id": pid, "name": name, "image_url": f"https://img/{pid}.webp"}, "team_id": team, "stats": [
+        {"key": "top_stats", "stats": {
+            "Goals": stat("goals", goals), "Assists": stat("assists", assists), "Minutes played": stat("minutes_played", minutes),
+            "Rating": stat("rating_title", rating, kind="double"), "Accurate passes": stat("accurate_passes", passes[0], passes[1]),
+            "Total shots": stat("total_shots", shots)}},
+        {"key": "defense", "stats": {"Tackles": stat("matchstats.headers.tackles", tackles)}},
+    ]}
+
+
+def goal(minute, team, pid, score=(0, 0), own=False, pen=False, added=0):
+    return {"event_type": "goal", "minute": minute, "minute_added": added, "period": "FirstHalf", "team_id": team,
+            "player": {"id": pid, "name": pid}, "is_own_goal": own, "is_penalty": pen,
+            "score_home": score[0], "score_away": score[1]}
+
+
+def card(kind, minute, team, pid, added=0):
+    return {"event_type": kind, "minute": minute, "minute_added": added, "period": "SecondHalf", "team_id": team,
+            "player": {"id": pid, "name": pid}, "is_own_goal": False, "is_penalty": False}
+
+
+def pitch_match(mid, home, away, day, score=(1, 0), status="finished"):
+    return {"id": mid, "date": day, "time_utc": f"{day}T14:00:00Z", "status": status,
+            "home_team": {"id": home[0], "name": home[1]}, "away_team": {"id": away[0], "name": away[1]},
+            "score_home": score[0], "score_away": score[1]}
+
+
+class SimpleSource:
+    """A source with a fixed match list; bundles come from a dict."""
+
+    known_league_id = None
+
+    def __init__(self, matches, bundles, teams=None, configured=True):
+        self.matches, self.bundles, self.configured = matches, bundles, configured
+        self.fetched = []
+        self._teams = teams
+
+    def use_league(self, league_id):
+        pass
+
+    def is_configured(self):
+        return self.configured
+
+    def finished_matches(self):
+        return self.matches
+
+    def all_teams(self, minimum=0):
+        if self._teams is not None:
+            return self._teams
+        return pitchapi_source._teams_from(self.matches)
+
+    def bundle(self, match_id):
+        self.fetched.append(match_id)
+        result = self.bundles[match_id]
+        if isinstance(result, Exception):
+            raise result
+        return result
+
+
+# --------------------------------------------------------------------------- #
+
+
+CHELSEA, MUN, WOLVES = ("t_che", "Chelsea"), ("t_mun", "Manchester United"), ("t_wol", "Wolverhampton Wanderers")
+
+
+def full_source(extra_matches=()):
+    matches = [pitch_match("m_1", CHELSEA, MUN, "2026-08-22", (2, 0)), pitch_match("m_2", WOLVES, CHELSEA, "2026-09-12", (1, 1)),
+               pitch_match("m_3", CHELSEA, WOLVES, "2026-09-26", (3, 0)), *extra_matches]
+    bundles = {}
+    for m in matches:
+        h, a = m["home_team"]["id"], m["away_team"]["id"]
+        players = [player_entry(f"p_{t}{role}", f"Chelsea {role_name}" if t == "t_che" else f"{t} {role_name}", t, goals=goals,
+                                assists=1 if role == "w" else 0)
+                   for t in (h, a) for role, role_name, goals in (("k", "Keeper", 0), ("w", "Winger", 1))]
+        if "t_che" in (h, a):
+            players.append(player_entry("p_mystery", "Mystery Man", "t_che", minutes=30))
+        bundles[m["id"]] = {"lineups": lineups(h, a, "4-2-3-1" if h == "t_che" else "4-3-3", "4-3-3" if a == "t_che" else "5-4-1",
+                                               coaches=("Chelsea Boss" if h == "t_che" else "Other Boss",
+                                                        "Chelsea Boss" if a == "t_che" else "Other Boss")),
+                            "stats": stats(possession=(60, 40) if h == "t_che" else (45, 55)),
+                            "players": players,
+                            # in the first match the Chelsea winger scored from the spot
+                            "events": {"events": [goal(10, "t_che", "p_t_chew", (1, 0), pen=True)] if m["id"] == "m_1" else []}}
+    return SimpleSource(matches, bundles, teams=pitchapi_source._teams_from(matches))

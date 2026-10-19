@@ -12,13 +12,13 @@ from django.test import SimpleTestCase, override_settings
 
 from . import pl_data
 from .footballdata_io import FootballDataIoError
-from .pl_fixtures import (AP_EVENTS, AP_TEAMS, FD_TEAMS, TODAY, FakeApiFootball, FakeFootballData,
-                          FakeFootballDataIo)
+from .history import History
+from .pl_fixtures import FD_TEAMS, MATCH_RECORDS, TODAY, FakeFootballData, FakeFootballDataIo, SimpleSource, full_source
 
 
-def build(fd=None, ap=None, **kwargs):
+def build(fd=None, pa=None, **kwargs):
     with mock.patch.object(pl_data, "MIN_TEAMS", 3):
-        return pl_data.build_dataset(fd or FakeFootballData(), ap, log=lambda *_: None, today=TODAY, **kwargs)
+        return pl_data.build_dataset(fd or FakeFootballData(), pa=pa, log=lambda *_: None, today=TODAY, **kwargs)
 
 
 class TeamMatchingTests(SimpleTestCase):
@@ -55,7 +55,7 @@ class TeamMatchingTests(SimpleTestCase):
         self.assertEqual(un_fd, ["Chelsea FC"])
         self.assertEqual(un_ap, ["Arsenal"])
 
-    def test_one_apifootball_team_is_never_used_twice(self):
+    def test_one_candidate_team_is_never_used_twice(self):
         fd = [{"id": 1, "name": "Chelsea FC"}, {"id": 2, "name": "Chelsea"}]
         matches, un_fd, _ = pl_data.match_teams(fd, [{"team_name": "Chelsea"}])
         self.assertEqual(len(matches), 1)
@@ -67,21 +67,14 @@ class DerivedNumbersTests(SimpleTestCase):
         from .pl_fixtures import FD_MATCHES
         self.assertEqual(pl_data.count_clean_sheets(FD_MATCHES["matches"]), {61: 2, 66: 0, 76: 0})
 
-    def test_month_windows_cover_the_range_without_gaps(self):
-        windows = list(pl_data.month_windows(date(2026, 8, 15), date(2026, 10, 5)))
-        self.assertEqual(windows, [(date(2026, 8, 15), date(2026, 8, 31)), (date(2026, 9, 1), date(2026, 9, 30)),
-                                   (date(2026, 10, 1), date(2026, 10, 5))])
-        self.assertEqual(list(pl_data.month_windows(date(2026, 9, 5), date(2026, 9, 5))),
-                         [(date(2026, 9, 5), date(2026, 9, 5))])
-
     def test_events_ignore_unfinished_and_duplicates(self):
-        derived = pl_data.derive_from_events(AP_EVENTS)
+        derived = pl_data.derive_from_events(MATCH_RECORDS)
         chelsea = derived["100"]
         self.assertEqual(chelsea["usage"], Counter({"4-2-3-1": 2, "4-3-3": 1}))
         self.assertEqual(chelsea["possession"], [60.0, 55.0, 52.0])
 
     def test_default_formation_is_most_used_and_xi_is_in_position_order(self):
-        summary = pl_data.formation_summary(pl_data.derive_from_events(AP_EVENTS)["100"])
+        summary = pl_data.formation_summary(pl_data.derive_from_events(MATCH_RECORDS)["100"])
         self.assertEqual(summary["default"], "4-2-3-1")
         self.assertEqual(summary["matches_counted"], 3)
         self.assertEqual(summary["based_on_match_date"], "2026-09-10")  # latest 4-2-3-1 game
@@ -90,7 +83,7 @@ class DerivedNumbersTests(SimpleTestCase):
         self.assertTrue(summary["starting_xi"][10].endswith("Player 11"))
 
     def test_every_formation_is_listed_with_its_own_latest_xi(self):
-        summary = pl_data.formation_summary(pl_data.derive_from_events(AP_EVENTS)["100"])
+        summary = pl_data.formation_summary(pl_data.derive_from_events(MATCH_RECORDS)["100"])
         self.assertEqual([(f["formation"], f["count"], f["last_date"]) for f in summary["formations"]],
                          [("4-2-3-1", 2, "2026-09-10"), ("4-3-3", 1, "2026-09-20")])
         self.assertTrue(all(len(f["starting_xi"]) == 11 for f in summary["formations"]))
@@ -126,30 +119,21 @@ class DerivedNumbersTests(SimpleTestCase):
         self.assertIsNone(pl_data.premier_league_titles({"seasons": []}, 61))
 
 
-class SquadMergeTests(SimpleTestCase):
-    def test_players_match_by_birth_date_then_name(self):
-        squad = pl_data.merge_squad(FD_TEAMS[0]["squad"], AP_TEAMS[0]["players"])
-        keeper, winger, unknown = squad
-        self.assertEqual(keeper["apifootball"]["rating"], 6.9)          # by birth date (names differ)
-        self.assertEqual(winger["apifootball"]["goals"], 4)             # by exact name
-        self.assertTrue(winger["apifootball"]["injured"])
-        self.assertIsNone(unknown["apifootball"])                       # nothing to match -> no guess
+class SquadTests(SimpleTestCase):
+    def test_squad_comes_from_football_data(self):
+        keeper, winger, unknown = pl_data.build_squad(FD_TEAMS[0]["squad"])
         self.assertEqual(keeper["date_of_birth"], "2000-01-01")
+        self.assertEqual([p["name"] for p in (keeper, winger, unknown)], ["Chelsea Keeper", "Chelsea Winger", "Chelsea Unknown"])
+        self.assertNotIn("pitchapi", keeper)         # season numbers are attached afterwards, from PitchAPI
 
-    def test_an_apifootball_player_is_never_used_twice(self):
-        fd = [{"id": 1, "name": "A One", "dateOfBirth": "2000-01-01"}, {"id": 2, "name": "B Two", "dateOfBirth": "2000-01-01"}]
-        ap = [{"player_name": "A One", "player_birthdate": "2000-01-01", "player_goals": "3"}]
-        merged = pl_data.merge_squad(fd, ap)
-        self.assertEqual(sum(1 for p in merged if p["apifootball"]), 1)
-
-    def test_missing_inputs_are_fine(self):
-        self.assertEqual(pl_data.merge_squad(None, None), [])
-        self.assertIsNone(pl_data.merge_squad([{"id": 1, "name": "X"}], None)[0]["apifootball"])
+    def test_missing_input_is_fine(self):
+        self.assertEqual(pl_data.build_squad(None), [])
+        self.assertEqual(pl_data.build_squad([{"id": 1, "name": "X"}])[0]["name"], "X")
 
 
 class BuildDatasetTests(SimpleTestCase):
-    def test_full_build_merges_both_sources(self):
-        data = build(ap=FakeApiFootball())
+    def test_full_build_merges_the_sources(self):
+        data = build(pa=full_source())
         self.assertEqual(set(data["teams"]), {"61", "66", "76"})
         chelsea = data["teams"]["61"]
 
@@ -157,52 +141,45 @@ class BuildDatasetTests(SimpleTestCase):
         self.assertEqual(chelsea["stats"]["points"], 7)
         self.assertEqual(chelsea["stats"]["avg_points"], 2.33)
         self.assertEqual(chelsea["stats"]["clean_sheets"], 2)
-        self.assertEqual(chelsea["stats"]["possession"], 55.7)
+        self.assertEqual(chelsea["stats"]["possession"], 58.3)
         self.assertEqual(chelsea["stats"]["possession_matches"], 3)
 
         self.assertEqual(chelsea["formation"]["default"], "4-2-3-1")
-        self.assertEqual(chelsea["profile"]["venue"]["capacity"], 40173)      # from apifootball
-        self.assertEqual(chelsea["profile"]["venue"]["name"], "Chelsea Ground")  # football-data wins
+        self.assertEqual(chelsea["profile"]["venue"]["name"], "Chelsea Ground")  # football-data's; the rest is club_extras
         self.assertEqual(chelsea["profile"]["coach"]["name"], "Chelsea Boss")
-        self.assertEqual([s["name"] for s in chelsea["profile"]["staff"]], ["Chelsea Assistant"])
+        self.assertEqual(chelsea["profile"]["staff"], [])
         self.assertEqual(chelsea["profile"]["premier_league_titles"], {"count": 1, "since": 2023})
-        self.assertEqual(chelsea["sources"], {"football_data": True, "apifootball": True,
-                                              "apifootball_team_key": "100", "matched_by": "exact",
-                                              "footballdata_io": False, "footballdata_io_team_id": None,
-                                              "pitchapi": False, "pitchapi_team_id": None,
-                                              "pitchapi_unmatched_players": []})
+        self.assertEqual(chelsea["sources"], {"football_data": True, "footballdata_io": False, "footballdata_io_team_id": None,
+                                              "pitchapi": True, "pitchapi_team_id": "t_che",
+                                              "pitchapi_unmatched_players": ["Mystery Man"]})
         self.assertIn("squad", chelsea["raw"]["football_data"])
-        self.assertIn("players", chelsea["raw"]["apifootball"])
+        self.assertEqual(set(chelsea["raw"]), {"football_data", "footballdata_io"})
         self.assertEqual([r["position"] for r in data["standings"]], [1, 2, 3])
-        self.assertEqual(data["teams"]["76"]["sources"]["apifootball_team_key"], "300")  # Wolves alias
-        self.assertEqual(data["meta"]["report"]["unmatched_football_data"], [])
+        self.assertEqual(data["teams"]["76"]["sources"]["pitchapi_team_id"], "t_wol")  # "Wolverhampton Wanderers FC" pairs up
+        self.assertEqual(data["meta"]["report"]["unmatched_pitchapi"], [])
         json.dumps(data)  # must be serialisable
 
-    def test_event_requests_are_monthly_and_stop_at_today(self):
-        ap = FakeApiFootball()
-        build(ap=ap)
-        self.assertEqual(ap.event_windows, [("2026-08-15", "2026-08-31"), ("2026-09-01", "2026-09-30"),
-                                            ("2026-10-01", "2026-10-05")])
-
-    def test_works_without_apifootball(self):
-        data = build(ap=FakeApiFootball(configured=False))
+    def test_works_without_pitchapi(self):
+        data = build(pa=None)
         chelsea = data["teams"]["61"]
-        self.assertFalse(chelsea["sources"]["apifootball"])
+        self.assertFalse(chelsea["sources"]["pitchapi"])
         self.assertIsNone(chelsea["stats"]["possession"])
         self.assertIsNone(chelsea["formation"]["default"])
         self.assertEqual(chelsea["stats"]["clean_sheets"], 2)
-        self.assertFalse(data["meta"]["report"]["stages"][-1]["ok"])
+        stages = {s["name"]: s for s in data["meta"]["report"]["stages"]}
+        self.assertFalse(stages["pitchapi"]["ok"])
+        self.assertTrue(stages["updated this run"]["ok"])
 
-    def test_skip_events_keeps_everything_else(self):
-        ap = FakeApiFootball()
-        data = build(ap=ap, include_events=False)
-        self.assertEqual(ap.event_windows, [])
-        self.assertEqual(data["teams"]["61"]["profile"]["venue"]["capacity"], 40173)
-        self.assertIsNone(data["teams"]["61"]["formation"]["default"])
-
-    def test_missing_premier_league_id_is_reported(self):
-        data = build(ap=FakeApiFootball(league_id=None))
-        self.assertFalse(data["teams"]["61"]["sources"]["apifootball"])
+    def test_the_report_says_what_was_updated(self):
+        history = History(path=None)
+        data = build(pa=full_source(), history=history)
+        stages = {s["name"]: s["detail"] for s in data["meta"]["report"]["stages"]}
+        self.assertEqual(stages["updated this run"],
+                         "4 new result(s); PitchAPI 3 new / 0 re-read / 0 untouched")
+        again = build(pa=full_source(), history=history)
+        stages = {s["name"]: s["detail"] for s in again["meta"]["report"]["stages"]}
+        self.assertEqual(stages["updated this run"],
+                         "0 new result(s); PitchAPI 0 new / 0 re-read / 3 untouched")
 
     def test_clean_sheet_failure_is_reported_not_fatal(self):
         fd = FakeFootballData(overrides={"/competitions/PL/matches": pl_data.FetchError("boom")})
@@ -212,7 +189,7 @@ class BuildDatasetTests(SimpleTestCase):
 
     def test_too_few_teams_refuses_to_build(self):
         with self.assertRaises(pl_data.FetchError):
-            pl_data.build_dataset(FakeFootballData(teams=[dict(FD_TEAMS[0])]), None, log=lambda *_: None, today=TODAY)
+            pl_data.build_dataset(FakeFootballData(teams=[dict(FD_TEAMS[0])]), pa=None, log=lambda *_: None, today=TODAY)
 
     def test_teams_missing_squad_are_topped_up_from_the_team_endpoint(self):
         bare = [{"id": t["id"], "name": t["name"], "shortName": t["shortName"], "tla": t["tla"]} for t in FD_TEAMS]
@@ -229,11 +206,10 @@ class BuildDatasetTests(SimpleTestCase):
             build(fd=fd)
 
     def test_start_of_season_with_no_matches_is_handled(self):
-        ap = FakeApiFootball()
         with mock.patch.object(pl_data, "MIN_TEAMS", 3):
-            data = pl_data.build_dataset(FakeFootballData(), ap, log=lambda *_: None, today=date(2026, 8, 1))
-        self.assertEqual(ap.event_windows, [])
+            data = pl_data.build_dataset(FakeFootballData(), pa=SimpleSource([], {}), log=lambda *_: None, today=date(2026, 8, 1))
         self.assertIsNone(data["teams"]["61"]["formation"]["default"])
+        self.assertEqual(len(data["teams"]), 3)
 
 
 def response(status=200, payload=None, headers=None):
@@ -320,21 +296,28 @@ class WriteJsonTests(SimpleTestCase):
 
 
 class CommandTests(SimpleTestCase):
-    def run_command(self, *args, fd=None, ap=None, io=None):
+    def run_command(self, *args, fd=None, io=None, pitch=None):
         out = StringIO()
         with tempfile.TemporaryDirectory() as folder, \
              mock.patch.object(pl_data, "MIN_TEAMS", 3), \
              mock.patch("ufd_app.pl_data.FootballDataClient", return_value=fd or FakeFootballData()), \
-             mock.patch("ufd_app.pl_data.ApiFootballSource", return_value=ap or FakeApiFootball()), \
+             mock.patch("ufd_app.pitchapi_source.PitchApiSource", return_value=pitch or SimpleSource([], {}, configured=False)), \
              mock.patch("ufd_app.pl_data.FootballDataIoSource", return_value=io or FakeFootballDataIo()):
             target = Path(folder) / "teams.json"
-            call_command("build_pl_data", "--output", str(target), *args, stdout=out)
+            call_command("build_pl_data", "--output", str(target), "--no-history", *args, stdout=out)
             return json.loads(target.read_text(encoding="utf-8")), out.getvalue()
 
     def test_command_writes_the_file_and_summarises(self):
         data, output = self.run_command()
         self.assertEqual(len(data["teams"]), 3)
-        self.assertIn("Wrote 3 teams (3 enriched from apifootball, 3 from footballdata.io)", output)
+        self.assertIn("Wrote 3 teams (0 from PitchAPI, 3 from footballdata.io)", output)
+        self.assertIn("PITCHAPI_API_KEY is not set", output)
+        self.assertNotIn("apifootball", output.lower())
+
+    def test_command_with_a_pitchapi_key_uses_it(self):
+        data, output = self.run_command(pitch=full_source())
+        self.assertIn("Wrote 3 teams (3 from PitchAPI, 3 from footballdata.io)", output)
+        self.assertEqual(data["teams"]["61"]["stats"]["possession_source"], "pitchapi")
 
     def test_command_can_skip_footballdata_io(self):
         io = FakeFootballDataIo()
@@ -358,14 +341,14 @@ class CommandTests(SimpleTestCase):
 class FootballDataIoMergeTests(SimpleTestCase):
     def test_teams_are_matched_despite_html_escaped_and_multi_season_rows(self):
         io = FakeFootballDataIo()
-        data = build(ap=FakeApiFootball(configured=False), io=io)
+        data = build(io=io)
         self.assertEqual({t["footballdata_io_team_id"] for t in (v["sources"] for v in data["teams"].values())}, {901, 902, 903})
         self.assertEqual(sorted(call[0] for call in io.stat_calls), [901, 902, 903])
         # always asks for the Premier League and the current season, never the API's default competition
         self.assertTrue(all(call[1:] == (15, 103535) for call in io.stat_calls))
 
-    def test_io_fills_possession_when_apifootball_has_none(self):
-        data = build(ap=FakeApiFootball(configured=False), io=FakeFootballDataIo())
+    def test_io_fills_possession_when_pitchapi_has_none(self):
+        data = build(io=FakeFootballDataIo())
         chelsea = data["teams"]["61"]["stats"]
         self.assertEqual(chelsea["possession"], 58)
         self.assertEqual(chelsea["possession_source"], "footballdata.io")
@@ -375,15 +358,15 @@ class FootballDataIoMergeTests(SimpleTestCase):
         self.assertIsNone(chelsea["corners_per_match"])  # recorded_matches was 0: no data, not "0 corners"
         self.assertEqual(data["teams"]["61"]["raw"]["footballdata_io"]["team"]["team_id"], 901)
 
-    def test_apifootball_possession_wins_when_both_exist(self):
-        data = build(ap=FakeApiFootball(), io=FakeFootballDataIo())
+    def test_pitchapi_possession_wins_when_both_exist(self):
+        data = build(pa=full_source(), io=FakeFootballDataIo())
         stats = data["teams"]["61"]["stats"]
-        self.assertEqual(stats["possession"], 55.7)
-        self.assertEqual(stats["possession_source"], "apifootball")
+        self.assertEqual(stats["possession"], 58.3)
+        self.assertEqual(stats["possession_source"], "pitchapi")
         self.assertEqual(stats["clean_sheets"], 2)  # football-data's own count beats footballdata.io's
 
     def test_zero_means_no_data(self):
-        stats = build(ap=FakeApiFootball(configured=False), io=FakeFootballDataIo())["teams"]["66"]["stats"]
+        stats = build(io=FakeFootballDataIo())["teams"]["66"]["stats"]
         self.assertIsNone(stats["possession"])           # average was 0
         self.assertIsNone(stats["possession_source"])
 
@@ -401,9 +384,9 @@ class FootballDataIoMergeTests(SimpleTestCase):
 
     def test_io_failure_is_reported_and_the_rest_survives(self):
         io = FakeFootballDataIo(error=FootballDataIoError("monthly limit", status=429))
-        data = build(ap=FakeApiFootball(), io=io)
+        data = build(pa=full_source(), io=io)
         self.assertEqual(len(io.stat_calls), 1)  # stopped at the first 429
-        self.assertEqual(data["teams"]["61"]["stats"]["possession"], 55.7)
+        self.assertEqual(data["teams"]["61"]["stats"]["possession"], 58.3)
         stage = [s for s in data["meta"]["report"]["stages"] if s["name"] == "footballdata.io"][0]
         self.assertFalse(stage["ok"])
 
@@ -414,4 +397,4 @@ class FootballDataIoMergeTests(SimpleTestCase):
             self.assertIsNone(data["teams"]["61"]["raw"]["footballdata_io"])
 
     def test_output_with_io_is_serialisable(self):
-        json.dumps(build(ap=FakeApiFootball(), io=FakeFootballDataIo()))
+        json.dumps(build(pa=full_source(), io=FakeFootballDataIo()))

@@ -12,7 +12,6 @@ A football dashboard built with Django that brings football data, match informat
   - [FootballData.io](https://footballdata.io/documentation/)
   - [football-data.org](https://www.football-data.org/)
   - [PitchAPI](https://pitchapi.dev) (formations, lineups, possession, player season numbers)
-  - [API-Football](https://apifootball.com/) (venue details only, when PitchAPI is in use)
 
 ---
 
@@ -32,21 +31,42 @@ Useful options: `--endpoints lineups,stats,events,players` (only some), `--per-p
 `--max-minutes 60` / `--max-requests 5000` (stop cleanly), `--refresh` (download again). `ufd/pitchapi_raw/_index.json`
 summarises what was fetched, what the API said is unavailable, and any failures. The key is never written to disk.
 
-### Using PitchAPI in the daily build
+### How `build_pl_data` keeps the data up to date
 
-`build_pl_data` now takes formations, starting XIs, possession and every player's season numbers from PitchAPI
-(add a `PITCHAPI_API_KEY` secret next to the others). It fetches each finished match once (4 requests: lineups, stats,
-players, events), re-fetches the last 3 days in case of corrections, and keeps them in `pl_history.json`; season totals
-are summed from those. football-data.org still supplies the squads, coaches and club details, footballdata.io the xG,
-and apifootball.com is only asked for venue capacity / city / surface.
+The build only fetches what can have changed since the last run, and remembers the rest in `pl_history.json`:
+
+| Data | Source | When it is fetched |
+|---|---|---|
+| Squads, coaches, standings, results | football-data.org | every run (4 cheap calls) |
+| Formations, starting XIs, possession, every player's season numbers | PitchAPI | each match once when it finishes, again for 3 days (corrections), and again if the league list shows a different score than the stored one. Unchanged matches are not requested at all, so a run with no new match is 1 request |
+| xG, shots, corners per club | footballdata.io | a club's stats only after it has played (or after 24 h); the club list once a week |
+| Stadium capacity, city, honours | `club_extras*.json` | refreshed by the quarterly "Refresh club extras" workflow |
 
 ```bash
-python manage.py build_pl_data                                   # live: uses PITCHAPI_API_KEY
-python manage.py build_pl_data --pitchapi-harvest pitchapi_raw   # from a harvest folder, no key or network for PitchAPI
-python manage.py build_pl_data --skip-pitchapi                   # the old apifootball path
+python manage.py build_pl_data                                   # live: needs FOOTBALL_DATA_API_KEY and PITCHAPI_API_KEY
+python manage.py build_pl_data --force                           # ignore what is remembered and fetch everything again
+python manage.py build_pl_data --pitchapi-harvest pitchapi_raw   # PitchAPI from a harvest folder: no key or network for it
+python manage.py build_pl_data --skip-pitchapi                   # don't call PitchAPI (stored matches are still used)
 python manage.py audit_pitchapi pitchapi_raw                     # consistency checks on a harvest
 ```
 
-If PitchAPI fails, the build uses the matches it stored earlier; with nothing stored it falls back to apifootball.
-The build report lists clubs that did not match, players who appeared but are in no squad list, and matches whose
-card counts do not add up to the team statistics.
+If PitchAPI fails, the build uses the matches it stored earlier. The last line of the build output, "updated this run",
+says what was refreshed. The build report lists clubs that did not match, players who appeared but are in no squad
+list, and matches whose card counts do not add up to the team statistics.
+
+### Working with the generated data
+
+`ufd/ufd_app/data/pl_teams.json` and `pl_history.json` are written by the daily "Refresh Premier League data"
+workflow, which commits them. Building locally and committing them too is what causes merge conflicts. A clean way to work:
+
+```bash
+git pull --rebase                      # before you build locally
+python ufd/manage.py build_pl_data     # only if you want to look at fresh data locally
+git checkout ufd/ufd_app/data/         # ...then throw the local data away instead of committing it
+python ufd/manage.py check_data        # is what is on disk sound?
+```
+
+If a pull ever reports a conflict in a data file, don't edit it by hand: keep the version from the server
+(`git checkout --theirs ufd/ufd_app/data/pl_history.json` while rebasing, `--ours` while merging) and let the next build
+bring it up to date. The workflow runs `check_data` before it commits, and `.gitattributes` stops git from writing
+conflict markers into these files. `pitchapi_raw/` (the 34 MB harvest) is ignored by git; keep it on disk or zip it.

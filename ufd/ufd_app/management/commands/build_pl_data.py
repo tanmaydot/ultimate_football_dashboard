@@ -7,17 +7,17 @@ from ufd_app import history, pitchapi_source, pl_data
 
 class Command(BaseCommand):
     help = (
-        "Fetch Premier League team data from football-data.org, PitchAPI (formations, possession, player numbers), "
-        "apifootball.com (venues) and footballdata.io and write the JSON file the dashboard reads."
+        "Update the Premier League data the dashboard reads: football-data.org (squads, standings), PitchAPI "
+        "(formations, possession, player numbers) and footballdata.io (xG, shots). Only what has changed is fetched."
     )
 
     def add_arguments(self, parser):
         parser.add_argument("--output", default=str(pl_data.DEFAULT_OUTPUT),
                             help="Where to write the JSON (default: ufd_app/data/pl_teams.json)")
-        parser.add_argument("--skip-events", action="store_true",
-                            help="Skip the per-match apifootball calls (no formations / possession, fewer requests)")
+        parser.add_argument("--force", action="store_true",
+                            help="Ignore what was fetched before and fetch everything again (every match, every club)")
         parser.add_argument("--skip-pitchapi", action="store_true",
-                            help="Don't use PitchAPI: formations, possession and player numbers come from apifootball again")
+                            help="Don't call PitchAPI (matches stored earlier are still used)")
         parser.add_argument("--pitchapi-harvest", default=None, metavar="FOLDER",
                             help="Read PitchAPI data from a harvest_pitchapi folder instead of calling the API (no key needed)")
         parser.add_argument("--skip-footballdata-io", action="store_true",
@@ -27,7 +27,7 @@ class Command(BaseCommand):
         parser.add_argument("--no-history", action="store_true", help="Don't read or write the history file")
         parser.add_argument("--reset-history", action="store_true", help="Delete the stored history first and start again")
         parser.add_argument("--io-max-age-hours", type=float, default=24,
-                            help="Reuse footballdata.io team stats fetched within this many hours (default 24)")
+                            help="A club's footballdata.io stats are fetched again after this many hours even if it has not played (default 24)")
         parser.add_argument("--fd-interval", type=float, default=pl_data.FD_MIN_INTERVAL,
                             help="Seconds between football-data calls (free plan: 6.5 keeps you under 10 a minute)")
 
@@ -35,7 +35,6 @@ class Command(BaseCommand):
         fd = pl_data.FootballDataClient(min_interval=options["fd_interval"])
         if not fd.is_configured():
             raise CommandError("FOOTBALL_DATA_API_KEY is not set.")
-        ap = pl_data.ApiFootballSource()
         pa = None
         if not options["skip_pitchapi"]:
             if options["pitchapi_harvest"]:
@@ -48,7 +47,7 @@ class Command(BaseCommand):
                 pa = pitchapi_source.PitchApiSource()
             if not pa.is_configured():
                 self.stdout.write(self.style.WARNING(
-                    "PitchAPI is not configured (PITCHAPI_API_KEY is not set): using apifootball for formations and player numbers."))
+                    "PitchAPI is not configured (PITCHAPI_API_KEY is not set): only the matches stored earlier are used."))
         io = None if options["skip_footballdata_io"] else pl_data.FootballDataIoSource()
 
         store = None
@@ -58,8 +57,8 @@ class Command(BaseCommand):
             store = history.History.load(options["history"])
         self.stdout.write("Building Premier League data. This takes a few minutes because of API rate limits.")
         try:
-            dataset = pl_data.build_dataset(fd, ap, log=self.stdout.write, include_events=not options["skip_events"], io=io,
-                                           history=store, pa=pa, io_max_age_hours=options["io_max_age_hours"])
+            dataset = pl_data.build_dataset(fd, pa=pa, io=io, history=store, log=self.stdout.write,
+                                           io_max_age_hours=options["io_max_age_hours"], force=options["force"])
         except pl_data.FetchError as exc:
             raise CommandError(str(exc))
 
@@ -70,11 +69,9 @@ class Command(BaseCommand):
             self.stdout.write(f"History saved to {store.path}")
         teams = len(dataset["teams"])
         with_pa = sum(1 for t in dataset["teams"].values() if t["sources"].get("pitchapi"))
-        pitch_note = f"{with_pa} from PitchAPI, " if with_pa else ""
-        with_ap = sum(1 for t in dataset["teams"].values() if t["sources"]["apifootball"])
         with_io = sum(1 for t in dataset["teams"].values() if t["sources"]["footballdata_io"])
         self.stdout.write(self.style.SUCCESS(
-            f"Wrote {teams} teams ({pitch_note}{with_ap} enriched from apifootball, {with_io} from footballdata.io) to {output}"))
+            f"Wrote {teams} teams ({with_pa} from PitchAPI, {with_io} from footballdata.io) to {output}"))
         unmatched_pa = dataset["meta"]["report"].get("unmatched_pitchapi") or []
         if unmatched_pa:
             self.stdout.write(self.style.WARNING("No PitchAPI match for: " + ", ".join(unmatched_pa)))
@@ -82,9 +79,6 @@ class Command(BaseCommand):
         if unmatched_players:
             self.stdout.write(self.style.WARNING(
                 f"{len(unmatched_players)} PitchAPI players who appeared are not in the squad lists: " + ", ".join(unmatched_players[:10])))
-        unmatched = dataset["meta"]["report"]["unmatched_football_data"]
-        if unmatched:
-            self.stdout.write(self.style.WARNING("No apifootball match for: " + ", ".join(unmatched)))
         unmatched_io = dataset["meta"]["report"]["unmatched_footballdata_io"]
         if unmatched_io:
             self.stdout.write(self.style.WARNING("No footballdata.io match for: " + ", ".join(unmatched_io)))

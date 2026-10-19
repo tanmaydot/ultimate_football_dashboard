@@ -13,7 +13,7 @@ from . import dashboard
 
 logger = logging.getLogger(__name__)
 
-_RATING_MIN = 1  # apifootball sends 0 / empty for "no rating"
+_RATING_MIN = 1  # a rating of 0 / empty means "no rating"
 
 
 def _shell(team_id, data=None):
@@ -236,7 +236,7 @@ def formation_view(request, team_id):
 # --------------------------------------------------------------------------- #
 # Player page
 # --------------------------------------------------------------------------- #
-# (heading, [(key in the player's apifootball numbers, label, "pct" for percentages)])
+# (heading, [(key in the player's season numbers, label, "pct" for percentages)])
 PLAYER_STAT_SECTIONS = [
     ("Attacking", [("shots", "Shots"), ("dribble_attempts", "Dribble attempts"), ("dribbles", "Dribbles completed"),
                    ("woodwork", "Hit the woodwork")]),
@@ -273,14 +273,14 @@ def build_player_context(team_id, player_id, data=None):
         items = []
         for field in fields:
             value = numbers.get(field[0])
-            # apifootball sends 0 for numbers it doesn't track, so a 0 is only shown next to a real figure
+            # a 0 can mean "not tracked", so it is only shown next to a real figure
             if value is None or (value == 0 and not any(numbers.get(k[0]) for k in fields)):
                 continue
             items.append({"label": field[1], "value": f"{_whole(value)}%" if len(field) > 2 else _whole(value)})
         if items:
             sections.append({"heading": heading, "items": items})
 
-    # Penalties are always listed when apifootball sends them: a 0 here is a real "none taken", not missing data
+    # Penalties are always listed: a 0 here is a real "none taken", not missing data
     pens = [(label, numbers.get(key)) for key, label in (("pen_scored", "Penalties scored"), ("pen_missed", "Penalties missed"),
                                                         ("pen_won", "Penalties won"), ("pen_committed", "Penalties conceded"))]
     if any(value is not None for _, value in pens):

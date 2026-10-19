@@ -47,3 +47,6 @@ build/
 
 # Raw PitchAPI harvest (large; keep it out of git, zip it instead)
 ufd/pitchapi_raw/
+# PitchAPI raw harvest (34 MB) and history files set aside as unreadable
+pitchapi_raw/
+*.corrupt.json

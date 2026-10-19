@@ -39,10 +39,9 @@ if os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
 if DEBUG:
     ALLOWED_HOSTS += ['localhost', '127.0.0.1']
 
-# same for the rest of the API keys.  The keys are not in the repo for security reasons.
-# macOS/Linux:  export APIFOOTBALL_API_KEY="your-key"
-# Windows (PowerShell):  $env:APIFOOTBALL_API_KEY="your-key"
-APIFOOTBALL_API_KEY = os.environ.get('APIFOOTBALL_API_KEY', '')
+# API keys.  They are not in the repo for security reasons.
+# macOS/Linux:  export PITCHAPI_API_KEY="your-key"
+# Windows (PowerShell):  $env:PITCHAPI_API_KEY="your-key"
 FOOTBALL_DATA_API_KEY = os.environ.get('FOOTBALL_DATA_API_KEY', '')
 FOOTBALLDATA_IO_API_KEY = os.environ.get('FOOTBALLDATA_IO_API_KEY', '')
 PITCHAPI_API_KEY = os.environ.get('PITCHAPI_API_KEY', '')

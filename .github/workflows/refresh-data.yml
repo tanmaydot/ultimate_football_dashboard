@@ -29,11 +29,13 @@ jobs:
 
       - name: "Build the data (a few minutes, the APIs are rate limited)"
         env:
-          APIFOOTBALL_API_KEY: ${{ secrets.APIFOOTBALL_API_KEY }}
           FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
           PITCHAPI_API_KEY: ${{ secrets.PITCHAPI_API_KEY }}
           FOOTBALLDATA_IO_API_KEY: ${{ secrets.FOOTBALLDATA_IO_API_KEY }}
         run: python ufd/manage.py build_pl_data
+
+      - name: "Check the data files are sound (a broken file must never be committed)"
+        run: python ufd/manage.py check_data
 
       - name: Commit the new data (the push makes Render redeploy)
         run: |

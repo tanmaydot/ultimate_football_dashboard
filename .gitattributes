@@ -1,0 +1,6 @@
+# The generated data files are written by the daily workflow. If two copies ever disagree, git must not
+# splice conflict markers into the JSON (that broke the history file twice): it leaves the file untouched and
+# reports a conflict, and you pick one side (see "Working with the generated data" in readme.md).
+ufd/ufd_app/data/pl_teams.json merge=binary
+ufd/ufd_app/data/pl_history.json merge=binary
+ufd/ufd_app/data/club_extras.auto.json merge=binary

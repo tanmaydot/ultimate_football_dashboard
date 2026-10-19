@@ -452,7 +452,7 @@ def build_dashboard_context(team_id, data=None, extras_by_team=None):
             "source": raw_revenue.get("source"),
         }
 
-    # Stadium: data file first, club_extras.json overrides
+    # Stadium: football-data gives the name; capacity, city and opening year come from the club_extras files
     venue = profile.get("venue") or {}
     stadium_extras = extras.get("stadium") if isinstance(extras.get("stadium"), dict) else {}
     capacity = stadium_extras.get("capacity", venue.get("capacity"))
@@ -463,7 +463,7 @@ def build_dashboard_context(team_id, data=None, extras_by_team=None):
         "opened": stadium_extras.get("opened"),
     }
     # How big is the ground next to the rest of the league?
-    # (every club's capacity: the extras files first, the API data file otherwise)
+    # (every club's capacity, from the extras files)
     def _capacity_of(tid, team_entry):
         club_stadium = (all_extras.get(str(tid), {}) or {}).get("stadium")
         cap = club_stadium.get("capacity") if isinstance(club_stadium, dict) else None

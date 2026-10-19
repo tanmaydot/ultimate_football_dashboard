@@ -1,6 +1,6 @@
 """Consistency checks on a PitchAPI harvest folder (no network, no key).
 
-These are the checks that showed PitchAPI is trustworthy enough to replace apifootball for matches and players:
+These are the checks that show PitchAPI is trustworthy enough to be the source for matches and players:
 the data must agree with itself. ``audit(folder)`` returns {"checks": [{name, ok, detail}], "matches": n}.
 """
 import math

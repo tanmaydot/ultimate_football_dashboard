@@ -7,15 +7,16 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from . import dashboard, pl_data
-from .pl_fixtures import TODAY, FakeApiFootball, FakeFootballData
+from .history import History
+from .pl_fixtures import TODAY, FakeFootballData, full_source
 
 NO_CACHE = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 
 
-def built_data(with_apifootball=True):
-    ap = FakeApiFootball() if with_apifootball else FakeApiFootball(configured=False)
+def built_data(with_pitchapi=True):
+    pa = full_source() if with_pitchapi else None
     with mock.patch.object(pl_data, "MIN_TEAMS", 3):
-        return pl_data.build_dataset(FakeFootballData(), ap, log=lambda *_: None, today=TODAY)
+        return pl_data.build_dataset(FakeFootballData(), pa=pa, history=History(path=None), log=lambda *_: None, today=TODAY)
 
 
 class DashboardFromJsonTests(TestCase):
@@ -47,9 +48,10 @@ class DashboardFromJsonTests(TestCase):
         ctx = response.context
         self.assertEqual(ctx["stats"]["avg_points"], "2.33")
         self.assertEqual(ctx["stats"]["clean_sheets"], 2)
-        self.assertEqual(ctx["stats"]["possession"], 55.7)
-        self.assertIn("55.7%", html)
-        self.assertEqual(ctx["stadium"]["capacity"], "40,173")
+        self.assertEqual(ctx["stats"]["possession"], 58.3)
+        self.assertIn("58.3%", html)
+        self.assertEqual(ctx["stadium"]["name"], "Chelsea Ground")
+        self.assertIsNone(ctx["stadium"]["capacity"])  # capacity comes from the club_extras files (patched empty here)
         self.assertEqual(ctx["coach"]["name"], "Chelsea Boss")
         self.assertEqual(ctx["assistants"], [])  # APIs don't give reliable staff; only club_extras.json does
         self.assertEqual(ctx["formation"]["label"], "4-2-3-1")  # Chelsea's most used formation
@@ -64,7 +66,7 @@ class DashboardFromJsonTests(TestCase):
         self.assertEqual([len(line["slots"]) for line in formation["lines"]], [1, 4, 2, 3, 1])
         xi = built_data()["teams"]["61"]["formation"]["starting_xi"]
         short = dashboard._short_name
-        self.assertTrue(xi[0].endswith("Player 1"))  # position 1 (the goalkeeper) comes first
+        self.assertTrue(xi[0].endswith("Keeper"))  # the goalkeeper comes first
         self.assertEqual(formation["lines"][0]["slots"][0]["name"], short(xi[0]))
         # every outfield row is mirrored: the lineup's first defender is drawn on the right
         self.assertEqual([s["name"] for s in formation["lines"][1]["slots"]], [short(x) for x in reversed(xi[1:5])])
@@ -99,14 +101,14 @@ class DashboardFromJsonTests(TestCase):
                        "mailto:reachtanmays@gmail.com", "fa-github", "fa-linkedin-in", "fa-envelope"):
             self.assertIn(target, html)
 
-    def test_squad_rows_carry_apifootball_goals_and_assists(self):
+    def test_squad_rows_carry_pitchapi_goals_and_assists(self):
         groups = dict(self.page().context["squad_groups"])
         winger = groups["Offence"][0]
-        self.assertEqual((winger["goals"], winger["assists"]), (4, 2))
-        self.assertIsNone(groups["Defence"][0]["goals"])  # unmatched player: no invented numbers
+        self.assertEqual((winger["goals"], winger["assists"]), (3, 3))
+        self.assertEqual(groups["Defence"][0]["goals"], 0)  # the keeper played and did not score: a real zero
 
-    def test_works_when_apifootball_was_not_available(self):
-        self.write(built_data(with_apifootball=False))
+    def test_works_when_pitchapi_was_not_available(self):
+        self.write(built_data(with_pitchapi=False))
         response = self.page()
         self.assertEqual(response.status_code, 200)
         self.assertIsNone(response.context["formation"])
@@ -276,7 +278,7 @@ class Step11CleanupTests(TestCase):
     def test_badge_widget_is_gone_and_the_crest_sits_beside_the_title(self):
         self.assertNotIn("tpl-badge", self.html)
         self.assertNotIn("badge", [w["id"] for w in self.ctx["default_layout"]])
-        title = self.html.index("Club dashboard</h1>")
+        title = self.html.index("Club Dashboard</h1>")
         crest = self.html.rindex('alt="Chelsea FC badge"', 0, title)
         self.assertLess(title - crest, 250)  # the image is right next to the heading
 

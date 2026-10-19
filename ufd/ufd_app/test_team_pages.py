@@ -26,17 +26,17 @@ class SquadPageTests(TestCase):
     def page(self, team_id=61):
         return self.client.get(reverse("ufd_app:squad", args=[team_id]))
 
-    def test_every_player_is_listed_with_apifootball_numbers(self):
+    def test_every_player_is_listed_with_pitchapi_numbers(self):
         response = self.page()
         self.assertEqual(response.status_code, 200)
         players = {p["name"]: p for p in response.context["players"]}
         self.assertEqual(set(players), {"Chelsea Keeper", "Chelsea Winger", "Chelsea Unknown"})
         winger = players["Chelsea Winger"]
-        self.assertEqual((winger["goals"], winger["assists"], winger["has_stats"]), (4, 2, True))
-        self.assertFalse(players["Chelsea Unknown"]["has_stats"])  # unmatched: blanks, not invented zeros
-        self.assertIsNone(players["Chelsea Unknown"]["goals"])
+        self.assertEqual((winger["goals"], winger["assists"], winger["has_stats"]), (3, 3, True))
+        # a squad player who never appeared gets an honest zero (the club has played), not blanks
+        self.assertEqual((players["Chelsea Unknown"]["goals"], players["Chelsea Unknown"]["appearances"]), (0, 0))
         self.assertContains(response, "Chelsea squad")
-        self.assertContains(response, "couldn't be matched to")
+        self.assertContains(response, "PitchAPI match data")
 
     def test_players_are_grouped_goalkeeper_first(self):
         groups = [p["group"] for p in self.page().context["players"]]
@@ -46,7 +46,7 @@ class SquadPageTests(TestCase):
         summary = self.page().context["summary"]
         self.assertEqual(summary["players"], 3)
         self.assertEqual(summary["nationalities"], 3)
-        self.assertEqual(summary["without_stats"], 1)
+        self.assertEqual(summary["without_stats"], 0)  # a squad player who never appeared has an honest zero record
         self.assertEqual([g for g, _ in summary["groups"]], ["Goalkeeper", "Defence", "Offence"])
 
     def test_sidebar_keeps_you_on_the_squad_page_when_you_pick_another_club(self):
@@ -71,8 +71,8 @@ class SquadPageTests(TestCase):
         self.assertContains(response, 'target="_blank" rel="noopener"')
 
     def test_rating_zero_is_treated_as_no_rating(self):
-        rows = team_pages.squad_rows([{"name": "A", "position": "Goalkeeper", "apifootball": {"rating": 0.0, "goals": 0}},
-                                      {"name": "B", "position": "Goalkeeper", "apifootball": {"rating": 6.8}}])
+        rows = team_pages.squad_rows([{"name": "A", "position": "Goalkeeper", "pitchapi": {"rating": 0.0, "goals": 0}},
+                                      {"name": "B", "position": "Goalkeeper", "pitchapi": {"rating": 6.8}}])
         self.assertEqual([r["rating"] for r in rows], [None, 6.8])
         self.assertEqual(rows[0]["goals"], 0)  # a real zero stays a zero
 
@@ -148,7 +148,7 @@ class ManagerAndFormationPageTests(SquadPageTests):
         self.assertFalse(any(o["pitch"]["has_names"] for o in ctx["options"]))  # positions only, no invented names
 
     def test_formation_page_without_any_formation_data(self):
-        data = built_data(with_apifootball=False)
+        data = built_data(with_pitchapi=False)
         self.path.write_text(json.dumps(data), encoding="utf-8")
         dashboard._data_cache.update(path=None, mtime=None, data=None)
         response = self.client.get(reverse("ufd_app:formation", args=[61]))
@@ -177,21 +177,29 @@ class PlayerPageTests(TestCase):
         self.assertEqual(response.status_code, 200)
         p = response.context["p"]
         self.assertEqual((p["name"], p["full_name"], p["goals"], p["minutes"], p["captain"], p["injured"]),
-                         ("Chelsea Winger", "Winger Complete", 4, 270, True, True))
+                         ("Chelsea Winger", "Chelsea Winger", 3, 270, False, False))
         self.assertContains(response, "Chelsea Winger")
-        self.assertContains(response, "Injured")
+        self.assertNotContains(response, "Injured")  # PitchAPI has no injury list
         headings = {s["heading"]: {i["label"]: i["value"] for i in s["items"]} for s in response.context["sections"]}
-        self.assertEqual(headings["Attacking"]["Shots"], 9)
-        self.assertEqual(headings["Passing"]["Pass accuracy"], "85%")
-        # zeros next to no real figure are "not tracked", and outfield players get no goalkeeping box
-        self.assertNotIn("Defending", headings)
+        self.assertEqual(headings["Attacking"]["Shots"], 3)
+        self.assertEqual(headings["Passing"]["Pass accuracy"], "80%")  # (3 x 40) / (3 x 50) accurate passes
+        self.assertEqual(headings["Defending"]["Tackles"], 6)
+        # outfield players get no goalkeeping box
         self.assertNotIn("Goalkeeping", headings)
 
     def test_player_without_stats_still_has_a_page(self):
+        self.path.write_text(json.dumps(built_data(with_pitchapi=False)), encoding="utf-8")
+        dashboard._data_cache.update(path=None, mtime=None, data=None)
         response = self.page(player_id=613)
         self.assertEqual(response.status_code, 200)
         self.assertFalse(response.context["has_stats"])
         self.assertContains(response, "couldn't be matched")
+
+    def test_a_player_who_never_appeared_shows_real_zeros(self):
+        response = self.page(player_id=613)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context["has_stats"])
+        self.assertEqual(response.context["p"]["goals"], 0)
 
     def test_unknown_player_or_club(self):
         self.assertEqual(self.page(player_id=999999).status_code, 200)  # friendly explanation page
@@ -230,10 +238,12 @@ class PenaltyTests(PlayerPageTests):
         response = self.page()
         pens = next(sec for sec in response.context["sections"] if sec["heading"] == "Penalties")
         self.assertEqual({i["label"]: i["value"] for i in pens["items"]},
-                         {"Penalties scored": 2, "Penalties missed": 0, "Penalties won": 1, "Penalties conceded": 0})
+                         {"Penalties scored": 1, "Penalties missed": 0, "Penalties won": 0, "Penalties conceded": 0})
         self.assertContains(response, "Penalties scored")
 
-    def test_no_penalty_rows_for_a_player_without_apifootball_numbers(self):
+    def test_no_penalty_rows_for_a_player_without_any_numbers(self):
+        self.path.write_text(json.dumps(built_data(with_pitchapi=False)), encoding="utf-8")
+        dashboard._data_cache.update(path=None, mtime=None, data=None)
         self.assertNotContains(self.page(player_id=613), "Penalties")
 
 
@@ -263,7 +273,9 @@ class SquadManagerWidgetTests(PlayerPageTests):
 
 class TeamInfoStripTests(PlayerPageTests):
     def test_team_info_carries_stadium_and_neighbouring_clubs(self):
-        response = self.client.get(reverse("ufd_app:dashboard", args=[61]))
+        extras = {"61": {"stadium": {"capacity": 40173}}, "66": {"stadium": {"capacity": 74310}}, "76": {"stadium": {"capacity": 31750}}}
+        with mock.patch.object(dashboard, "load_club_extras", return_value=extras):
+            response = self.client.get(reverse("ufd_app:dashboard", args=[61]))
         ctx = response.context
         self.assertEqual(ctx["stadium"]["capacity_pct"], 54)  # 40,173 of the biggest ground, 74,310
         self.assertEqual(ctx["stadium"]["capacity_rank"], "2nd largest in the league")
@@ -274,7 +286,7 @@ class TeamInfoStripTests(PlayerPageTests):
         self.assertIn("info-strip", info)
         self.assertIn("Home ground", info)
         self.assertIn("40,173", info)
-        self.assertIn(reverse("ufd_app:dashboard", args=[76]), info)
+        # the neighbouring clubs are still worked out (context above) but the redesigned panel no longer links to them
 
     def test_stadium_widget_is_gone(self):
         layout = {w["id"]: w for w in self.client.get(reverse("ufd_app:dashboard", args=[61])).context["default_layout"]}

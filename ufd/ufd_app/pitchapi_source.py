@@ -1,12 +1,14 @@
 """PitchAPI as the source of formations, lineups, possession and player season numbers.
 
-It replaces what ``apifootball`` used to provide for those, and the numbers are checked (see
-``pitchapi_audit``): possession agrees with the pass share of the same match (apifootball's did not),
+The numbers are checked (see ``pitchapi_audit``): possession agrees with the pass share of the same match,
 and goals summed over players add up to the real league total.
+
+Only what changed is fetched (see ``refresh_history``): a match is read once when it finishes, again for a few
+days in case of corrections, and again whenever its stored score or lineup no longer matches the league list.
 
 Two interchangeable sources feed the build:
 
-* ``PitchApiSource``  calls the live API (about 4 requests per finished match, once per match);
+* ``PitchApiSource``  calls the live API (1 request for the match list, plus 4 per match that needs reading);
 * ``HarvestSource``   reads a folder made by ``manage.py harvest_pitchapi`` (no key, no network).
 
 Both expose ``is_configured()``, ``all_teams()``, ``finished_matches()`` and ``bundle(match_id)``.
@@ -126,10 +128,17 @@ class PitchApiSource:
 
     BUNDLE = (("lineups", "/lineups"), ("stats", "/stats"), ("players", "/players"), ("events", "/events"))
 
-    def __init__(self, client=None):
+    def __init__(self, client=None, league_id=None):
         self.client = client or PitchApiClient()
-        self._league = None
+        self._league = league_id  # a remembered id saves the /v1/leagues request
         self._cache = {}
+
+    @property
+    def known_league_id(self):
+        return self._league
+
+    def use_league(self, league_id):
+        self._league = league_id or self._league
 
     def is_configured(self):
         return self.client.is_configured()
@@ -151,8 +160,12 @@ class PitchApiSource:
     def finished_matches(self):
         return [m for m in self._matches("played") if m.get("status") == "finished"]
 
-    def all_teams(self):
-        return _teams_from(self._matches("played") + self._matches("upcoming"))
+    def all_teams(self, minimum=0):
+        """Clubs seen in the finished matches; the fixture list is asked for only if some club has not played yet."""
+        teams = _teams_from(self._matches("played"))
+        if len(teams) < minimum:
+            teams = _teams_from(self._matches("played") + self._matches("upcoming"))
+        return teams
 
     def bundle(self, match_id):
         """{'lineups': ..., 'stats': ..., 'players': ..., 'events': ...} (each the response's data), None for any that is missing."""
@@ -195,7 +208,12 @@ class HarvestSource:
     def finished_matches(self):
         return [m for m in self._matches("played") if m.get("status") == "finished"]
 
-    def all_teams(self):
+    known_league_id = None
+
+    def use_league(self, league_id):
+        pass
+
+    def all_teams(self, minimum=0):
         return _teams_from(self._matches("played") + self._matches("upcoming"))
 
     def bundle(self, match_id):
@@ -249,7 +267,7 @@ def team_stat_pair(stats_body, key):
 
 
 def adapt_match(match, lineups, stats):
-    """A PitchAPI match in the shape ``pl_data.derive_from_events`` already reads (apifootball's event shape)."""
+    """A PitchAPI match as the flat record ``pl_data.derive_from_events`` reads (field names kept from the format the history already stores)."""
     possession = [_stat_value(stats, "BallPossesion", "home"), _stat_value(stats, "BallPossesion", "away")]
     event = {
         "match_id": match["id"],
@@ -386,19 +404,45 @@ def build_match_record(match, bundle):
 # --------------------------------------------------------------------------- #
 # Refreshing the stored matches
 # --------------------------------------------------------------------------- #
-def refresh_history(source, history, today=None, log=print):
-    """Fetch the finished matches the history doesn't have yet (and the last few days again).
+def fetch_reason(match, stored, cutoff, force=False):
+    """Why a finished match has to be read (again), or None when what is stored is still right.
 
-    Returns {"finished", "new", "refreshed", "failed": [match ids]}. A missing match never aborts the build;
-    a rejected key does (PitchApiAuthError propagates).
+    new        never read before
+    forced     the caller asked for everything again
+    recent     played in the last few days: lineups and cards get corrected
+    corrected  the league list now shows a different score than the one stored
+    incomplete what is stored has no lineup or no player numbers
+    """
+    if stored is None:
+        return "new"
+    if force:
+        return "forced"
+    if (match.get("date") or "") >= cutoff:
+        return "recent"
+    event = stored.get("event") or {}
+    if (str(match.get("score_home")), str(match.get("score_away"))) != (
+            event.get("match_hometeam_score"), event.get("match_awayteam_score")):
+        return "corrected"
+    if not stored.get("players") or not event.get("match_hometeam_system") or not event.get("match_awayteam_system"):
+        return "incomplete"
+    return None
+
+
+def refresh_history(source, history, today=None, log=print, force=False):
+    """Read only the finished matches whose stored copy is missing or may be out of date.
+
+    Returns {"finished", "new", "refreshed", "unchanged", "failed": [match ids], "reasons": {reason: count}}.
+    A match that can't be read never aborts the build; a rejected key does (PitchApiAuthError propagates).
     """
     today = today or date.today()
     cutoff = (today - timedelta(days=REFETCH_DAYS)).isoformat()
-    result = {"finished": 0, "new": 0, "refreshed": 0, "failed": []}
+    result = {"finished": 0, "new": 0, "refreshed": 0, "unchanged": 0, "failed": [], "reasons": {}}
     for match in source.finished_matches():
         result["finished"] += 1
         stored = history.pitch_match(match["id"])
-        if stored is not None and (match.get("date") or "") < cutoff:
+        reason = fetch_reason(match, stored, cutoff, force)
+        if reason is None:
+            result["unchanged"] += 1
             continue
         try:
             record = build_match_record(match, source.bundle(match["id"]))
@@ -412,6 +456,7 @@ def refresh_history(source, history, today=None, log=print):
             continue
         history.add_pitch_match(match["id"], record)
         result["refreshed" if stored is not None else "new"] += 1
+        result["reasons"][reason] = result["reasons"].get(reason, 0) + 1
     return result
 
 
@@ -449,7 +494,7 @@ def _whole(value):
     return int(value) if isinstance(value, float) and value == int(value) else value
 
 
-def player_record(total, info, injured=False):
+def player_record(total, info):
     """A season record in the shape the dashboard reads (see ``pl_data.player_numbers``)."""
     t = total or {}
     g = lambda k: _whole(t.get(k, 0))
@@ -478,7 +523,7 @@ def player_record(total, info, injured=False):
         "yellow_cards": g("yc"),
         "red_cards": g("rc"),
         "rating": t.get("rating"),
-        "injured": bool(injured),  # PitchAPI has no injury list: kept from another source when there is one
+        "injured": False,  # PitchAPI has no injury list
         "image": (info or {}).get("image"),
         "full_name": None,
         "captain": bool(t.get("captain")),
@@ -530,12 +575,11 @@ def attach_pitch_stats(squad, team_players, played):
     pairs = match_players(squad, team_players)
     for i, player in enumerate(squad):
         pid = pairs.get(i)
-        injured = (player.get("apifootball") or {}).get("injured")
         if pid:
             data = team_players[pid]
-            player["pitchapi"] = player_record(data.get("total"), {"id": pid, "image": data.get("image")}, injured)
+            player["pitchapi"] = player_record(data.get("total"), {"id": pid, "image": data.get("image")})
         elif played:
-            player["pitchapi"] = player_record(None, None, injured)
+            player["pitchapi"] = player_record(None, None)
     used = set(pairs.values())
     return [info["name"] for pid, info in team_players.items()
             if pid not in used and (info.get("total") or {}).get("min")]
