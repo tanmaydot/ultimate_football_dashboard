@@ -3,10 +3,7 @@
 {% block extra_head %}
 <style>
     .filter-chip { font-size: 0.9rem; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); transition: background-color 0.15s; }
-    .filter-chip:hover { background: var(--hover); }
-    .filter-chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--a-ink); font-weight: 600; }
-    .bar { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
-    .bar > i { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+
     .info-pop { position: absolute; top: calc(100% + 8px); right: 0; z-index: 30; width: 260px; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35); }
     .zone-guide { position: absolute; left: 0; right: 0; z-index: 1; border-top: 1px dashed rgba(255, 255, 255, 0.35); pointer-events: none; display: none; }
     .zone-guide span { position: absolute; left: 6px; top: 2px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.7); }

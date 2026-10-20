@@ -3,14 +3,10 @@
 {% block extra_head %}
 <style>
     .kv > div { display: flex; flex-wrap: wrap; justify-content: space-between; column-gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
-    .kv > div:last-child { border-bottom: 0; }
+
     .kv dt { color: var(--muted); }
     .kv dd { font-weight: 600; text-align: right; margin-left: auto; }
-    .stat-tile { padding: 12px 16px; }
-    .stat-tile b { display: block; font-family: var(--font-display); font-size: 1.9rem; line-height: 1.1; }
-    .stat-tile span { font-size: 0.8rem; color: var(--muted); }
-    .bar { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
-    .bar > i { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+
     .placeholder-note { display: flex; gap: 10px; align-items: flex-start; font-size: 0.85rem; color: var(--muted); padding: 12px; border: 1px dashed var(--border); border-radius: 10px; }
 </style>
 {% endblock %}

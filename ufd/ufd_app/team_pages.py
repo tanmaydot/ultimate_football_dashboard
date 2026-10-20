@@ -10,59 +10,13 @@ from datetime import date
 from django.shortcuts import render
 
 from . import dashboard
+from .util import whole
 
 logger = logging.getLogger(__name__)
 
-_RATING_MIN = 1  # a rating of 0 / empty means "no rating"
-
-
-def _shell(team_id, data=None):
-    """What every club page needs: the data file, the club's entry, a small team dict and the sidebar table."""
-    data = data if data is not None else dashboard.load_pl_data()
-    if data is None:
-        return None, None, None, "missing_data"
-    entry = data["teams"].get(str(team_id))
-    if not entry:
-        return None, None, None, "That club isn't in the Premier League data file."
-    profile = entry.get("profile") or {}
-    team = {
-        "id": profile.get("id", team_id),
-        "name": profile.get("name"),
-        "shortName": profile.get("short_name"),
-        "tla": profile.get("tla"),
-        "crest": profile.get("crest"),
-    }
-    return data, entry, team, None
-
-
 def squad_rows(squad):
     """One flat record per player, with every number the squad page shows."""
-    rows = []
-    for player in squad or []:
-        raw_position = player.get("position") or "Unknown"
-        group = dashboard.POSITION_GROUPS.get(raw_position, raw_position)
-        extra = dashboard.pl_data.player_numbers(player)
-        rating = extra.get("rating")
-        shirt = player.get("shirt_number") if player.get("shirt_number") is not None else extra.get("shirt_number")
-        rows.append({
-            "id": player.get("id"),
-            "name": player.get("name") or "Unknown player",
-            "position": raw_position,
-            "group": group,
-            "nationality": player.get("nationality") or None,
-            "age": dashboard._age(player.get("date_of_birth")),
-            "date_of_birth": (player.get("date_of_birth") or "")[:10] or None,
-            "shirt": shirt,
-            "has_stats": bool(extra),
-            "appearances": extra.get("appearances"),
-            "goals": extra.get("goals"),
-            "assists": extra.get("assists"),
-            "yellow_cards": extra.get("yellow_cards"),
-            "red_cards": extra.get("red_cards"),
-            "rating": rating if isinstance(rating, (int, float)) and rating >= _RATING_MIN else None,
-            "injured": bool(extra.get("injured")),
-            "image": extra.get("image"),
-        })
+    rows = [dashboard.player_row(player) for player in squad or []]
     order = {name: i for i, name in enumerate(dashboard.GROUP_ORDER)}
     rows.sort(key=lambda r: (order.get(r["group"], len(order)), r["name"]))
     return rows
@@ -82,31 +36,16 @@ def squad_summary(rows):
 
 
 def build_squad_context(team_id, data=None):
-    data, entry, team, error = _shell(team_id, data)
+    data, entry, team, error = dashboard.load_club(team_id, data)
     if error:
         return None, error
     rows = squad_rows((entry.get("profile") or {}).get("squad"))
-    return {
-        "team": team,
-        "team_id": team_id,
-        "table": dashboard._table_rows(data.get("standings")),
-        "club_link": "ufd_app:squad",  # the sidebar table stays on this page type when you pick another club
-        "players": rows,
-        "summary": squad_summary(rows),
-        "data_updated": (data.get("meta") or {}).get("generated_at"),
-        "page_title": f"{team.get('shortName') or team.get('name') or 'Club'} squad",
-    }, None
+    return {**dashboard.page_base(data, team, team_id, "ufd_app:squad", "squad"),
+            "players": rows, "summary": squad_summary(rows)}, None
 
 
 def squad_view(request, team_id):
-    try:
-        context, error = build_squad_context(team_id)
-    except Exception:  # keep the page usable whatever the data file contains
-        logger.exception("Squad page failed for team %s", team_id)
-        context, error = None, "Something went wrong while building the squad page."
-    if error:
-        return dashboard._no_data_page(request, error)
-    return render(request, "squad.html", context)
+    return _render_page(request, team_id, build_squad_context, "squad.html", "squad")
 
 
 # --------------------------------------------------------------------------- #
@@ -135,7 +74,7 @@ def _contract_label(months):
 
 
 def build_manager_context(team_id, data=None, extras_by_team=None):
-    data, entry, team, error = _shell(team_id, data)
+    data, entry, team, error = dashboard.load_club(team_id, data)
     if error:
         return None, error
     profile = entry.get("profile") or {}
@@ -157,28 +96,15 @@ def build_manager_context(team_id, data=None, extras_by_team=None):
         }
 
     stats = entry.get("stats") or {}
-    played = stats.get("played") or 0
+    season = dashboard._season_stats(stats)
     record = None
-    if played:
-        record = {
-            "played": played, "won": stats.get("won", 0), "draw": stats.get("draw", 0), "lost": stats.get("lost", 0),
-            "points": stats.get("points", 0), "goals_for": stats.get("goals_for", 0), "goals_against": stats.get("goals_against", 0),
-            "win_rate": round(100 * (stats.get("won") or 0) / played),
-            "avg_points": f"{stats['avg_points']:.2f}" if isinstance(stats.get("avg_points"), (int, float)) else None,
-            "position": stats.get("position"),
-        }
+    if season:
+        avg_points = season["avg_points"] if isinstance(stats.get("avg_points"), (int, float)) else None
+        record = {**season, "win_rate": season["win_pct"], "avg_points": avg_points, "position": stats.get("position")}
 
-    assistants = [{"name": a.get("name"), "role": a.get("role")} for a in extras.get("assistant_coaches", [])
-                  if isinstance(a, dict) and a.get("name")]
-    return {
-        "team": team, "team_id": team_id,
-        "table": dashboard._table_rows(data.get("standings")),
-        "club_link": "ufd_app:manager",
-        "manager": manager, "record": record, "assistants": assistants,
-        "formations": _formation_usage(entry),
-        "data_updated": (data.get("meta") or {}).get("generated_at"),
-        "page_title": f"{team.get('shortName') or team.get('name') or 'Club'} manager",
-    }, None
+    return {**dashboard.page_base(data, team, team_id, "ufd_app:manager", "manager"),
+            "manager": manager, "record": record, "assistants": dashboard.assistant_coaches(extras),
+            "formations": _formation_usage(entry)}, None
 
 
 def manager_view(request, team_id):
@@ -200,7 +126,7 @@ def _formation_usage(entry):
 
 
 def build_formation_context(team_id, data=None):
-    data, entry, team, error = _shell(team_id, data)
+    data, entry, team, error = dashboard.load_club(team_id, data)
     if error:
         return None, error
     squad = (entry.get("profile") or {}).get("squad") or []
@@ -218,15 +144,9 @@ def build_formation_context(team_id, data=None):
     dock = [{"id": r["id"], "name": dashboard._short_name(r["name"]), "full": r["name"], "shirt": r["shirt"],
              "group": r["group"], "position": r["position"], "injured": r["injured"]}
             for r in squad_rows(squad) if r["id"] is not None]
-    return {
-        "team": team, "team_id": team_id,
-        "table": dashboard._table_rows(data.get("standings")),
-        "club_link": "ufd_app:formation",
-        "options": options, "selected": selected, "dock": dock,
-        "matches_counted": sum(i["count"] for i in options),
-        "data_updated": (data.get("meta") or {}).get("generated_at"),
-        "page_title": f"{team.get('shortName') or team.get('name') or 'Club'} formations",
-    }, None
+    return {**dashboard.page_base(data, team, team_id, "ufd_app:formation", "formations"),
+            "options": options, "selected": selected, "dock": dock,
+            "matches_counted": sum(i["count"] for i in options)}, None
 
 
 def formation_view(request, team_id):
@@ -250,12 +170,8 @@ PLAYER_STAT_SECTIONS = [
 ]
 
 
-def _whole(value):
-    return int(value) if isinstance(value, float) and value == int(value) else value
-
-
 def build_player_context(team_id, player_id, data=None):
-    data, entry, team, error = _shell(team_id, data)
+    data, entry, team, error = dashboard.load_club(team_id, data)
     if error:
         return None, error
     squad = (entry.get("profile") or {}).get("squad") or []
@@ -276,7 +192,7 @@ def build_player_context(team_id, player_id, data=None):
             # a 0 can mean "not tracked", so it is only shown next to a real figure
             if value is None or (value == 0 and not any(numbers.get(k[0]) for k in fields)):
                 continue
-            items.append({"label": field[1], "value": f"{_whole(value)}%" if len(field) > 2 else _whole(value)})
+            items.append({"label": field[1], "value": f"{whole(value)}%" if len(field) > 2 else whole(value)})
         if items:
             sections.append({"heading": heading, "items": items})
 
@@ -284,22 +200,18 @@ def build_player_context(team_id, player_id, data=None):
     pens = [(label, numbers.get(key)) for key, label in (("pen_scored", "Penalties scored"), ("pen_missed", "Penalties missed"),
                                                         ("pen_won", "Penalties won"), ("pen_committed", "Penalties conceded"))]
     if any(value is not None for _, value in pens):
-        sections.append({"heading": "Penalties", "items": [{"label": l, "value": _whole(v)} for l, v in pens if v is not None]})
+        sections.append({"heading": "Penalties", "items": [{"label": l, "value": whole(v)} for l, v in pens if v is not None]})
 
-    first = next((p for p in squad if p.get("id") == player_id), {})
-    team_name = team.get("shortName") or team.get("name") or "Club"
+    base = dashboard.page_base(data, team, team_id, "ufd_app:squad", "")
     return {
-        "team": team, "team_id": team_id,
-        "table": dashboard._table_rows(data.get("standings")),
-        "club_link": "ufd_app:squad",
+        **base,
         "p": {**row, "full_name": extra.get("full_name") or row["name"], "captain": bool(extra.get("captain")),
-              "minutes": _whole(numbers.get("minutes")) or None, "born": row["date_of_birth"],
+              "minutes": whole(numbers.get("minutes")) or None, "born": row["date_of_birth"],
               "birth_year": (row["date_of_birth"] or "")[:4] or None},
         "sections": sections,
         "more": [item for section in sections for item in section["items"]],
         "has_stats": row["has_stats"],
-        "data_updated": (data.get("meta") or {}).get("generated_at"),
-        "page_title": f"{row['name']} · {team_name}",
+        "page_title": f"{row['name']} · {base['page_title']}",
     }, None
 
 

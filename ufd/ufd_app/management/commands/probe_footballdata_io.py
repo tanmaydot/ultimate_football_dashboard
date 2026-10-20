@@ -4,12 +4,12 @@ Makes about a dozen requests (the free plan allows 2,000 a month) and writes a
 trimmed copy of each response to a JSON file. The API key is never written.
 """
 import json
-from datetime import datetime, timezone
 from pathlib import Path
 
 from django.core.management.base import BaseCommand, CommandError
 
 from ufd_app.footballdata_io import FootballDataIoClient, FootballDataIoError
+from ufd_app.util import utc_now_iso
 
 SAMPLE_ITEMS = 3  # keep this many items of any list; the shape matters, not the volume
 ID_KEYS = ("id", "league_id", "team_id", "match_id", "slug", "uuid")
@@ -117,7 +117,7 @@ class Command(BaseCommand):
                 call(f"/matches/{match_id}/stats")
 
         result = {
-            "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "generated_at": utc_now_iso(),
             "premier_league_identified_by": {"field": league_key, "value": league_value},
             "requests": log,
         }

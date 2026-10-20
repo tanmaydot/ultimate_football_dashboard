@@ -17,11 +17,12 @@ match finishes. So each ``build_pl_data`` run keeps what it has seen in this fil
 
 A history file written by an older version (it had a ``matches`` section) still loads: that section is dropped.
 """
-import json
 import logging
 import shutil
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from pathlib import Path
+
+from .util import read_json, utc_now, utc_now_iso, write_json_atomic
 
 logger = logging.getLogger(__name__)
 
@@ -33,10 +34,6 @@ def _fresh(season_start=None):
     return {"version": HISTORY_VERSION, "season_start": season_start, "updated_at": None,
             "results": {}, "team_stats": {}, "player_stats": {}, "io_stats": {},
             "pitch_matches": {}, "pitch_players": {}, "meta": {}}
-
-
-def _now():
-    return datetime.now(timezone.utc)
 
 
 class History:
@@ -52,7 +49,7 @@ class History:
         if not history.path or not history.path.exists():
             return history
         try:
-            data = json.loads(history.path.read_text(encoding="utf-8"))
+            data = read_json(history.path)
             if not isinstance(data, dict) or data.get("version") != HISTORY_VERSION:
                 raise ValueError("unknown history format")
             for key, empty in _fresh().items():
@@ -71,10 +68,9 @@ class History:
         return history
 
     def save(self):
-        from .pl_data import write_json_atomic  # local import: pl_data imports this module
         if not self.path:
             return
-        self.data["updated_at"] = _now().isoformat(timespec="seconds")
+        self.data["updated_at"] = utc_now_iso()
         write_json_atomic(self.path, self.data)
 
     def start_season(self, season_start):
@@ -181,10 +177,10 @@ class History:
             return None
         if played is not None and item.get("played") is not None and item["played"] != played:
             return None
-        return item["data"] if (now or _now()) - fetched < timedelta(hours=max_age_hours) else None
+        return item["data"] if (now or utc_now()) - fetched < timedelta(hours=max_age_hours) else None
 
     def set_io(self, team_id, data, now=None, played=None):
-        self.data["io_stats"][str(team_id)] = {"fetched_at": (now or _now()).isoformat(timespec="seconds"),
+        self.data["io_stats"][str(team_id)] = {"fetched_at": (now or utc_now()).isoformat(timespec="seconds"),
                                                "played": played, "data": data}
 
     def io_directory(self, max_age_hours, now=None):
@@ -196,10 +192,10 @@ class History:
             fetched = datetime.fromisoformat(item["fetched_at"])
         except (KeyError, ValueError):
             return None
-        return item if (now or _now()) - fetched < timedelta(hours=max_age_hours) else None
+        return item if (now or utc_now()) - fetched < timedelta(hours=max_age_hours) else None
 
     def set_io_directory(self, league_id, season_id, teams, now=None):
-        self.meta["io_directory"] = {"fetched_at": (now or _now()).isoformat(timespec="seconds"),
+        self.meta["io_directory"] = {"fetched_at": (now or utc_now()).isoformat(timespec="seconds"),
                                      "league_id": league_id, "season_id": season_id, "teams": teams}
 
     # ---- summary ---------------------------------------------------------------

@@ -15,7 +15,6 @@ Two extras files sit on top of that, merged per club:
 
 Missing data never breaks the page: the widget shows a placeholder.
 """
-import json
 import logging
 import re
 from datetime import date
@@ -26,6 +25,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from . import pl_data
+from .util import ordinal_suffix, read_json
 
 logger = logging.getLogger(__name__)
 
@@ -140,8 +140,7 @@ def load_pl_data():
     if _data_cache["path"] == str(path) and _data_cache["mtime"] == mtime:
         return _data_cache["data"]
     try:
-        with path.open(encoding="utf-8") as fh:
-            data = json.load(fh)
+        data = read_json(path)
     except (OSError, ValueError) as exc:
         logger.warning("Could not read %s: %s", path, exc)
         return None
@@ -155,8 +154,7 @@ def load_pl_data():
 def _read_extras_file(path):
     """One extras file as {team_id: dict}. Keys starting with '_' are comments."""
     try:
-        with path.open(encoding="utf-8") as fh:
-            raw = json.load(fh)
+        raw = read_json(path)
     except FileNotFoundError:
         return {}
     except (OSError, ValueError) as exc:
@@ -231,31 +229,89 @@ def _short_name(full_name):
 # --------------------------------------------------------------------------- #
 # Widget data
 # --------------------------------------------------------------------------- #
+RATING_MIN = 1  # a rating of 0 / empty means "no rating"
+
+
+def player_row(player):
+    """One flat record per player with everything the squad widget and the squad page show."""
+    raw_position = player.get("position") or "Unknown"
+    extra = pl_data.player_numbers(player)
+    rating = extra.get("rating")
+    shirt = player.get("shirt_number")
+    return {
+        "id": player.get("id"),
+        "name": player.get("name") or "Unknown player",
+        "position": raw_position,
+        "group": POSITION_GROUPS.get(raw_position, raw_position),
+        "nationality": player.get("nationality") or None,
+        "age": _age(player.get("date_of_birth")),
+        "date_of_birth": (player.get("date_of_birth") or "")[:10] or None,
+        "shirt": shirt if shirt is not None else extra.get("shirt_number"),
+        "has_stats": bool(extra),
+        "appearances": extra.get("appearances"),
+        "goals": extra.get("goals"),
+        "assists": extra.get("assists"),
+        "yellow_cards": extra.get("yellow_cards"),
+        "red_cards": extra.get("red_cards"),
+        "rating": rating if isinstance(rating, (int, float)) and rating >= RATING_MIN else None,
+        "injured": bool(extra.get("injured")),
+        "image": extra.get("image"),
+    }
+
+
 def group_squad(squad):
     """Group the squad by Goalkeeper / Defence / Midfield / Offence."""
     groups = {name: [] for name in GROUP_ORDER}
     other = {}
     for player in squad or []:
-        raw_position = player.get("position") or "Unknown"
-        group = POSITION_GROUPS.get(raw_position, raw_position)
-        extra = pl_data.player_numbers(player)
-        entry = {
-            "id": player.get("id"),
-            "name": player.get("name") or "Unknown player",
-            "position": raw_position,
-            "nationality": player.get("nationality") or "—",
-            "shirt": player.get("shirt_number") if player.get("shirt_number") is not None else extra.get("shirt_number"),
-            "age": _age(player.get("date_of_birth")),
-            "goals": extra.get("goals"),
-            "assists": extra.get("assists"),
-            "injured": bool(extra.get("injured")),
-        }
-        target = groups[group] if group in groups else other.setdefault(group, [])
-        target.append(entry)
+        row = player_row(player)
+        row["nationality"] = row["nationality"] or "—"
+        target = groups[row["group"]] if row["group"] in groups else other.setdefault(row["group"], [])
+        target.append(row)
 
     ordered = [(name, sorted(groups[name], key=lambda p: p["name"])) for name in GROUP_ORDER if groups[name]]
     ordered += [(name, sorted(players, key=lambda p: p["name"])) for name, players in other.items()]
     return ordered
+
+
+def team_summary(profile, team_id):
+    """The few club fields every page needs."""
+    return {
+        "id": profile.get("id", team_id),
+        "name": profile.get("name"),
+        "shortName": profile.get("short_name"),
+        "tla": profile.get("tla"),
+        "crest": profile.get("crest"),
+    }
+
+
+def load_club(team_id, data=None):
+    """(data file, the club's entry, team dict, error). ``error`` is a user-facing message or None."""
+    data = data if data is not None else load_pl_data()
+    if data is None:
+        return None, None, None, "missing_data"
+    entry = data["teams"].get(str(team_id))
+    if not entry:
+        return None, None, None, "That club isn't in the Premier League data file."
+    return data, entry, team_summary(entry.get("profile") or {}, team_id), None
+
+
+def assistant_coaches(extras):
+    """The hand-kept assistant list (the APIs hardly ever list staff)."""
+    return [{"name": a.get("name"), "role": a.get("role")}
+            for a in extras.get("assistant_coaches", []) if isinstance(a, dict) and a.get("name")]
+
+
+def page_base(data, team, team_id, club_link, title):
+    """Context keys every club page shares."""
+    return {
+        "team": team,
+        "team_id": team_id,
+        "table": _table_rows(data.get("standings")),
+        "club_link": club_link,  # the sidebar table stays on this page type when you pick another club
+        "data_updated": (data.get("meta") or {}).get("generated_at"),
+        "page_title": f"{team.get('shortName') or team.get('name') or 'Club'} {title}".strip(),
+    }
 
 
 def find_player_id(name, squad):
@@ -350,18 +406,11 @@ def _contract_progress(start, until):
     return max(0, min(100, round(100 * (now - a) / (b - a)))) if b > a else None
 
 
-def _ordinal_suffix(n):
-    if not isinstance(n, int):
-        return "th"
-    return "th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
-
-
 def _position_label(position, table_size):
     """1 -> '1st of 20' (None when the club isn't in the table)."""
     if not isinstance(position, int) or position < 1:
         return None
-    suffix = "th" if 10 <= position % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(position % 10, "th")
-    return f"{position}{suffix}" + (f" of {table_size}" if table_size else "")
+    return f"{position}{ordinal_suffix(position)}" + (f" of {table_size}" if table_size else "")
 
 
 def _table_rows(standings):
@@ -382,64 +431,59 @@ def _table_rows(standings):
 def _season_stats(stats):
     if not stats or not stats.get("played"):
         return None
-    avg = stats.get("avg_points")
+    played, avg = stats["played"], stats.get("avg_points")
+    won, draw, lost = (stats.get(key, 0) for key in ("won", "draw", "lost"))
+    goals_for, goals_against = stats.get("goals_for", 0), stats.get("goals_against", 0)
+    goals_max = max(goals_for, goals_against, 1)
     return {
-        "played": stats["played"],
-        "won": stats.get("won", 0),
-        "draw": stats.get("draw", 0),
-        "lost": stats.get("lost", 0),
+        "played": played,
+        "won": won,
+        "draw": draw,
+        "lost": lost,
         "points": stats.get("points", 0),
         "avg_points": f"{avg:.2f}" if isinstance(avg, (int, float)) else "—",
-        "goals_for": stats.get("goals_for", 0),
-        "goals_against": stats.get("goals_against", 0),
+        "goals_for": goals_for,
+        "goals_against": goals_against,
         "goal_difference": stats.get("goal_difference", 0),
         "clean_sheets": stats.get("clean_sheets"),
         "possession": stats.get("possession"),
         "form": [c for c in re.split(r"[,\s]+", str(stats.get("form") or "")) if c in ("W", "D", "L")][-5:],
-        "win_pct": round(100 * stats.get("won", 0) / stats["played"]),
-        "draw_pct": round(100 * stats.get("draw", 0) / stats["played"]),
-        "loss_pct": round(100 * stats.get("lost", 0) / stats["played"]),
-        "goals_max": max(stats.get("goals_for", 0), stats.get("goals_against", 0), 1),
-        "gf_pct": round(100 * stats.get("goals_for", 0) / max(stats.get("goals_for", 0), stats.get("goals_against", 0), 1)),
-        "ga_pct": round(100 * stats.get("goals_against", 0) / max(stats.get("goals_for", 0), stats.get("goals_against", 0), 1)),
+        "win_pct": round(100 * won / played),
+        "draw_pct": round(100 * draw / played),
+        "loss_pct": round(100 * lost / played),
+        "goals_max": goals_max,
+        "gf_pct": round(100 * goals_for / goals_max),
+        "ga_pct": round(100 * goals_against / goals_max),
     }
 
 
-# --------------------------------------------------------------------------- #
-# Context + views
-# --------------------------------------------------------------------------- #
 def build_dashboard_context(team_id, data=None, extras_by_team=None):
     """Return (context, error). ``error`` is a user-facing message or None."""
-    data = data if data is not None else load_pl_data()
-    if data is None:
-        return None, "missing_data"
-    entry = data["teams"].get(str(team_id))
-    if not entry:
-        return None, "That club isn't in the Premier League data file."
+    data, entry, team, error = load_club(team_id, data)
+    if error:
+        return None, error
 
     all_extras = extras_by_team if extras_by_team is not None else load_club_extras()
     extras = all_extras.get(str(team_id), {})
     profile = entry.get("profile") or {}
     squad = profile.get("squad") or []
+    stats = entry.get("stats") or {}
+    table_rows = _table_rows(data.get("standings"))
 
-    team = {
-        "id": profile.get("id", team_id),
-        "name": profile.get("name"),
-        "shortName": profile.get("short_name"),
-        "tla": profile.get("tla"),
-        "crest": profile.get("crest"),
+    position = stats.get("position")
+    team.update({
         "founded": profile.get("founded"),
         "clubColors": profile.get("club_colors"),
         "website": profile.get("website"),
         "address": profile.get("address"),
         "area": {"name": profile.get("country")},
-        "position": _position_label((entry.get("stats") or {}).get("position"), len(data.get("standings") or [])),
-        "rank": (entry.get("stats") or {}).get("position") if isinstance((entry.get("stats") or {}).get("position"), int) else None,
-        "table_size": len(data.get("standings") or []) or None,
-        "rank_suffix": _ordinal_suffix((entry.get("stats") or {}).get("position")),
-        "points": (entry.get("stats") or {}).get("points"),
+        "position": _position_label(position, len(table_rows)),
+        "rank": position if isinstance(position, int) else None,
+        "table_size": len(table_rows) or None,
+        "rank_suffix": ordinal_suffix(position),
+        "points": stats.get("points"),
         "colours": club_colours(profile.get("club_colors")),
-    }
+    })
     team["brand_a"], team["brand_b"] = _brand_colours(team["colours"])
 
     # Revenue / market value (revenue is manual: neither API has it)
@@ -475,7 +519,7 @@ def build_dashboard_context(team_id, data=None, extras_by_team=None):
     if isinstance(capacity, int) and capacity > 0 and capacities:
         rank = 1 + sum(1 for c in capacities if c > capacity)
         stadium["capacity_pct"] = round(100 * capacity / capacities[0])
-        stadium["capacity_rank"] = f"{rank}{_ordinal_suffix(rank)} largest in the league"
+        stadium["capacity_rank"] = f"{rank}{ordinal_suffix(rank)} largest in the league"
         stadium["capacity_biggest"] = f"{capacities[0]:,}"
 
     # Manager and staff
@@ -486,13 +530,6 @@ def build_dashboard_context(team_id, data=None, extras_by_team=None):
                  "age": _age(coach.get("date_of_birth")),
                  "initials": "".join(w[0] for w in (coach.get("name") or "?").split()[:2]).upper(),
                  "progress": _contract_progress(contract.get("start"), contract.get("until"))}
-    # The APIs hardly ever list assistants or staff, so only the hand-kept list is shown;
-    # without it the widget says it is under development.
-    assistants = [
-        {"name": a.get("name"), "role": a.get("role")}
-        for a in extras.get("assistant_coaches", [])
-        if isinstance(a, dict) and a.get("name")
-    ]
 
     # Honours: hand-kept list if present, otherwise the title count the API history gives
     honours = [
@@ -516,7 +553,6 @@ def build_dashboard_context(team_id, data=None, extras_by_team=None):
     if formation:
         formation["kind"] = kind
 
-    table_rows = _table_rows(data.get("standings"))
     neighbours = []
     here = next((i for i, r in enumerate(table_rows) if r["team"]["id"] == team_id), None)
     if here is not None:
@@ -527,12 +563,12 @@ def build_dashboard_context(team_id, data=None, extras_by_team=None):
         "neighbours": neighbours,
         "team": team,
         "team_id": team_id,
-        "table": _table_rows(data.get("standings")),
-        "stats": _season_stats(entry.get("stats")),
+        "table": table_rows,
+        "stats": _season_stats(stats),
         "revenue": revenue,
         "stadium": stadium,
         "coach": coach,
-        "assistants": assistants,
+        "assistants": assistant_coaches(extras),
         "trophies": trophies,
         "formation": formation,
         "squad_groups": group_squad(squad),

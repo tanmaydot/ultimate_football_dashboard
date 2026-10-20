@@ -15,6 +15,8 @@ import time
 import requests
 from django.conf import settings
 
+from .util import Throttle
+
 logger = logging.getLogger(__name__)
 
 BASE_URL = "https://api.pitchapi.dev"
@@ -47,24 +49,14 @@ class PitchApiClient:
         self._key = api_key if api_key is not None else get_api_key()
         self.base_url = (base_url or os.environ.get("PITCHAPI_BASE_URL") or BASE_URL).rstrip("/")
         self.session = session or requests.Session()
-        self.min_interval = min_interval
-        self.interval = min_interval
+        self.throttle = Throttle(min_interval, sleep, clock)
         self.max_retries = max_retries
-        self.sleep = sleep
-        self.clock = clock
         self.timeout = timeout
         self.requests_made = 0
         self.rate_limited = 0
-        self._last = None
 
     def is_configured(self):
         return bool(self._key)
-
-    def _wait_turn(self):
-        if self._last is not None:
-            remaining = self.interval - (self.clock() - self._last)
-            if remaining > 0:
-                self.sleep(remaining)
 
     def get(self, path, params=None):
         """GET one path and return the decoded envelope. Raises PitchApiError (never leaks the key)."""
@@ -73,17 +65,17 @@ class PitchApiClient:
         url = f"{self.base_url}{path}"
         last_problem = "no attempt made"
         for attempt in range(self.max_retries + 1):
-            self._wait_turn()
+            self.throttle.wait()
             try:
                 response = self.session.get(url, params=params, headers={"X-API-KEY": self._key}, timeout=self.timeout)
             except requests.exceptions.RequestException as exc:
                 # str(exc) can contain the URL; the key is only ever in a header, but log the type only to be safe.
                 last_problem = f"network error ({type(exc).__name__})"
-                self._last = self.clock()
-                self.sleep(min(2 ** attempt, 30) + random.random())
+                self.throttle.mark()
+                self.throttle.sleep(min(2 ** attempt, 30) + random.random())
                 continue
             self.requests_made += 1
-            self._last = self.clock()
+            self.throttle.mark()
             status = response.status_code
 
             if status == 429:
@@ -93,14 +85,14 @@ class PitchApiClient:
                 except (TypeError, ValueError, AttributeError):
                     wait = 5.0
                 wait = max(1.0, min(wait, MAX_RETRY_AFTER))
-                self.interval = min(MAX_INTERVAL, self.interval * 2)  # be gentler for the rest of the run
+                self.throttle.interval = min(MAX_INTERVAL, self.throttle.interval * 2)  # be gentler for the rest of the run
                 last_problem = f"HTTP 429 (waited {wait:.0f}s)"
                 logger.warning("pitchapi %s rate limited; waiting %.0fs", path, wait)
-                self.sleep(wait)
+                self.throttle.sleep(wait)
                 continue
             if status >= 500:
                 last_problem = f"HTTP {status}"
-                self.sleep(min(2 ** attempt, 30) + random.random())
+                self.throttle.sleep(min(2 ** attempt, 30) + random.random())
                 continue
 
             try:
@@ -118,6 +110,6 @@ class PitchApiClient:
             if not isinstance(body, dict) or "data" not in body:
                 raise PitchApiError(f"{path}: unexpected response shape", status=status)
             # a calm stretch: let the pause shrink back towards the minimum
-            self.interval = max(self.min_interval, self.interval * 0.9)
+            self.throttle.interval = max(self.throttle.min_interval, self.throttle.interval * 0.9)
             return body
         raise PitchApiError(f"{path}: gave up after {self.max_retries + 1} attempts ({last_problem})", status=None)

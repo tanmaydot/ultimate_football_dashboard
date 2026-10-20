@@ -24,15 +24,12 @@ Each team in the output has:
 
 API keys are never written to the output or the logs.
 """
-import json
 import logging
 import os
 import re
-import tempfile
 import time
-import unicodedata
 from collections import Counter, defaultdict
-from datetime import date, datetime, timedelta, timezone
+from datetime import date
 from difflib import SequenceMatcher
 from pathlib import Path
 
@@ -40,8 +37,9 @@ import requests
 from django.conf import settings
 
 from . import pitchapi_source
-from .footballdata_io import FootballDataIoError, FootballDataIoSource, clean_name
+from .footballdata_io import FootballDataIoError, FootballDataIoSource, clean_name  # noqa: F401 (the build command and tests use pl_data.FootballDataIoSource)
 from .pitchapi import PitchApiAuthError, PitchApiError
+from .util import Throttle, fold, to_int, utc_now_iso, write_json_atomic  # noqa: F401 (pl_data.write_json_atomic is used by the build command)
 
 logger = logging.getLogger(__name__)
 
@@ -62,13 +60,6 @@ class FetchError(Exception):
 # --------------------------------------------------------------------------- #
 # Small helpers
 # --------------------------------------------------------------------------- #
-def _to_int(value):
-    try:
-        return int(float(str(value).strip()))
-    except (TypeError, ValueError):
-        return None
-
-
 def _to_float(value):
     try:
         return float(str(value).strip().rstrip("%"))
@@ -81,10 +72,6 @@ def player_numbers(player):
     return (player or {}).get("pitchapi") or {}
 
 
-def _ascii_lower(text):
-    return unicodedata.normalize("NFKD", text or "").encode("ascii", "ignore").decode().lower()
-
-
 # --------------------------------------------------------------------------- #
 # API clients
 # --------------------------------------------------------------------------- #
@@ -93,24 +80,15 @@ class FootballDataClient:
 
     def __init__(self, api_key=None, min_interval=FD_MIN_INTERVAL, sleep=time.sleep, clock=time.monotonic):
         self.api_key = api_key or getattr(settings, "FOOTBALL_DATA_API_KEY", "") or os.environ.get("FOOTBALL_DATA_API_KEY", "")
-        self.min_interval = min_interval
-        self.sleep = sleep
-        self.clock = clock
-        self._last_call = None
+        self.throttle = Throttle(min_interval, sleep, clock)
 
     def is_configured(self):
         return bool(self.api_key)
 
-    def _wait_turn(self):
-        if self._last_call is not None:
-            remaining = self.min_interval - (self.clock() - self._last_call)
-            if remaining > 0:
-                self.sleep(remaining)
-
     @staticmethod
     def _retry_after(response):
         raw = response.headers.get("Retry-After") or response.headers.get("X-RequestCounter-Reset") or 60
-        seconds = _to_int(raw)
+        seconds = to_int(raw)
         return min(max(seconds if seconds else 60, 1), 120)
 
     def get(self, path, params=None):
@@ -118,16 +96,16 @@ class FootballDataClient:
             raise FetchError("football-data.org key is not set (FOOTBALL_DATA_API_KEY)")
         response = None
         for attempt in (1, 2):
-            self._wait_turn()
+            self.throttle.wait()
             try:
                 response = requests.get(
                     FD_BASE + path, headers={"X-Auth-Token": self.api_key}, params=params, timeout=30
                 )
             except requests.exceptions.RequestException as exc:
                 raise FetchError(f"football-data.org {path}: request failed ({type(exc).__name__})")
-            self._last_call = self.clock()
+            self.throttle.mark()
             if response.status_code == 429 and attempt == 1:
-                self.sleep(self._retry_after(response))
+                self.throttle.sleep(self._retry_after(response))
                 continue
             break
 
@@ -167,7 +145,7 @@ _ALIASES = {
 
 
 def normalise_team_name(name):
-    text = _ascii_lower(name).replace("&", " ")
+    text = fold(name).replace("&", " ")
     text = re.sub(r"[^a-z0-9 ]+", " ", text)
     key = " ".join(t for t in text.split() if t not in _STOP_WORDS)
     return _ALIASES.get(key, key)
@@ -285,7 +263,7 @@ def _starting_xi(side):
         return None
     ordered = []
     for player in players:
-        position = _to_int(player.get("lineup_position"))
+        position = to_int(player.get("lineup_position"))
         if position is None or not player.get("lineup_player"):
             return None
         ordered.append((position, player["lineup_player"]))
@@ -370,7 +348,7 @@ def formation_summary(derived):
 # Merging one team
 # --------------------------------------------------------------------------- #
 def _person_key(name):
-    return re.sub(r"[^a-z ]+", " ", _ascii_lower(name)).split()
+    return re.sub(r"[^a-z ]+", " ", fold(name)).split()
 
 
 def attach_pitch_stats(squad, pitch_players, pitch_played):
@@ -488,7 +466,7 @@ def build_team(fd_team, stats_row, clean_sheets, derived, titles, io_team=None, 
         "short_name": fd_team.get("shortName"),
         "tla": fd_team.get("tla"),
         "crest": fd_team.get("crest") or io_team.get("team_logo"),
-        "founded": fd_team.get("founded") or _to_int(io_team.get("founded")),
+        "founded": fd_team.get("founded") or to_int(io_team.get("founded")),
         "club_colors": fd_team.get("clubColors"),
         "website": fd_team.get("website"),
         "address": fd_team.get("address"),
@@ -737,7 +715,7 @@ def build_dataset(fd, pa=None, io=None, history=None, log=print, today=None, io_
     return {
         "meta": {
             "schema_version": SCHEMA_VERSION,
-            "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "generated_at": utc_now_iso(),
             "competition": {"code": COMPETITION, "name": competition.get("name")},
             "season": {"start": season.get("startDate"), "end": season.get("endDate"),
                        "current_matchday": season.get("currentMatchday")},
@@ -747,20 +725,3 @@ def build_dataset(fd, pa=None, io=None, history=None, log=print, today=None, io_
         "standings": standings,
         "teams": teams,
     }
-
-
-def write_json_atomic(path, data):
-    """Write via a temp file so a crash never leaves a half-written (or emptied) data file."""
-    path = Path(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    handle, temp_name = tempfile.mkstemp(dir=path.parent, prefix=path.name + ".", suffix=".tmp")
-    try:
-        with os.fdopen(handle, "w", encoding="utf-8") as fh:
-            json.dump(data, fh, ensure_ascii=False, indent=2)
-        os.replace(temp_name, path)
-    except BaseException:
-        try:
-            os.unlink(temp_name)
-        except OSError:
-            pass
-        raise

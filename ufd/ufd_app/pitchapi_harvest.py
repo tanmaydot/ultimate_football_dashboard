@@ -19,14 +19,13 @@ Properties that matter for a one-off run with a key that will soon be rotated:
 * the API key is never written anywhere.
 """
 import json
-import os
 import re
-import tempfile
 import time
 import zipfile
 from pathlib import Path
 
 from .pitchapi import PitchApiAuthError, PitchApiError
+from .util import read_json, write_json_atomic
 
 # (file name, path under /v1/matches/{id}, query params). Order = most valuable first.
 MATCH_ENDPOINTS = [
@@ -139,27 +138,12 @@ class Harvester:
             self.stopped = "stopped at the --max-minutes limit"
         return not self.stopped
 
-    @staticmethod
-    def _write(path, data):
-        path.parent.mkdir(parents=True, exist_ok=True)
-        fd, tmp = tempfile.mkstemp(dir=str(path.parent), prefix=path.name + ".", suffix=".tmp")
-        try:
-            with os.fdopen(fd, "w", encoding="utf-8") as fh:
-                json.dump(data, fh, ensure_ascii=False)
-            os.replace(tmp, path)
-        except BaseException:
-            try:
-                os.unlink(tmp)
-            except OSError:
-                pass
-            raise
-
     def fetch(self, kind, path, dest, params=None):
         """Fetch one resource into ``dest`` unless it is already there. Returns the stored dict, or None."""
         if dest.exists() and not self.refresh:
             self._bump(kind, "cached")
             try:
-                return json.loads(dest.read_text(encoding="utf-8"))
+                return read_json(dest)
             except (OSError, ValueError):
                 pass  # a damaged file: fetch it again
         if not self._budget_left():
@@ -172,14 +156,14 @@ class Harvester:
             return None
         except PitchApiError as exc:
             if exc.status == 404 and exc.code in _NOT_RETRIED:
-                self._write(dest, {"_error": {"status": 404, "code": exc.code}, "_path": path})
+                write_json_atomic(dest, {"_error": {"status": 404, "code": exc.code}, "_path": path})
                 self._bump(kind, "unavailable")
             else:
                 self._bump(kind, "failed")
                 self.failures.append({"path": path, "params": params, "error": str(exc)})
                 self.log(f"  failed  {path}: {exc}")
             return None
-        self._write(dest, body)
+        write_json_atomic(dest, body)
         self._bump(kind, "ok")
         return body
 
@@ -299,7 +283,7 @@ class Harvester:
             "failures": self.failures[:200],
             "files_on_disk": sum(1 for p in self.out.rglob("*.json") if p.name != "_index.json") if self.out.exists() else 0,
         }
-        self._write(self.out / "_index.json", index)
+        write_json_atomic(self.out / "_index.json", index, indent=None)
         return index
 
 

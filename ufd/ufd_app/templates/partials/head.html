@@ -161,4 +161,14 @@
     @media (prefers-reduced-motion: reduce) {
         * { transition: none !important; animation: none !important; }
     }
+
+    /* shared by the club pages */
+    .filter-chip:hover { background: var(--hover); }
+    .filter-chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--a-ink); font-weight: 600; }
+    .bar { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+    .bar > i { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+    .kv > div:last-child { border-bottom: 0; }
+    .stat-tile { padding: 12px 16px; }
+    .stat-tile b { display: block; font-family: var(--font-display); font-size: 1.9rem; line-height: 1.1; }
+    .stat-tile span { font-size: 0.8rem; color: var(--muted); }
 </style>

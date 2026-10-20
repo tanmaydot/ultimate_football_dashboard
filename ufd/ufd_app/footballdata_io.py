@@ -20,6 +20,8 @@ import time
 import requests
 from django.conf import settings
 
+from .util import Throttle
+
 logger = logging.getLogger(__name__)
 
 BASE_URL = "https://footballdata.io/api/v1"
@@ -45,10 +47,7 @@ class FootballDataIoClient:
     def __init__(self, api_key=None, min_interval=MIN_INTERVAL, sleep=time.sleep, clock=time.monotonic):
         self.api_key = (api_key or getattr(settings, "FOOTBALLDATA_IO_API_KEY", "")
                         or os.environ.get("FOOTBALLDATA_IO_API_KEY", ""))
-        self.min_interval = min_interval
-        self.sleep = sleep
-        self.clock = clock
-        self._last_call = None
+        self.throttle = Throttle(min_interval, sleep, clock)
 
     def is_configured(self):
         return bool(self.api_key)
@@ -61,10 +60,7 @@ class FootballDataIoClient:
         """GET one endpoint and return the full response envelope (a dict)."""
         if not self.api_key:
             raise FootballDataIoError("FOOTBALLDATA_IO_API_KEY is not set")
-        if self._last_call is not None:
-            wait = self.min_interval - (self.clock() - self._last_call)
-            if wait > 0:
-                self.sleep(wait)
+        self.throttle.wait()
         try:
             response = requests.get(
                 BASE_URL + path,
@@ -76,7 +72,7 @@ class FootballDataIoClient:
             # str(exc) can include the request URL, so only the type is reported.
             raise FootballDataIoError(f"footballdata.io {path}: request failed ({type(exc).__name__})")
         finally:
-            self._last_call = self.clock()
+            self.throttle.mark()
 
         status = response.status_code
         try:

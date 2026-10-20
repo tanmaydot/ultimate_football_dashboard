@@ -24,16 +24,15 @@ Findings from the real data that this module works around:
 
 The API key is never written anywhere (the client in ``pitchapi.py`` only sends it as a header).
 """
-import json
 import logging
 import re
-import unicodedata
 from collections import Counter, defaultdict
 from datetime import date, timedelta
 from difflib import SequenceMatcher
 from pathlib import Path
 
 from .pitchapi import PitchApiAuthError, PitchApiClient, PitchApiError
+from .util import fold, read_json, to_int, whole
 
 logger = logging.getLogger(__name__)
 
@@ -45,14 +44,6 @@ REFETCH_DAYS = 3  # matches this recent are fetched again, so a late correction 
 # --------------------------------------------------------------------------- #
 # Small helpers
 # --------------------------------------------------------------------------- #
-_NO_DECOMPOSITION = str.maketrans({"đ": "d", "Đ": "D", "ł": "l", "Ł": "L", "ø": "o", "Ø": "O", "æ": "ae", "Æ": "AE", "ß": "ss"})
-
-
-def fold(text):
-    """Lower-case ASCII form used to compare names ('Jakirović' == 'jakirovic', 'Đorđe' == 'dorde')."""
-    return unicodedata.normalize("NFKD", (text or "").translate(_NO_DECOMPOSITION)).encode("ascii", "ignore").decode().lower()
-
-
 def name_tokens(name):
     """Words of a name, folded; apostrophes are dropped, not split on (M'Baye -> mbaye)."""
     return re.sub(r"[^a-z ]+", " ", re.sub(r"['’`]", "", fold(name))).split()
@@ -194,7 +185,7 @@ class HarvestSource:
 
     def _read(self, path):
         try:
-            body = json.loads(path.read_text(encoding="utf-8"))
+            body = read_json(path)
         except (OSError, ValueError):
             return None
         return None if isinstance(body, dict) and "_error" in body else body
@@ -490,23 +481,19 @@ def aggregate_players(records):
     return out
 
 
-def _whole(value):
-    return int(value) if isinstance(value, float) and value == int(value) else value
-
-
 def player_record(total, info):
     """A season record in the shape the dashboard reads (see ``pl_data.player_numbers``)."""
     t = total or {}
-    g = lambda k: _whole(t.get(k, 0))
+    g = lambda k: whole(t.get(k, 0))
     passes = t.get("pst", 0)
     extra = {
         "minutes": g("min"), "shots": g("sh"), "goals_conceded": g("gc"), "saves": g("sv"),
         "inside_box_saves": g("sib"), "fouls": g("fl"), "tackles": g("tk"), "blocks": g("bl"),
         "crosses": g("crt"), "interceptions": g("in"), "clearances": g("cl"), "dispossessed": g("dp"),
-        "duels": _whole(t.get("dw", 0) + t.get("dl", 0)), "duels_won": g("dw"),
+        "duels": whole(t.get("dw", 0) + t.get("dl", 0)), "duels_won": g("dw"),
         "dribble_attempts": g("dba"), "dribbles": g("dbs"),
         "pen_won": g("pw"), "pen_committed": g("pc"), "pen_scored": g("pg"), "pen_missed": g("pm"),
-        "passes": _whole(passes), "key_passes": g("kp"), "woodwork": g("ww"),
+        "passes": whole(passes), "key_passes": g("kp"), "woodwork": g("ww"),
         "xg": round(t.get("xg", 0), 2), "xa": round(t.get("xa", 0), 2),
     }
     if passes:
@@ -515,7 +502,7 @@ def player_record(total, info):
         "source": "pitchapi",
         "pitchapi_id": (info or {}).get("id"),
         "matched": bool(total),
-        "shirt_number": _num(_to_int(t.get("no"))),
+        "shirt_number": _num(to_int(t.get("no"))),
         "appearances": g("apps"),
         "goals": g("g"),
         "assists": g("a"),
@@ -529,13 +516,6 @@ def player_record(total, info):
         "captain": bool(t.get("captain")),
         "extra": extra,
     }
-
-
-def _to_int(value):
-    try:
-        return int(float(str(value).strip()))
-    except (TypeError, ValueError):
-        return None
 
 
 def match_players(squad, pool):

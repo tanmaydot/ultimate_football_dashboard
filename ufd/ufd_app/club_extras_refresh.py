@@ -18,7 +18,6 @@ Transfermarkt, hosted for free, so this is meant to run once a quarter (1 Jan, A
 request. If a club's fetch fails, its previous entry is kept, so an outage can
 never wipe data.
 """
-import json
 import logging
 import re
 import time
@@ -26,6 +25,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
+
+from .util import read_json, write_json_atomic
 
 logger = logging.getLogger(__name__)
 
@@ -137,7 +138,7 @@ def clean_city(address_line):
     return text or None
 
 
-def _to_int(value):
+def _positive_int(value):
     if value in (None, ""):
         return None
     try:
@@ -156,8 +157,8 @@ def parse_tm_stadium(profile):
     st = profile.get("stadium") or {}
     return {
         "venue": st.get("name") or profile.get("stadiumName"),
-        "capacity": _to_int(st.get("capacity")),
-        "opened": _to_int(st.get("buildYear")),
+        "capacity": _positive_int(st.get("capacity")),
+        "opened": _positive_int(st.get("buildYear")),
         "city": clean_city(st.get("addressLine2")),
     }
 
@@ -230,11 +231,11 @@ def fetch_wikidata_stadium(fetch, qid):
     rows = fetch.get_json(WIKIDATA_SPARQL, params={"query": query, "format": "json"})["results"]["bindings"]
     if not rows:
         return None
-    best = max(rows, key=lambda r: _to_int(r.get("cap", {}).get("value")) or -1)
+    best = max(rows, key=lambda r: _positive_int(r.get("cap", {}).get("value")) or -1)
     inc = best.get("inc", {}).get("value", "")
     return {
         "venue": best.get("venueLabel", {}).get("value"),
-        "capacity": _to_int(best.get("cap", {}).get("value")),
+        "capacity": _positive_int(best.get("cap", {}).get("value")),
         "opened": int(inc[:4]) if re.match(r"^\d{4}", inc) else None,
         "city": None,  # Wikidata's value is a council area; never used
     }
@@ -279,17 +280,14 @@ def refresh_club(fetch, ids):
 # --------------------------------------------------------------------------- #
 def read_auto(path=AUTO_PATH):
     try:
-        data = json.loads(Path(path).read_text(encoding="utf-8"))
+        data = read_json(path)
     except (FileNotFoundError, ValueError, OSError):
         return {}
     return data if isinstance(data, dict) else {}
 
 
 def write_auto(data, path=AUTO_PATH):
-    path = Path(path)
-    tmp = path.with_suffix(".tmp")
-    tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    tmp.replace(path)
+    write_json_atomic(path, data)
 
 
 def refresh_all(fetch, team_ids, existing, now=None):
