@@ -1,0 +1,22 @@
+name: Commit refreshed data (the push makes Render redeploy)
+inputs:
+  paths:
+    description: Files or folders to add
+    required: true
+  message:
+    description: Commit message prefix (the UTC date is appended)
+    required: true
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add ${{ inputs.paths }}
+        if git diff --cached --quiet; then
+          echo "No changes."
+        else
+          git commit -m "${{ inputs.message }} ($(date -u +%F))"
+          git push
+        fi
