@@ -31,7 +31,6 @@ import time
 from collections import Counter, defaultdict
 from datetime import date
 from difflib import SequenceMatcher
-from pathlib import Path
 
 import requests
 from django.conf import settings
@@ -39,12 +38,31 @@ from django.conf import settings
 from . import pitchapi_source
 from .footballdata_io import FootballDataIoError, FootballDataIoSource, clean_name  # noqa: F401 (the build command and tests use pl_data.FootballDataIoSource)
 from .pitchapi import PitchApiAuthError, PitchApiError
-from .util import Throttle, fold, to_int, utc_now_iso, write_json_atomic  # noqa: F401 (pl_data.write_json_atomic is used by the build command)
+from .util import DATA_DIR, Throttle, fold, to_int, utc_now_iso, write_json_atomic  # noqa: F401 (pl_data.write_json_atomic is used by the build command)
 
 logger = logging.getLogger(__name__)
 
 SCHEMA_VERSION = 1
-DEFAULT_OUTPUT = Path(__file__).resolve().parent / "data" / "pl_teams.json"
+DEFAULT_OUTPUT = DATA_DIR / "pl_teams.json"
+
+# football-data.org lists detailed positions for some clubs; the pages and the player model use four groups.
+POSITION_GROUPS = {
+    "Goalkeeper": "Goalkeeper",
+    "Centre-Back": "Defence",
+    "Left-Back": "Defence",
+    "Right-Back": "Defence",
+    "Defence": "Defence",
+    "Defensive Midfield": "Midfield",
+    "Central Midfield": "Midfield",
+    "Attacking Midfield": "Midfield",
+    "Left Midfield": "Midfield",
+    "Right Midfield": "Midfield",
+    "Midfield": "Midfield",
+    "Centre-Forward": "Offence",
+    "Left Winger": "Offence",
+    "Right Winger": "Offence",
+    "Offence": "Offence",
+}
 
 FD_BASE = "https://api.football-data.org/v4"
 COMPETITION = "PL"

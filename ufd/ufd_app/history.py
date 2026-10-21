@@ -22,12 +22,12 @@ import shutil
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from .util import read_json, utc_now, utc_now_iso, write_json_atomic
+from .util import DATA_DIR, read_json, utc_now, utc_now_iso, write_json_atomic
 
 logger = logging.getLogger(__name__)
 
 HISTORY_VERSION = 1
-DEFAULT_HISTORY = Path(__file__).resolve().parent / "data" / "pl_history.json"
+DEFAULT_HISTORY = DATA_DIR / "pl_history.json"
 
 
 def _fresh(season_start=None):

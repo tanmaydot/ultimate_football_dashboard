@@ -20,7 +20,8 @@ HISTORY = json.dumps({"results": {}, "team_stats": {}, "player_stats": {}, "pitc
 
 class CommittedDataTests(SimpleTestCase):
     def test_the_committed_files_are_valid_and_free_of_conflict_markers(self):
-        self.assertEqual(check_files(DATA / "pl_teams.json", DATA / "pl_history.json"), [])
+        self.assertEqual(check_files(DATA / "pl_teams.json", DATA / "pl_history.json",
+                                     predictions_path=DATA / "pl_predictions.json", archive_path=DATA / "openfootball.json"), [])
 
 
 class CheckerTests(SimpleTestCase):

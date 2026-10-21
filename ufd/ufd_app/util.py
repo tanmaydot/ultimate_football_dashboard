@@ -7,6 +7,8 @@ import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
+DATA_DIR = Path(__file__).resolve().parent / "data"
+
 _NO_DECOMPOSITION = str.maketrans({"đ": "d", "Đ": "D", "ł": "l", "Ł": "L", "ø": "o", "Ø": "O", "æ": "ae", "Æ": "AE", "ß": "ss"})
 
 

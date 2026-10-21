@@ -9,7 +9,7 @@ from datetime import date
 
 from django.shortcuts import render
 
-from . import dashboard
+from . import dashboard, predictions
 from .util import whole
 
 logger = logging.getLogger(__name__)
@@ -40,8 +40,11 @@ def build_squad_context(team_id, data=None):
     if error:
         return None, error
     rows = squad_rows((entry.get("profile") or {}).get("squad"))
+    doc = predictions.load_predictions()
+    for row in rows:
+        row["outlook"] = predictions.player_outlook(doc, team_id, row["id"])
     return {**dashboard.page_base(data, team, team_id, "ufd_app:squad", "squad"),
-            "players": rows, "summary": squad_summary(rows)}, None
+            "players": rows, "summary": squad_summary(rows), "has_outlook": any(r["outlook"] for r in rows)}, None
 
 
 def squad_view(request, team_id):
@@ -211,8 +214,20 @@ def build_player_context(team_id, player_id, data=None):
         "sections": sections,
         "more": [item for section in sections for item in section["items"]],
         "has_stats": row["has_stats"],
+        "outlook": _player_outlook_card(team_id, row["id"], data),
         "page_title": f"{row['name']} · {base['page_title']}",
     }, None
+
+
+def _player_outlook_card(team_id, player_id, data):
+    """The next-match prediction of one player with the opponent's details, or None when there is none."""
+    doc = predictions.load_predictions()
+    outlook = predictions.player_outlook(doc, team_id, player_id)
+    if not outlook:
+        return None
+    opponent = dashboard.load_club(outlook["next"]["opponent_id"], data)[2] or {}
+    return {**outlook, "opponent": opponent, "pct": {k: round(outlook[f"p_{k}"] * 100) for k in ("goal", "assist", "goal_or_assist")},
+            "as_of": doc["meta"]["as_of"]}
 
 
 def player_view(request, team_id, player_id):
@@ -228,3 +243,51 @@ def _render_page(request, team_id, builder, template, name):
     if error:
         return dashboard._no_data_page(request, error)
     return render(request, template, context)
+
+
+# --------------------------------------------------------------------------- #
+# Predictions
+# --------------------------------------------------------------------------- #
+UPCOMING_SHOWN = 8
+
+
+def build_predictions_context(team_id, data=None, doc=None):
+    data, entry, team, error = dashboard.load_club(team_id, data)
+    if error:
+        return None, error
+    doc = doc if doc is not None else predictions.load_predictions()
+    context = dashboard.page_base(data, team, team_id, "ufd_app:predictions", "predictions")
+    context["doc"] = bool(doc)
+    if not doc:
+        return context, None
+    teams = dashboard.team_lookup(data)
+    decorated = [predictions.decorate_fixture(f, teams, team_id) for f in predictions.upcoming(doc, team_id)]
+    rows = squad_rows((entry.get("profile") or {}).get("squad"))
+    players = []
+    for row in rows:
+        outlook = predictions.player_outlook(doc, team_id, row["id"])
+        if outlook:
+            players.append({**row, "o": outlook, "pct_goal": round(outlook["p_goal"] * 100, 1),
+                            "pct_assist": round(outlook["p_assist"] * 100, 1),
+                            "pct_either": round(outlook["p_goal_or_assist"] * 100, 1)})
+    players.sort(key=lambda p: -p["o"]["p_goal_or_assist"])
+    meta = doc["meta"]
+    context.update({
+        "next_match": decorated[0] if decorated else None,
+        "fixtures": decorated[1:UPCOMING_SHOWN],
+        "awaiting": [predictions.decorate_fixture(f, teams, team_id) for f in predictions.awaiting_result(doc, team_id)],
+        "league_fixtures": [predictions.decorate_fixture(f, teams) for f in predictions.next_matchday(doc)],
+        "form": (doc["teams"].get(str(team_id)) or {}).get("form"),
+        "strength": (doc["teams"].get(str(team_id)) or {}).get("strength"),
+        "players": players,
+        "players_missing": len(rows) - len(players),
+        "top_scorers": sorted(players, key=lambda p: -p["o"]["p_goal"])[:3],
+        "meta": meta,
+        "validation": meta.get("validation"),
+        "season_label": meta.get("season"),
+    })
+    return context, None
+
+
+def predictions_view(request, team_id):
+    return _render_page(request, team_id, build_predictions_context, "predictions.html", "predictions")

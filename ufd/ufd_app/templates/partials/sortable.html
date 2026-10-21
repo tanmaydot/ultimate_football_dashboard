@@ -1,0 +1,22 @@
+<script>
+// Click a column heading to sort a table; blanks always sort last. Cells carry the sort value in data-v.
+function ufdSortable(table) {
+    var body = table.tBodies[0];
+    Array.prototype.forEach.call(table.tHead.rows[0].cells, function (th, index) {
+        th.addEventListener('click', function () {
+            var numeric = th.dataset.type === 'num';
+            var descending = th.getAttribute('aria-sort') === 'ascending';
+            Array.prototype.forEach.call(table.tHead.rows[0].cells, function (c) { c.removeAttribute('aria-sort'); });
+            th.setAttribute('aria-sort', descending ? 'descending' : 'ascending');
+            Array.prototype.slice.call(body.rows).sort(function (a, b) {
+                var x = a.cells[index].dataset.v, y = b.cells[index].dataset.v;
+                if (x === '' && y === '') return 0;
+                if (x === '') return 1;
+                if (y === '') return -1;
+                var result = numeric ? parseFloat(x) - parseFloat(y) : x.localeCompare(y);
+                return descending ? -result : result;
+            }).forEach(function (row) { body.appendChild(row); });
+        });
+    });
+}
+</script>

@@ -44,7 +44,7 @@ class DashboardFromJsonTests(TestCase):
         response = self.page()
         self.assertEqual(response.status_code, 200)
         html = response.content.decode()
-        self.assertEqual(html.count('<template id="tpl-'), 6)  # no league table (sidebar) and no badge (it's beside the title)
+        self.assertEqual(html.count('<template id="tpl-'), 7)  # no league table (sidebar), no badge (beside the title); the 7th is the next-match forecast
         ctx = response.context
         self.assertEqual(ctx["stats"]["avg_points"], "2.33")
         self.assertEqual(ctx["stats"]["clean_sheets"], 2)

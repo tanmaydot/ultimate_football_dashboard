@@ -163,6 +163,14 @@
     }
 
     /* shared by the club pages */
+    .pbar { display: flex; height: 12px; border-radius: 999px; overflow: hidden; background: var(--surface-2); }
+    .pbar > span { display: block; min-width: 3px; }
+    .pb-h { background: var(--accent); } .pb-d { background: var(--muted); opacity: 0.45; } .pb-a { background: color-mix(in srgb, var(--text) 70%, transparent); }
+    .pill { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; color: #fff; }
+    .pill-W { background: var(--win); } .pill-D { background: var(--draw); } .pill-L { background: var(--loss); }
+    .pill-D { color: #1a1400; }
+    .meter { height: 6px; border-radius: 999px; background: var(--surface-2); overflow: hidden; min-width: 56px; }
+    .meter > span { display: block; height: 100%; background: var(--accent); }
     .filter-chip:hover { background: var(--hover); }
     .filter-chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--a-ink); font-weight: 600; }
     .bar { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }

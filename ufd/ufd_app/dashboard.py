@@ -24,7 +24,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from . import pl_data
+from . import pl_data, predictions
 from .util import ordinal_suffix, read_json
 
 logger = logging.getLogger(__name__)
@@ -53,6 +53,9 @@ DEFAULT_LAYOUT = [
      "x": 0, "y": 12, "w": 12, "h": 7, "minW": 4, "minH": 5,
      "fit": {"h": 556}},
 
+    {"id": "prediction", "title": "Next match", "icon": "fa-wand-magic-sparkles",
+     "x": 0, "y": 19, "w": 12, "h": 6, "minW": 4, "minH": 5},
+
     # Revenue and coaches remain hidden until added from the Add Widget menu.
     {"id": "revenue", "title": "Revenue", "icon": "fa-coins",
      "x": 6, "y": 21, "w": 3, "h": 5, "minW": 2, "minH": 3,
@@ -65,25 +68,10 @@ DEFAULT_LAYOUT = [
 
 
 # Widgets whose title opens a full page in a new tab: widget id -> URL name (each takes the club id).
-PAGE_ROUTES = {"squad": "ufd_app:squad", "coaches": "ufd_app:manager", "formation": "ufd_app:formation"}
+PAGE_ROUTES = {"squad": "ufd_app:squad", "coaches": "ufd_app:manager", "formation": "ufd_app:formation",
+               "prediction": "ufd_app:predictions"}
 
-POSITION_GROUPS = {
-    "Goalkeeper": "Goalkeeper",
-    "Centre-Back": "Defence",
-    "Left-Back": "Defence",
-    "Right-Back": "Defence",
-    "Defence": "Defence",
-    "Defensive Midfield": "Midfield",
-    "Central Midfield": "Midfield",
-    "Attacking Midfield": "Midfield",
-    "Left Midfield": "Midfield",
-    "Right Midfield": "Midfield",
-    "Midfield": "Midfield",
-    "Centre-Forward": "Offence",
-    "Left Winger": "Offence",
-    "Right Winger": "Offence",
-    "Offence": "Offence",
-}
+POSITION_GROUPS = pl_data.POSITION_GROUPS
 GROUP_ORDER = ["Goalkeeper", "Defence", "Midfield", "Offence"]
 
 _FORMATION_RE = re.compile(r"^\d(-\d){1,4}$")
@@ -272,6 +260,18 @@ def group_squad(squad):
     ordered = [(name, sorted(groups[name], key=lambda p: p["name"])) for name in GROUP_ORDER if groups[name]]
     ordered += [(name, sorted(players, key=lambda p: p["name"])) for name, players in other.items()]
     return ordered
+
+
+def team_lookup(data):
+    """{club id: team dict} for every club in the data file (used to name the clubs in fixture lists)."""
+    return {int(tid): team_summary((entry.get("profile") or {}), tid) for tid, entry in data["teams"].items()}
+
+
+def next_match_card(data, team_id):
+    """The dashboard widget's content: the club's next forecast fixture, or None when no predictions exist yet."""
+    doc = predictions.load_predictions()
+    fixtures = predictions.upcoming(doc, team_id)
+    return predictions.decorate_fixture(fixtures[0], team_lookup(data), team_id) if fixtures else None
 
 
 def team_summary(profile, team_id):
@@ -572,6 +572,7 @@ def build_dashboard_context(team_id, data=None, extras_by_team=None):
         "trophies": trophies,
         "formation": formation,
         "squad_groups": group_squad(squad),
+        "prediction": next_match_card(data, team_id),
         "total_players": len(squad),
         "default_layout": [
             {**widget, "url": reverse(PAGE_ROUTES[widget["id"]], args=[team_id])} if widget["id"] in PAGE_ROUTES else dict(widget)

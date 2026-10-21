@@ -406,6 +406,27 @@
     {% endif %}
 </template>
 
+<template id="tpl-prediction">
+    {% if prediction %}
+    {% with f=prediction %}
+    <div class="flex flex-wrap items-center justify-between gap-2 text-xs mb-3" style="color: var(--muted)">
+        <span>{{ f.date }}{% if f.matchday %} · Matchday {{ f.matchday }}{% endif %} · {% if f.at_home %}Home{% else %}Away{% endif %}</span>
+        <span>Most likely {{ f.score.home }}–{{ f.score.away }} · xG {{ f.xg.home|floatformat:1 }}–{{ f.xg.away|floatformat:1 }}</span>
+    </div>
+    <div class="flex items-center justify-between gap-3 mb-3">
+        <div class="flex items-center gap-2 min-w-0">{% if f.home.crest %}<img src="{{ f.home.crest }}" alt="" class="w-9 h-9 object-contain">{% endif %}<span class="font-semibold truncate">{{ f.home.shortName|default:f.home.name }}</span></div>
+        <span style="color: var(--muted)">v</span>
+        <div class="flex items-center gap-2 min-w-0 justify-end"><span class="font-semibold truncate">{{ f.away.shortName|default:f.away.name }}</span>{% if f.away.crest %}<img src="{{ f.away.crest }}" alt="" class="w-9 h-9 object-contain">{% endif %}</div>
+    </div>
+    {% include "partials/prob_bar.html" with pct=f.pct %}
+    <div class="flex justify-between mt-2 text-sm font-semibold"><span>{{ f.pct.home }}%</span><span style="color: var(--muted)">Draw {{ f.pct.draw }}%</span><span>{{ f.pct.away }}%</span></div>
+    {% if f.insights %}<p class="text-xs mt-3" style="color: var(--muted)">{{ f.insights.0.text }}</p>{% endif %}
+    {% endwith %}
+    {% else %}
+    <div class="placeholder-note"><i class="fas fa-wand-magic-sparkles"></i><p>No forecast yet. Run <code>python manage.py build_predictions</code>.</p></div>
+    {% endif %}
+</template>
+
 <template id="tpl-coaches">
     {% if assistants %}
     <ul class="text-sm">
@@ -486,7 +507,7 @@
     var shown = defaults.filter(function (w) { return !w.hidden; });
     var meta = {};
     defaults.forEach(function (w) { meta[w.id] = w; });
-    var STORAGE_KEY = 'ufd.dashboard.layout.v11';
+    var STORAGE_KEY = 'ufd.dashboard.layout.v12';
     var building = true;
 
     // GridStack 11 inserts `content` as plain text by default. Our widget markup is rendered

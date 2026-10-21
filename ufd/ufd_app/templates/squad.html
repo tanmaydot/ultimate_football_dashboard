@@ -66,6 +66,12 @@
                     <th data-type="num" class="num" title="Yellow cards">YC</th>
                     <th data-type="num" class="num" title="Red cards">RC</th>
                     <th data-type="num" class="num">Rating</th>
+                    {% if has_outlook %}
+                    <th data-type="num" class="num" title="Chance to score in the next match">Goal %</th>
+                    <th data-type="num" class="num" title="Chance to assist in the next match">Assist %</th>
+                    <th data-type="num" class="num" title="Predicted rating in the next match">Exp. rating</th>
+                    <th data-type="text" title="Recent ratings compared with his season average">Form</th>
+                    {% endif %}
                     <th data-type="text">Status</th>
                 </tr>
             </thead>
@@ -89,6 +95,14 @@
                     <td class="num" data-v="{{ p.yellow_cards|default_if_none:'' }}">{{ p.yellow_cards|default_if_none:"—" }}</td>
                     <td class="num" data-v="{{ p.red_cards|default_if_none:'' }}">{{ p.red_cards|default_if_none:"—" }}</td>
                     <td class="num" data-v="{{ p.rating|default_if_none:'' }}">{{ p.rating|default_if_none:"—" }}</td>
+                    {% if has_outlook %}
+                    {% with o=p.outlook %}
+                    <td class="num" data-v="{% if o %}{{ o.p_goal|floatformat:4 }}{% endif %}">{% if o %}{% widthratio o.p_goal 1 100 %}%{% else %}—{% endif %}</td>
+                    <td class="num" data-v="{% if o %}{{ o.p_assist|floatformat:4 }}{% endif %}">{% if o %}{% widthratio o.p_assist 1 100 %}%{% else %}—{% endif %}</td>
+                    <td class="num" data-v="{% if o.expected_rating %}{{ o.expected_rating|floatformat:2 }}{% endif %}">{% if o.expected_rating %}{{ o.expected_rating|floatformat:1 }}{% else %}—{% endif %}</td>
+                    <td data-v="{{ o.form|default:'' }}">{% include "partials/form_tag.html" with form=o.form %}</td>
+                    {% endwith %}
+                    {% endif %}
                     <td data-v="{% if p.injured %}1{% else %}0{% endif %}">{% if p.injured %}<span class="text-loss font-semibold"><i class="fas fa-kit-medical mr-1"></i>Injured</span>{% else %}<span class="dim" style="color: var(--muted)">{% if p.has_stats %}Available{% else %}—{% endif %}</span>{% endif %}</td>
                 </tr>
                 {% endfor %}
@@ -98,6 +112,7 @@
     </div>
 
     <p class="text-xs mt-3" style="color: var(--muted)">
+        {% if has_outlook %}Goal %, Assist %, Exp. rating and Form are the model's forecast for the club's next match (see the Predictions page for how they are made and how well they do).{% endif %}
         Names, positions, birth dates and nationalities come from football-data.org.
         Appearances, goals, assists, cards and ratings come from PitchAPI match data
         {% if summary.without_stats %}and are blank (—) for the {{ summary.without_stats }} player{{ summary.without_stats|pluralize }} it couldn't be matched to{% endif %}.
@@ -113,6 +128,7 @@
 {% endblock %}
 
 {% block extra_js %}
+{% include "partials/sortable.html" %}
 <script>
 (function () {
     var table = document.getElementById('squadTable');
@@ -149,24 +165,7 @@
         apply();
     });
 
-    // Sort by clicking a column heading; blanks always sort last.
-    Array.prototype.forEach.call(table.tHead.rows[0].cells, function (th, index) {
-        th.addEventListener('click', function () {
-            var numeric = th.dataset.type === 'num';
-            var descending = th.getAttribute('aria-sort') === 'ascending';
-            Array.prototype.forEach.call(table.tHead.rows[0].cells, function (c) { c.removeAttribute('aria-sort'); });
-            th.setAttribute('aria-sort', descending ? 'descending' : 'ascending');
-            rows.sort(function (a, b) {
-                var x = a.cells[index].dataset.v, y = b.cells[index].dataset.v;
-                if (x === '' && y === '') return 0;
-                if (x === '') return 1;
-                if (y === '') return -1;
-                var result = numeric ? parseFloat(x) - parseFloat(y) : x.localeCompare(y);
-                return descending ? -result : result;
-            });
-            rows.forEach(function (row) { body.appendChild(row); });
-        });
-    });
+    ufdSortable(table);
 })();
 </script>
 {% endblock %}

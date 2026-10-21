@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<style>
+    .fx-row { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) minmax(8rem, 14rem) 4.5rem; gap: 12px; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    .fx-row:last-child { border-bottom: 0; }
+    .fx-row:hover { background: var(--hover); }
+    .fx-teams { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .fx-teams img { width: 22px; height: 22px; object-fit: contain; flex: none; }
+    .fx-pcts { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-top: 3px; font-variant-numeric: tabular-nums; }
+    .fx-pcts b { color: var(--text); }
+    .hero-teams { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center; text-align: center; }
+    .hero-teams img { width: 72px; height: 72px; object-fit: contain; margin: 0 auto 8px; }
+    .insight { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.92rem; }
+    .insight:last-child { border-bottom: 0; }
+    .insight i { width: 18px; margin-top: 3px; color: var(--accent-text); flex: none; text-align: center; }
+    .tab-panel[hidden] { display: none; }
+    .conf-low { color: var(--loss); } .conf-medium { color: var(--draw); } .conf-high { color: var(--win); }
+    @media (max-width: 720px) { .fx-row { grid-template-columns: 1fr; gap: 6px; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="sidebar-offset">
+    <a href="{% url 'ufd_app:dashboard' team.id %}" class="text-sm hover-accent inline-flex items-center gap-2 mb-4">
+        <i class="fas fa-arrow-left"></i> Back to dashboard
+    </a>
+
+    <div class="flex items-center gap-4 mb-6">
+        {% if team.crest %}<img src="{{ team.crest }}" alt="" class="w-16 h-16 object-contain">{% endif %}
+        <div>
+            <h1 class="display text-4xl font-bold leading-tight">{{ team.name }} predictions</h1>
+            <p class="text-sm" style="color: var(--muted)">
+                {% if doc %}Forecasts as of {{ meta.as_of }} · {{ season_label }} season{% else %}Premier League{% endif %}
+            </p>
+        </div>
+    </div>
+
+    {% if not doc %}
+    <div class="card p-10 text-center">
+        <i class="fas fa-wand-magic-sparkles text-3xl text-accent mb-3"></i>
+        <h2 class="text-xl font-semibold mb-1">No predictions built yet</h2>
+        <p style="color: var(--muted)">Build them with <code>python manage.py build_predictions</code> and reload.</p>
+    </div>
+    {% else %}
+
+    {% if validation %}
+    <div class="alert-note px-4 py-3 mb-6 text-sm flex items-start gap-3">
+        <i class="fas fa-circle-check text-accent mt-1"></i>
+        <p>
+            <b>Track record.</b> Tested on {{ validation.matches }} past matches ({{ validation.test_seasons.0 }} to {{ validation.test_seasons.1 }}), using only what was known before each kick-off,
+            the model picked the right result {% widthratio validation.accuracy 1 100 %}% of the time against {% widthratio validation.baseline_accuracy 1 100 %}% for a fixed home/draw/away guess.
+            Football is noisy: a 55% hit rate is about what good forecasters reach, and no forecast here is a certainty.
+        </p>
+    </div>
+    {% endif %}
+
+    <div class="flex flex-wrap gap-2 mb-4" role="tablist">
+        <button type="button" class="filter-chip" data-tab="club" aria-pressed="true" role="tab">{{ team.shortName|default:team.name }} fixtures</button>
+        <button type="button" class="filter-chip" data-tab="league" aria-pressed="false" role="tab">Next matchday · all clubs</button>
+        <button type="button" class="filter-chip" data-tab="players" aria-pressed="false" role="tab">Player outlook ({{ players|length }})</button>
+    </div>
+
+    <!-- ===================== This club ===================== -->
+    <div class="tab-panel" data-panel="club">
+        {% if next_match %}
+        {% with f=next_match %}
+        <section class="card p-6 mb-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 text-xs uppercase font-bold tracking-wider mb-5" style="color: var(--muted)">
+                <span><i class="fas fa-calendar-day mr-2 text-accent"></i>Next match · {{ f.date }}{% if f.matchday %} · Matchday {{ f.matchday }}{% endif %}</span>
+                <span class="tag">{% if f.at_home %}Home{% else %}Away{% endif %}</span>
+            </div>
+            <div class="hero-teams">
+                <div>{% if f.home.crest %}<img src="{{ f.home.crest }}" alt="">{% endif %}<div class="font-semibold">{{ f.home.name }}</div></div>
+                <div>
+                    <div class="display text-5xl font-bold">{{ f.score.home }}<span style="color: var(--muted)"> – </span>{{ f.score.away }}</div>
+                    <div class="text-xs mt-1" style="color: var(--muted)">most likely score ({% widthratio f.score.p 1 100 %}%)</div>
+                </div>
+                <div>{% if f.away.crest %}<img src="{{ f.away.crest }}" alt="">{% endif %}<div class="font-semibold">{{ f.away.name }}</div></div>
+            </div>
+
+            <div class="mt-6">
+                {% include "partials/prob_bar.html" with pct=f.pct %}
+                <div class="flex justify-between mt-2 text-sm font-semibold">
+                    <span>{{ f.home.shortName|default:f.home.name }} {{ f.pct.home }}%</span>
+                    <span style="color: var(--muted)">Draw {{ f.pct.draw }}%</span>
+                    <span>{{ f.away.shortName|default:f.away.name }} {{ f.pct.away }}%</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
+                <div class="card stat-tile"><b>{{ f.xg.home|floatformat:1 }} – {{ f.xg.away|floatformat:1 }}</b><span>Expected goals</span></div>
+                <div class="card stat-tile"><b>{% widthratio f.over_2_5 1 100 %}%</b><span>3+ goals in the match</span></div>
+                <div class="card stat-tile"><b>{% widthratio f.btts 1 100 %}%</b><span>Both teams score</span></div>
+                <div class="card stat-tile"><b>{% if f.at_home %}{% widthratio f.clean_sheet.away 1 100 %}{% else %}{% widthratio f.clean_sheet.home 1 100 %}{% endif %}%</b><span>{{ team.shortName|default:team.name }} clean sheet</span></div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-6 mt-6">
+                <div>
+                    <h3 class="text-sm font-semibold mb-2"><i class="fas fa-lightbulb text-accent mr-2"></i>Match insights</h3>
+                    {% for i in f.insights %}
+                    <div class="insight"><i class="fas {% if i.kind == 'favourite' %}fa-trophy{% elif i.kind == 'close' %}fa-scale-balanced{% elif i.kind == 'goals' %}fa-futbol{% elif i.kind == 'form' %}fa-chart-line{% elif i.kind == 'h2h' %}fa-handshake{% else %}fa-circle-info{% endif %}"></i><span>{{ i.text }}</span></div>
+                    {% endfor %}
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold mb-2"><i class="fas fa-clock-rotate-left text-accent mr-2"></i>Previous meetings</h3>
+                    {% if f.h2h.meetings %}
+                    <ul class="text-sm">
+                        {% for m in f.h2h.meetings %}
+                        <li class="flex justify-between gap-3 py-2 border-b border-line"><span style="color: var(--muted)">{{ m.date }}</span><span class="font-semibold text-right">{{ m.home_name }} {{ m.hg }}–{{ m.ag }} {{ m.away_name }}</span></li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}<p class="text-sm" style="color: var(--muted)">No league meetings in the last ten years of data.</p>{% endif %}
+                </div>
+            </div>
+        </section>
+        {% endwith %}
+        {% else %}
+        <div class="card p-6 mb-6 text-sm" style="color: var(--muted)">No upcoming fixture for this club in the data.</div>
+        {% endif %}
+
+        {% if awaiting %}
+        <div class="alert-note px-4 py-3 mb-6 text-sm"><i class="fas fa-hourglass-half text-accent mr-2"></i>
+            Waiting for a result: {% for f in awaiting %}{{ f.home.shortName|default:f.home.name }} v {{ f.away.shortName|default:f.away.name }} ({{ f.date }}){% if not forloop.last %}, {% endif %}{% endfor %}. It will be counted once the data refreshes.
+        </div>
+        {% endif %}
+
+        {% if fixtures %}
+        <section class="card mb-6 overflow-hidden">
+            <h2 class="text-lg font-semibold px-4 pt-4 pb-2"><i class="fas fa-list text-accent mr-2"></i>Following fixtures</h2>
+            {% for f in fixtures %}
+            <div class="fx-row">
+                <div class="text-sm"><div class="font-semibold">{{ f.date }}</div><div class="text-xs" style="color: var(--muted)">{% if f.at_home %}Home{% else %}Away{% endif %}{% if f.matchday %} · MD {{ f.matchday }}{% endif %}</div></div>
+                <div class="fx-teams">{% if f.opponent.crest %}<img src="{{ f.opponent.crest }}" alt="">{% endif %}<span class="font-semibold truncate">{{ f.opponent.name }}</span></div>
+                <div>
+                    {% include "partials/prob_bar.html" with pct=f.pct %}
+                    <div class="fx-pcts"><span>{{ f.home.tla }} <b>{{ f.pct.home }}%</b></span><span>Draw <b>{{ f.pct.draw }}%</b></span><span>{{ f.away.tla }} <b>{{ f.pct.away }}%</b></span></div>
+                </div>
+                <div class="text-right text-sm font-semibold" title="Most likely score">{{ f.score.home }}–{{ f.score.away }}</div>
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        <div class="grid md:grid-cols-2 gap-4 mb-6">
+            {% if form %}
+            <section class="card p-5">
+                <h2 class="text-lg font-semibold mb-3"><i class="fas fa-chart-line text-accent mr-2"></i>Recent form</h2>
+                {% include "partials/form_pills.html" with matches=form.matches %}
+                <ul class="text-sm mt-3">
+                    {% for m in form.matches %}<li class="flex justify-between py-1 border-b border-line"><span>{% if m.home %}vs{% else %}at{% endif %} {{ m.opponent }}</span><span class="font-semibold">{{ m.gf }}–{{ m.ga }}</span></li>{% endfor %}
+                </ul>
+                <p class="text-xs mt-2" style="color: var(--muted)">{{ form.points }} points from {{ form.matches|length }} · {{ form.gf }} scored, {{ form.ga }} conceded.</p>
+            </section>
+            {% endif %}
+            {% if strength %}
+            <section class="card p-5">
+                <h2 class="text-lg font-semibold mb-3"><i class="fas fa-gauge-high text-accent mr-2"></i>Team strength</h2>
+                <dl class="kv">
+                    <div><dt>Attack</dt><dd>{{ strength.attack|floatformat:2 }} <span class="text-xs" style="color: var(--muted)">({{ strength.attack_rank }}/20)</span></dd></div>
+                    <div><dt>Defence</dt><dd>{{ strength.defence|floatformat:2 }} <span class="text-xs" style="color: var(--muted)">({{ strength.defence_rank }}/20)</span></dd></div>
+                </dl>
+                <p class="text-xs mt-3" style="color: var(--muted)">1.00 is the league average. Attack above 1 means more goals than average; defence <b>below</b> 1 means fewer conceded. {% if strength.newcomer %}Promoted this season, so part of this rating comes from how earlier promoted clubs did.{% endif %}</p>
+            </section>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- ===================== League ===================== -->
+    <div class="tab-panel" data-panel="league" hidden>
+        <section class="card overflow-hidden mb-6">
+            <h2 class="text-lg font-semibold px-4 pt-4 pb-2"><i class="fas fa-table-list text-accent mr-2"></i>Next matchday</h2>
+            {% for f in league_fixtures %}
+            <div class="fx-row">
+                <div class="text-sm"><div class="font-semibold">{{ f.date }}</div>{% if f.matchday %}<div class="text-xs" style="color: var(--muted)">Matchday {{ f.matchday }}</div>{% endif %}</div>
+                <div class="fx-teams">
+                    {% if f.home.crest %}<img src="{{ f.home.crest }}" alt="">{% endif %}<a class="font-semibold truncate hover-accent" href="{% url 'ufd_app:predictions' f.home_id %}">{{ f.home.shortName|default:f.home.name }}</a>
+                    <span style="color: var(--muted)">v</span>
+                    {% if f.away.crest %}<img src="{{ f.away.crest }}" alt="">{% endif %}<a class="font-semibold truncate hover-accent" href="{% url 'ufd_app:predictions' f.away_id %}">{{ f.away.shortName|default:f.away.name }}</a>
+                </div>
+                <div>
+                    {% include "partials/prob_bar.html" with pct=f.pct %}
+                    <div class="fx-pcts"><span>{{ f.home.tla }} <b>{{ f.pct.home }}%</b></span><span>Draw <b>{{ f.pct.draw }}%</b></span><span>{{ f.away.tla }} <b>{{ f.pct.away }}%</b></span></div>
+                </div>
+                <div class="text-right text-sm font-semibold" title="Most likely score">{{ f.score.home }}–{{ f.score.away }}</div>
+            </div>
+            {% empty %}
+            <p class="p-6 text-sm" style="color: var(--muted)">No upcoming fixtures in the data.</p>
+            {% endfor %}
+        </section>
+    </div>
+
+    <!-- ===================== Players ===================== -->
+    <div class="tab-panel" data-panel="players" hidden>
+        {% if players %}
+        {% if next_match %}<p class="text-sm mb-4" style="color: var(--muted)">Forecast for {{ team.shortName|default:team.name }}'s next match: {% if next_match.at_home %}home to{% else %}away at{% endif %} {{ next_match.opponent.name }} on {{ next_match.date }}.</p>{% endif %}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+            {% for p in top_scorers %}
+            <div class="card p-4 flex items-center gap-3">
+                <span class="display text-3xl font-bold text-accent">{{ forloop.counter }}</span>
+                <div class="min-w-0"><a class="font-semibold player-link truncate block" href="{% url 'ufd_app:player' team.id p.id %}">{{ p.name }}</a>
+                <div class="text-xs" style="color: var(--muted)">{{ p.pct_goal|floatformat:0 }}% to score · {{ p.pct_assist|floatformat:0 }}% to assist</div></div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="card overflow-x-auto">
+            <table class="squad-table" id="outlookTable">
+                <thead><tr>
+                    <th data-type="text">Player</th>
+                    <th data-type="text">Position</th>
+                    <th data-type="num" class="num" title="Minutes he is expected to play">Exp. min</th>
+                    <th data-type="num" class="num">Goal %</th>
+                    <th data-type="num" class="num">Assist %</th>
+                    <th data-type="num" class="num" title="Chance of a goal or an assist">G or A %</th>
+                    <th data-type="num" class="num" title="Predicted match rating">Exp. rating</th>
+                    <th data-type="text">Form</th>
+                    <th data-type="text">Last match</th>
+                    <th data-type="text" title="How much data the forecast rests on">Confidence</th>
+                </tr></thead>
+                <tbody>
+                {% for p in players %}{% with o=p.o %}
+                <tr>
+                    <td data-v="{{ p.name }}"><a class="font-semibold player-link" href="{% url 'ufd_app:player' team.id p.id %}">{{ p.name }}</a></td>
+                    <td data-v="{{ p.group }}">{{ p.group }}</td>
+                    <td class="num" data-v="{{ o.expected_minutes|floatformat:1 }}">{{ o.expected_minutes|floatformat:0 }}′</td>
+                    <td class="num" data-v="{{ p.pct_goal }}"><div class="flex items-center justify-end gap-2"><span class="meter w-16"><span style="width: {% widthratio p.pct_goal 60 100 %}%"></span></span>{{ p.pct_goal|floatformat:0 }}%</div></td>
+                    <td class="num" data-v="{{ p.pct_assist }}">{{ p.pct_assist|floatformat:0 }}%</td>
+                    <td class="num font-semibold" data-v="{{ p.pct_either }}">{{ p.pct_either|floatformat:0 }}%</td>
+                    <td class="num" data-v="{% if o.expected_rating %}{{ o.expected_rating|floatformat:2 }}{% endif %}">{% if o.expected_rating %}{{ o.expected_rating|floatformat:1 }}{% else %}—{% endif %}</td>
+                    <td data-v="{{ o.form|default:'' }}">{% include "partials/form_tag.html" with form=o.form %}</td>
+                    <td data-v="">{% if o.last %}{{ o.last.minutes }}′{% if o.last.goals %} · {{ o.last.goals }}G{% endif %}{% if o.last.assists %} · {{ o.last.assists }}A{% endif %}{% if o.last.rating %} · <b>{{ o.last.rating }}</b>{% endif %}{% else %}—{% endif %}</td>
+                    <td data-v="{{ o.confidence }}"><span class="conf-{{ o.confidence }} font-semibold text-xs uppercase">{{ o.confidence }}</span></td>
+                </tr>
+                {% endwith %}{% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if players_missing %}<p class="text-xs mt-2" style="color: var(--muted)">{{ players_missing }} squad player{{ players_missing|pluralize }} without any match data this season {{ players_missing|pluralize:"has,have" }} no forecast.</p>{% endif %}
+        {% else %}
+        <div class="card p-6 text-sm" style="color: var(--muted)">No player data to forecast from yet.</div>
+        {% endif %}
+    </div>
+
+    <details class="card p-5 mt-6 text-sm">
+        <summary class="font-semibold cursor-pointer"><i class="fas fa-circle-question text-accent mr-2"></i>How these numbers are made, and what is missing</summary>
+        <div class="mt-3 space-y-3" style="color: var(--muted)">
+            <p><b style="color: var(--text)">Match forecasts</b> estimate the goals each side is expected to score from {{ meta.sources.match_history.seasons }} seasons of results ({{ meta.sources.match_history.finished_matches_used }} matches, from the open-source <a class="hover-accent underline" href="{{ meta.sources.match_history.url }}" target="_blank" rel="noopener">OpenFootball</a> data). Recent results count more, opponents' strength is taken into account, and the goal estimates become win / draw / loss odds.
+            Recent form and head-to-head records are shown above, but they are not fed into the odds: testing on 2005-2016 showed they made the forecasts worse.</p>
+            <p><b style="color: var(--text)">Player forecasts</b> blend each player's season rates and recent matches (including expected goals), pulled towards the average for his position when he has played little, then adjusted for the opponent and expected minutes.</p>
+            <ul class="list-disc pl-5">{% for line in meta.not_available %}<li>{{ line }}</li>{% endfor %}</ul>
+        </div>
+    </details>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% include "partials/sortable.html" %}
+<script>
+(function () {
+    var chips = document.querySelectorAll('[data-tab]');
+    var panels = document.querySelectorAll('[data-panel]');
+    function show(name) {
+        chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.tab === name)); });
+        panels.forEach(function (p) { p.hidden = p.dataset.panel !== name; });
+        if (history.replaceState) history.replaceState(null, '', '#' + name);
+    }
+    chips.forEach(function (c) { c.addEventListener('click', function () { show(c.dataset.tab); }); });
+    var wanted = (location.hash || '').slice(1);
+    if (wanted && document.querySelector('[data-panel="' + wanted + '"]')) show(wanted);
+    var table = document.getElementById('outlookTable');
+    if (table) ufdSortable(table);
+})();
+</script>
+{% endblock %}

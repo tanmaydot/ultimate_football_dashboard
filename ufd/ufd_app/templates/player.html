@@ -75,6 +75,30 @@
         </section>
     </div>
 
-
+    {% if outlook %}
+    <section class="card p-5 mt-4">
+        <h2 class="text-lg font-semibold mb-1"><i class="fas fa-wand-magic-sparkles text-accent mr-2"></i>Next match outlook</h2>
+        <p class="text-xs mb-4" style="color: var(--muted)">
+            {% if outlook.next.home %}Home to{% else %}Away at{% endif %} {{ outlook.opponent.name|default:"the next opponent" }} on {{ outlook.next.date }}. Forecast as of {{ outlook.as_of }}; confidence <span class="conf-{{ outlook.confidence }} font-semibold uppercase">{{ outlook.confidence }}</span>
+            ({{ outlook.appearances }} appearance{{ outlook.appearances|pluralize }}, {{ outlook.minutes_played }} minutes so far).
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div class="card stat-tile"><b>{{ outlook.pct.goal }}%</b><span>To score</span></div>
+            <div class="card stat-tile"><b>{{ outlook.pct.assist }}%</b><span>To assist</span></div>
+            <div class="card stat-tile"><b>{{ outlook.pct.goal_or_assist }}%</b><span>Goal or assist</span></div>
+            <div class="card stat-tile"><b>{{ outlook.expected_minutes|floatformat:0 }}′</b><span>Expected minutes</span></div>
+            <div class="card stat-tile"><b>{% if outlook.expected_rating %}{{ outlook.expected_rating|floatformat:1 }}{% else %}—{% endif %}</b><span>Expected rating</span></div>
+            <div class="card stat-tile"><b style="font-size: 1.1rem">{% include "partials/form_tag.html" with form=outlook.form %}</b><span>Recent form</span></div>
+        </div>
+        <dl class="kv grid sm:grid-cols-2 gap-x-8 mt-4">
+            <div><dt>Goals per 90 (blended)</dt><dd>{{ outlook.goals_per_90|floatformat:2 }}</dd></div>
+            <div><dt>Assists per 90 (blended)</dt><dd>{{ outlook.assists_per_90|floatformat:2 }}</dd></div>
+            <div><dt>Chance of playing</dt><dd>{% widthratio outlook.p_play 1 100 %}%</dd></div>
+            {% if outlook.last %}<div><dt>Last match</dt><dd>{{ outlook.last.minutes }}′{% if outlook.last.goals %} · {{ outlook.last.goals }} goal{{ outlook.last.goals|pluralize }}{% endif %}{% if outlook.last.assists %} · {{ outlook.last.assists }} assist{{ outlook.last.assists|pluralize }}{% endif %}{% if outlook.last.rating %} · rated {{ outlook.last.rating }}{% endif %}</dd></div>{% endif %}
+        </dl>
+        <p class="text-xs mt-3" style="color: var(--muted)">Built from this season's match-by-match data only, pulled towards the average for his position, and adjusted for the opponent. Injuries and the starting line-up are not known in advance.
+            <a class="hover-accent underline" href="{% url 'ufd_app:predictions' team.id %}#players">See the whole squad</a>.</p>
+    </section>
+    {% endif %}
 </div>
 {% endblock %}

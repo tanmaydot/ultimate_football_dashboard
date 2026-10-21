@@ -1,4 +1,10 @@
-<a href="{% url 'ufd_app:dashboard_home' %}" class="nav-link active flex items-center px-4 py-3 rounded-xl text-sm font-semibold">
+<a href="{% url 'ufd_app:dashboard_home' %}" class="nav-link{% if club_link != 'ufd_app:predictions' %} active{% endif %} flex items-center px-4 py-3 rounded-xl text-sm font-semibold">
     <i class="fas fa-table-columns text-accent w-5 mr-3"></i>
     <span>Dashboard</span>
 </a>
+{% if team_id %}
+<a href="{% url 'ufd_app:predictions' team_id %}" class="nav-link{% if club_link == 'ufd_app:predictions' %} active{% endif %} flex items-center px-4 py-3 rounded-xl text-sm font-semibold">
+    <i class="fas fa-wand-magic-sparkles text-accent w-5 mr-3"></i>
+    <span>Predictions</span>
+</a>
+{% endif %}

@@ -12,6 +12,7 @@ A football dashboard built with Django that brings football data, match informat
   - [FootballData.io](https://footballdata.io/documentation/)
   - [football-data.org](https://www.football-data.org/)
   - [PitchAPI](https://pitchapi.dev) (formations, lineups, possession, player season numbers)
+  - [OpenFootball England](https://github.com/openfootball/england) (open data, CC0: 26 seasons of results for the match predictions)
 
 ---
 
@@ -53,6 +54,19 @@ python manage.py audit_pitchapi pitchapi_raw                     # consistency c
 If PitchAPI fails, the build uses the matches it stored earlier. The last line of the build output, "updated this run",
 says what was refreshed. The build report lists clubs that did not match, players who appeared but are in no squad
 list, and matches whose card counts do not add up to the team statistics.
+
+### Match and player predictions
+
+`build_predictions` turns 26 seasons of OpenFootball results plus this season's player lines into win / draw / loss odds for
+every remaining fixture and a next-match outlook for each player (shown on the **Predictions** page, the squad and player
+pages and a dashboard widget). It needs no API key and runs in the daily workflow after `build_pl_data`.
+
+```bash
+python manage.py build_predictions            # download the current OpenFootball season, then build pl_predictions.json
+python manage.py backtest_predictions         # score both models on history (about a minute) -> pl_validation.json
+```
+
+How it works, how well it did on past seasons, what data is missing and how to improve it: see [explain.md](explain.md).
 
 ### Working with the generated data
 

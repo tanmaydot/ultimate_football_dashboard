@@ -4,3 +4,6 @@
 ufd/ufd_app/data/pl_teams.json merge=binary
 ufd/ufd_app/data/pl_history.json merge=binary
 ufd/ufd_app/data/club_extras.auto.json merge=binary
+ufd/ufd_app/data/pl_predictions.json merge=binary
+ufd/ufd_app/data/pl_validation.json merge=binary
+ufd/ufd_app/data/openfootball.json merge=binary

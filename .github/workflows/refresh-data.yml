@@ -28,6 +28,9 @@ jobs:
           FOOTBALLDATA_IO_API_KEY: ${{ secrets.FOOTBALLDATA_IO_API_KEY }}
         run: python ufd/manage.py build_pl_data
 
+      - name: "Build the match and player predictions (downloads the current OpenFootball season, no key needed)"
+        run: python ufd/manage.py build_predictions
+
       - name: "Check the data files are sound (a broken file must never be committed)"
         run: python ufd/manage.py check_data
 

@@ -1,0 +1,4 @@
+{# Last results of a club, newest first. Context: matches = [{result, opponent, home, gf, ga, date}]. #}
+<span class="inline-flex gap-1">
+    {% for m in matches %}<span class="pill pill-{{ m.result }}" title="{{ m.date }} · {% if m.home %}vs{% else %}at{% endif %} {{ m.opponent }} {{ m.gf }}-{{ m.ga }}">{{ m.result }}</span>{% endfor %}
+</span>

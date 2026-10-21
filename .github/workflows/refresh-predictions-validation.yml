@@ -1,0 +1,39 @@
+# Re-scores the prediction models on history once a month and refreshes the track record shown on the Predictions page.
+name: Refresh prediction validation
+
+on:
+  schedule:
+    - cron: "15 6 1 * *"      # 06:15 UTC on the 1st of every month
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup
+
+      - name: "Update the OpenFootball archive and score both models on history (about a minute)"
+        run: |
+          python ufd/manage.py build_predictions
+          python ufd/manage.py backtest_predictions
+
+      - name: "Rebuild the predictions so they carry the new track record"
+        run: python ufd/manage.py build_predictions --offline
+
+      - name: "Check the data files are sound"
+        run: python ufd/manage.py check_data
+
+      - uses: ./.github/actions/commit-data
+        with:
+          paths: ufd/ufd_app/data/
+          message: Refresh prediction validation

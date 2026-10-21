@@ -1,0 +1,4 @@
+{# Home / draw / away probability bar. Context: pct = {home, draw, away} whole percentages. #}
+<div class="pbar" role="img" aria-label="Home win {{ pct.home }}%, draw {{ pct.draw }}%, away win {{ pct.away }}%">
+    <span class="pb-h" style="width: {{ pct.home }}%"></span><span class="pb-d" style="width: {{ pct.draw }}%"></span><span class="pb-a" style="width: {{ pct.away }}%"></span>
+</div>
