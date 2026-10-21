@@ -1,7 +1,7 @@
 {
   "version": 1,
   "season_start": "2026-08-21",
-  "updated_at": "2026-10-19T12:06:59+00:00",
+  "updated_at": "2026-10-21T00:43:34+00:00",
   "results": {
     "560542": {
       "date": "2026-08-21",
@@ -554,6 +554,14 @@
       "home_goals": 0,
       "away_goals": 1,
       "matchday": 7
+    },
+    "560606": {
+      "date": "2026-10-19",
+      "home": 73,
+      "away": 1076,
+      "home_goals": 3,
+      "away_goals": 1,
+      "matchday": 7
     }
   },
   "team_stats": {
@@ -1055,6 +1063,20 @@
         "goal_difference": -3,
         "clean_sheets": 2,
         "possession": 56.9
+      },
+      {
+        "date": "2026-10-21",
+        "position": 18,
+        "played": 7,
+        "won": 1,
+        "draw": 2,
+        "lost": 4,
+        "points": 5,
+        "goals_for": 7,
+        "goals_against": 10,
+        "goal_difference": -3,
+        "clean_sheets": 2,
+        "possession": 56.9
       }
     ],
     "64": [
@@ -1541,6 +1563,20 @@
         "goal_difference": -8,
         "clean_sheets": 1,
         "possession": 48.3
+      },
+      {
+        "date": "2026-10-21",
+        "position": 20,
+        "played": 7,
+        "won": 1,
+        "draw": 1,
+        "lost": 5,
+        "points": 4,
+        "goals_for": 6,
+        "goals_against": 14,
+        "goal_difference": -8,
+        "clean_sheets": 1,
+        "possession": 48.3
       }
     ],
     "73": [
@@ -1641,6 +1677,20 @@
         "goal_difference": -6,
         "clean_sheets": 2,
         "possession": 58.7
+      },
+      {
+        "date": "2026-10-21",
+        "position": 16,
+        "played": 7,
+        "won": 1,
+        "draw": 3,
+        "lost": 3,
+        "points": 6,
+        "goals_for": 6,
+        "goals_against": 10,
+        "goal_difference": -4,
+        "clean_sheets": 2,
+        "possession": 59.7
       }
     ],
     "322": [
@@ -2017,6 +2067,20 @@
       {
         "date": "2026-10-19",
         "position": 18,
+        "played": 7,
+        "won": 1,
+        "draw": 2,
+        "lost": 4,
+        "points": 5,
+        "goals_for": 5,
+        "goals_against": 9,
+        "goal_difference": -4,
+        "clean_sheets": 1,
+        "possession": 45.9
+      },
+      {
+        "date": "2026-10-21",
+        "position": 19,
         "played": 7,
         "won": 1,
         "draw": 2,
@@ -2499,6 +2563,20 @@
         "goal_difference": -6,
         "clean_sheets": 1,
         "possession": 37.8
+      },
+      {
+        "date": "2026-10-21",
+        "position": 17,
+        "played": 7,
+        "won": 2,
+        "draw": 0,
+        "lost": 5,
+        "points": 6,
+        "goals_for": 6,
+        "goals_against": 14,
+        "goal_difference": -8,
+        "clean_sheets": 1,
+        "possession": 37.3
       }
     ]
   },
@@ -23455,6 +23533,42 @@
             "xg": 0.0,
             "xa": 0.0,
             "pass_accuracy": 68.7
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 7,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.51,
+            "injured": false,
+            "minutes": 630,
+            "shots": 0,
+            "goals_conceded": 10,
+            "saves": 15,
+            "inside_box_saves": 11,
+            "fouls": 0,
+            "tackles": 0,
+            "blocks": 0,
+            "crosses": 0,
+            "interceptions": 0,
+            "clearances": 10,
+            "dispossessed": 0,
+            "duels": 5,
+            "duels_won": 4,
+            "dribble_attempts": 0,
+            "dribbles": 0,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 219,
+            "key_passes": 2,
+            "woodwork": 0,
+            "xg": 0.0,
+            "xa": 0.0,
+            "pass_accuracy": 68.9
           }
         ]
       },
@@ -23500,6 +23614,42 @@
             "xg": 0.09,
             "xa": 0.43,
             "pass_accuracy": 83.7
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 6,
+            "goals": 0,
+            "assists": 2,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.96,
+            "injured": false,
+            "minutes": 436,
+            "shots": 2,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 1,
+            "tackles": 5,
+            "blocks": 3,
+            "crosses": 31,
+            "interceptions": 3,
+            "clearances": 12,
+            "dispossessed": 0,
+            "duels": 16,
+            "duels_won": 11,
+            "dribble_attempts": 1,
+            "dribbles": 1,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 266,
+            "key_passes": 9,
+            "woodwork": 0,
+            "xg": 0.09,
+            "xa": 0.45,
+            "pass_accuracy": 84.6
           }
         ]
       },
@@ -23544,6 +23694,42 @@
             "xg": 0.0,
             "xa": 0.0,
             "pass_accuracy": 100.0
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 2,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 7.19,
+            "injured": false,
+            "minutes": 76,
+            "shots": 0,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 0,
+            "tackles": 3,
+            "blocks": 0,
+            "crosses": 0,
+            "interceptions": 0,
+            "clearances": 6,
+            "dispossessed": 0,
+            "duels": 10,
+            "duels_won": 8,
+            "dribble_attempts": 0,
+            "dribbles": 0,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 75,
+            "key_passes": 0,
+            "woodwork": 0,
+            "xg": 0.0,
+            "xa": 0.02,
+            "pass_accuracy": 92.0
           }
         ]
       },
@@ -23601,6 +23787,42 @@
             "woodwork": 0,
             "xg": 0.0,
             "xa": 0.0
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 1,
+            "goals": 1,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 7.19,
+            "injured": false,
+            "minutes": 21,
+            "shots": 1,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 1,
+            "tackles": 1,
+            "blocks": 0,
+            "crosses": 0,
+            "interceptions": 0,
+            "clearances": 1,
+            "dispossessed": 0,
+            "duels": 3,
+            "duels_won": 1,
+            "dribble_attempts": 1,
+            "dribbles": 0,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 13,
+            "key_passes": 0,
+            "woodwork": 0,
+            "xg": 0.04,
+            "xa": 0.0,
+            "pass_accuracy": 100.0
           }
         ]
       },
@@ -23760,6 +23982,42 @@
             "xg": 0.69,
             "xa": 0.45,
             "pass_accuracy": 91.7
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 7,
+            "goals": 1,
+            "assists": 0,
+            "yellow_cards": 2,
+            "red_cards": 0,
+            "rating": 7.24,
+            "injured": false,
+            "minutes": 630,
+            "shots": 5,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 10,
+            "tackles": 13,
+            "blocks": 9,
+            "crosses": 4,
+            "interceptions": 8,
+            "clearances": 25,
+            "dispossessed": 0,
+            "duels": 73,
+            "duels_won": 35,
+            "dribble_attempts": 1,
+            "dribbles": 0,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 555,
+            "key_passes": 6,
+            "woodwork": 0,
+            "xg": 0.69,
+            "xa": 0.5,
+            "pass_accuracy": 91.0
           }
         ]
       },
@@ -23828,6 +24086,42 @@
             "xg": 0.59,
             "xa": 0.05,
             "pass_accuracy": 95.5
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 6,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 1,
+            "red_cards": 0,
+            "rating": 6.89,
+            "injured": false,
+            "minutes": 466,
+            "shots": 4,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 5,
+            "tackles": 7,
+            "blocks": 2,
+            "crosses": 0,
+            "interceptions": 3,
+            "clearances": 23,
+            "dispossessed": 2,
+            "duels": 43,
+            "duels_won": 27,
+            "dribble_attempts": 2,
+            "dribbles": 1,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 389,
+            "key_passes": 0,
+            "woodwork": 0,
+            "xg": 0.66,
+            "xa": 0.07,
+            "pass_accuracy": 94.6
           }
         ]
       },
@@ -23961,6 +24255,42 @@
             "xg": 0.23,
             "xa": 0.09,
             "pass_accuracy": 89.6
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 6,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 1,
+            "red_cards": 0,
+            "rating": 7.0,
+            "injured": false,
+            "minutes": 490,
+            "shots": 4,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 7,
+            "tackles": 10,
+            "blocks": 1,
+            "crosses": 7,
+            "interceptions": 8,
+            "clearances": 9,
+            "dispossessed": 3,
+            "duels": 48,
+            "duels_won": 28,
+            "dribble_attempts": 9,
+            "dribbles": 6,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 187,
+            "key_passes": 2,
+            "woodwork": 0,
+            "xg": 0.32,
+            "xa": 0.11,
+            "pass_accuracy": 87.7
           }
         ]
       },
@@ -24078,6 +24408,42 @@
             "xg": 0.34,
             "xa": 0.9,
             "pass_accuracy": 88.9
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 7,
+            "goals": 0,
+            "assists": 1,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 7.18,
+            "injured": false,
+            "minutes": 609,
+            "shots": 11,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 4,
+            "tackles": 15,
+            "blocks": 3,
+            "crosses": 7,
+            "interceptions": 5,
+            "clearances": 10,
+            "dispossessed": 8,
+            "duels": 48,
+            "duels_won": 30,
+            "dribble_attempts": 5,
+            "dribbles": 3,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 417,
+            "key_passes": 7,
+            "woodwork": 0,
+            "xg": 0.39,
+            "xa": 1.2,
+            "pass_accuracy": 89.7
           }
         ]
       },
@@ -24123,6 +24489,42 @@
             "xg": 0.06,
             "xa": 0.06,
             "pass_accuracy": 87.9
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 5,
+            "goals": 1,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.83,
+            "injured": false,
+            "minutes": 144,
+            "shots": 4,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 0,
+            "tackles": 7,
+            "blocks": 1,
+            "crosses": 6,
+            "interceptions": 1,
+            "clearances": 3,
+            "dispossessed": 2,
+            "duels": 23,
+            "duels_won": 16,
+            "dribble_attempts": 4,
+            "dribbles": 0,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 122,
+            "key_passes": 1,
+            "woodwork": 0,
+            "xg": 0.16,
+            "xa": 0.1,
+            "pass_accuracy": 87.7
           }
         ]
       },
@@ -24186,6 +24588,42 @@
             "xg": 0.84,
             "xa": 0.15,
             "pass_accuracy": 89.3
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 5,
+            "goals": 1,
+            "assists": 0,
+            "yellow_cards": 2,
+            "red_cards": 0,
+            "rating": 6.64,
+            "injured": false,
+            "minutes": 229,
+            "shots": 4,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 5,
+            "tackles": 10,
+            "blocks": 0,
+            "crosses": 5,
+            "interceptions": 4,
+            "clearances": 1,
+            "dispossessed": 5,
+            "duels": 38,
+            "duels_won": 22,
+            "dribble_attempts": 3,
+            "dribbles": 0,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 116,
+            "key_passes": 1,
+            "woodwork": 0,
+            "xg": 0.84,
+            "xa": 0.16,
+            "pass_accuracy": 87.9
           }
         ]
       },
@@ -24298,6 +24736,42 @@
             "xg": 0.2,
             "xa": 0.26,
             "pass_accuracy": 93.8
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 7,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 1,
+            "red_cards": 0,
+            "rating": 6.62,
+            "injured": false,
+            "minutes": 270,
+            "shots": 7,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 9,
+            "tackles": 7,
+            "blocks": 0,
+            "crosses": 10,
+            "interceptions": 3,
+            "clearances": 0,
+            "dispossessed": 3,
+            "duels": 27,
+            "duels_won": 10,
+            "dribble_attempts": 2,
+            "dribbles": 1,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 198,
+            "key_passes": 5,
+            "woodwork": 0,
+            "xg": 0.26,
+            "xa": 0.26,
+            "pass_accuracy": 93.9
           }
         ]
       },
@@ -24433,6 +24907,42 @@
             "xg": 1.17,
             "xa": 0.07,
             "pass_accuracy": 88.4
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 7,
+            "goals": 1,
+            "assists": 1,
+            "yellow_cards": 1,
+            "red_cards": 0,
+            "rating": 6.54,
+            "injured": false,
+            "minutes": 352,
+            "shots": 12,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 8,
+            "tackles": 2,
+            "blocks": 2,
+            "crosses": 1,
+            "interceptions": 0,
+            "clearances": 6,
+            "dispossessed": 7,
+            "duels": 42,
+            "duels_won": 11,
+            "dribble_attempts": 4,
+            "dribbles": 1,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 56,
+            "key_passes": 3,
+            "woodwork": 0,
+            "xg": 1.49,
+            "xa": 0.08,
+            "pass_accuracy": 85.7
           }
         ]
       },
@@ -24545,6 +25055,42 @@
             "xg": 0.38,
             "xa": 0.11,
             "pass_accuracy": 94.2
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 6,
+            "goals": 1,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.67,
+            "injured": false,
+            "minutes": 452,
+            "shots": 9,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 10,
+            "tackles": 5,
+            "blocks": 0,
+            "crosses": 7,
+            "interceptions": 1,
+            "clearances": 0,
+            "dispossessed": 12,
+            "duels": 65,
+            "duels_won": 23,
+            "dribble_attempts": 22,
+            "dribbles": 12,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 88,
+            "key_passes": 4,
+            "woodwork": 0,
+            "xg": 0.45,
+            "xa": 0.14,
+            "pass_accuracy": 93.2
           }
         ]
       },
@@ -24612,6 +25158,42 @@
             "xg": 0.37,
             "xa": 0.42,
             "pass_accuracy": 86.1
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 6,
+            "goals": 0,
+            "assists": 2,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 7.14,
+            "injured": false,
+            "minutes": 276,
+            "shots": 7,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 4,
+            "tackles": 4,
+            "blocks": 0,
+            "crosses": 21,
+            "interceptions": 2,
+            "clearances": 2,
+            "dispossessed": 3,
+            "duels": 48,
+            "duels_won": 27,
+            "dribble_attempts": 22,
+            "dribbles": 14,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 109,
+            "key_passes": 5,
+            "woodwork": 0,
+            "xg": 0.41,
+            "xa": 0.51,
+            "pass_accuracy": 89.0
           }
         ]
       },
@@ -24767,6 +25349,42 @@
             "xg": 0.21,
             "xa": 0.22,
             "pass_accuracy": 88.4
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 5,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.31,
+            "injured": false,
+            "minutes": 262,
+            "shots": 7,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 4,
+            "tackles": 1,
+            "blocks": 0,
+            "crosses": 13,
+            "interceptions": 0,
+            "clearances": 2,
+            "dispossessed": 9,
+            "duels": 41,
+            "duels_won": 11,
+            "dribble_attempts": 19,
+            "dribbles": 8,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 91,
+            "key_passes": 3,
+            "woodwork": 0,
+            "xg": 0.23,
+            "xa": 0.23,
+            "pass_accuracy": 89.0
           }
         ]
       },
@@ -24806,6 +25424,41 @@
             "woodwork": 0,
             "xg": 0,
             "xa": 0
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 1,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "injured": false,
+            "minutes": 3,
+            "shots": 0,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 1,
+            "tackles": 0,
+            "blocks": 0,
+            "crosses": 2,
+            "interceptions": 0,
+            "clearances": 0,
+            "dispossessed": 0,
+            "duels": 6,
+            "duels_won": 2,
+            "dribble_attempts": 2,
+            "dribbles": 1,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 4,
+            "key_passes": 0,
+            "woodwork": 0,
+            "xg": 0.0,
+            "xa": 0.0,
+            "pass_accuracy": 100.0
           }
         ]
       },
@@ -41504,6 +42157,42 @@
             "xg": 0.0,
             "xa": 0.03,
             "pass_accuracy": 53.8
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 7,
+            "goals": 0,
+            "assists": 1,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.02,
+            "injured": false,
+            "minutes": 630,
+            "shots": 0,
+            "goals_conceded": 14,
+            "saves": 15,
+            "inside_box_saves": 6,
+            "fouls": 0,
+            "tackles": 0,
+            "blocks": 0,
+            "crosses": 0,
+            "interceptions": 0,
+            "clearances": 4,
+            "dispossessed": 0,
+            "duels": 4,
+            "duels_won": 3,
+            "dribble_attempts": 1,
+            "dribbles": 1,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 291,
+            "key_passes": 1,
+            "woodwork": 0,
+            "xg": 0.0,
+            "xa": 0.03,
+            "pass_accuracy": 53.3
           }
         ]
       },
@@ -41673,6 +42362,42 @@
             "xg": 0.12,
             "xa": 0.0,
             "pass_accuracy": 73.8
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 6,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 1,
+            "red_cards": 0,
+            "rating": 6.35,
+            "injured": false,
+            "minutes": 462,
+            "shots": 3,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 1,
+            "tackles": 4,
+            "blocks": 11,
+            "crosses": 1,
+            "interceptions": 5,
+            "clearances": 37,
+            "dispossessed": 0,
+            "duels": 34,
+            "duels_won": 17,
+            "dribble_attempts": 1,
+            "dribbles": 0,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 115,
+            "key_passes": 0,
+            "woodwork": 0,
+            "xg": 0.13,
+            "xa": 0.05,
+            "pass_accuracy": 78.3
           }
         ]
       },
@@ -41718,6 +42443,42 @@
             "xg": 0.51,
             "xa": 0.54,
             "pass_accuracy": 83.7
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 7,
+            "goals": 1,
+            "assists": 1,
+            "yellow_cards": 1,
+            "red_cards": 0,
+            "rating": 6.65,
+            "injured": false,
+            "minutes": 625,
+            "shots": 3,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 4,
+            "tackles": 9,
+            "blocks": 5,
+            "crosses": 18,
+            "interceptions": 5,
+            "clearances": 13,
+            "dispossessed": 3,
+            "duels": 41,
+            "duels_won": 19,
+            "dribble_attempts": 8,
+            "dribbles": 5,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 204,
+            "key_passes": 6,
+            "woodwork": 0,
+            "xg": 0.51,
+            "xa": 0.59,
+            "pass_accuracy": 83.8
           }
         ]
       },
@@ -41777,6 +42538,42 @@
             "xg": 0.0,
             "xa": 0.28,
             "pass_accuracy": 84.5
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 6,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 2,
+            "red_cards": 0,
+            "rating": 6.42,
+            "injured": false,
+            "minutes": 540,
+            "shots": 0,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 5,
+            "tackles": 11,
+            "blocks": 4,
+            "crosses": 6,
+            "interceptions": 9,
+            "clearances": 23,
+            "dispossessed": 3,
+            "duels": 45,
+            "duels_won": 23,
+            "dribble_attempts": 9,
+            "dribbles": 1,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 159,
+            "key_passes": 7,
+            "woodwork": 0,
+            "xg": 0.0,
+            "xa": 0.39,
+            "pass_accuracy": 84.3
           }
         ]
       },
@@ -41909,6 +42706,42 @@
             "xg": 0.56,
             "xa": 0.31,
             "pass_accuracy": 80.0
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 7,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.98,
+            "injured": false,
+            "minutes": 618,
+            "shots": 12,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 6,
+            "tackles": 5,
+            "blocks": 9,
+            "crosses": 1,
+            "interceptions": 12,
+            "clearances": 58,
+            "dispossessed": 0,
+            "duels": 58,
+            "duels_won": 35,
+            "dribble_attempts": 1,
+            "dribbles": 1,
+            "pen_won": 0,
+            "pen_committed": 1,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 239,
+            "key_passes": 3,
+            "woodwork": 0,
+            "xg": 0.63,
+            "xa": 0.37,
+            "pass_accuracy": 79.5
           }
         ]
       },
@@ -42001,6 +42834,41 @@
             "woodwork": 0,
             "xg": 0,
             "xa": 0
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 1,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "injured": false,
+            "minutes": 3,
+            "shots": 0,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 0,
+            "tackles": 1,
+            "blocks": 0,
+            "crosses": 0,
+            "interceptions": 0,
+            "clearances": 0,
+            "dispossessed": 0,
+            "duels": 2,
+            "duels_won": 2,
+            "dribble_attempts": 0,
+            "dribbles": 0,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 6,
+            "key_passes": 0,
+            "woodwork": 0,
+            "xg": 0.0,
+            "xa": 0.0,
+            "pass_accuracy": 83.3
           }
         ]
       },
@@ -42091,6 +42959,42 @@
             "xg": 0.12,
             "xa": 0.15,
             "pass_accuracy": 83.8
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 7,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.59,
+            "injured": false,
+            "minutes": 617,
+            "shots": 4,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 7,
+            "tackles": 12,
+            "blocks": 3,
+            "crosses": 19,
+            "interceptions": 3,
+            "clearances": 13,
+            "dispossessed": 0,
+            "duels": 41,
+            "duels_won": 25,
+            "dribble_attempts": 1,
+            "dribbles": 0,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 319,
+            "key_passes": 2,
+            "woodwork": 0,
+            "xg": 0.12,
+            "xa": 0.16,
+            "pass_accuracy": 84.0
           }
         ]
       },
@@ -42136,6 +43040,42 @@
             "xg": 0.0,
             "xa": 0.02,
             "pass_accuracy": 85.0
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 4,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.12,
+            "injured": false,
+            "minutes": 44,
+            "shots": 0,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 3,
+            "tackles": 1,
+            "blocks": 0,
+            "crosses": 4,
+            "interceptions": 0,
+            "clearances": 0,
+            "dispossessed": 1,
+            "duels": 10,
+            "duels_won": 3,
+            "dribble_attempts": 2,
+            "dribbles": 1,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 25,
+            "key_passes": 1,
+            "woodwork": 0,
+            "xg": 0.0,
+            "xa": 0.14,
+            "pass_accuracy": 72.0
           }
         ]
       },
@@ -42226,6 +43166,42 @@
             "xg": 0.09,
             "xa": 0.02,
             "pass_accuracy": 67.8
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 6,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.47,
+            "injured": false,
+            "minutes": 358,
+            "shots": 2,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 7,
+            "tackles": 7,
+            "blocks": 0,
+            "crosses": 2,
+            "interceptions": 6,
+            "clearances": 4,
+            "dispossessed": 0,
+            "duels": 31,
+            "duels_won": 20,
+            "dribble_attempts": 1,
+            "dribbles": 0,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 99,
+            "key_passes": 1,
+            "woodwork": 0,
+            "xg": 0.09,
+            "xa": 0.22,
+            "pass_accuracy": 69.7
           }
         ]
       },
@@ -42350,6 +43326,42 @@
             "xg": 1.69,
             "xa": 1.14,
             "pass_accuracy": 75.4
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 7,
+            "goals": 2,
+            "assists": 0,
+            "yellow_cards": 1,
+            "red_cards": 0,
+            "rating": 6.93,
+            "injured": false,
+            "minutes": 471,
+            "shots": 9,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 8,
+            "tackles": 6,
+            "blocks": 2,
+            "crosses": 19,
+            "interceptions": 3,
+            "clearances": 5,
+            "dispossessed": 7,
+            "duels": 63,
+            "duels_won": 26,
+            "dribble_attempts": 10,
+            "dribbles": 2,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 1,
+            "pen_missed": 0,
+            "passes": 138,
+            "key_passes": 9,
+            "woodwork": 0,
+            "xg": 1.82,
+            "xa": 1.16,
+            "pass_accuracy": 74.6
           }
         ]
       },
@@ -42395,6 +43407,42 @@
             "xg": 0.03,
             "xa": 0.2,
             "pass_accuracy": 86.9
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 7,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 2,
+            "red_cards": 0,
+            "rating": 6.42,
+            "injured": false,
+            "minutes": 404,
+            "shots": 1,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 12,
+            "tackles": 6,
+            "blocks": 1,
+            "crosses": 3,
+            "interceptions": 7,
+            "clearances": 6,
+            "dispossessed": 2,
+            "duels": 53,
+            "duels_won": 22,
+            "dribble_attempts": 8,
+            "dribbles": 2,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 133,
+            "key_passes": 4,
+            "woodwork": 0,
+            "xg": 0.03,
+            "xa": 0.21,
+            "pass_accuracy": 87.2
           }
         ]
       },
@@ -42453,6 +43501,42 @@
             "xg": 0.51,
             "xa": 0.12,
             "pass_accuracy": 66.7
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 6,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.28,
+            "injured": false,
+            "minutes": 307,
+            "shots": 4,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 7,
+            "tackles": 0,
+            "blocks": 0,
+            "crosses": 12,
+            "interceptions": 0,
+            "clearances": 5,
+            "dispossessed": 3,
+            "duels": 41,
+            "duels_won": 13,
+            "dribble_attempts": 6,
+            "dribbles": 0,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 58,
+            "key_passes": 5,
+            "woodwork": 0,
+            "xg": 0.51,
+            "xa": 0.37,
+            "pass_accuracy": 70.7
           }
         ]
       },
@@ -42498,6 +43582,42 @@
             "xg": 0.35,
             "xa": 0.06,
             "pass_accuracy": 58.2
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 7,
+            "goals": 0,
+            "assists": 2,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.81,
+            "injured": false,
+            "minutes": 396,
+            "shots": 8,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 1,
+            "tackles": 7,
+            "blocks": 2,
+            "crosses": 4,
+            "interceptions": 12,
+            "clearances": 4,
+            "dispossessed": 3,
+            "duels": 74,
+            "duels_won": 39,
+            "dribble_attempts": 13,
+            "dribbles": 6,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 62,
+            "key_passes": 2,
+            "woodwork": 0,
+            "xg": 0.44,
+            "xa": 0.06,
+            "pass_accuracy": 56.5
           }
         ]
       },
@@ -42543,6 +43663,42 @@
             "xg": 1.31,
             "xa": 0.05,
             "pass_accuracy": 81.6
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 5,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 1,
+            "rating": 6.08,
+            "injured": false,
+            "minutes": 264,
+            "shots": 9,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 3,
+            "tackles": 1,
+            "blocks": 0,
+            "crosses": 0,
+            "interceptions": 1,
+            "clearances": 2,
+            "dispossessed": 2,
+            "duels": 33,
+            "duels_won": 11,
+            "dribble_attempts": 6,
+            "dribbles": 5,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 40,
+            "key_passes": 4,
+            "woodwork": 0,
+            "xg": 1.59,
+            "xa": 0.05,
+            "pass_accuracy": 82.5
           }
         ]
       },
@@ -42658,6 +43814,42 @@
             "xg": 0.02,
             "xa": 0.02,
             "pass_accuracy": 73.7
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 3,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.53,
+            "injured": false,
+            "minutes": 138,
+            "shots": 2,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 1,
+            "tackles": 2,
+            "blocks": 0,
+            "crosses": 5,
+            "interceptions": 1,
+            "clearances": 2,
+            "dispossessed": 1,
+            "duels": 14,
+            "duels_won": 9,
+            "dribble_attempts": 2,
+            "dribbles": 1,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 25,
+            "key_passes": 0,
+            "woodwork": 0,
+            "xg": 0.23,
+            "xa": 0.03,
+            "pass_accuracy": 76.0
           }
         ]
       },
@@ -42805,6 +43997,42 @@
             "xg": 0.26,
             "xa": 0.0,
             "pass_accuracy": 85.7
+          },
+          {
+            "date": "2026-10-21",
+            "appearances": 3,
+            "goals": 1,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "rating": 6.83,
+            "injured": false,
+            "minutes": 168,
+            "shots": 4,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 1,
+            "tackles": 0,
+            "blocks": 0,
+            "crosses": 0,
+            "interceptions": 2,
+            "clearances": 1,
+            "dispossessed": 3,
+            "duels": 26,
+            "duels_won": 8,
+            "dribble_attempts": 2,
+            "dribbles": 1,
+            "pen_won": 1,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 20,
+            "key_passes": 1,
+            "woodwork": 0,
+            "xg": 0.28,
+            "xa": 0.02,
+            "pass_accuracy": 90.0
           }
         ]
       },
@@ -42855,7 +44083,8 @@
   },
   "io_stats": {
     "57": {
-      "fetched_at": "2026-10-19T00:18:30+00:00",
+      "fetched_at": "2026-10-21T00:43:20+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 57,
@@ -42879,17 +44108,17 @@
           "is_current": true
         },
         "summary": {
-          "matches_played": 6,
-          "wins": 5,
+          "matches_played": 7,
+          "wins": 6,
           "draws": 0,
           "losses": 1,
-          "goals_for": 10,
+          "goals_for": 11,
           "goals_against": 5,
-          "goal_difference": 5,
-          "win_percentage": 83,
+          "goal_difference": 6,
+          "win_percentage": 86,
           "draw_percentage": 0,
-          "loss_percentage": 17,
-          "points_per_game": 2.5
+          "loss_percentage": 14,
+          "points_per_game": 2.57
         },
         "home_away": {
           "home": {
@@ -42902,105 +44131,105 @@
             "points_per_game": 3
           },
           "away": {
-            "matches_played": 3,
-            "wins": 2,
+            "matches_played": 4,
+            "wins": 3,
             "draws": 0,
             "losses": 1,
             "goals_for": null,
             "goals_against": null,
-            "points_per_game": 2
+            "points_per_game": 2.25
           }
         },
         "goals": {
-          "for_per_match": 1.67,
-          "against_per_match": 0.83,
-          "total_goals_per_match": 2.5,
+          "for_per_match": 1.57,
+          "against_per_match": 0.71,
+          "total_goals_per_match": 2.29,
           "over_0_5_percentage": 100,
-          "over_1_5_percentage": 83,
-          "over_2_5_percentage": 67,
+          "over_1_5_percentage": 71,
+          "over_2_5_percentage": 57,
           "over_3_5_percentage": 0,
           "over_4_5_percentage": 0,
           "over_5_5_percentage": 0,
           "under_0_5_percentage": 0,
-          "under_1_5_percentage": 17,
-          "under_2_5_percentage": 33,
+          "under_1_5_percentage": 29,
+          "under_2_5_percentage": 43,
           "under_3_5_percentage": 100,
           "under_4_5_percentage": 100,
           "under_5_5_percentage": 100
         },
         "clean_sheets": {
-          "total": 3,
+          "total": 4,
           "home": 1,
-          "away": 2,
-          "percentage": 50,
+          "away": 3,
+          "percentage": 57,
           "home_percentage": 33,
-          "away_percentage": 67
+          "away_percentage": 75
         },
         "failed_to_score": {
           "total": 1,
           "home": 0,
           "away": 1,
-          "percentage": 17,
+          "percentage": 14,
           "home_percentage": 0,
-          "away_percentage": 33
+          "away_percentage": 25
         },
         "both_teams_to_score": {
           "total": 2,
           "home": 2,
           "away": 0,
-          "percentage": 33,
+          "percentage": 29,
           "home_percentage": 67,
           "away_percentage": 0
         },
         "corners": {
-          "recorded_matches": 6,
-          "for_total": 27,
-          "against_total": 20,
-          "for_per_match": 4.5,
-          "against_per_match": 3.33,
-          "total_per_match": 7.83,
-          "over_7_5_percentage": 50,
-          "over_8_5_percentage": 33,
-          "over_9_5_percentage": 33,
-          "over_10_5_percentage": 17,
-          "over_11_5_percentage": 0
+          "recorded_matches": 7,
+          "for_total": 33,
+          "against_total": 28,
+          "for_per_match": 4.71,
+          "against_per_match": 4,
+          "total_per_match": 8.71,
+          "over_7_5_percentage": 56,
+          "over_8_5_percentage": 43,
+          "over_9_5_percentage": 43,
+          "over_10_5_percentage": 28,
+          "over_11_5_percentage": 14
         },
         "cards": {
-          "for_total": 8,
-          "against_total": 22,
-          "total": 30,
-          "for_per_match": 1.33,
-          "against_per_match": 3.67,
-          "total_per_match": 5,
+          "for_total": 9,
+          "against_total": 23,
+          "total": 32,
+          "for_per_match": 1.29,
+          "against_per_match": 3.29,
+          "total_per_match": 4.57,
           "over_1_5_percentage": 100,
-          "over_2_5_percentage": 83,
-          "over_3_5_percentage": 83,
-          "over_4_5_percentage": 67
+          "over_2_5_percentage": 71,
+          "over_3_5_percentage": 71,
+          "over_4_5_percentage": 56
         },
         "shots": {
-          "recorded_matches": 6,
-          "shots_total": 78,
-          "shots_per_match": 13,
-          "shots_on_target_total": 30,
-          "shots_on_target_per_match": 5,
+          "recorded_matches": 7,
+          "shots_total": 87,
+          "shots_per_match": 12.43,
+          "shots_on_target_total": 31,
+          "shots_on_target_per_match": 4.43,
           "shot_conversion_rate": 13
         },
         "xg": {
-          "xg_for": 9.33,
-          "xg_against": 7.02,
-          "xg_for_per_match": 1.56,
+          "xg_for": 10.46,
+          "xg_against": 8.17,
+          "xg_for_per_match": 1.49,
           "xg_against_per_match": 1.17
         },
         "possession": {
-          "average": 59,
+          "average": 61,
           "home_average": 59,
-          "away_average": 59
+          "away_average": 63
         },
         "fouls": {
-          "committed_total": 63,
-          "committed_per_match": 10.5,
-          "against_total": 97,
-          "against_per_match": 16.17
+          "committed_total": 71,
+          "committed_per_match": 10.14,
+          "against_total": 111,
+          "against_per_match": 15.86
         },
         "goal_timing": {
           "scored": {
@@ -43009,7 +44238,7 @@
             "31_45": 0,
             "46_60": 4,
             "61_75": 2,
-            "76_90": 1
+            "76_90": 2
           },
           "conceded": {
             "0_15": 1,
@@ -43021,36 +44250,36 @@
           }
         },
         "form": {
-          "overall": "wwwwlw",
+          "overall": "wwwwlww",
           "home": "www",
-          "away": "wwl"
+          "away": "wwlw"
         },
         "set_pieces": {
           "throw_ins": {
-            "per_match": 17.17,
+            "per_match": 17,
             "home_per_match": 13,
-            "away_per_match": 21.33,
-            "match_total_per_match": 31.17
+            "away_per_match": 20,
+            "match_total_per_match": 30.71
           },
           "free_kicks": {
-            "per_match": 17.17,
+            "per_match": 17,
             "home_per_match": 18,
-            "away_per_match": 16.33,
-            "match_total_per_match": 30.67
+            "away_per_match": 16.25,
+            "match_total_per_match": 30
           },
           "goal_kicks": {
-            "per_match": 7.83,
+            "per_match": 7.29,
             "home_per_match": 7,
-            "away_per_match": 8.67,
-            "match_total_per_match": 14.5
+            "away_per_match": 7.5,
+            "match_total_per_match": 14.43
           }
         },
         "offsides": {
-          "team_per_match": 4.5,
-          "match_total_per_match": 5.5,
-          "over_2_5_percentage": 83,
-          "over_3_5_percentage": 67,
-          "over_4_5_percentage": 50
+          "team_per_match": 4,
+          "match_total_per_match": 5.14,
+          "over_2_5_percentage": 86,
+          "over_3_5_percentage": 56,
+          "over_4_5_percentage": 43
         },
         "goal_timing_minutes": {
           "scored": {
@@ -43061,7 +44290,7 @@
             "min_41_50": 2,
             "min_51_60": 2,
             "min_61_70": 2,
-            "min_71_80": 0,
+            "min_71_80": 1,
             "min_81_90": 1
           },
           "conceded": {
@@ -43079,7 +44308,7 @@
         "correct_score": {
           "match_total_goals": {
             "exactly_0": 0,
-            "exactly_1": 1,
+            "exactly_1": 2,
             "exactly_2": 1,
             "exactly_3": 4,
             "exactly_4": 0,
@@ -43089,35 +44318,36 @@
           },
           "team_goals": {
             "exactly_0": 1,
-            "exactly_1": 1,
+            "exactly_1": 2,
             "exactly_2": 3,
             "exactly_3": 1
           }
         },
         "special_markets": {
-          "team_with_most_corners_win_percentage": 67,
-          "most_goals_in_1st_half_percentage": 50,
-          "most_goals_in_2nd_half_percentage": 50,
-          "most_corners_in_1st_half_percentage": 33,
-          "most_corners_in_2nd_half_percentage": 50,
-          "btts_and_win_percentage": 33,
+          "team_with_most_corners_win_percentage": 56,
+          "most_goals_in_1st_half_percentage": 43,
+          "most_goals_in_2nd_half_percentage": 56,
+          "most_corners_in_1st_half_percentage": 28,
+          "most_corners_in_2nd_half_percentage": 56,
+          "btts_and_win_percentage": 28,
           "btts_and_draw_percentage": 0,
           "btts_and_lose_percentage": 0,
-          "over_2_5_and_btts_percentage": 33
+          "over_2_5_and_btts_percentage": 28
         },
         "penalties": {
           "won": 1,
           "scored": 1,
           "missed": 1,
           "conceded": 0,
-          "won_per_match": 0.17,
-          "match_with_penalty_percentage": 17
+          "won_per_match": 0.14,
+          "match_with_penalty_percentage": 14
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "58": {
-      "fetched_at": "2026-10-19T00:18:30+00:00",
+      "fetched_at": "2026-10-21T00:43:21+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 142,
@@ -43254,7 +44484,7 @@
           "xg_against_per_match": 1.72
         },
         "possession": {
-          "average": 48,
+          "average": 47,
           "home_average": 48,
           "away_average": 47
         },
@@ -43375,11 +44605,12 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "61": {
-      "fetched_at": "2026-10-19T00:18:31+00:00",
+      "fetched_at": "2026-10-21T00:43:22+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 136,
@@ -43637,11 +44868,12 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "62": {
-      "fetched_at": "2026-10-19T00:18:32+00:00",
+      "fetched_at": "2026-10-21T00:43:23+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 128,
@@ -43899,11 +45131,12 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "63": {
-      "fetched_at": "2026-10-19T00:18:32+00:00",
+      "fetched_at": "2026-10-21T00:43:24+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 146,
@@ -44075,10 +45308,10 @@
         },
         "set_pieces": {
           "throw_ins": {
-            "per_match": 20.43,
-            "home_per_match": 18.25,
+            "per_match": 20.57,
+            "home_per_match": 18.5,
             "away_per_match": 23.33,
-            "match_total_per_match": 37.43
+            "match_total_per_match": 37.57
           },
           "free_kicks": {
             "per_match": 10.57,
@@ -44161,11 +45394,12 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "64": {
-      "fetched_at": "2026-10-19T00:18:33+00:00",
+      "fetched_at": "2026-10-21T00:43:24+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 135,
@@ -44423,11 +45657,12 @@
           "won_per_match": 0.14,
           "match_with_penalty_percentage": 28
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "65": {
-      "fetched_at": "2026-10-19T00:18:34+00:00",
+      "fetched_at": "2026-10-21T00:43:25+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 87,
@@ -44685,11 +45920,12 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 14
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "66": {
-      "fetched_at": "2026-10-19T00:18:34+00:00",
+      "fetched_at": "2026-10-21T00:43:26+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 133,
@@ -44713,16 +45949,16 @@
           "is_current": true
         },
         "summary": {
-          "matches_played": 6,
+          "matches_played": 7,
           "wins": 1,
-          "draws": 3,
+          "draws": 4,
           "losses": 2,
-          "goals_for": 9,
-          "goals_against": 9,
+          "goals_for": 10,
+          "goals_against": 10,
           "goal_difference": 0,
-          "win_percentage": 17,
-          "draw_percentage": 50,
-          "loss_percentage": 33,
+          "win_percentage": 14,
+          "draw_percentage": 57,
+          "loss_percentage": 29,
           "points_per_game": 1
         },
         "home_away": {
@@ -44736,31 +45972,31 @@
             "points_per_game": 1.33
           },
           "away": {
-            "matches_played": 3,
+            "matches_played": 4,
             "wins": 0,
-            "draws": 2,
+            "draws": 3,
             "losses": 1,
             "goals_for": null,
             "goals_against": null,
-            "points_per_game": 0.67
+            "points_per_game": 0.75
           }
         },
         "goals": {
-          "for_per_match": 1.5,
-          "against_per_match": 1.5,
-          "total_goals_per_match": 3,
+          "for_per_match": 1.43,
+          "against_per_match": 1.43,
+          "total_goals_per_match": 2.86,
           "over_0_5_percentage": 100,
-          "over_1_5_percentage": 83,
-          "over_2_5_percentage": 33,
-          "over_3_5_percentage": 33,
-          "over_4_5_percentage": 17,
-          "over_5_5_percentage": 17,
+          "over_1_5_percentage": 86,
+          "over_2_5_percentage": 29,
+          "over_3_5_percentage": 29,
+          "over_4_5_percentage": 14,
+          "over_5_5_percentage": 14,
           "under_0_5_percentage": 0,
-          "under_1_5_percentage": 17,
-          "under_2_5_percentage": 67,
-          "under_3_5_percentage": 67,
-          "under_4_5_percentage": 83,
-          "under_5_5_percentage": 83
+          "under_1_5_percentage": 14,
+          "under_2_5_percentage": 71,
+          "under_3_5_percentage": 71,
+          "under_4_5_percentage": 86,
+          "under_5_5_percentage": 86
         },
         "clean_sheets": {
           "total": 0,
@@ -44774,73 +46010,73 @@
           "total": 2,
           "home": 1,
           "away": 1,
-          "percentage": 33,
+          "percentage": 29,
           "home_percentage": 33,
-          "away_percentage": 33
+          "away_percentage": 25
         },
         "both_teams_to_score": {
-          "total": 4,
+          "total": 5,
           "home": 2,
-          "away": 2,
-          "percentage": 67,
+          "away": 3,
+          "percentage": 71,
           "home_percentage": 67,
-          "away_percentage": 67
+          "away_percentage": 75
         },
         "corners": {
-          "recorded_matches": 6,
-          "for_total": 40,
-          "against_total": 23,
-          "for_per_match": 6.67,
-          "against_per_match": 3.83,
-          "total_per_match": 10.5,
-          "over_7_5_percentage": 67,
-          "over_8_5_percentage": 50,
-          "over_9_5_percentage": 50,
-          "over_10_5_percentage": 50,
-          "over_11_5_percentage": 50
+          "recorded_matches": 7,
+          "for_total": 43,
+          "against_total": 25,
+          "for_per_match": 6.14,
+          "against_per_match": 3.57,
+          "total_per_match": 9.71,
+          "over_7_5_percentage": 56,
+          "over_8_5_percentage": 43,
+          "over_9_5_percentage": 43,
+          "over_10_5_percentage": 43,
+          "over_11_5_percentage": 43
         },
         "cards": {
-          "for_total": 10,
-          "against_total": 20,
-          "total": 30,
-          "for_per_match": 1.67,
-          "against_per_match": 3.33,
-          "total_per_match": 5,
+          "for_total": 12,
+          "against_total": 22,
+          "total": 34,
+          "for_per_match": 1.71,
+          "against_per_match": 3.14,
+          "total_per_match": 4.86,
           "over_1_5_percentage": 100,
           "over_2_5_percentage": 100,
-          "over_3_5_percentage": 67,
-          "over_4_5_percentage": 50
+          "over_3_5_percentage": 71,
+          "over_4_5_percentage": 43
         },
         "shots": {
-          "recorded_matches": 6,
-          "shots_total": 125,
-          "shots_per_match": 20.83,
-          "shots_on_target_total": 32,
-          "shots_on_target_per_match": 5.33,
+          "recorded_matches": 7,
+          "shots_total": 138,
+          "shots_per_match": 19.71,
+          "shots_on_target_total": 35,
+          "shots_on_target_per_match": 5,
           "shot_conversion_rate": 7
         },
         "xg": {
-          "xg_for": 12.9,
-          "xg_against": 7.71,
-          "xg_for_per_match": 2.15,
-          "xg_against_per_match": 1.29
+          "xg_for": 14.13,
+          "xg_against": 9.2,
+          "xg_for_per_match": 2.02,
+          "xg_against_per_match": 1.31
         },
         "possession": {
-          "average": 58,
+          "average": 56,
           "home_average": 55,
-          "away_average": 62
+          "away_average": 56
         },
         "fouls": {
-          "committed_total": 62,
-          "committed_per_match": 10.33,
-          "against_total": 64,
-          "against_per_match": 10.67
+          "committed_total": 67,
+          "committed_per_match": 9.57,
+          "against_total": 80,
+          "against_per_match": 11.43
         },
         "goal_timing": {
           "scored": {
             "0_15": 0,
             "16_30": 0,
-            "31_45": 1,
+            "31_45": 2,
             "46_60": 2,
             "61_75": 3,
             "76_90": 3
@@ -44849,49 +46085,49 @@
             "0_15": 0,
             "16_30": 2,
             "31_45": 1,
-            "46_60": 1,
+            "46_60": 2,
             "61_75": 1,
             "76_90": 4
           }
         },
         "form": {
-          "overall": "lwdldd",
+          "overall": "lwdlddd",
           "home": "wld",
-          "away": "ldd"
+          "away": "lddd"
         },
         "set_pieces": {
           "throw_ins": {
-            "per_match": 18.17,
+            "per_match": 17.57,
             "home_per_match": 15.33,
-            "away_per_match": 21,
-            "match_total_per_match": 32.83
+            "away_per_match": 19.25,
+            "match_total_per_match": 33.14
           },
           "free_kicks": {
-            "per_match": 12,
+            "per_match": 12.71,
             "home_per_match": 14,
-            "away_per_match": 10,
-            "match_total_per_match": 25.33
+            "away_per_match": 11.75,
+            "match_total_per_match": 25.29
           },
           "goal_kicks": {
-            "per_match": 4.17,
+            "per_match": 5,
             "home_per_match": 4,
-            "away_per_match": 4.33,
-            "match_total_per_match": 14.5
+            "away_per_match": 5.75,
+            "match_total_per_match": 14.86
           }
         },
         "offsides": {
-          "team_per_match": 2,
-          "match_total_per_match": 3.33,
-          "over_2_5_percentage": 83,
-          "over_3_5_percentage": 50,
-          "over_4_5_percentage": 17
+          "team_per_match": 2.14,
+          "match_total_per_match": 3.57,
+          "over_2_5_percentage": 86,
+          "over_3_5_percentage": 56,
+          "over_4_5_percentage": 28
         },
         "goal_timing_minutes": {
           "scored": {
             "min_0_10": 0,
             "min_11_20": 0,
             "min_21_30": 0,
-            "min_31_40": 1,
+            "min_31_40": 2,
             "min_41_50": 1,
             "min_51_60": 1,
             "min_61_70": 2,
@@ -44904,7 +46140,7 @@
             "min_21_30": 1,
             "min_31_40": 1,
             "min_41_50": 0,
-            "min_51_60": 1,
+            "min_51_60": 2,
             "min_61_70": 1,
             "min_71_80": 0,
             "min_81_90": 4
@@ -44914,7 +46150,7 @@
           "match_total_goals": {
             "exactly_0": 0,
             "exactly_1": 1,
-            "exactly_2": 3,
+            "exactly_2": 4,
             "exactly_3": 0,
             "exactly_4": 1,
             "exactly_5": 0,
@@ -44923,35 +46159,36 @@
           },
           "team_goals": {
             "exactly_0": 2,
-            "exactly_1": 2,
+            "exactly_1": 3,
             "exactly_2": 1,
             "exactly_3": 0
           }
         },
         "special_markets": {
-          "team_with_most_corners_win_percentage": 50,
-          "most_goals_in_1st_half_percentage": 17,
-          "most_goals_in_2nd_half_percentage": 83,
+          "team_with_most_corners_win_percentage": 56,
+          "most_goals_in_1st_half_percentage": 14,
+          "most_goals_in_2nd_half_percentage": 71,
           "most_corners_in_1st_half_percentage": 0,
-          "most_corners_in_2nd_half_percentage": 83,
-          "btts_and_win_percentage": 17,
-          "btts_and_draw_percentage": 50,
+          "most_corners_in_2nd_half_percentage": 86,
+          "btts_and_win_percentage": 14,
+          "btts_and_draw_percentage": 56,
           "btts_and_lose_percentage": 0,
-          "over_2_5_and_btts_percentage": 33
+          "over_2_5_and_btts_percentage": 28
         },
         "penalties": {
           "won": 1,
           "scored": 1,
           "missed": 1,
           "conceded": 0,
-          "won_per_match": 0.17,
-          "match_with_penalty_percentage": 17
+          "won_per_match": 0.14,
+          "match_with_penalty_percentage": 14
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "67": {
-      "fetched_at": "2026-10-19T00:18:35+00:00",
+      "fetched_at": "2026-10-21T00:43:26+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 141,
@@ -45209,11 +46446,12 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 28
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "71": {
-      "fetched_at": "2026-10-19T00:18:35+00:00",
+      "fetched_at": "2026-10-21T00:43:27+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 140,
@@ -45237,17 +46475,17 @@
           "is_current": true
         },
         "summary": {
-          "matches_played": 6,
+          "matches_played": 7,
           "wins": 1,
           "draws": 1,
-          "losses": 4,
+          "losses": 5,
           "goals_for": 6,
-          "goals_against": 12,
-          "goal_difference": -6,
-          "win_percentage": 17,
-          "draw_percentage": 17,
-          "loss_percentage": 67,
-          "points_per_game": 0.67
+          "goals_against": 14,
+          "goal_difference": -8,
+          "win_percentage": 14,
+          "draw_percentage": 14,
+          "loss_percentage": 71,
+          "points_per_game": 0.57
         },
         "home_away": {
           "home": {
@@ -45260,105 +46498,105 @@
             "points_per_game": 1
           },
           "away": {
-            "matches_played": 3,
+            "matches_played": 4,
             "wins": 0,
             "draws": 1,
-            "losses": 2,
+            "losses": 3,
             "goals_for": null,
             "goals_against": null,
-            "points_per_game": 0.33
+            "points_per_game": 0.25
           }
         },
         "goals": {
-          "for_per_match": 1,
+          "for_per_match": 0.86,
           "against_per_match": 2,
-          "total_goals_per_match": 3,
+          "total_goals_per_match": 2.86,
           "over_0_5_percentage": 100,
-          "over_1_5_percentage": 83,
-          "over_2_5_percentage": 33,
-          "over_3_5_percentage": 17,
-          "over_4_5_percentage": 17,
-          "over_5_5_percentage": 17,
+          "over_1_5_percentage": 86,
+          "over_2_5_percentage": 29,
+          "over_3_5_percentage": 14,
+          "over_4_5_percentage": 14,
+          "over_5_5_percentage": 14,
           "under_0_5_percentage": 0,
-          "under_1_5_percentage": 17,
-          "under_2_5_percentage": 67,
-          "under_3_5_percentage": 83,
-          "under_4_5_percentage": 83,
-          "under_5_5_percentage": 83
+          "under_1_5_percentage": 14,
+          "under_2_5_percentage": 71,
+          "under_3_5_percentage": 86,
+          "under_4_5_percentage": 86,
+          "under_5_5_percentage": 86
         },
         "clean_sheets": {
           "total": 1,
           "home": 1,
           "away": 0,
-          "percentage": 17,
+          "percentage": 14,
           "home_percentage": 33,
           "away_percentage": 0
         },
         "failed_to_score": {
-          "total": 2,
+          "total": 3,
           "home": 2,
-          "away": 0,
-          "percentage": 33,
+          "away": 1,
+          "percentage": 43,
           "home_percentage": 67,
-          "away_percentage": 0
+          "away_percentage": 25
         },
         "both_teams_to_score": {
           "total": 3,
           "home": 0,
           "away": 3,
-          "percentage": 50,
+          "percentage": 43,
           "home_percentage": 0,
-          "away_percentage": 100
+          "away_percentage": 75
         },
         "corners": {
-          "recorded_matches": 6,
-          "for_total": 27,
-          "against_total": 24,
-          "for_per_match": 4.5,
-          "against_per_match": 4,
-          "total_per_match": 8.5,
-          "over_7_5_percentage": 50,
-          "over_8_5_percentage": 33,
-          "over_9_5_percentage": 33,
-          "over_10_5_percentage": 33,
-          "over_11_5_percentage": 17
+          "recorded_matches": 7,
+          "for_total": 30,
+          "against_total": 29,
+          "for_per_match": 4.29,
+          "against_per_match": 4.14,
+          "total_per_match": 8.43,
+          "over_7_5_percentage": 56,
+          "over_8_5_percentage": 28,
+          "over_9_5_percentage": 28,
+          "over_10_5_percentage": 28,
+          "over_11_5_percentage": 14
         },
         "cards": {
-          "for_total": 12,
-          "against_total": 10,
-          "total": 22,
-          "for_per_match": 2,
-          "against_per_match": 1.67,
-          "total_per_match": 3.67,
-          "over_1_5_percentage": 83,
-          "over_2_5_percentage": 67,
-          "over_3_5_percentage": 33,
-          "over_4_5_percentage": 33
+          "for_total": 16,
+          "against_total": 13,
+          "total": 29,
+          "for_per_match": 2.29,
+          "against_per_match": 1.86,
+          "total_per_match": 4.14,
+          "over_1_5_percentage": 86,
+          "over_2_5_percentage": 71,
+          "over_3_5_percentage": 43,
+          "over_4_5_percentage": 43
         },
         "shots": {
-          "recorded_matches": 6,
-          "shots_total": 78,
-          "shots_per_match": 13,
+          "recorded_matches": 7,
+          "shots_total": 81,
+          "shots_per_match": 11.57,
           "shots_on_target_total": 28,
-          "shots_on_target_per_match": 4.67,
-          "shot_conversion_rate": 8
+          "shots_on_target_per_match": 4,
+          "shot_conversion_rate": 7
         },
         "xg": {
-          "xg_for": 8.97,
-          "xg_against": 7.92,
-          "xg_for_per_match": 1.5,
-          "xg_against_per_match": 1.32
+          "xg_for": 9.42,
+          "xg_against": 10.74,
+          "xg_for_per_match": 1.35,
+          "xg_against_per_match": 1.53
         },
         "possession": {
-          "average": 51,
+          "average": 48,
           "home_average": 49,
-          "away_average": 53
+          "away_average": 48
         },
         "fouls": {
-          "committed_total": 73,
-          "committed_per_match": 12.17,
-          "against_total": 83,
-          "against_per_match": 13.83
+          "committed_total": 80,
+          "committed_per_match": 11.43,
+          "against_total": 99,
+          "against_per_match": 14.14
         },
         "goal_timing": {
           "scored": {
@@ -45370,45 +46608,45 @@
             "76_90": 1
           },
           "conceded": {
-            "0_15": 1,
+            "0_15": 2,
             "16_30": 2,
             "31_45": 1,
-            "46_60": 4,
+            "46_60": 5,
             "61_75": 0,
             "76_90": 4
           }
         },
         "form": {
-          "overall": "lwdlll",
+          "overall": "lwdllll",
           "home": "wll",
-          "away": "ldl"
+          "away": "ldll"
         },
         "set_pieces": {
           "throw_ins": {
-            "per_match": 19.83,
+            "per_match": 19.29,
             "home_per_match": 22.33,
-            "away_per_match": 17.33,
-            "match_total_per_match": 40
+            "away_per_match": 17,
+            "match_total_per_match": 38.71
           },
           "free_kicks": {
-            "per_match": 14.17,
+            "per_match": 14.57,
             "home_per_match": 13,
-            "away_per_match": 15.33,
-            "match_total_per_match": 29.17
+            "away_per_match": 15.75,
+            "match_total_per_match": 28.71
           },
           "goal_kicks": {
-            "per_match": 6.33,
+            "per_match": 7.43,
             "home_per_match": 5.67,
-            "away_per_match": 7,
-            "match_total_per_match": 13
+            "away_per_match": 8.75,
+            "match_total_per_match": 14.14
           }
         },
         "offsides": {
-          "team_per_match": 2.5,
-          "match_total_per_match": 3.33,
-          "over_2_5_percentage": 67,
-          "over_3_5_percentage": 50,
-          "over_4_5_percentage": 33
+          "team_per_match": 2.43,
+          "match_total_per_match": 3.29,
+          "over_2_5_percentage": 71,
+          "over_3_5_percentage": 43,
+          "over_4_5_percentage": 28
         },
         "goal_timing_minutes": {
           "scored": {
@@ -45423,11 +46661,11 @@
             "min_81_90": 1
           },
           "conceded": {
-            "min_0_10": 1,
+            "min_0_10": 2,
             "min_11_20": 0,
             "min_21_30": 2,
             "min_31_40": 0,
-            "min_41_50": 1,
+            "min_41_50": 2,
             "min_51_60": 4,
             "min_61_70": 0,
             "min_71_80": 0,
@@ -45438,7 +46676,7 @@
           "match_total_goals": {
             "exactly_0": 0,
             "exactly_1": 1,
-            "exactly_2": 3,
+            "exactly_2": 4,
             "exactly_3": 1,
             "exactly_4": 0,
             "exactly_5": 0,
@@ -45446,36 +46684,37 @@
             "exactly_7": 0
           },
           "team_goals": {
-            "exactly_0": 2,
+            "exactly_0": 3,
             "exactly_1": 3,
             "exactly_2": 0,
             "exactly_3": 1
           }
         },
         "special_markets": {
-          "team_with_most_corners_win_percentage": 50,
-          "most_goals_in_1st_half_percentage": 33,
-          "most_goals_in_2nd_half_percentage": 67,
-          "most_corners_in_1st_half_percentage": 33,
-          "most_corners_in_2nd_half_percentage": 17,
+          "team_with_most_corners_win_percentage": 43,
+          "most_goals_in_1st_half_percentage": 28,
+          "most_goals_in_2nd_half_percentage": 56,
+          "most_corners_in_1st_half_percentage": 43,
+          "most_corners_in_2nd_half_percentage": 14,
           "btts_and_win_percentage": 0,
-          "btts_and_draw_percentage": 17,
-          "btts_and_lose_percentage": 33,
-          "over_2_5_and_btts_percentage": 33
+          "btts_and_draw_percentage": 14,
+          "btts_and_lose_percentage": 28,
+          "over_2_5_and_btts_percentage": 28
         },
         "penalties": {
           "won": 1,
           "scored": 1,
           "missed": 1,
           "conceded": 1,
-          "won_per_match": 0.17,
-          "match_with_penalty_percentage": 33
+          "won_per_match": 0.14,
+          "match_with_penalty_percentage": 28
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "73": {
-      "fetched_at": "2026-10-19T00:18:36+00:00",
+      "fetched_at": "2026-10-21T00:43:28+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 86,
@@ -45499,27 +46738,27 @@
           "is_current": true
         },
         "summary": {
-          "matches_played": 6,
-          "wins": 0,
+          "matches_played": 7,
+          "wins": 1,
           "draws": 3,
           "losses": 3,
-          "goals_for": 3,
-          "goals_against": 9,
-          "goal_difference": -6,
-          "win_percentage": 0,
-          "draw_percentage": 50,
-          "loss_percentage": 50,
-          "points_per_game": 0.5
+          "goals_for": 6,
+          "goals_against": 10,
+          "goal_difference": -4,
+          "win_percentage": 14,
+          "draw_percentage": 43,
+          "loss_percentage": 43,
+          "points_per_game": 0.86
         },
         "home_away": {
           "home": {
-            "matches_played": 3,
-            "wins": 0,
+            "matches_played": 4,
+            "wins": 1,
             "draws": 1,
             "losses": 2,
             "goals_for": null,
             "goals_against": null,
-            "points_per_game": 0.33
+            "points_per_game": 1
           },
           "away": {
             "matches_played": 3,
@@ -45532,164 +46771,164 @@
           }
         },
         "goals": {
-          "for_per_match": 0.5,
-          "against_per_match": 1.5,
-          "total_goals_per_match": 2,
-          "over_0_5_percentage": 67,
-          "over_1_5_percentage": 67,
-          "over_2_5_percentage": 33,
-          "over_3_5_percentage": 17,
-          "over_4_5_percentage": 17,
+          "for_per_match": 0.86,
+          "against_per_match": 1.43,
+          "total_goals_per_match": 2.29,
+          "over_0_5_percentage": 71,
+          "over_1_5_percentage": 71,
+          "over_2_5_percentage": 43,
+          "over_3_5_percentage": 29,
+          "over_4_5_percentage": 14,
           "over_5_5_percentage": 0,
-          "under_0_5_percentage": 33,
-          "under_1_5_percentage": 33,
-          "under_2_5_percentage": 67,
-          "under_3_5_percentage": 83,
-          "under_4_5_percentage": 83,
+          "under_0_5_percentage": 29,
+          "under_1_5_percentage": 29,
+          "under_2_5_percentage": 57,
+          "under_3_5_percentage": 71,
+          "under_4_5_percentage": 86,
           "under_5_5_percentage": 100
         },
         "clean_sheets": {
           "total": 2,
           "home": 1,
           "away": 1,
-          "percentage": 33,
-          "home_percentage": 33,
+          "percentage": 29,
+          "home_percentage": 25,
           "away_percentage": 33
         },
         "failed_to_score": {
           "total": 4,
           "home": 2,
           "away": 2,
-          "percentage": 67,
-          "home_percentage": 67,
+          "percentage": 57,
+          "home_percentage": 50,
           "away_percentage": 67
         },
         "both_teams_to_score": {
-          "total": 2,
-          "home": 1,
+          "total": 3,
+          "home": 2,
           "away": 1,
-          "percentage": 33,
-          "home_percentage": 33,
+          "percentage": 43,
+          "home_percentage": 50,
           "away_percentage": 33
         },
         "corners": {
-          "recorded_matches": 6,
-          "for_total": 42,
-          "against_total": 27,
-          "for_per_match": 7,
-          "against_per_match": 4.5,
-          "total_per_match": 11.5,
+          "recorded_matches": 7,
+          "for_total": 46,
+          "against_total": 31,
+          "for_per_match": 6.57,
+          "against_per_match": 4.43,
+          "total_per_match": 11,
           "over_7_5_percentage": 100,
-          "over_8_5_percentage": 83,
-          "over_9_5_percentage": 83,
-          "over_10_5_percentage": 67,
-          "over_11_5_percentage": 50
+          "over_8_5_percentage": 71,
+          "over_9_5_percentage": 71,
+          "over_10_5_percentage": 56,
+          "over_11_5_percentage": 43
         },
         "cards": {
-          "for_total": 10,
-          "against_total": 13,
-          "total": 23,
-          "for_per_match": 1.67,
-          "against_per_match": 2.17,
-          "total_per_match": 3.83,
+          "for_total": 11,
+          "against_total": 16,
+          "total": 27,
+          "for_per_match": 1.57,
+          "against_per_match": 2.29,
+          "total_per_match": 3.86,
           "over_1_5_percentage": 100,
-          "over_2_5_percentage": 67,
-          "over_3_5_percentage": 33,
-          "over_4_5_percentage": 17
+          "over_2_5_percentage": 71,
+          "over_3_5_percentage": 43,
+          "over_4_5_percentage": 14
         },
         "shots": {
-          "recorded_matches": 6,
-          "shots_total": 83,
-          "shots_per_match": 13.83,
-          "shots_on_target_total": 22,
-          "shots_on_target_per_match": 3.67,
-          "shot_conversion_rate": 4
+          "recorded_matches": 7,
+          "shots_total": 99,
+          "shots_per_match": 14.14,
+          "shots_on_target_total": 27,
+          "shots_on_target_per_match": 3.86,
+          "shot_conversion_rate": 6
         },
         "xg": {
-          "xg_for": 9.57,
-          "xg_against": 9.04,
-          "xg_for_per_match": 1.6,
-          "xg_against_per_match": 1.51
+          "xg_for": 11.33,
+          "xg_against": 10.12,
+          "xg_for_per_match": 1.62,
+          "xg_against_per_match": 1.45
         },
         "possession": {
-          "average": 59,
-          "home_average": 61,
+          "average": 60,
+          "home_average": 63,
           "away_average": 56
         },
         "fouls": {
-          "committed_total": 81,
-          "committed_per_match": 13.5,
-          "against_total": 80,
-          "against_per_match": 13.33
+          "committed_total": 96,
+          "committed_per_match": 13.71,
+          "against_total": 94,
+          "against_per_match": 13.43
         },
         "goal_timing": {
           "scored": {
-            "0_15": 0,
+            "0_15": 1,
             "16_30": 0,
             "31_45": 0,
-            "46_60": 0,
+            "46_60": 1,
             "61_75": 0,
-            "76_90": 3
+            "76_90": 4
           },
           "conceded": {
             "0_15": 1,
             "16_30": 0,
             "31_45": 2,
-            "46_60": 1,
+            "46_60": 2,
             "61_75": 4,
             "76_90": 1
           }
         },
         "form": {
-          "overall": "llddld",
-          "home": "ldl",
+          "overall": "llddldw",
+          "home": "ldlw",
           "away": "ldd"
         },
         "set_pieces": {
           "throw_ins": {
-            "per_match": 16.67,
-            "home_per_match": 17,
+            "per_match": 16.14,
+            "home_per_match": 16,
             "away_per_match": 16.33,
-            "match_total_per_match": 31
+            "match_total_per_match": 29.86
           },
           "free_kicks": {
-            "per_match": 15.33,
-            "home_per_match": 11.33,
+            "per_match": 15.29,
+            "home_per_match": 12.25,
             "away_per_match": 19.33,
-            "match_total_per_match": 31.33
+            "match_total_per_match": 32
           },
           "goal_kicks": {
-            "per_match": 8,
-            "home_per_match": 6,
+            "per_match": 7.29,
+            "home_per_match": 5.25,
             "away_per_match": 10,
-            "match_total_per_match": 16.33
+            "match_total_per_match": 16
           }
         },
         "offsides": {
-          "team_per_match": 2.33,
-          "match_total_per_match": 4.17,
+          "team_per_match": 2.86,
+          "match_total_per_match": 4.57,
           "over_2_5_percentage": 100,
-          "over_3_5_percentage": 50,
-          "over_4_5_percentage": 33
+          "over_3_5_percentage": 56,
+          "over_4_5_percentage": 43
         },
         "goal_timing_minutes": {
           "scored": {
             "min_0_10": 0,
-            "min_11_20": 0,
+            "min_11_20": 1,
             "min_21_30": 0,
             "min_31_40": 0,
             "min_41_50": 0,
-            "min_51_60": 0,
+            "min_51_60": 1,
             "min_61_70": 0,
             "min_71_80": 0,
-            "min_81_90": 3
+            "min_81_90": 4
           },
           "conceded": {
             "min_0_10": 0,
             "min_11_20": 1,
             "min_21_30": 0,
             "min_31_40": 1,
-            "min_41_50": 2,
+            "min_41_50": 3,
             "min_51_60": 0,
             "min_61_70": 2,
             "min_71_80": 3,
@@ -45702,7 +46941,7 @@
             "exactly_1": 0,
             "exactly_2": 2,
             "exactly_3": 1,
-            "exactly_4": 0,
+            "exactly_4": 1,
             "exactly_5": 1,
             "exactly_6": 0,
             "exactly_7": 0
@@ -45711,19 +46950,19 @@
             "exactly_0": 4,
             "exactly_1": 1,
             "exactly_2": 1,
-            "exactly_3": 0
+            "exactly_3": 1
           }
         },
         "special_markets": {
-          "team_with_most_corners_win_percentage": 50,
-          "most_goals_in_1st_half_percentage": 17,
-          "most_goals_in_2nd_half_percentage": 50,
-          "most_corners_in_1st_half_percentage": 50,
-          "most_corners_in_2nd_half_percentage": 50,
-          "btts_and_win_percentage": 0,
-          "btts_and_draw_percentage": 17,
-          "btts_and_lose_percentage": 17,
-          "over_2_5_and_btts_percentage": 17
+          "team_with_most_corners_win_percentage": 43,
+          "most_goals_in_1st_half_percentage": 14,
+          "most_goals_in_2nd_half_percentage": 56,
+          "most_corners_in_1st_half_percentage": 43,
+          "most_corners_in_2nd_half_percentage": 43,
+          "btts_and_win_percentage": 14,
+          "btts_and_draw_percentage": 14,
+          "btts_and_lose_percentage": 14,
+          "over_2_5_and_btts_percentage": 28
         },
         "penalties": {
           "won": 0,
@@ -45733,11 +46972,12 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "322": {
-      "fetched_at": "2026-10-19T00:18:37+00:00",
+      "fetched_at": "2026-10-21T00:43:28+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 134,
@@ -45912,7 +47152,7 @@
             "per_match": 15.57,
             "home_per_match": 11.67,
             "away_per_match": 18.5,
-            "match_total_per_match": 37.71
+            "match_total_per_match": 37.86
           },
           "free_kicks": {
             "per_match": 10,
@@ -45995,11 +47235,12 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "341": {
-      "fetched_at": "2026-10-19T00:18:37+00:00",
+      "fetched_at": "2026-10-21T00:43:29+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 193,
@@ -46023,27 +47264,27 @@
           "is_current": true
         },
         "summary": {
-          "matches_played": 6,
+          "matches_played": 7,
           "wins": 2,
-          "draws": 3,
+          "draws": 4,
           "losses": 1,
-          "goals_for": 8,
-          "goals_against": 5,
+          "goals_for": 9,
+          "goals_against": 6,
           "goal_difference": 3,
-          "win_percentage": 33,
-          "draw_percentage": 50,
-          "loss_percentage": 17,
-          "points_per_game": 1.5
+          "win_percentage": 29,
+          "draw_percentage": 57,
+          "loss_percentage": 14,
+          "points_per_game": 1.43
         },
         "home_away": {
           "home": {
-            "matches_played": 3,
+            "matches_played": 4,
             "wins": 1,
-            "draws": 2,
+            "draws": 3,
             "losses": 0,
             "goals_for": null,
             "goals_against": null,
-            "points_per_game": 1.67
+            "points_per_game": 1.5
           },
           "away": {
             "matches_played": 3,
@@ -46056,145 +47297,145 @@
           }
         },
         "goals": {
-          "for_per_match": 1.33,
-          "against_per_match": 0.83,
-          "total_goals_per_match": 2.17,
-          "over_0_5_percentage": 83,
-          "over_1_5_percentage": 67,
-          "over_2_5_percentage": 33,
-          "over_3_5_percentage": 17,
-          "over_4_5_percentage": 17,
+          "for_per_match": 1.29,
+          "against_per_match": 0.86,
+          "total_goals_per_match": 2.14,
+          "over_0_5_percentage": 86,
+          "over_1_5_percentage": 71,
+          "over_2_5_percentage": 29,
+          "over_3_5_percentage": 14,
+          "over_4_5_percentage": 14,
           "over_5_5_percentage": 0,
-          "under_0_5_percentage": 17,
-          "under_1_5_percentage": 33,
-          "under_2_5_percentage": 67,
-          "under_3_5_percentage": 83,
-          "under_4_5_percentage": 83,
+          "under_0_5_percentage": 14,
+          "under_1_5_percentage": 29,
+          "under_2_5_percentage": 71,
+          "under_3_5_percentage": 86,
+          "under_4_5_percentage": 86,
           "under_5_5_percentage": 100
         },
         "clean_sheets": {
           "total": 2,
           "home": 1,
           "away": 1,
-          "percentage": 33,
-          "home_percentage": 33,
+          "percentage": 29,
+          "home_percentage": 25,
           "away_percentage": 33
         },
         "failed_to_score": {
           "total": 1,
           "home": 1,
           "away": 0,
-          "percentage": 17,
-          "home_percentage": 33,
+          "percentage": 14,
+          "home_percentage": 25,
           "away_percentage": 0
         },
         "both_teams_to_score": {
-          "total": 4,
-          "home": 2,
+          "total": 5,
+          "home": 3,
           "away": 2,
-          "percentage": 67,
-          "home_percentage": 67,
+          "percentage": 71,
+          "home_percentage": 75,
           "away_percentage": 67
         },
         "corners": {
-          "recorded_matches": 6,
-          "for_total": 26,
-          "against_total": 26,
-          "for_per_match": 4.33,
-          "against_per_match": 4.33,
-          "total_per_match": 8.66,
-          "over_7_5_percentage": 50,
-          "over_8_5_percentage": 50,
-          "over_9_5_percentage": 50,
-          "over_10_5_percentage": 33,
-          "over_11_5_percentage": 17
+          "recorded_matches": 7,
+          "for_total": 28,
+          "against_total": 29,
+          "for_per_match": 4,
+          "against_per_match": 4.14,
+          "total_per_match": 8.14,
+          "over_7_5_percentage": 43,
+          "over_8_5_percentage": 43,
+          "over_9_5_percentage": 43,
+          "over_10_5_percentage": 28,
+          "over_11_5_percentage": 14
         },
         "cards": {
-          "for_total": 11,
-          "against_total": 15,
-          "total": 26,
-          "for_per_match": 1.83,
-          "against_per_match": 2.5,
-          "total_per_match": 4.33,
+          "for_total": 13,
+          "against_total": 17,
+          "total": 30,
+          "for_per_match": 1.86,
+          "against_per_match": 2.43,
+          "total_per_match": 4.29,
           "over_1_5_percentage": 100,
           "over_2_5_percentage": 100,
-          "over_3_5_percentage": 67,
-          "over_4_5_percentage": 50
+          "over_3_5_percentage": 71,
+          "over_4_5_percentage": 43
         },
         "shots": {
-          "recorded_matches": 6,
-          "shots_total": 72,
+          "recorded_matches": 7,
+          "shots_total": 84,
           "shots_per_match": 12,
-          "shots_on_target_total": 23,
-          "shots_on_target_per_match": 3.83,
+          "shots_on_target_total": 28,
+          "shots_on_target_per_match": 4,
           "shot_conversion_rate": 11
         },
         "xg": {
-          "xg_for": 7.71,
-          "xg_against": 9.85,
-          "xg_for_per_match": 1.29,
-          "xg_against_per_match": 1.64
+          "xg_for": 9.2,
+          "xg_against": 11.08,
+          "xg_for_per_match": 1.31,
+          "xg_against_per_match": 1.58
         },
         "possession": {
-          "average": 45,
-          "home_average": 49,
+          "average": 47,
+          "home_average": 52,
           "away_average": 40
         },
         "fouls": {
-          "committed_total": 72,
-          "committed_per_match": 12,
-          "against_total": 77,
-          "against_per_match": 12.83
+          "committed_total": 88,
+          "committed_per_match": 12.57,
+          "against_total": 82,
+          "against_per_match": 11.71
         },
         "goal_timing": {
           "scored": {
             "0_15": 1,
             "16_30": 0,
             "31_45": 3,
-            "46_60": 2,
+            "46_60": 3,
             "61_75": 0,
             "76_90": 2
           },
           "conceded": {
             "0_15": 0,
             "16_30": 0,
-            "31_45": 1,
+            "31_45": 2,
             "46_60": 0,
             "61_75": 3,
             "76_90": 1
           }
         },
         "form": {
-          "overall": "wddwdl",
-          "home": "dwd",
+          "overall": "wddwdld",
+          "home": "dwdd",
           "away": "wdl"
         },
         "set_pieces": {
           "throw_ins": {
-            "per_match": 18,
-            "home_per_match": 21.33,
+            "per_match": 18.43,
+            "home_per_match": 21.25,
             "away_per_match": 14.67,
-            "match_total_per_match": 39.17
+            "match_total_per_match": 38.57
           },
           "free_kicks": {
-            "per_match": 16.17,
-            "home_per_match": 14,
+            "per_match": 15,
+            "home_per_match": 12.5,
             "away_per_match": 18.33,
-            "match_total_per_match": 30.83
+            "match_total_per_match": 30
           },
           "goal_kicks": {
             "per_match": 7,
-            "home_per_match": 6.33,
+            "home_per_match": 6.5,
             "away_per_match": 7.67,
-            "match_total_per_match": 13.67
+            "match_total_per_match": 14.14
           }
         },
         "offsides": {
-          "team_per_match": 2.5,
-          "match_total_per_match": 5.67,
-          "over_2_5_percentage": 83,
-          "over_3_5_percentage": 83,
-          "over_4_5_percentage": 67
+          "team_per_match": 2.43,
+          "match_total_per_match": 5.57,
+          "over_2_5_percentage": 86,
+          "over_3_5_percentage": 86,
+          "over_4_5_percentage": 71
         },
         "goal_timing_minutes": {
           "scored": {
@@ -46203,7 +47444,7 @@
             "min_21_30": 0,
             "min_31_40": 2,
             "min_41_50": 1,
-            "min_51_60": 2,
+            "min_51_60": 3,
             "min_61_70": 0,
             "min_71_80": 1,
             "min_81_90": 1
@@ -46212,7 +47453,7 @@
             "min_0_10": 0,
             "min_11_20": 0,
             "min_21_30": 0,
-            "min_31_40": 0,
+            "min_31_40": 1,
             "min_41_50": 1,
             "min_51_60": 0,
             "min_61_70": 2,
@@ -46224,7 +47465,7 @@
           "match_total_goals": {
             "exactly_0": 1,
             "exactly_1": 1,
-            "exactly_2": 2,
+            "exactly_2": 3,
             "exactly_3": 1,
             "exactly_4": 0,
             "exactly_5": 1,
@@ -46233,21 +47474,21 @@
           },
           "team_goals": {
             "exactly_0": 1,
-            "exactly_1": 4,
+            "exactly_1": 5,
             "exactly_2": 0,
             "exactly_3": 0
           }
         },
         "special_markets": {
-          "team_with_most_corners_win_percentage": 33,
-          "most_goals_in_1st_half_percentage": 17,
-          "most_goals_in_2nd_half_percentage": 33,
-          "most_corners_in_1st_half_percentage": 20,
-          "most_corners_in_2nd_half_percentage": 60,
-          "btts_and_win_percentage": 17,
-          "btts_and_draw_percentage": 33,
-          "btts_and_lose_percentage": 17,
-          "over_2_5_and_btts_percentage": 33
+          "team_with_most_corners_win_percentage": 28,
+          "most_goals_in_1st_half_percentage": 14,
+          "most_goals_in_2nd_half_percentage": 28,
+          "most_corners_in_1st_half_percentage": 17,
+          "most_corners_in_2nd_half_percentage": 67,
+          "btts_and_win_percentage": 14,
+          "btts_and_draw_percentage": 43,
+          "btts_and_lose_percentage": 14,
+          "over_2_5_and_btts_percentage": 28
         },
         "penalties": {
           "won": 0,
@@ -46257,11 +47498,12 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "349": {
-      "fetched_at": "2026-10-19T00:18:38+00:00",
+      "fetched_at": "2026-10-21T00:43:30+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 191,
@@ -46519,11 +47761,12 @@
           "won_per_match": 0.14,
           "match_with_penalty_percentage": 28
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "351": {
-      "fetched_at": "2026-10-19T00:18:38+00:00",
+      "fetched_at": "2026-10-21T00:43:31+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 182,
@@ -46547,27 +47790,27 @@
           "is_current": true
         },
         "summary": {
-          "matches_played": 6,
+          "matches_played": 7,
           "wins": 1,
           "draws": 2,
-          "losses": 3,
+          "losses": 4,
           "goals_for": 5,
-          "goals_against": 8,
-          "goal_difference": -3,
-          "win_percentage": 17,
-          "draw_percentage": 33,
-          "loss_percentage": 50,
-          "points_per_game": 0.83
+          "goals_against": 9,
+          "goal_difference": -4,
+          "win_percentage": 14,
+          "draw_percentage": 29,
+          "loss_percentage": 57,
+          "points_per_game": 0.71
         },
         "home_away": {
           "home": {
-            "matches_played": 3,
+            "matches_played": 4,
             "wins": 0,
             "draws": 1,
-            "losses": 2,
+            "losses": 3,
             "goals_for": null,
             "goals_against": null,
-            "points_per_game": 0.33
+            "points_per_game": 0.25
           },
           "away": {
             "matches_played": 3,
@@ -46580,19 +47823,19 @@
           }
         },
         "goals": {
-          "for_per_match": 0.83,
-          "against_per_match": 1.33,
-          "total_goals_per_match": 2.17,
-          "over_0_5_percentage": 83,
-          "over_1_5_percentage": 50,
-          "over_2_5_percentage": 50,
-          "over_3_5_percentage": 33,
+          "for_per_match": 0.71,
+          "against_per_match": 1.29,
+          "total_goals_per_match": 2,
+          "over_0_5_percentage": 86,
+          "over_1_5_percentage": 43,
+          "over_2_5_percentage": 43,
+          "over_3_5_percentage": 29,
           "over_4_5_percentage": 0,
           "over_5_5_percentage": 0,
-          "under_0_5_percentage": 17,
-          "under_1_5_percentage": 50,
-          "under_2_5_percentage": 50,
-          "under_3_5_percentage": 67,
+          "under_0_5_percentage": 14,
+          "under_1_5_percentage": 57,
+          "under_2_5_percentage": 57,
+          "under_3_5_percentage": 71,
           "under_4_5_percentage": 100,
           "under_5_5_percentage": 100
         },
@@ -46600,15 +47843,15 @@
           "total": 1,
           "home": 1,
           "away": 0,
-          "percentage": 17,
-          "home_percentage": 33,
+          "percentage": 14,
+          "home_percentage": 25,
           "away_percentage": 0
         },
         "failed_to_score": {
-          "total": 3,
-          "home": 3,
+          "total": 4,
+          "home": 4,
           "away": 0,
-          "percentage": 50,
+          "percentage": 57,
           "home_percentage": 100,
           "away_percentage": 0
         },
@@ -46616,59 +47859,59 @@
           "total": 3,
           "home": 0,
           "away": 3,
-          "percentage": 50,
+          "percentage": 43,
           "home_percentage": 0,
           "away_percentage": 100
         },
         "corners": {
-          "recorded_matches": 6,
-          "for_total": 25,
-          "against_total": 28,
-          "for_per_match": 4.17,
-          "against_per_match": 4.67,
-          "total_per_match": 8.84,
-          "over_7_5_percentage": 67,
-          "over_8_5_percentage": 33,
-          "over_9_5_percentage": 33,
-          "over_10_5_percentage": 33,
-          "over_11_5_percentage": 33
+          "recorded_matches": 7,
+          "for_total": 33,
+          "against_total": 34,
+          "for_per_match": 4.71,
+          "against_per_match": 4.86,
+          "total_per_match": 9.57,
+          "over_7_5_percentage": 71,
+          "over_8_5_percentage": 43,
+          "over_9_5_percentage": 43,
+          "over_10_5_percentage": 43,
+          "over_11_5_percentage": 43
         },
         "cards": {
-          "for_total": 15,
-          "against_total": 11,
-          "total": 26,
-          "for_per_match": 2.5,
-          "against_per_match": 1.83,
-          "total_per_match": 4.33,
+          "for_total": 16,
+          "against_total": 12,
+          "total": 28,
+          "for_per_match": 2.29,
+          "against_per_match": 1.71,
+          "total_per_match": 4,
           "over_1_5_percentage": 100,
-          "over_2_5_percentage": 83,
-          "over_3_5_percentage": 67,
-          "over_4_5_percentage": 33
+          "over_2_5_percentage": 71,
+          "over_3_5_percentage": 56,
+          "over_4_5_percentage": 28
         },
         "shots": {
-          "recorded_matches": 6,
-          "shots_total": 106,
-          "shots_per_match": 17.67,
-          "shots_on_target_total": 23,
-          "shots_on_target_per_match": 3.83,
-          "shot_conversion_rate": 5
+          "recorded_matches": 7,
+          "shots_total": 120,
+          "shots_per_match": 17.14,
+          "shots_on_target_total": 25,
+          "shots_on_target_per_match": 3.57,
+          "shot_conversion_rate": 4
         },
         "xg": {
-          "xg_for": 10.49,
-          "xg_against": 7.7,
-          "xg_for_per_match": 1.75,
-          "xg_against_per_match": 1.28
+          "xg_for": 11.64,
+          "xg_against": 8.83,
+          "xg_for_per_match": 1.66,
+          "xg_against_per_match": 1.26
         },
         "possession": {
-          "average": 49,
-          "home_average": 53,
+          "average": 46,
+          "home_average": 46,
           "away_average": 45
         },
         "fouls": {
-          "committed_total": 83,
-          "committed_per_match": 13.83,
-          "against_total": 72,
-          "against_per_match": 12
+          "committed_total": 97,
+          "committed_per_match": 13.86,
+          "against_total": 80,
+          "against_per_match": 11.43
         },
         "goal_timing": {
           "scored": {
@@ -46685,40 +47928,40 @@
             "31_45": 2,
             "46_60": 3,
             "61_75": 1,
-            "76_90": 2
+            "76_90": 3
           }
         },
         "form": {
-          "overall": "lddwll",
-          "home": "ldl",
+          "overall": "lddwlll",
+          "home": "ldll",
           "away": "dwl"
         },
         "set_pieces": {
           "throw_ins": {
-            "per_match": 19,
-            "home_per_match": 20.67,
+            "per_match": 18,
+            "home_per_match": 18.5,
             "away_per_match": 17.33,
-            "match_total_per_match": 35.83
+            "match_total_per_match": 34.71
           },
           "free_kicks": {
-            "per_match": 14.33,
-            "home_per_match": 15,
+            "per_match": 13.71,
+            "home_per_match": 13.75,
             "away_per_match": 13.67,
-            "match_total_per_match": 30.67
+            "match_total_per_match": 30
           },
           "goal_kicks": {
-            "per_match": 7,
-            "home_per_match": 6,
+            "per_match": 7.43,
+            "home_per_match": 7,
             "away_per_match": 8,
-            "match_total_per_match": 17.83
+            "match_total_per_match": 17.29
           }
         },
         "offsides": {
           "team_per_match": 2,
-          "match_total_per_match": 3.83,
+          "match_total_per_match": 3.71,
           "over_2_5_percentage": 100,
-          "over_3_5_percentage": 50,
-          "over_4_5_percentage": 17
+          "over_3_5_percentage": 43,
+          "over_4_5_percentage": 14
         },
         "goal_timing_minutes": {
           "scored": {
@@ -46740,14 +47983,14 @@
             "min_41_50": 2,
             "min_51_60": 3,
             "min_61_70": 0,
-            "min_71_80": 1,
+            "min_71_80": 2,
             "min_81_90": 2
           }
         },
         "correct_score": {
           "match_total_goals": {
             "exactly_0": 1,
-            "exactly_1": 2,
+            "exactly_1": 3,
             "exactly_2": 0,
             "exactly_3": 1,
             "exactly_4": 2,
@@ -46756,36 +47999,37 @@
             "exactly_7": 0
           },
           "team_goals": {
-            "exactly_0": 3,
+            "exactly_0": 4,
             "exactly_1": 1,
             "exactly_2": 2,
             "exactly_3": 0
           }
         },
         "special_markets": {
-          "team_with_most_corners_win_percentage": 67,
-          "most_goals_in_1st_half_percentage": 17,
-          "most_goals_in_2nd_half_percentage": 67,
-          "most_corners_in_1st_half_percentage": 50,
-          "most_corners_in_2nd_half_percentage": 50,
-          "btts_and_win_percentage": 17,
-          "btts_and_draw_percentage": 17,
-          "btts_and_lose_percentage": 17,
-          "over_2_5_and_btts_percentage": 50
+          "team_with_most_corners_win_percentage": 71,
+          "most_goals_in_1st_half_percentage": 14,
+          "most_goals_in_2nd_half_percentage": 71,
+          "most_corners_in_1st_half_percentage": 43,
+          "most_corners_in_2nd_half_percentage": 56,
+          "btts_and_win_percentage": 14,
+          "btts_and_draw_percentage": 14,
+          "btts_and_lose_percentage": 14,
+          "over_2_5_and_btts_percentage": 43
         },
         "penalties": {
           "won": 1,
           "scored": 1,
           "missed": 1,
           "conceded": 0,
-          "won_per_match": 0.17,
-          "match_with_penalty_percentage": 17
+          "won_per_match": 0.14,
+          "match_with_penalty_percentage": 14
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "354": {
-      "fetched_at": "2026-10-19T00:18:39+00:00",
+      "fetched_at": "2026-10-21T00:43:31+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 127,
@@ -46809,17 +48053,17 @@
           "is_current": true
         },
         "summary": {
-          "matches_played": 6,
+          "matches_played": 7,
           "wins": 2,
           "draws": 1,
-          "losses": 3,
+          "losses": 4,
           "goals_for": 9,
-          "goals_against": 12,
-          "goal_difference": -3,
-          "win_percentage": 33,
-          "draw_percentage": 17,
-          "loss_percentage": 50,
-          "points_per_game": 1.17
+          "goals_against": 17,
+          "goal_difference": -8,
+          "win_percentage": 29,
+          "draw_percentage": 14,
+          "loss_percentage": 57,
+          "points_per_game": 1
         },
         "home_away": {
           "home": {
@@ -46832,105 +48076,105 @@
             "points_per_game": 1
           },
           "away": {
-            "matches_played": 3,
+            "matches_played": 4,
             "wins": 1,
             "draws": 1,
-            "losses": 1,
+            "losses": 2,
             "goals_for": null,
             "goals_against": null,
-            "points_per_game": 1.33
+            "points_per_game": 1
           }
         },
         "goals": {
-          "for_per_match": 1.5,
-          "against_per_match": 2,
-          "total_goals_per_match": 3.5,
-          "over_0_5_percentage": 83,
-          "over_1_5_percentage": 83,
-          "over_2_5_percentage": 67,
-          "over_3_5_percentage": 67,
-          "over_4_5_percentage": 50,
+          "for_per_match": 1.29,
+          "against_per_match": 2.43,
+          "total_goals_per_match": 3.71,
+          "over_0_5_percentage": 86,
+          "over_1_5_percentage": 86,
+          "over_2_5_percentage": 71,
+          "over_3_5_percentage": 71,
+          "over_4_5_percentage": 57,
           "over_5_5_percentage": 0,
-          "under_0_5_percentage": 17,
-          "under_1_5_percentage": 17,
-          "under_2_5_percentage": 33,
-          "under_3_5_percentage": 33,
-          "under_4_5_percentage": 50,
+          "under_0_5_percentage": 14,
+          "under_1_5_percentage": 14,
+          "under_2_5_percentage": 29,
+          "under_3_5_percentage": 29,
+          "under_4_5_percentage": 43,
           "under_5_5_percentage": 100
         },
         "clean_sheets": {
           "total": 1,
           "home": 0,
           "away": 1,
-          "percentage": 17,
+          "percentage": 14,
           "home_percentage": 0,
-          "away_percentage": 33
+          "away_percentage": 25
         },
         "failed_to_score": {
-          "total": 2,
+          "total": 3,
           "home": 0,
-          "away": 2,
-          "percentage": 33,
+          "away": 3,
+          "percentage": 43,
           "home_percentage": 0,
-          "away_percentage": 67
+          "away_percentage": 75
         },
         "both_teams_to_score": {
           "total": 4,
           "home": 3,
           "away": 1,
-          "percentage": 67,
+          "percentage": 57,
           "home_percentage": 100,
-          "away_percentage": 33
+          "away_percentage": 25
         },
         "corners": {
-          "recorded_matches": 6,
-          "for_total": 17,
-          "against_total": 32,
-          "for_per_match": 2.83,
-          "against_per_match": 5.33,
-          "total_per_match": 8.16,
-          "over_7_5_percentage": 67,
-          "over_8_5_percentage": 33,
-          "over_9_5_percentage": 17,
-          "over_10_5_percentage": 17,
-          "over_11_5_percentage": 17
+          "recorded_matches": 7,
+          "for_total": 22,
+          "against_total": 40,
+          "for_per_match": 3.14,
+          "against_per_match": 5.71,
+          "total_per_match": 8.85,
+          "over_7_5_percentage": 71,
+          "over_8_5_percentage": 43,
+          "over_9_5_percentage": 28,
+          "over_10_5_percentage": 28,
+          "over_11_5_percentage": 28
         },
         "cards": {
-          "for_total": 10,
-          "against_total": 9,
-          "total": 19,
-          "for_per_match": 1.67,
-          "against_per_match": 1.5,
-          "total_per_match": 3.17,
-          "over_1_5_percentage": 67,
-          "over_2_5_percentage": 67,
-          "over_3_5_percentage": 50,
-          "over_4_5_percentage": 33
+          "for_total": 11,
+          "against_total": 11,
+          "total": 22,
+          "for_per_match": 1.57,
+          "against_per_match": 1.57,
+          "total_per_match": 3.14,
+          "over_1_5_percentage": 71,
+          "over_2_5_percentage": 71,
+          "over_3_5_percentage": 43,
+          "over_4_5_percentage": 28
         },
         "shots": {
-          "recorded_matches": 6,
-          "shots_total": 66,
-          "shots_per_match": 11,
-          "shots_on_target_total": 25,
-          "shots_on_target_per_match": 4.17,
-          "shot_conversion_rate": 14
+          "recorded_matches": 7,
+          "shots_total": 71,
+          "shots_per_match": 10.14,
+          "shots_on_target_total": 26,
+          "shots_on_target_per_match": 3.71,
+          "shot_conversion_rate": 13
         },
         "xg": {
-          "xg_for": 7.55,
-          "xg_against": 11.84,
-          "xg_for_per_match": 1.26,
-          "xg_against_per_match": 1.97
+          "xg_for": 8.09,
+          "xg_against": 13.89,
+          "xg_for_per_match": 1.16,
+          "xg_against_per_match": 1.98
         },
         "possession": {
           "average": 43,
           "home_average": 39,
-          "away_average": 48
+          "away_average": 47
         },
         "fouls": {
-          "committed_total": 59,
-          "committed_per_match": 9.83,
-          "against_total": 57,
-          "against_per_match": 9.5
+          "committed_total": 70,
+          "committed_per_match": 10,
+          "against_total": 70,
+          "against_per_match": 10
         },
         "goal_timing": {
           "scored": {
@@ -46942,45 +48186,45 @@
             "76_90": 1
           },
           "conceded": {
-            "0_15": 2,
+            "0_15": 5,
             "16_30": 2,
             "31_45": 3,
-            "46_60": 3,
+            "46_60": 4,
             "61_75": 0,
-            "76_90": 2
+            "76_90": 3
           }
         },
         "form": {
-          "overall": "llwldw",
+          "overall": "llwldwl",
           "home": "llw",
-          "away": "lwd"
+          "away": "lwdl"
         },
         "set_pieces": {
           "throw_ins": {
-            "per_match": 16.17,
+            "per_match": 16.14,
             "home_per_match": 15,
-            "away_per_match": 17.33,
-            "match_total_per_match": 36
+            "away_per_match": 17,
+            "match_total_per_match": 34.43
           },
           "free_kicks": {
-            "per_match": 10.83,
+            "per_match": 11.43,
             "home_per_match": 13,
-            "away_per_match": 8.67,
-            "match_total_per_match": 23
+            "away_per_match": 10.25,
+            "match_total_per_match": 23.71
           },
           "goal_kicks": {
-            "per_match": 11.17,
+            "per_match": 10.86,
             "home_per_match": 10.33,
-            "away_per_match": 12,
-            "match_total_per_match": 19
+            "away_per_match": 11.25,
+            "match_total_per_match": 18
           }
         },
         "offsides": {
-          "team_per_match": 2.17,
-          "match_total_per_match": 3.33,
-          "over_2_5_percentage": 67,
-          "over_3_5_percentage": 33,
-          "over_4_5_percentage": 17
+          "team_per_match": 2.14,
+          "match_total_per_match": 3.43,
+          "over_2_5_percentage": 71,
+          "over_3_5_percentage": 43,
+          "over_4_5_percentage": 14
         },
         "goal_timing_minutes": {
           "scored": {
@@ -46995,15 +48239,15 @@
             "min_81_90": 0
           },
           "conceded": {
-            "min_0_10": 1,
+            "min_0_10": 4,
             "min_11_20": 2,
             "min_21_30": 1,
             "min_31_40": 0,
-            "min_41_50": 3,
+            "min_41_50": 4,
             "min_51_60": 3,
             "min_61_70": 0,
             "min_71_80": 0,
-            "min_81_90": 2
+            "min_81_90": 3
           }
         },
         "correct_score": {
@@ -47013,27 +48257,27 @@
             "exactly_2": 1,
             "exactly_3": 0,
             "exactly_4": 1,
-            "exactly_5": 3,
+            "exactly_5": 4,
             "exactly_6": 0,
             "exactly_7": 0
           },
           "team_goals": {
-            "exactly_0": 2,
+            "exactly_0": 3,
             "exactly_1": 1,
             "exactly_2": 1,
             "exactly_3": 2
           }
         },
         "special_markets": {
-          "team_with_most_corners_win_percentage": 17,
-          "most_goals_in_1st_half_percentage": 50,
-          "most_goals_in_2nd_half_percentage": 17,
-          "most_corners_in_1st_half_percentage": 33,
-          "most_corners_in_2nd_half_percentage": 33,
-          "btts_and_win_percentage": 33,
+          "team_with_most_corners_win_percentage": 14,
+          "most_goals_in_1st_half_percentage": 56,
+          "most_goals_in_2nd_half_percentage": 14,
+          "most_corners_in_1st_half_percentage": 28,
+          "most_corners_in_2nd_half_percentage": 43,
+          "btts_and_win_percentage": 28,
           "btts_and_draw_percentage": 0,
-          "btts_and_lose_percentage": 33,
-          "over_2_5_and_btts_percentage": 67
+          "btts_and_lose_percentage": 28,
+          "over_2_5_and_btts_percentage": 56
         },
         "penalties": {
           "won": 0,
@@ -47043,11 +48287,12 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "397": {
-      "fetched_at": "2026-10-19T00:18:40+00:00",
+      "fetched_at": "2026-10-21T00:43:32+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 180,
@@ -47071,27 +48316,27 @@
           "is_current": true
         },
         "summary": {
-          "matches_played": 6,
-          "wins": 4,
+          "matches_played": 7,
+          "wins": 5,
           "draws": 1,
           "losses": 1,
-          "goals_for": 18,
+          "goals_for": 23,
           "goals_against": 5,
-          "goal_difference": 13,
-          "win_percentage": 67,
-          "draw_percentage": 17,
-          "loss_percentage": 17,
-          "points_per_game": 2.17
+          "goal_difference": 18,
+          "win_percentage": 71,
+          "draw_percentage": 14,
+          "loss_percentage": 14,
+          "points_per_game": 2.29
         },
         "home_away": {
           "home": {
-            "matches_played": 3,
-            "wins": 2,
+            "matches_played": 4,
+            "wins": 3,
             "draws": 1,
             "losses": 0,
             "goals_for": null,
             "goals_against": null,
-            "points_per_game": 2.33
+            "points_per_game": 2.5
           },
           "away": {
             "matches_played": 3,
@@ -47104,28 +48349,28 @@
           }
         },
         "goals": {
-          "for_per_match": 3,
-          "against_per_match": 0.83,
-          "total_goals_per_match": 3.83,
+          "for_per_match": 3.29,
+          "against_per_match": 0.71,
+          "total_goals_per_match": 4,
           "over_0_5_percentage": 100,
           "over_1_5_percentage": 100,
-          "over_2_5_percentage": 67,
-          "over_3_5_percentage": 50,
-          "over_4_5_percentage": 33,
-          "over_5_5_percentage": 17,
+          "over_2_5_percentage": 71,
+          "over_3_5_percentage": 57,
+          "over_4_5_percentage": 43,
+          "over_5_5_percentage": 14,
           "under_0_5_percentage": 0,
           "under_1_5_percentage": 0,
-          "under_2_5_percentage": 33,
-          "under_3_5_percentage": 50,
-          "under_4_5_percentage": 67,
-          "under_5_5_percentage": 83
+          "under_2_5_percentage": 29,
+          "under_3_5_percentage": 43,
+          "under_4_5_percentage": 57,
+          "under_5_5_percentage": 86
         },
         "clean_sheets": {
-          "total": 4,
-          "home": 2,
+          "total": 5,
+          "home": 3,
           "away": 2,
-          "percentage": 67,
-          "home_percentage": 67,
+          "percentage": 71,
+          "home_percentage": 75,
           "away_percentage": 67
         },
         "failed_to_score": {
@@ -47140,68 +48385,68 @@
           "total": 2,
           "home": 1,
           "away": 1,
-          "percentage": 33,
-          "home_percentage": 33,
+          "percentage": 29,
+          "home_percentage": 25,
           "away_percentage": 33
         },
         "corners": {
-          "recorded_matches": 6,
-          "for_total": 32,
-          "against_total": 30,
-          "for_per_match": 5.33,
+          "recorded_matches": 7,
+          "for_total": 40,
+          "against_total": 35,
+          "for_per_match": 5.71,
           "against_per_match": 5,
-          "total_per_match": 10.33,
-          "over_7_5_percentage": 83,
-          "over_8_5_percentage": 67,
-          "over_9_5_percentage": 67,
-          "over_10_5_percentage": 67,
-          "over_11_5_percentage": 33
+          "total_per_match": 10.71,
+          "over_7_5_percentage": 86,
+          "over_8_5_percentage": 71,
+          "over_9_5_percentage": 71,
+          "over_10_5_percentage": 71,
+          "over_11_5_percentage": 43
         },
         "cards": {
-          "for_total": 15,
-          "against_total": 11,
-          "total": 26,
-          "for_per_match": 2.5,
-          "against_per_match": 1.83,
-          "total_per_match": 4.33,
+          "for_total": 17,
+          "against_total": 12,
+          "total": 29,
+          "for_per_match": 2.43,
+          "against_per_match": 1.71,
+          "total_per_match": 4.14,
           "over_1_5_percentage": 100,
-          "over_2_5_percentage": 83,
-          "over_3_5_percentage": 67,
-          "over_4_5_percentage": 50
+          "over_2_5_percentage": 86,
+          "over_3_5_percentage": 56,
+          "over_4_5_percentage": 43
         },
         "shots": {
-          "recorded_matches": 6,
-          "shots_total": 108,
-          "shots_per_match": 18,
-          "shots_on_target_total": 33,
-          "shots_on_target_per_match": 5.5,
-          "shot_conversion_rate": 17
+          "recorded_matches": 7,
+          "shots_total": 125,
+          "shots_per_match": 17.86,
+          "shots_on_target_total": 42,
+          "shots_on_target_per_match": 6,
+          "shot_conversion_rate": 18
         },
         "xg": {
-          "xg_for": 11.49,
-          "xg_against": 7.65,
-          "xg_for_per_match": 1.92,
-          "xg_against_per_match": 1.28
+          "xg_for": 13.54,
+          "xg_against": 8.19,
+          "xg_for_per_match": 1.93,
+          "xg_against_per_match": 1.17
         },
         "possession": {
           "average": 60,
-          "home_average": 60,
+          "home_average": 59,
           "away_average": 60
         },
         "fouls": {
-          "committed_total": 76,
-          "committed_per_match": 12.67,
-          "against_total": 60,
-          "against_per_match": 10
+          "committed_total": 89,
+          "committed_per_match": 12.71,
+          "against_total": 71,
+          "against_per_match": 10.14
         },
         "goal_timing": {
           "scored": {
-            "0_15": 1,
+            "0_15": 4,
             "16_30": 2,
             "31_45": 5,
-            "46_60": 3,
+            "46_60": 4,
             "61_75": 3,
-            "76_90": 4
+            "76_90": 5
           },
           "conceded": {
             "0_15": 3,
@@ -47213,48 +48458,48 @@
           }
         },
         "form": {
-          "overall": "wldwww",
-          "home": "wdw",
+          "overall": "wldwwww",
+          "home": "wdww",
           "away": "lww"
         },
         "set_pieces": {
           "throw_ins": {
-            "per_match": 17.33,
-            "home_per_match": 14.67,
+            "per_match": 16.14,
+            "home_per_match": 13.25,
             "away_per_match": 20,
-            "match_total_per_match": 36
+            "match_total_per_match": 34.43
           },
           "free_kicks": {
-            "per_match": 12.17,
-            "home_per_match": 13.67,
+            "per_match": 12.29,
+            "home_per_match": 13.5,
             "away_per_match": 10.67,
-            "match_total_per_match": 27.17
+            "match_total_per_match": 27.29
           },
           "goal_kicks": {
-            "per_match": 7.17,
-            "home_per_match": 7.67,
+            "per_match": 6.57,
+            "home_per_match": 6.5,
             "away_per_match": 6.67,
-            "match_total_per_match": 17.83
+            "match_total_per_match": 17
           }
         },
         "offsides": {
           "team_per_match": 2,
-          "match_total_per_match": 4.17,
-          "over_2_5_percentage": 67,
-          "over_3_5_percentage": 67,
-          "over_4_5_percentage": 50
+          "match_total_per_match": 4.14,
+          "over_2_5_percentage": 71,
+          "over_3_5_percentage": 71,
+          "over_4_5_percentage": 43
         },
         "goal_timing_minutes": {
           "scored": {
-            "min_0_10": 1,
+            "min_0_10": 4,
             "min_11_20": 1,
             "min_21_30": 1,
             "min_31_40": 4,
-            "min_41_50": 1,
+            "min_41_50": 2,
             "min_51_60": 3,
             "min_61_70": 2,
             "min_71_80": 1,
-            "min_81_90": 4
+            "min_81_90": 5
           },
           "conceded": {
             "min_0_10": 1,
@@ -47275,7 +48520,7 @@
             "exactly_2": 2,
             "exactly_3": 1,
             "exactly_4": 1,
-            "exactly_5": 1,
+            "exactly_5": 2,
             "exactly_6": 0,
             "exactly_7": 1
           },
@@ -47287,29 +48532,30 @@
           }
         },
         "special_markets": {
-          "team_with_most_corners_win_percentage": 50,
-          "most_goals_in_1st_half_percentage": 50,
-          "most_goals_in_2nd_half_percentage": 33,
-          "most_corners_in_1st_half_percentage": 33,
-          "most_corners_in_2nd_half_percentage": 50,
+          "team_with_most_corners_win_percentage": 56,
+          "most_goals_in_1st_half_percentage": 56,
+          "most_goals_in_2nd_half_percentage": 28,
+          "most_corners_in_1st_half_percentage": 28,
+          "most_corners_in_2nd_half_percentage": 56,
           "btts_and_win_percentage": 0,
-          "btts_and_draw_percentage": 17,
-          "btts_and_lose_percentage": 17,
-          "over_2_5_and_btts_percentage": 17
+          "btts_and_draw_percentage": 14,
+          "btts_and_lose_percentage": 14,
+          "over_2_5_and_btts_percentage": 14
         },
         "penalties": {
           "won": 1,
           "scored": 1,
           "missed": 1,
           "conceded": 0,
-          "won_per_match": 0.17,
-          "match_with_penalty_percentage": 17
+          "won_per_match": 0.14,
+          "match_with_penalty_percentage": 14
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "402": {
-      "fetched_at": "2026-10-19T00:18:40+00:00",
+      "fetched_at": "2026-10-21T00:43:33+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 189,
@@ -47567,11 +48813,12 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 14
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "1044": {
-      "fetched_at": "2026-10-19T00:18:41+00:00",
+      "fetched_at": "2026-10-21T00:43:33+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 132,
@@ -47595,27 +48842,27 @@
           "is_current": true
         },
         "summary": {
-          "matches_played": 6,
-          "wins": 0,
+          "matches_played": 7,
+          "wins": 1,
           "draws": 3,
           "losses": 3,
-          "goals_for": 7,
+          "goals_for": 9,
           "goals_against": 13,
-          "goal_difference": -6,
-          "win_percentage": 0,
-          "draw_percentage": 50,
-          "loss_percentage": 50,
-          "points_per_game": 0.5
+          "goal_difference": -4,
+          "win_percentage": 14,
+          "draw_percentage": 43,
+          "loss_percentage": 43,
+          "points_per_game": 0.86
         },
         "home_away": {
           "home": {
-            "matches_played": 3,
-            "wins": 0,
+            "matches_played": 4,
+            "wins": 1,
             "draws": 2,
             "losses": 1,
             "goals_for": null,
             "goals_against": null,
-            "points_per_game": 0.67
+            "points_per_game": 1.25
           },
           "away": {
             "matches_played": 3,
@@ -47628,102 +48875,102 @@
           }
         },
         "goals": {
-          "for_per_match": 1.17,
-          "against_per_match": 2.17,
-          "total_goals_per_match": 3.33,
+          "for_per_match": 1.29,
+          "against_per_match": 1.86,
+          "total_goals_per_match": 3.14,
           "over_0_5_percentage": 100,
-          "over_1_5_percentage": 83,
-          "over_2_5_percentage": 67,
-          "over_3_5_percentage": 50,
-          "over_4_5_percentage": 17,
-          "over_5_5_percentage": 17,
+          "over_1_5_percentage": 86,
+          "over_2_5_percentage": 57,
+          "over_3_5_percentage": 43,
+          "over_4_5_percentage": 14,
+          "over_5_5_percentage": 14,
           "under_0_5_percentage": 0,
-          "under_1_5_percentage": 17,
-          "under_2_5_percentage": 33,
-          "under_3_5_percentage": 50,
-          "under_4_5_percentage": 83,
-          "under_5_5_percentage": 83
+          "under_1_5_percentage": 14,
+          "under_2_5_percentage": 43,
+          "under_3_5_percentage": 57,
+          "under_4_5_percentage": 86,
+          "under_5_5_percentage": 86
         },
         "clean_sheets": {
-          "total": 0,
-          "home": 0,
+          "total": 1,
+          "home": 1,
           "away": 0,
-          "percentage": 0,
-          "home_percentage": 0,
+          "percentage": 14,
+          "home_percentage": 25,
           "away_percentage": 0
         },
         "failed_to_score": {
           "total": 1,
           "home": 1,
           "away": 0,
-          "percentage": 17,
-          "home_percentage": 33,
+          "percentage": 14,
+          "home_percentage": 25,
           "away_percentage": 0
         },
         "both_teams_to_score": {
           "total": 5,
           "home": 2,
           "away": 3,
-          "percentage": 83,
-          "home_percentage": 67,
+          "percentage": 71,
+          "home_percentage": 50,
           "away_percentage": 100
         },
         "corners": {
-          "recorded_matches": 6,
-          "for_total": 28,
-          "against_total": 24,
-          "for_per_match": 4.67,
-          "against_per_match": 4,
-          "total_per_match": 8.67,
-          "over_7_5_percentage": 50,
-          "over_8_5_percentage": 33,
-          "over_9_5_percentage": 33,
-          "over_10_5_percentage": 33,
-          "over_11_5_percentage": 17
+          "recorded_matches": 7,
+          "for_total": 33,
+          "against_total": 27,
+          "for_per_match": 4.71,
+          "against_per_match": 3.86,
+          "total_per_match": 8.57,
+          "over_7_5_percentage": 56,
+          "over_8_5_percentage": 28,
+          "over_9_5_percentage": 28,
+          "over_10_5_percentage": 28,
+          "over_11_5_percentage": 14
         },
         "cards": {
-          "for_total": 18,
-          "against_total": 8,
-          "total": 26,
+          "for_total": 21,
+          "against_total": 12,
+          "total": 33,
           "for_per_match": 3,
-          "against_per_match": 1.33,
-          "total_per_match": 4.33,
+          "against_per_match": 1.71,
+          "total_per_match": 4.71,
           "over_1_5_percentage": 100,
           "over_2_5_percentage": 100,
-          "over_3_5_percentage": 67,
-          "over_4_5_percentage": 50
+          "over_3_5_percentage": 71,
+          "over_4_5_percentage": 56
         },
         "shots": {
-          "recorded_matches": 6,
-          "shots_total": 77,
-          "shots_per_match": 12.83,
-          "shots_on_target_total": 30,
-          "shots_on_target_per_match": 5,
-          "shot_conversion_rate": 9
+          "recorded_matches": 7,
+          "shots_total": 106,
+          "shots_per_match": 15.14,
+          "shots_on_target_total": 36,
+          "shots_on_target_per_match": 5.14,
+          "shot_conversion_rate": 8
         },
         "xg": {
-          "xg_for": 8.76,
-          "xg_against": 7.76,
-          "xg_for_per_match": 1.46,
-          "xg_against_per_match": 1.29
+          "xg_for": 11.58,
+          "xg_against": 8.21,
+          "xg_for_per_match": 1.65,
+          "xg_against_per_match": 1.17
         },
         "possession": {
-          "average": 48,
-          "home_average": 54,
+          "average": 50,
+          "home_average": 57,
           "away_average": 42
         },
         "fouls": {
-          "committed_total": 74,
-          "committed_per_match": 12.33,
-          "against_total": 77,
-          "against_per_match": 12.83
+          "committed_total": 90,
+          "committed_per_match": 12.86,
+          "against_total": 84,
+          "against_per_match": 12
         },
         "goal_timing": {
           "scored": {
-            "0_15": 1,
+            "0_15": 2,
             "16_30": 1,
             "31_45": 3,
-            "46_60": 2,
+            "46_60": 3,
             "61_75": 0,
             "76_90": 0
           },
@@ -47737,44 +48984,44 @@
           }
         },
         "form": {
-          "overall": "ldddll",
-          "home": "ddl",
+          "overall": "ldddllw",
+          "home": "ddlw",
           "away": "ldl"
         },
         "set_pieces": {
           "throw_ins": {
-            "per_match": 20.17,
-            "home_per_match": 25.67,
+            "per_match": 19.43,
+            "home_per_match": 23,
             "away_per_match": 14.67,
-            "match_total_per_match": 38.83
+            "match_total_per_match": 37.71
           },
           "free_kicks": {
-            "per_match": 14.83,
-            "home_per_match": 16.33,
+            "per_match": 14,
+            "home_per_match": 14.5,
             "away_per_match": 13.33,
-            "match_total_per_match": 29
+            "match_total_per_match": 28.57
           },
           "goal_kicks": {
-            "per_match": 6.33,
-            "home_per_match": 6.33,
+            "per_match": 6.43,
+            "home_per_match": 6.5,
             "away_per_match": 6.33,
-            "match_total_per_match": 14.33
+            "match_total_per_match": 15.29
           }
         },
         "offsides": {
-          "team_per_match": 1.5,
-          "match_total_per_match": 2.83,
-          "over_2_5_percentage": 50,
-          "over_3_5_percentage": 33,
-          "over_4_5_percentage": 17
+          "team_per_match": 1.43,
+          "match_total_per_match": 2.86,
+          "over_2_5_percentage": 56,
+          "over_3_5_percentage": 28,
+          "over_4_5_percentage": 14
         },
         "goal_timing_minutes": {
           "scored": {
-            "min_0_10": 1,
+            "min_0_10": 2,
             "min_11_20": 0,
             "min_21_30": 1,
             "min_31_40": 2,
-            "min_41_50": 1,
+            "min_41_50": 2,
             "min_51_60": 2,
             "min_61_70": 0,
             "min_71_80": 0,
@@ -47796,7 +49043,7 @@
           "match_total_goals": {
             "exactly_0": 0,
             "exactly_1": 1,
-            "exactly_2": 1,
+            "exactly_2": 2,
             "exactly_3": 1,
             "exactly_4": 2,
             "exactly_5": 0,
@@ -47806,20 +49053,20 @@
           "team_goals": {
             "exactly_0": 1,
             "exactly_1": 3,
-            "exactly_2": 2,
+            "exactly_2": 3,
             "exactly_3": 0
           }
         },
         "special_markets": {
-          "team_with_most_corners_win_percentage": 50,
-          "most_goals_in_1st_half_percentage": 17,
-          "most_goals_in_2nd_half_percentage": 50,
-          "most_corners_in_1st_half_percentage": 17,
-          "most_corners_in_2nd_half_percentage": 50,
+          "team_with_most_corners_win_percentage": 56,
+          "most_goals_in_1st_half_percentage": 14,
+          "most_goals_in_2nd_half_percentage": 43,
+          "most_corners_in_1st_half_percentage": 28,
+          "most_corners_in_2nd_half_percentage": 43,
           "btts_and_win_percentage": 0,
-          "btts_and_draw_percentage": 50,
-          "btts_and_lose_percentage": 33,
-          "over_2_5_and_btts_percentage": 67
+          "btts_and_draw_percentage": 43,
+          "btts_and_lose_percentage": 28,
+          "over_2_5_and_btts_percentage": 56
         },
         "penalties": {
           "won": 0,
@@ -47829,11 +49076,12 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     },
     "1076": {
-      "fetched_at": "2026-10-19T00:18:42+00:00",
+      "fetched_at": "2026-10-21T00:43:34+00:00",
+      "played": 7,
       "data": {
         "team": {
           "team_id": 209,
@@ -47857,17 +49105,17 @@
           "is_current": true
         },
         "summary": {
-          "matches_played": 6,
+          "matches_played": 7,
           "wins": 2,
           "draws": 0,
-          "losses": 4,
-          "goals_for": 5,
-          "goals_against": 11,
-          "goal_difference": -6,
-          "win_percentage": 33,
+          "losses": 5,
+          "goals_for": 6,
+          "goals_against": 14,
+          "goal_difference": -8,
+          "win_percentage": 29,
           "draw_percentage": 0,
-          "loss_percentage": 67,
-          "points_per_game": 1
+          "loss_percentage": 71,
+          "points_per_game": 0.86
         },
         "home_away": {
           "home": {
@@ -47880,155 +49128,155 @@
             "points_per_game": 1
           },
           "away": {
-            "matches_played": 3,
+            "matches_played": 4,
             "wins": 1,
             "draws": 0,
-            "losses": 2,
+            "losses": 3,
             "goals_for": null,
             "goals_against": null,
-            "points_per_game": 1
+            "points_per_game": 0.75
           }
         },
         "goals": {
-          "for_per_match": 0.83,
-          "against_per_match": 1.83,
-          "total_goals_per_match": 2.67,
+          "for_per_match": 0.86,
+          "against_per_match": 2,
+          "total_goals_per_match": 2.86,
           "over_0_5_percentage": 100,
-          "over_1_5_percentage": 50,
-          "over_2_5_percentage": 50,
-          "over_3_5_percentage": 33,
-          "over_4_5_percentage": 33,
+          "over_1_5_percentage": 57,
+          "over_2_5_percentage": 57,
+          "over_3_5_percentage": 43,
+          "over_4_5_percentage": 29,
           "over_5_5_percentage": 0,
           "under_0_5_percentage": 0,
-          "under_1_5_percentage": 50,
-          "under_2_5_percentage": 50,
-          "under_3_5_percentage": 67,
-          "under_4_5_percentage": 67,
+          "under_1_5_percentage": 43,
+          "under_2_5_percentage": 43,
+          "under_3_5_percentage": 57,
+          "under_4_5_percentage": 71,
           "under_5_5_percentage": 100
         },
         "clean_sheets": {
           "total": 1,
           "home": 0,
           "away": 1,
-          "percentage": 17,
+          "percentage": 14,
           "home_percentage": 0,
-          "away_percentage": 33
+          "away_percentage": 25
         },
         "failed_to_score": {
           "total": 4,
           "home": 2,
           "away": 2,
-          "percentage": 67,
+          "percentage": 57,
           "home_percentage": 67,
-          "away_percentage": 67
+          "away_percentage": 50
         },
         "both_teams_to_score": {
-          "total": 1,
+          "total": 2,
           "home": 1,
-          "away": 0,
-          "percentage": 17,
+          "away": 1,
+          "percentage": 29,
           "home_percentage": 33,
-          "away_percentage": 0
+          "away_percentage": 25
         },
         "corners": {
-          "recorded_matches": 6,
-          "for_total": 22,
-          "against_total": 29,
-          "for_per_match": 3.67,
-          "against_per_match": 4.83,
-          "total_per_match": 8.5,
+          "recorded_matches": 7,
+          "for_total": 26,
+          "against_total": 33,
+          "for_per_match": 3.71,
+          "against_per_match": 4.71,
+          "total_per_match": 8.42,
           "over_7_5_percentage": 100,
-          "over_8_5_percentage": 33,
-          "over_9_5_percentage": 17,
+          "over_8_5_percentage": 28,
+          "over_9_5_percentage": 14,
           "over_10_5_percentage": 0,
           "over_11_5_percentage": 0
         },
         "cards": {
-          "for_total": 7,
-          "against_total": 9,
-          "total": 16,
-          "for_per_match": 1.17,
-          "against_per_match": 1.5,
-          "total_per_match": 2.67,
+          "for_total": 10,
+          "against_total": 10,
+          "total": 20,
+          "for_per_match": 1.43,
+          "against_per_match": 1.43,
+          "total_per_match": 2.86,
           "over_1_5_percentage": 100,
-          "over_2_5_percentage": 33,
-          "over_3_5_percentage": 17,
-          "over_4_5_percentage": 17
+          "over_2_5_percentage": 43,
+          "over_3_5_percentage": 28,
+          "over_4_5_percentage": 14
         },
         "shots": {
-          "recorded_matches": 6,
-          "shots_total": 60,
-          "shots_per_match": 10,
-          "shots_on_target_total": 22,
-          "shots_on_target_per_match": 3.67,
+          "recorded_matches": 7,
+          "shots_total": 72,
+          "shots_per_match": 10.29,
+          "shots_on_target_total": 23,
+          "shots_on_target_per_match": 3.29,
           "shot_conversion_rate": 8
         },
         "xg": {
-          "xg_for": 7.07,
-          "xg_against": 11.09,
-          "xg_for_per_match": 1.18,
-          "xg_against_per_match": 1.85
+          "xg_for": 8.16,
+          "xg_against": 12.85,
+          "xg_for_per_match": 1.17,
+          "xg_against_per_match": 1.84
         },
         "possession": {
           "average": 38,
           "home_average": 44,
-          "away_average": 32
+          "away_average": 33
         },
         "fouls": {
-          "committed_total": 62,
-          "committed_per_match": 10.33,
-          "against_total": 62,
-          "against_per_match": 10.33
+          "committed_total": 76,
+          "committed_per_match": 10.86,
+          "against_total": 77,
+          "against_per_match": 11
         },
         "goal_timing": {
           "scored": {
             "0_15": 1,
             "16_30": 0,
             "31_45": 0,
-            "46_60": 2,
+            "46_60": 3,
             "61_75": 0,
             "76_90": 2
           },
           "conceded": {
-            "0_15": 1,
+            "0_15": 2,
             "16_30": 2,
             "31_45": 1,
-            "46_60": 2,
+            "46_60": 3,
             "61_75": 2,
-            "76_90": 3
+            "76_90": 4
           }
         },
         "form": {
-          "overall": "llllww",
+          "overall": "llllwwl",
           "home": "llw",
-          "away": "llw"
+          "away": "llwl"
         },
         "set_pieces": {
           "throw_ins": {
-            "per_match": 11.33,
+            "per_match": 11.14,
             "home_per_match": 13.33,
-            "away_per_match": 9.33,
-            "match_total_per_match": 28.67
+            "away_per_match": 9.5,
+            "match_total_per_match": 27.86
           },
           "free_kicks": {
-            "per_match": 13.67,
+            "per_match": 14.71,
             "home_per_match": 13.33,
-            "away_per_match": 14,
-            "match_total_per_match": 26.67
+            "away_per_match": 15.75,
+            "match_total_per_match": 28
           },
           "goal_kicks": {
-            "per_match": 9,
+            "per_match": 9.29,
             "home_per_match": 9,
-            "away_per_match": 9,
-            "match_total_per_match": 15.33
+            "away_per_match": 9.5,
+            "match_total_per_match": 15.14
           }
         },
         "offsides": {
-          "team_per_match": 1.83,
-          "match_total_per_match": 5,
+          "team_per_match": 1.71,
+          "match_total_per_match": 5.29,
           "over_2_5_percentage": 100,
-          "over_3_5_percentage": 83,
-          "over_4_5_percentage": 50
+          "over_3_5_percentage": 86,
+          "over_4_5_percentage": 56
         },
         "goal_timing_minutes": {
           "scored": {
@@ -48036,7 +49284,7 @@
             "min_11_20": 0,
             "min_21_30": 0,
             "min_31_40": 0,
-            "min_41_50": 1,
+            "min_41_50": 2,
             "min_51_60": 1,
             "min_61_70": 0,
             "min_71_80": 0,
@@ -48044,14 +49292,14 @@
           },
           "conceded": {
             "min_0_10": 0,
-            "min_11_20": 1,
+            "min_11_20": 2,
             "min_21_30": 2,
             "min_31_40": 1,
             "min_41_50": 1,
-            "min_51_60": 1,
+            "min_51_60": 2,
             "min_61_70": 2,
             "min_71_80": 0,
-            "min_81_90": 3
+            "min_81_90": 4
           }
         },
         "correct_score": {
@@ -48060,38 +49308,38 @@
             "exactly_1": 3,
             "exactly_2": 0,
             "exactly_3": 1,
-            "exactly_4": 0,
+            "exactly_4": 1,
             "exactly_5": 2,
             "exactly_6": 0,
             "exactly_7": 0
           },
           "team_goals": {
             "exactly_0": 4,
-            "exactly_1": 1,
+            "exactly_1": 2,
             "exactly_2": 0,
             "exactly_3": 0
           }
         },
         "special_markets": {
-          "team_with_most_corners_win_percentage": 50,
-          "most_goals_in_1st_half_percentage": 33,
-          "most_goals_in_2nd_half_percentage": 67,
-          "most_corners_in_1st_half_percentage": 50,
-          "most_corners_in_2nd_half_percentage": 33,
-          "btts_and_win_percentage": 17,
+          "team_with_most_corners_win_percentage": 43,
+          "most_goals_in_1st_half_percentage": 28,
+          "most_goals_in_2nd_half_percentage": 71,
+          "most_corners_in_1st_half_percentage": 43,
+          "most_corners_in_2nd_half_percentage": 28,
+          "btts_and_win_percentage": 14,
           "btts_and_draw_percentage": 0,
-          "btts_and_lose_percentage": 0,
-          "over_2_5_and_btts_percentage": 17
+          "btts_and_lose_percentage": 14,
+          "over_2_5_and_btts_percentage": 28
         },
         "penalties": {
           "won": 1,
           "scored": 1,
           "missed": 1,
           "conceded": 1,
-          "won_per_match": 0.17,
-          "match_with_penalty_percentage": 33
+          "won_per_match": 0.14,
+          "match_with_penalty_percentage": 28
         },
-        "last_updated": "2026-10-19 00:00:27"
+        "last_updated": "2026-10-21 00:00:27"
       }
     }
   },
@@ -96392,6 +97640,737 @@
         }
       },
       "cards_ok": true
+    },
+    "m_2KXrBt": {
+      "event": {
+        "match_id": "m_2KXrBt",
+        "match_date": "2026-10-19",
+        "match_time": "19:00",
+        "match_status": "Finished",
+        "match_hometeam_id": "t_4A7FfD",
+        "match_awayteam_id": "t_0C4xyR",
+        "match_hometeam_name": "Tottenham Hotspur",
+        "match_awayteam_name": "Coventry City",
+        "match_hometeam_score": "3",
+        "match_awayteam_score": "1",
+        "match_hometeam_system": "4-1-2-3",
+        "match_awayteam_system": "4-2-3-1",
+        "lineup": {
+          "home": {
+            "starting_lineups": [
+              {
+                "lineup_player": "Antonín Kinský",
+                "lineup_number": "31",
+                "lineup_position": "1",
+                "player_key": "p_4EiPFC"
+              },
+              {
+                "lineup_player": "Jan Paul van Hecke",
+                "lineup_number": "6",
+                "lineup_position": "2",
+                "player_key": "p_2PORri"
+              },
+              {
+                "lineup_player": "Tosin Adarabioyo",
+                "lineup_number": "4",
+                "lineup_position": "3",
+                "player_key": "p_0oYd8r"
+              },
+              {
+                "lineup_player": "Micky van de Ven",
+                "lineup_number": "37",
+                "lineup_position": "4",
+                "player_key": "p_1CWLbS"
+              },
+              {
+                "lineup_player": "Andrew Robertson",
+                "lineup_number": "3",
+                "lineup_position": "5",
+                "player_key": "p_3vFeiC"
+              },
+              {
+                "lineup_player": "Sandro Tonali",
+                "lineup_number": "16",
+                "lineup_position": "6",
+                "player_key": "p_0bFd2O"
+              },
+              {
+                "lineup_player": "Archie Gray",
+                "lineup_number": "14",
+                "lineup_position": "7",
+                "player_key": "p_3CSowr"
+              },
+              {
+                "lineup_player": "James Maddison",
+                "lineup_number": "10",
+                "lineup_position": "8",
+                "player_key": "p_3fAmwG"
+              },
+              {
+                "lineup_player": "Mohammed Kudus",
+                "lineup_number": "20",
+                "lineup_position": "9",
+                "player_key": "p_1qIZBJ"
+              },
+              {
+                "lineup_player": "Dominic Solanke",
+                "lineup_number": "19",
+                "lineup_position": "10",
+                "player_key": "p_146Ul2"
+              },
+              {
+                "lineup_player": "Omar Marmoush",
+                "lineup_number": "22",
+                "lineup_position": "11",
+                "player_key": "p_0RQJnC"
+              }
+            ]
+          },
+          "away": {
+            "starting_lineups": [
+              {
+                "lineup_player": "Carl Rushworth",
+                "lineup_number": "19",
+                "lineup_position": "1",
+                "player_key": "p_0bRqlt"
+              },
+              {
+                "lineup_player": "Milan van Ewijk",
+                "lineup_number": "27",
+                "lineup_position": "2",
+                "player_key": "p_0zTCl7"
+              },
+              {
+                "lineup_player": "Bobby Thomas",
+                "lineup_number": "4",
+                "lineup_position": "3",
+                "player_key": "p_2spV0A"
+              },
+              {
+                "lineup_player": "Ethan Pinnock",
+                "lineup_number": "2",
+                "lineup_position": "4",
+                "player_key": "p_1kKnby"
+              },
+              {
+                "lineup_player": "Jay Dasilva",
+                "lineup_number": "3",
+                "lineup_position": "5",
+                "player_key": "p_3haTq6"
+              },
+              {
+                "lineup_player": "Caleb Yirenkyi",
+                "lineup_number": "8",
+                "lineup_position": "6",
+                "player_key": "p_1WWAr3"
+              },
+              {
+                "lineup_player": "Matt Grimes",
+                "lineup_number": "6",
+                "lineup_position": "7",
+                "player_key": "p_0dV6Jw"
+              },
+              {
+                "lineup_player": "Tatsuhiro Sakamoto",
+                "lineup_number": "7",
+                "lineup_position": "8",
+                "player_key": "p_0o2LGb"
+              },
+              {
+                "lineup_player": "Jack Rudoni",
+                "lineup_number": "5",
+                "lineup_position": "9",
+                "player_key": "p_1oE8ug"
+              },
+              {
+                "lineup_player": "Brandon Thomas-Asante",
+                "lineup_number": "23",
+                "lineup_position": "10",
+                "player_key": "p_4VGdCB"
+              },
+              {
+                "lineup_player": "Sidiki Cherif",
+                "lineup_number": "49",
+                "lineup_position": "11",
+                "player_key": "p_36ZgEk"
+              }
+            ]
+          }
+        },
+        "statistics": [
+          {
+            "type": "Ball Possession",
+            "home": "66%",
+            "away": "34%"
+          }
+        ],
+        "match_hometeam_coach": "Roberto De Zerbi",
+        "match_awayteam_coach": "Frank Lampard"
+      },
+      "players": {
+        "p_2d931e": {
+          "t": "t_4A7FfD",
+          "no": "39"
+        },
+        "p_4bOHxP": {
+          "t": "t_0C4xyR",
+          "no": "25"
+        },
+        "p_1qdPAY": {
+          "t": "t_4A7FfD",
+          "min": 21,
+          "g": 1,
+          "sh": 1,
+          "fl": 1,
+          "tk": 1,
+          "cl": 1,
+          "dw": 1,
+          "dl": 2,
+          "dba": 1,
+          "ps": 13,
+          "pst": 13,
+          "xg": 0.04,
+          "rt": 7.19,
+          "no": "33"
+        },
+        "p_3vFeiC": {
+          "t": "t_4A7FfD",
+          "min": 69,
+          "a": 1,
+          "crt": 7,
+          "cl": 2,
+          "dw": 1,
+          "dl": 1,
+          "ps": 25,
+          "pst": 27,
+          "kp": 1,
+          "xa": 0.02,
+          "rt": 7.6,
+          "no": "3"
+        },
+        "p_0dV6Jw": {
+          "t": "t_0C4xyR",
+          "min": 90,
+          "fl": 1,
+          "tk": 2,
+          "crt": 2,
+          "in": 1,
+          "cl": 2,
+          "dw": 3,
+          "dl": 1,
+          "ps": 41,
+          "pst": 48,
+          "xa": 0.01,
+          "rt": 6.5,
+          "no": "6",
+          "c": 1
+        },
+        "p_3fAmwG": {
+          "t": "t_4A7FfD",
+          "min": 69,
+          "g": 1,
+          "sh": 2,
+          "crt": 2,
+          "cl": 2,
+          "dw": 4,
+          "ps": 49,
+          "pst": 56,
+          "kp": 1,
+          "xg": 0.1,
+          "xa": 0.04,
+          "rt": 8.28,
+          "no": "10"
+        },
+        "p_146Ul2": {
+          "t": "t_4A7FfD",
+          "min": 90,
+          "a": 1,
+          "sh": 3,
+          "fl": 4,
+          "bl": 1,
+          "crt": 1,
+          "cl": 3,
+          "dw": 3,
+          "dl": 10,
+          "dbs": 1,
+          "dba": 3,
+          "ps": 10,
+          "pst": 13,
+          "kp": 1,
+          "xg": 0.32,
+          "xa": 0.01,
+          "rt": 7.73,
+          "no": "19",
+          "yc": 1
+        },
+        "p_1E8MtJ": {
+          "t": "t_0C4xyR",
+          "min": 30,
+          "sh": 3,
+          "dp": 1,
+          "dw": 2,
+          "dl": 6,
+          "dbs": 1,
+          "dba": 1,
+          "ps": 2,
+          "pst": 2,
+          "xg": 0.28,
+          "rt": 5.93,
+          "no": "14"
+        },
+        "p_0oYd8r": {
+          "t": "t_4A7FfD",
+          "min": 71,
+          "tk": 1,
+          "cl": 4,
+          "dw": 6,
+          "dl": 1,
+          "ps": 63,
+          "pst": 69,
+          "xa": 0.02,
+          "rt": 7.19,
+          "no": "4"
+        },
+        "p_1kKnby": {
+          "t": "t_0C4xyR",
+          "min": 90,
+          "sh": 1,
+          "bl": 4,
+          "cl": 5,
+          "dw": 4,
+          "ps": 28,
+          "pst": 31,
+          "xg": 0.01,
+          "xa": 0.05,
+          "rt": 5.9,
+          "no": "2"
+        },
+        "p_3haTq6": {
+          "t": "t_0C4xyR",
+          "min": 90,
+          "fl": 2,
+          "tk": 2,
+          "cr": 1,
+          "crt": 5,
+          "in": 1,
+          "cl": 3,
+          "dw": 3,
+          "dl": 6,
+          "ps": 22,
+          "pst": 26,
+          "kp": 1,
+          "xa": 0.05,
+          "rt": 5.54,
+          "no": "3",
+          "yc": 1
+        },
+        "p_1Pemkl": {
+          "t": "t_0C4xyR",
+          "min": 12,
+          "cr": 2,
+          "crt": 3,
+          "dw": 1,
+          "dbs": 1,
+          "dba": 1,
+          "ps": 1,
+          "pst": 5,
+          "kp": 1,
+          "xa": 0.12,
+          "rt": 6.41,
+          "no": "38"
+        },
+        "p_4VGdCB": {
+          "t": "t_0C4xyR",
+          "min": 78,
+          "a": 1,
+          "sh": 2,
+          "fl": 1,
+          "tk": 2,
+          "in": 3,
+          "dp": 1,
+          "dw": 9,
+          "dl": 9,
+          "dbs": 1,
+          "dba": 4,
+          "ps": 3,
+          "pst": 7,
+          "kp": 1,
+          "xg": 0.09,
+          "rt": 7.38,
+          "no": "23"
+        },
+        "p_4Ic9OK": {
+          "t": "t_4A7FfD",
+          "no": "5"
+        },
+        "p_3sywng": {
+          "t": "t_0C4xyR",
+          "min": 12,
+          "cr": 1,
+          "crt": 1,
+          "dw": 1,
+          "ps": 7,
+          "pst": 7,
+          "kp": 1,
+          "xa": 0.25,
+          "rt": 6.3,
+          "no": "10"
+        },
+        "p_0RQJnC": {
+          "t": "t_4A7FfD",
+          "min": 87,
+          "g": 1,
+          "sh": 2,
+          "fl": 2,
+          "tk": 1,
+          "crt": 3,
+          "in": 1,
+          "dp": 1,
+          "dw": 3,
+          "dl": 10,
+          "dba": 3,
+          "ps": 17,
+          "pst": 19,
+          "xg": 0.07,
+          "xa": 0.03,
+          "rt": 7.83,
+          "no": "22"
+        },
+        "p_2CJyTw": {
+          "t": "t_0C4xyR",
+          "no": "29"
+        },
+        "p_2bUQ0X": {
+          "t": "t_0C4xyR",
+          "min": 30,
+          "fl": 1,
+          "tk": 2,
+          "crt": 1,
+          "cl": 1,
+          "dw": 6,
+          "dl": 2,
+          "ps": 10,
+          "pst": 12,
+          "kp": 1,
+          "xa": 0.2,
+          "rt": 6.75,
+          "no": "16"
+        },
+        "p_0bFd2O": {
+          "t": "t_4A7FfD",
+          "min": 90,
+          "sh": 2,
+          "fl": 1,
+          "tk": 3,
+          "in": 1,
+          "cl": 4,
+          "dp": 1,
+          "dw": 6,
+          "dl": 5,
+          "dba": 1,
+          "ps": 63,
+          "pst": 67,
+          "kp": 2,
+          "xg": 0.05,
+          "xa": 0.3,
+          "rt": 7.89,
+          "no": "16"
+        },
+        "p_1qIZBJ": {
+          "t": "t_4A7FfD",
+          "min": 87,
+          "a": 1,
+          "sh": 2,
+          "cr": 2,
+          "crt": 6,
+          "in": 2,
+          "cl": 2,
+          "dp": 2,
+          "dw": 4,
+          "dl": 5,
+          "dbs": 2,
+          "dba": 3,
+          "ps": 29,
+          "pst": 30,
+          "kp": 2,
+          "xg": 0.04,
+          "xa": 0.09,
+          "rt": 8.07,
+          "no": "20"
+        },
+        "p_0mZKDV": {
+          "t": "t_4A7FfD",
+          "min": 3,
+          "fl": 1,
+          "cr": 1,
+          "crt": 2,
+          "dw": 2,
+          "dl": 4,
+          "dbs": 1,
+          "dba": 2,
+          "ps": 4,
+          "pst": 4,
+          "no": "21"
+        },
+        "p_3eqjYM": {
+          "t": "t_4A7FfD",
+          "min": 21,
+          "fl": 1,
+          "cr": 1,
+          "crt": 1,
+          "cl": 1,
+          "dw": 2,
+          "dl": 1,
+          "ps": 10,
+          "pst": 13,
+          "xa": 0.01,
+          "rt": 6.28,
+          "no": "8"
+        },
+        "p_2PORri": {
+          "t": "t_4A7FfD",
+          "min": 90,
+          "fl": 1,
+          "tk": 3,
+          "bl": 2,
+          "in": 1,
+          "cl": 4,
+          "dw": 10,
+          "dl": 5,
+          "ps": 83,
+          "pst": 95,
+          "kp": 1,
+          "xa": 0.05,
+          "rt": 7.87,
+          "no": "6"
+        },
+        "p_3O2Ty8": {
+          "t": "t_0C4xyR",
+          "no": "9"
+        },
+        "p_0o2LGb": {
+          "t": "t_0C4xyR",
+          "min": 78,
+          "sh": 1,
+          "fl": 1,
+          "crt": 2,
+          "cl": 1,
+          "dw": 4,
+          "dl": 3,
+          "dbs": 1,
+          "dba": 1,
+          "ps": 5,
+          "pst": 6,
+          "xg": 0.21,
+          "xa": 0.01,
+          "rt": 6.55,
+          "no": "7"
+        },
+        "p_1oE8ug": {
+          "t": "t_0C4xyR",
+          "min": 87,
+          "g": 1,
+          "sh": 2,
+          "fl": 3,
+          "tk": 2,
+          "crt": 4,
+          "cl": 1,
+          "dp": 2,
+          "dw": 4,
+          "dl": 10,
+          "dbs": 1,
+          "dba": 4,
+          "ps": 11,
+          "pst": 16,
+          "xg": 0.13,
+          "xa": 0.02,
+          "rt": 7.12,
+          "no": "5",
+          "yc": 1
+        },
+        "p_0zTCl7": {
+          "t": "t_0C4xyR",
+          "min": 90,
+          "tk": 3,
+          "cr": 1,
+          "crt": 1,
+          "in": 1,
+          "cl": 2,
+          "dw": 6,
+          "dl": 1,
+          "ps": 25,
+          "pst": 30,
+          "kp": 3,
+          "xa": 0.11,
+          "rt": 6.64,
+          "no": "27"
+        },
+        "p_1x8bXy": {
+          "t": "t_0C4xyR",
+          "min": 3,
+          "tk": 1,
+          "dw": 2,
+          "ps": 5,
+          "pst": 6,
+          "no": "20"
+        },
+        "p_1CWLbS": {
+          "t": "t_4A7FfD",
+          "min": 90,
+          "sh": 1,
+          "fl": 2,
+          "tk": 2,
+          "cl": 5,
+          "dw": 6,
+          "dl": 5,
+          "dbs": 1,
+          "dba": 1,
+          "ps": 73,
+          "pst": 80,
+          "xg": 0.07,
+          "xa": 0.02,
+          "rt": 7.71,
+          "no": "37",
+          "c": 1
+        },
+        "p_2spV0A": {
+          "t": "t_0C4xyR",
+          "min": 90,
+          "sh": 2,
+          "fl": 1,
+          "tk": 1,
+          "in": 3,
+          "cl": 7,
+          "dw": 7,
+          "dl": 4,
+          "ps": 26,
+          "pst": 34,
+          "xg": 0.07,
+          "xa": 0.06,
+          "rt": 6.12,
+          "no": "4"
+        },
+        "p_0bRqlt": {
+          "t": "t_0C4xyR",
+          "min": 90,
+          "sv": 2,
+          "gc": 3,
+          "sib": 1,
+          "ps": 20,
+          "pst": 40,
+          "rt": 3.52,
+          "no": "19"
+        },
+        "p_0q6dxA": {
+          "t": "t_4A7FfD",
+          "min": 3,
+          "sh": 1,
+          "crt": 1,
+          "dp": 1,
+          "dl": 3,
+          "dba": 1,
+          "ps": 5,
+          "pst": 5,
+          "xg": 0.02,
+          "xa": 0.01,
+          "no": "11"
+        },
+        "p_3CSowr": {
+          "t": "t_4A7FfD",
+          "min": 90,
+          "sh": 1,
+          "fl": 2,
+          "tk": 2,
+          "bl": 1,
+          "crt": 2,
+          "in": 1,
+          "cl": 1,
+          "dw": 6,
+          "dl": 4,
+          "dbs": 2,
+          "dba": 3,
+          "ps": 17,
+          "pst": 23,
+          "kp": 2,
+          "xg": 0.09,
+          "xa": 0.02,
+          "rt": 7.73,
+          "no": "14"
+        },
+        "p_4EiPFC": {
+          "t": "t_4A7FfD",
+          "min": 90,
+          "gc": 1,
+          "dw": 1,
+          "ps": 17,
+          "pst": 24,
+          "kp": 1,
+          "rt": 6.25,
+          "no": "31"
+        },
+        "p_0yykYj": {
+          "t": "t_4A7FfD",
+          "min": 19,
+          "sh": 1,
+          "dp": 1,
+          "dl": 2,
+          "ps": 21,
+          "pst": 22,
+          "xg": 0.06,
+          "rt": 6.17,
+          "no": "18"
+        },
+        "p_2pqITI": {
+          "t": "t_4A7FfD",
+          "no": "52"
+        },
+        "p_36ZgEk": {
+          "t": "t_0C4xyR",
+          "min": 60,
+          "sh": 1,
+          "fl": 1,
+          "in": 1,
+          "cl": 1,
+          "dp": 2,
+          "dw": 4,
+          "dl": 7,
+          "dbs": 1,
+          "dba": 1,
+          "ps": 6,
+          "pst": 6,
+          "kp": 1,
+          "xg": 0.02,
+          "xa": 0.02,
+          "rt": 6.41,
+          "no": "49"
+        },
+        "p_4XHJwC": {
+          "t": "t_0C4xyR",
+          "no": "12"
+        },
+        "p_1WWAr3": {
+          "t": "t_0C4xyR",
+          "min": 60,
+          "fl": 3,
+          "tk": 2,
+          "in": 3,
+          "dp": 1,
+          "dw": 2,
+          "dl": 6,
+          "ps": 10,
+          "pst": 11,
+          "kp": 1,
+          "xa": 0.01,
+          "rt": 6.09,
+          "no": "8",
+          "yc": 1
+        },
+        "p_0DojTs": {
+          "t": "t_4A7FfD",
+          "no": "68"
+        }
+      },
+      "cards_ok": true
     }
   },
   "pitch_players": {
@@ -99000,6 +100979,21 @@
       "name": "Illan Meslier",
       "image": "https://cdn.pitchapi.dev/images/players/5ea2a9bb5efcb01b99b2e3bcce9b50671c4557a61ae5fe4369b89f87c10559f8.webp",
       "team": "t_1gkhxH"
+    },
+    "p_0mZKDV": {
+      "name": "Dejan Kulusevski",
+      "image": "https://cdn.pitchapi.dev/images/players/7041fc4aa31bd540a8345e000dcae7357471a0f4df79282baf986ffe02979108.webp",
+      "team": "t_4A7FfD"
+    },
+    "p_1x8bXy": {
+      "name": "Kaine Kesler-Hayden",
+      "image": "https://cdn.pitchapi.dev/images/players/a9ee93b684cf2ef8d91528e0616af3652aad74b4ef93060938f6cf21174b1484.webp",
+      "team": "t_0C4xyR"
+    },
+    "p_2pqITI": {
+      "name": "Callum Olusesi",
+      "image": "https://cdn.pitchapi.dev/images/players/a034138975eff1102625c43b16c5011794f2ef6c066f25218739a2b2c6109e74.webp",
+      "team": "t_4A7FfD"
     }
   },
   "meta": {
