@@ -192,7 +192,7 @@ class DashboardOnlySiteTests(TestCase):
 
 
 class ThemeTests(TestCase):
-    """Step 6: light / dark / amoled themes and seven accent colours, no hard-coded purple gradient."""
+    """Two themes (light, dark); the accent is the club's own colour; no hard-coded purple gradient."""
 
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -206,18 +206,21 @@ class ThemeTests(TestCase):
         dashboard._data_cache.update(path=None, mtime=None, data=None)
         self.html = self.client.get(reverse("ufd_app:dashboard", args=[61])).content.decode()
 
-    def test_every_theme_and_accent_is_offered(self):
-        for theme in ("light", "dark", "amoled"):
+    def test_only_light_and_dark_are_offered(self):
+        for theme in ("light", "dark"):
             self.assertIn(f'data-theme-choice="{theme}"', self.html)
             self.assertIn(f':root[data-theme="{theme}"]', self.html)
-        for accent in ("red", "green", "blue", "orange", "purple", "pink", "yellow"):
-            self.assertIn(f'data-accent-choice="{accent}"', self.html)
-            self.assertIn(f':root[data-accent="{accent}"]', self.html)
+        for removed in ('data-theme-choice="amoled"', ':root[data-theme="amoled"]', "data-accent-choice", "ufd.accent", 'data-accent="'):
+            self.assertNotIn(removed, self.html)
+
+    def test_accent_comes_from_the_club(self):
+        self.assertIn('<style id="club-accent">', self.html)
+        self.assertIn("--a-fill: #2563eb", self.html)  # the test club's "Blue / White" in the light theme
 
     def test_choice_is_applied_before_first_paint_and_saved(self):
         self.assertIn("localStorage.getItem('ufd.theme')", self.html)
-        self.assertIn("localStorage.setItem(key, value)", self.html)
-        self.assertIn('data-theme="dark" data-accent="green"', self.html)  # fallback if scripts are blocked
+        self.assertIn("localStorage.setItem('ufd.theme'", self.html)
+        self.assertIn('<html lang="en" data-theme="dark">', self.html)  # fallback if scripts are blocked
 
     def test_old_gradient_look_is_gone(self):
         for leftover in ("gradient-text", "glass-card", "animate-glow", "text-purple-400", "daisyui", "from-purple-500"):
@@ -286,10 +289,9 @@ class Step11CleanupTests(TestCase):
         for text in ("drag a widget by its header", "data updated", "some stats via", "footballdata.io"):
             self.assertNotIn(text, self.html)
 
-    def test_appearance_is_folded_away_by_default(self):
-        self.assertIn('<details id="appearance"', self.html)
-        self.assertNotIn('<details id="appearance" open', self.html)
-        self.assertIn('data-theme-choice="amoled"', self.html)  # still inside the fold
+    def test_theme_switch_is_in_the_sidebar(self):
+        self.assertIn('id="appearance"', self.html)
+        self.assertIn('data-theme-choice="light"', self.html)
 
     def test_pitch_ignores_the_accent(self):
         css = self.html[self.html.index(".pitch {"): self.html.index(".pitch-name {")]

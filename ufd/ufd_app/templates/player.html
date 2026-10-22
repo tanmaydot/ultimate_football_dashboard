@@ -9,8 +9,8 @@
 
     .portrait { width: 112px; height: 112px; border-radius: 16px; object-fit: cover; background: var(--accent-soft); display: flex; align-items: center; justify-content: center; flex: none; }
     .tag { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-text); }
-    .tag.good { background: rgba(22, 163, 74, 0.15); color: #16a34a; }
-    .tag.bad { background: rgba(220, 38, 38, 0.15); color: #ef4444; }
+    .tag.good { background: color-mix(in srgb, var(--win) 16%, transparent); color: var(--win); }
+    .tag.bad { background: color-mix(in srgb, var(--loss) 16%, transparent); color: var(--loss); }
     .placeholder-note { display: flex; gap: 10px; align-items: flex-start; font-size: 0.85rem; color: var(--muted); padding: 12px; border: 1px dashed var(--border); border-radius: 10px; }
 </style>
 {% endblock %}
@@ -47,7 +47,7 @@
                 <div><dt>Born</dt><dd>{{ p.born|default:"—" }}</dd></div>
                 <div><dt>Shirt number</dt><dd>{{ p.shirt|default_if_none:"—" }}</dd></div>
                 <div><dt>Club</dt><dd>{{ team.name }}</dd></div>
-                <div><dt>Condition</dt><dd>{% if p.injured %}<span style="color: #ef4444">Injured</span>{% elif has_stats %}<span style="color: #16a34a">Fit</span>{% else %}—{% endif %}</dd></div>
+                <div><dt>Condition</dt><dd>{% if p.injured %}<span style="color: var(--loss)">Injured</span>{% elif has_stats %}<span style="color: var(--win)">Fit</span>{% else %}—{% endif %}</dd></div>
             </dl>
         </section>
 

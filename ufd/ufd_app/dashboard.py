@@ -39,30 +39,30 @@ AUTO_EXTRAS_PATH = Path(__file__).resolve().parent / "data" / "club_extras.auto.
 
 DEFAULT_LAYOUT = [
     {"id": "info", "title": "Team info", "icon": "fa-info-circle",
-     "x": 0, "y": 0, "w": 12, "h": 5, "minW": 4, "minH": 4,
+     "x": 0, "y": 0, "w": 12, "h": 6, "minW": 4, "minH": 4,
      "fit": {"h": 356}},
 
     {"id": "stats", "title": "Season stats", "icon": "fa-chart-bar",
-     "x": 0, "y": 5, "w": 6, "h": 7, "minW": 3, "minH": 6,
+     "x": 0, "y": 6, "w": 6, "h": 7, "minW": 3, "minH": 6,
      "fit": {"w": 534, "h": 524}},
 
+    {"id": "prediction", "title": "Next match", "icon": "fa-wand-magic-sparkles",
+     "x": 0, "y": 13, "w": 6, "h": 5, "minW": 3, "minH": 4},
+
     {"id": "formation", "title": "Formation", "icon": "fa-chess-board",
-     "x": 6, "y": 5, "w": 6, "h": 7, "minW": 3, "minH": 6},
+     "x": 6, "y": 6, "w": 6, "h": 12, "minW": 3, "minH": 6},
 
     {"id": "squad", "title": "Squad & manager", "icon": "fa-users",
-     "x": 0, "y": 12, "w": 12, "h": 7, "minW": 4, "minH": 5,
+     "x": 0, "y": 18, "w": 12, "h": 7, "minW": 4, "minH": 5,
      "fit": {"h": 556}},
-
-    {"id": "prediction", "title": "Next match", "icon": "fa-wand-magic-sparkles",
-     "x": 0, "y": 19, "w": 12, "h": 6, "minW": 4, "minH": 5},
 
     # Revenue and coaches remain hidden until added from the Add Widget menu.
     {"id": "revenue", "title": "Revenue", "icon": "fa-coins",
-     "x": 6, "y": 21, "w": 3, "h": 5, "minW": 2, "minH": 3,
+     "x": 6, "y": 25, "w": 3, "h": 5, "minW": 2, "minH": 3,
      "hidden": True},
 
     {"id": "coaches", "title": "Coaches & assistants",
-     "icon": "fa-clipboard-list", "x": 9, "y": 21, "w": 3, "h": 4,
+     "icon": "fa-clipboard-list", "x": 9, "y": 25, "w": 3, "h": 4,
      "minW": 2, "minH": 3, "hidden": True},
 ]
 
@@ -282,6 +282,7 @@ def team_summary(profile, team_id):
         "shortName": profile.get("short_name"),
         "tla": profile.get("tla"),
         "crest": profile.get("crest"),
+        "clubColors": profile.get("club_colors"),
     }
 
 

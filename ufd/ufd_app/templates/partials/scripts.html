@@ -22,23 +22,23 @@
     })();
 </script>
 <script>
-    // Theme + accent pickers. The page already has them applied (see head.html); this keeps the buttons in sync and saves changes.
+    // Theme switch (light / dark). head.html has already applied the saved theme; this keeps the buttons in sync and saves changes.
     (function () {
         var root = document.documentElement;
+        var BG = { light: '#eceff3', dark: '#000000' };
         function sync() {
             document.querySelectorAll('[data-theme-choice]').forEach(function (b) {
                 b.setAttribute('aria-checked', String(b.dataset.themeChoice === root.dataset.theme));
             });
-            document.querySelectorAll('[data-accent-choice]').forEach(function (b) {
-                b.setAttribute('aria-checked', String(b.dataset.accentChoice === root.dataset.accent));
-            });
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute('content', BG[root.dataset.theme] || BG.dark);
         }
-        function save(key, value) { try { localStorage.setItem(key, value); } catch (e) { /* storage blocked */ } }
         document.addEventListener('click', function (e) {
             var theme = e.target.closest('[data-theme-choice]');
-            var accent = e.target.closest('[data-accent-choice]');
-            if (theme) { root.dataset.theme = theme.dataset.themeChoice; save('ufd.theme', root.dataset.theme); sync(); }
-            if (accent) { root.dataset.accent = accent.dataset.accentChoice; save('ufd.accent', root.dataset.accent); sync(); }
+            if (!theme) return;
+            root.dataset.theme = theme.dataset.themeChoice;
+            try { localStorage.setItem('ufd.theme', root.dataset.theme); } catch (err) { /* storage blocked */ }
+            sync();
         });
         sync();
     })();

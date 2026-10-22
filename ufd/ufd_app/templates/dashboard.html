@@ -4,13 +4,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack@11/dist/gridstack.min.css">
 <style>
     /* ---------- widget chrome ---------- */
-    .widget-card { height: 100%; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 30px -16px rgba(0, 0, 0, 0.55); }
+    .widget-card { height: 100%; display: flex; flex-direction: column; overflow: hidden; }
     .widget-handle {
         flex: none; display: flex; align-items: center; justify-content: space-between;
         padding: 11px 16px; cursor: grab; user-select: none; border-bottom: 1px solid var(--border);
     }
     .widget-handle:active { cursor: grabbing; }
-    .widget-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .widget-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
     .widget-title i { margin-right: 8px; color: var(--accent-text); font-size: 0.85rem; }
     .widget-link:hover { text-decoration: underline; text-underline-offset: 3px; }
     .widget-link .widget-out { margin: 0 0 0 8px; font-size: 0.65rem; color: var(--muted); }
@@ -69,16 +69,34 @@
         .coach-card { flex-direction: column; align-items: flex-start; }
     }
 
+    /* ---------- phones and small tablets: widgets stack in one column, natural height, no drag or resize ---------- */
+    @media (max-width: 859px) {
+        #dashboardGrid { height: auto !important; min-height: 0 !important; }
+        #dashboardGrid > .grid-stack-item { position: relative !important; inset: auto !important; width: 100% !important; height: auto !important; margin-bottom: 12px; transform: none !important; }
+        #dashboardGrid > .grid-stack-item > .grid-stack-item-content { position: relative !important; inset: auto !important; overflow: visible !important; height: auto; }
+        #dashboardGrid .ui-resizable-handle { display: none !important; }
+        .widget-card { height: auto; overflow: visible; }
+        .widget-handle { cursor: default; }
+        .widget-body { overflow: visible; }
+        .widget-body:has(.squad-strip), .widget-body:has(.info-strip) { overflow-x: auto; }
+        .widget-body:has(.formation-wrap) { flex: none; height: min(135vw, 760px); }
+        .squad-strip { height: 460px; }
+        .info-strip { height: auto; }
+        .info-strip .panel-hero { width: min(86vw, 520px); }
+        .info-strip .panel-stadium { width: min(86vw, 420px); }
+        .hero { padding: 16px; }
+    }
+
     /* ---------- design components ---------- */
-    .eyebrow { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    .eyebrow { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
     .hero {
         position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 26px; padding: 18px 22px;
         border-radius: 16px; overflow: hidden; isolation: isolate; border: 1px solid var(--border);
-        background: linear-gradient(115deg, color-mix(in srgb, var(--club-a, var(--accent)) 34%, var(--surface)) 0%, var(--surface-2) 62%);
+        background: linear-gradient(115deg, color-mix(in srgb, var(--club-a, var(--accent)) 24%, var(--surface)) 0%, var(--surface-2) 62%);
     }
     .hero::after {
         content: ""; position: absolute; right: -50px; top: -70px; width: 280px; height: 280px; border-radius: 50%; z-index: -1;
-        background: radial-gradient(circle, color-mix(in srgb, var(--club-b, var(--accent)) 38%, transparent), transparent 66%);
+        background: radial-gradient(circle, color-mix(in srgb, var(--club-b, var(--accent)) 30%, transparent), transparent 66%);
     }
     .hero-crest { width: 84px; height: 84px; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.4)); flex: none; }
     .hero-name { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; line-height: 1; }
@@ -90,13 +108,13 @@
     .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-top: 12px; }
     .fact { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--border); min-width: 0; }
     .fact > i { flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); }
-    .fact small { display: block; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    .fact small { display: block; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
     .fact b { display: block; font-weight: 600; font-size: 0.88rem; overflow-wrap: anywhere; line-height: 1.25; }
     .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .kpi { padding: 10px 12px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--border); }
-    .kpi small { display: block; font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    .kpi small { display: block; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
     .kpi b { display: block; font-family: var(--font-display); font-size: 2.1rem; line-height: 1.05; }
-    .kpi em { font-style: normal; font-size: 0.68rem; color: var(--muted); }
+    .kpi em { font-style: normal; font-size: 0.75rem; color: var(--muted); }
     .section-label { margin: 16px 0 6px; display: flex; justify-content: space-between; align-items: baseline; }
     .wdl { display: flex; height: 12px; border-radius: 999px; overflow: hidden; gap: 2px; background: var(--surface-2); }
     .wdl i { display: block; height: 100%; }
@@ -105,7 +123,7 @@
     .legend b { color: inherit; font-weight: 700; margin-right: 3px; }
     .legend .w b { color: var(--win); } .legend .d b { color: var(--draw); } .legend .l b { color: var(--loss); }
     .pills { display: flex; gap: 6px; }
-    .pill { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-size: 0.72rem; font-weight: 800; color: #0b0f14; }
+    .pill { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-size: 0.78rem; font-weight: 800; color: var(--pill-ink); }
     .pill.W { background: var(--win); } .pill.D { background: var(--draw); } .pill.L { background: var(--loss); }
     .gbar { display: grid; grid-template-columns: 5.2rem 1fr 1.8rem; gap: 10px; align-items: center; font-size: 0.8rem; margin-top: 6px; }
     .gbar .track { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
@@ -117,7 +135,7 @@
     .ring::before { content: ""; grid-area: 1 / 1; width: 56px; height: 56px; border-radius: 50%; background: var(--surface); }
     .ring b { grid-area: 1 / 1; z-index: 1; font-size: 0.8rem; font-weight: 800; }
     .coach-card { display: flex; align-items: center; gap: 14px; }
-    .avatar-lg { flex: none; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
+    .avatar-lg { flex: none; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; color: var(--a-ink); font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
                  background: linear-gradient(135deg, var(--club-a, var(--accent)), var(--club-b, var(--accent))); box-shadow: 0 6px 14px -4px rgba(0, 0, 0, 0.5); }
     .coach-name { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; line-height: 1.05; }
     .meter { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; margin-top: 6px; }
@@ -131,7 +149,7 @@
     .placeholder-note i { margin-top: 2px; flex: none; }
     .placeholder-note p { min-width: 0; overflow-wrap: anywhere; }
     .placeholder-note code, .widget-body code { overflow-wrap: anywhere; font-size: 0.95em; }
-    .chip { display: inline-block; font-size: 0.7rem; padding: 2px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); }
+    .chip { display: inline-block; font-size: 0.76rem; padding: 2px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); }
     /* label on the left, value right next to it: nothing is pushed to the far edge of a wide widget */
     .kv { max-width: 30rem; }
     .kv > div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); column-gap: 12px; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; text-align: left; }
@@ -146,11 +164,12 @@
     .squad-strip, .info-strip { display: flex; gap: 14px; height: 100%; padding: 14px 18px; width: max-content; min-width: 100%; }
     .squad-col { flex: none; width: 260px; display: flex; flex-direction: column; min-height: 0; padding: 12px 14px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--border); }
     .squad-col ul { flex: 1; min-height: 0; overflow-y: auto; margin: 0 -4px; padding: 0 4px; }
-    .manager-col { width: 280px; background: linear-gradient(150deg, color-mix(in srgb, var(--club-a, var(--accent)) 24%, var(--surface-2)), var(--surface-2)); }
-    .col-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800; color: var(--muted); }
+    .manager-col { width: 280px; background: linear-gradient(150deg, color-mix(in srgb, var(--club-a, var(--accent)) 18%, var(--surface-2)), var(--surface-2)); }
+    .col-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800; color: var(--muted); }
     .col-head:hover { color: var(--accent-text); }
     .col-head .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gc, var(--accent)); }
-    .col-head .count { padding: 1px 8px; border-radius: 999px; background: var(--surface); font-size: 0.68rem; }
+    .manager-col .col-head .dot { background: var(--accent); }
+    .col-head .count { padding: 1px 8px; border-radius: 999px; background: var(--surface); font-size: 0.74rem; }
     .col-head i { margin-left: auto; font-size: 0.65rem; opacity: 0.6; }
     .squad-strip, .info-strip { scrollbar-width: thin; scroll-snap-type: x proximity; }
     .squad-col, .panel { scroll-snap-align: start; }
@@ -159,7 +178,7 @@
     .panel-hero { width: 520px; padding: 0; background: none; border: 0; }
     .panel-hero .hero { height: 100%; }
     .panel-stadium { width: 420px; isolation: isolate;
-        background: linear-gradient(140deg, color-mix(in srgb, var(--club-a, var(--accent)) 22%, var(--surface-2)), var(--surface-2) 70%); }
+        background: linear-gradient(140deg, color-mix(in srgb, var(--club-a, var(--accent)) 16%, var(--surface-2)), var(--surface-2) 70%); }
     .panel-facts { width: 270px; gap: 8px; }
     .panel-facts .fact { flex: 1; }
     .panel-table { width: 300px; }
@@ -178,7 +197,7 @@
     .panel-cabinet { width: 190px; justify-content: center; gap: 4px;
         background: linear-gradient(150deg, color-mix(in srgb, #f5c542 16%, var(--surface-2)), var(--surface-2) 75%); }
     .cabinet-total { font-family: var(--font-display); font-size: 4.2rem; font-weight: 700; line-height: 1; color: var(--accent-text); }
-    .cabinet-hint { margin-top: 10px; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .cabinet-hint { margin-top: 10px; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
     .panel-trophy { width: 170px; align-items: center; justify-content: center; text-align: center; gap: 4px;
         background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--tc, #f5c542) 20%, var(--surface-2)), var(--surface-2) 70%); }
     .trophy-art { width: 120px; height: 140px; flex: none; filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.45)); --tc: #f5c542; --td: #b8860b; --tl: #fff6c9; }
@@ -206,22 +225,22 @@
     .trophy-count { margin-top: 2px; font-family: var(--font-display); font-size: 2.1rem; font-weight: 700; line-height: 1; color: var(--accent-text); }
     .trophy-name { min-height: 2.5em; display: flex; align-items: flex-start; justify-content: center; font-size: 0.78rem; font-weight: 700; line-height: 1.25; color: var(--muted); letter-spacing: 0.02em; }
     /* ---------- squad ---------- */
-    .squad-group h4 { display: flex; align-items: center; gap: 8px; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800; color: var(--muted); margin: 14px 0 4px; }
+    .squad-group h4 { display: flex; align-items: center; gap: 8px; font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800; color: var(--muted); margin: 14px 0 4px; }
     .squad-group h4:first-of-type { margin-top: 6px; }
     .squad-group h4 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gc); }
     .squad-group h4 .count { margin-left: auto; font-size: 0.68rem; padding: 1px 8px; border-radius: 999px; background: var(--surface-2); }
     .squad-group li { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 0.9rem; border-bottom: 1px solid var(--border); }
     .squad-group li:last-child { border-bottom: 0; }
     .squad-group .shirt { flex: none; width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; font-family: var(--font-display); font-size: 1rem; font-weight: 700;
-                          background: color-mix(in srgb, var(--gc) 18%, transparent); color: var(--gc); font-variant-numeric: tabular-nums; }
+                          background: color-mix(in srgb, var(--gc) 16%, transparent); color: var(--gc-ink); font-variant-numeric: tabular-nums; }
     .squad-group .who { flex: 1; min-width: 0; }
     .squad-group .name { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; line-height: 1.2; }
-    .squad-group .sub { display: block; font-size: 0.7rem; color: var(--muted); line-height: 1.2; }
+    .squad-group .sub { display: block; font-size: 0.76rem; color: var(--muted); line-height: 1.2; }
     .squad-group .inj { color: var(--loss); margin-left: 6px; font-size: 0.75rem; }
     .squad-group .ga { flex: none; display: flex; gap: 6px; font-size: 0.7rem; color: var(--muted); }
     .squad-group .ga span { padding: 2px 7px; border-radius: 999px; background: var(--surface-2); }
     .squad-group .ga b { color: var(--fg, inherit); font-weight: 800; margin-right: 2px; }
-    .g-goalkeeper { --gc: #f59e0b; } .g-defence { --gc: #3b82f6; } .g-midfield { --gc: #22c55e; } .g-offence { --gc: #ef4444; } .g-unknown { --gc: #94a3b8; }
+    .g-goalkeeper { --gc: var(--gk); --gc-ink: var(--gk); } .g-defence { --gc: var(--def); --gc-ink: var(--def); } .g-midfield { --gc: var(--mid); --gc-ink: var(--mid); } .g-offence { --gc: var(--att); --gc-ink: var(--att); } .g-unknown { --gc: var(--unk); --gc-ink: var(--unk); }
 </style>
 {% endblock %}
 
@@ -259,7 +278,7 @@
 <!-- ===================== Widget bodies (cloned into the grid by the script) ===================== -->
 
 <template id="tpl-info">
-    <div class="info-strip" {% if team.brand_a %}style="--club-a: {{ team.brand_a }}; --club-b: {{ team.brand_b }}"{% endif %}>
+    <div class="info-strip">
         <section class="panel panel-hero">
             <div class="hero">
                 {% if team.crest %}<img class="hero-crest" src="{{ team.crest }}" alt="">{% endif %}
@@ -441,7 +460,7 @@
 
 <template id="tpl-squad">
     <div class="squad-strip">
-        <section class="squad-col manager-col" {% if team.brand_a %}style="--club-a: {{ team.brand_a }}; --club-b: {{ team.brand_b }}"{% endif %}>
+        <section class="squad-col manager-col">
             <a class="col-head" href="{% url 'ufd_app:manager' team_id %}" target="_blank" rel="noopener" title="Open the manager page"><span class="dot"></span><span>Manager</span><i class="fas fa-arrow-up-right-from-square"></i></a>
             {% if coach %}
             <div class="coach-card">
@@ -507,7 +526,7 @@
     var shown = defaults.filter(function (w) { return !w.hidden; });
     var meta = {};
     defaults.forEach(function (w) { meta[w.id] = w; });
-    var STORAGE_KEY = 'ufd.dashboard.layout.v12';
+    var STORAGE_KEY = 'ufd.dashboard.layout.v13';
     var building = true;
 
     // GridStack 11 inserts `content` as plain text by default. Our widget markup is rendered
@@ -525,13 +544,13 @@
         handle: '.widget-handle',
         // Resize from any edge or corner, not just the bottom-right one.
         resizable: { handles: 'n, ne, e, se, s, sw, w, nw' },
-        columnOpts: { breakpoints: [{ w: 768, c: 1 }] }
+        columnOpts: { breakpoints: [{ w: 860, c: 1 }] }
     }, '#dashboardGrid');
 
     function widgetHTML(id) {
         var m = meta[id];
         var body = document.getElementById('tpl-' + id).innerHTML;
-        return '<div class="widget-card card">' +
+        return '<div class="widget-card card" data-widget="' + id + '">' +
             '<div class="widget-handle">' +
             (m.url
                 ? '<a class="widget-title widget-link" href="' + m.url + '" target="_blank" rel="noopener" title="Open ' + m.title + ' in a new tab"><i class="fas ' + m.icon + '"></i>' + m.title + '<i class="fas fa-arrow-up-right-from-square widget-out"></i></a>'
@@ -544,11 +563,13 @@
     // Event-driven only (no ResizeObserver): recomputed when the user resizes/moves a widget or the window changes,
     // never as a reaction to the content itself, so it cannot feed back into itself and shake.
     var canZoom = window.CSS && CSS.supports && CSS.supports('zoom', '1');
+    var stacked = window.matchMedia('(max-width: 859px)');
     function fitWidget(item) {
         var m = item && item.gridstackNode && meta[item.gridstackNode.id];
         if (!canZoom || !m || !m.fit) return;
         var body = item.querySelector('.widget-body'), inner = body && body.firstElementChild;
         if (!inner) return;
+        if (stacked.matches) { inner.dataset.zoom = ''; inner.style.zoom = ''; return; }  // one column: content keeps its natural size
         var cs = getComputedStyle(body);
         var w = body.offsetWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
         var h = body.offsetHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
@@ -623,16 +644,19 @@
     function build(layout) {
         building = true;
         grid.removeAll();
-        layout.forEach(function (i) {
+        layout.slice().sort(function (a, b) { return a.y - b.y || a.x - b.x; }).forEach(function (i) {  // reading order, so the one-column phone layout stays sensible
             watch(grid.addWidget({ id: i.id, x: i.x, y: i.y, w: i.w, h: i.h, minW: meta[i.id].minW || 2, minH: meta[i.id].minH || 2, content: widgetHTML(i.id) }));
         });
         building = false;
         renderMenu();
     }
 
+    function syncStatic() { grid.setStatic(stacked.matches); queueFitAll(); }
+    if (stacked.addEventListener) stacked.addEventListener('change', syncStatic);
     var saved = readSaved();
     build(saved !== null ? saved : shown);
     grid.on('change', persist);
+    syncStatic();
 
     document.addEventListener('click', function (e) {
         var remove = e.target.closest('.widget-remove');

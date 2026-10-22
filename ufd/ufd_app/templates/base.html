@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" data-accent="green">
+<html lang="en" data-theme="dark">
 
 <head>
     {% include "partials/head.html" %}
@@ -7,7 +7,7 @@
 </head>
 
 <body class="min-h-screen flex flex-col">
-    {% include "partials/mobile_gate.html" %}
+    <a href="#main" class="skip-link">Skip to content</a>
     <script>
         // Decide before first paint so the sidebar doesn't flash: open on desktop unless it was collapsed last time.
         (function () {
@@ -24,7 +24,7 @@
 
             {% include "partials/messages.html" %}
 
-            <main class="container mx-auto flex-grow px-6 py-8">
+            <main id="main" class="container mx-auto flex-grow px-6 py-8">
                 {% block content %}{% endblock %}
             </main>
 

@@ -247,12 +247,13 @@ class PenaltyTests(PlayerPageTests):
         self.assertNotContains(self.page(player_id=613), "Penalties")
 
 
-class MobileNoticeTests(PlayerPageTests):
-    def test_every_page_carries_the_small_screen_notice(self):
+class ResponsiveShellTests(PlayerPageTests):
+    def test_every_page_is_responsive_and_has_no_small_screen_gate(self):
         for name, args in (("dashboard", [61]), ("squad", [61]), ("formation", [61]), ("manager", [61]), ("player", [61, 612])):
             response = self.client.get(reverse(f"ufd_app:{name}", args=args))
-            self.assertContains(response, "Best on a bigger screen")
-            self.assertContains(response, "Continue anyway")
+            self.assertContains(response, 'name="viewport" content="width=device-width, initial-scale=1.0"')
+            self.assertContains(response, 'class="skip-link"')
+            self.assertNotContains(response, "Best on a bigger screen")
 
 
 class SquadManagerWidgetTests(PlayerPageTests):

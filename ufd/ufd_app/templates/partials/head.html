@@ -3,17 +3,22 @@
 
 <title>{% block title %}{% if page_title %}{{ page_title }} - {% endif %}Ultimate Football Dashboard{% endblock %}</title>
 
-<!-- Apply the saved theme and accent before the first paint (no flash). Defaults: the OS light/dark setting, green accent. -->
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#000000">
+
+<!-- Apply the saved theme before the first paint (no flash). Light or dark; defaults to the OS setting. The accent comes from the club (see club_accent below). -->
 <script>
     (function () {
-        var theme, accent;
-        try { theme = localStorage.getItem('ufd.theme'); accent = localStorage.getItem('ufd.accent'); } catch (e) { /* storage blocked */ }
-        if (['light', 'dark', 'amoled'].indexOf(theme) < 0) {
+        var theme;
+        try { theme = localStorage.getItem('ufd.theme'); } catch (e) { /* storage blocked */ }
+        if (theme === 'amoled') theme = 'dark';  // the old third theme is now plain dark
+        if (['light', 'dark'].indexOf(theme) < 0) {
             theme = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
         }
-        if (['red', 'green', 'blue', 'orange', 'purple', 'pink', 'yellow'].indexOf(accent) < 0) accent = 'green';
         document.documentElement.dataset.theme = theme;
-        document.documentElement.dataset.accent = accent;
+        var bg = { light: '#eceff3', dark: '#000000' }[theme];
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', bg);
     })();
 </script>
 
@@ -28,46 +33,36 @@
      * Colour system, 60-30-10:
      *   60%  --bg        the page
      *   30%  --surface   sidebar, widgets, menus (--surface-2 for fields and hover)
-     *   10%  --accent    one colour, used only for the things you should look at:
-     *                    the current club, the active link, icons, key numbers, buttons
-     * Theme (light / dark / amoled) swaps the first two; accent (7 colours) swaps the third.
+     *   10%  --accent    the club's colour, only for what you should look at: the current club,
+     *                    the active link, icons, key numbers, bars and buttons
+     * Two themes (light, dark) swap the first two. The accent is set per club by club_accent below,
+     * already adjusted so it is readable on that theme's surfaces.
      */
     :root {
-        --radius: 12px;
+        --radius: 14px;
         --font: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
         --font-display: "Barlow Condensed", "Barlow", system-ui, sans-serif;
+        /* neutral fallbacks, replaced by the club's accent */
+        --a-fill: #16a34a; --a-ink: #ffffff; --accent-text: #15803d; --club-a: var(--a-fill); --club-b: var(--a-fill);
     }
 
     :root[data-theme="light"] {
         color-scheme: light;
         --bg: #eceff3; --surface: #ffffff; --surface-2: #f2f4f7; --hover: #e8ecf1;
         --border: #d5dbe3; --text: #14181f; --muted: #566070;
-        --win: #15803d; --loss: #b91c1c; --draw: #a16207;
-        --accent-text: var(--a-fg-l);
+        --win: #15803d; --loss: #b91c1c; --draw: #a16207; --pill-ink: #ffffff;
+        --shadow: 0 1px 2px rgba(20, 24, 31, 0.05), 0 8px 24px -14px rgba(20, 24, 31, 0.22);
+        /* position colours (goalkeeper, defence, midfield, attack): darker on light surfaces for contrast */
+        --gk: #b45309; --def: #1d4ed8; --mid: #15803d; --att: #b91c1c; --unk: #475569;
     }
     :root[data-theme="dark"] {
         color-scheme: dark;
-        --bg: #12151b; --surface: #1b2029; --surface-2: #232a35; --hover: #2a3240;
-        --border: #2f3745; --text: #e9edf3; --muted: #9ba6b6;
-        --win: #4ade80; --loss: #f87171; --draw: #facc15;
-        --accent-text: var(--a-fg-d);
-    }
-    :root[data-theme="amoled"] {
-        color-scheme: dark;
         --bg: #000000; --surface: #0c0d10; --surface-2: #15171c; --hover: #1d2026;
         --border: #25282f; --text: #f4f5f7; --muted: #9a9fa9;
-        --win: #4ade80; --loss: #f87171; --draw: #facc15;
-        --accent-text: var(--a-fg-d);
+        --win: #4ade80; --loss: #f87171; --draw: #facc15; --pill-ink: #0b0f14;
+        --shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 12px 30px -16px rgba(0, 0, 0, 0.9);
+        --gk: #fbbf24; --def: #60a5fa; --mid: #4ade80; --att: #f87171; --unk: #94a3b8;
     }
-
-    /* --a-fill: buttons and fills; --a-ink: text on a fill; --a-fg-l / --a-fg-d: accent text on light / dark surfaces */
-    :root[data-accent="red"]    { --a-fill: #dc2626; --a-ink: #ffffff; --a-fg-l: #b91c1c; --a-fg-d: #f87171; }
-    :root[data-accent="green"]  { --a-fill: #16a34a; --a-ink: #04170b; --a-fg-l: #15803d; --a-fg-d: #4ade80; }
-    :root[data-accent="blue"]   { --a-fill: #2563eb; --a-ink: #ffffff; --a-fg-l: #1d4ed8; --a-fg-d: #60a5fa; }
-    :root[data-accent="orange"] { --a-fill: #ea580c; --a-ink: #1c0a02; --a-fg-l: #c2410c; --a-fg-d: #fb923c; }
-    :root[data-accent="purple"] { --a-fill: #7c3aed; --a-ink: #ffffff; --a-fg-l: #6d28d9; --a-fg-d: #a78bfa; }
-    :root[data-accent="pink"]   { --a-fill: #db2777; --a-ink: #ffffff; --a-fg-l: #be185d; --a-fg-d: #f472b6; }
-    :root[data-accent="yellow"] { --a-fill: #eab308; --a-ink: #1a1400; --a-fg-l: #a16207; --a-fg-d: #facc15; }
 
     :root {
         --accent: var(--a-fill);
@@ -85,20 +80,22 @@
     .display { font-family: var(--font-display); letter-spacing: 0.01em; }
 
     /* ---------- surfaces ---------- */
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
     .surface { background: var(--surface); color: var(--text); }
     .bg-soft { background: var(--surface-2); }
     .border-line { border-color: var(--border) !important; }
     .hov { transition: background-color 0.15s; }
     .hov:hover { background: var(--hover); }
     .field { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); border-radius: 10px; }
-    .menu-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); }
+    .menu-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.45); }
 
     /* ---------- the accent (the 10%) ---------- */
     .text-accent { color: var(--accent-text); }
     .bg-accent-soft { background: var(--accent-soft); }
     .btn-accent { background: var(--accent); color: var(--a-ink); font-weight: 600; transition: filter 0.15s; }
     .btn-accent:hover { filter: brightness(1.08); }
+    .skip-link { position: absolute; left: 12px; top: -48px; z-index: 2000; padding: 10px 16px; border-radius: 10px; background: var(--accent); color: var(--a-ink); font-weight: 600; transition: top 0.15s; }
+    .skip-link:focus { top: 12px; }
     .hover-accent:hover { color: var(--accent-text); }
     .text-win { color: var(--win); } .text-loss { color: var(--loss); } .text-draw { color: var(--draw); }
 
@@ -117,21 +114,12 @@
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--accent-line); }
 
-    /* ---------- theme / accent pickers ---------- */
-    .seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 3px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); }
-    .seg button { display: flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap; font-size: 0.72rem; font-weight: 600; padding: 6px 2px; border-radius: 7px; color: var(--muted); transition: background-color 0.15s, color 0.15s; }
+    /* ---------- theme switch (light / dark) ---------- */
+    .seg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; padding: 3px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--border); }
+    .seg button { display: flex; align-items: center; justify-content: center; gap: 6px; white-space: nowrap; font-size: 0.82rem; font-weight: 600; padding: 8px 6px; border-radius: 9px; color: var(--muted); transition: background-color 0.15s, color 0.15s; }
     .seg button:hover { color: var(--text); }
     .seg button[aria-checked="true"] { background: var(--surface); color: var(--text); box-shadow: 0 0 0 1px var(--accent-line); }
-    .seg button i { font-size: 0.7rem; }
     .seg button[aria-checked="true"] i { color: var(--accent-text); }
-    .swatches { display: flex; justify-content: space-between; gap: 6px; }
-    .swatches button { width: 26px; height: 26px; border-radius: 50%; background: var(--sw); box-shadow: 0 0 0 2px var(--surface), 0 0 0 3px var(--border); transition: transform 0.15s; }
-    .swatches button:hover { transform: scale(1.12); }
-    .swatches button[aria-checked="true"] { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--text); }
-    [data-accent-choice="red"] { --sw: #dc2626; } [data-accent-choice="green"] { --sw: #16a34a; }
-    [data-accent-choice="blue"] { --sw: #2563eb; } [data-accent-choice="orange"] { --sw: #ea580c; }
-    [data-accent-choice="purple"] { --sw: #7c3aed; } [data-accent-choice="pink"] { --sw: #db2777; }
-    [data-accent-choice="yellow"] { --sw: #eab308; }
 
     /* ---------- formation pitch: always grass green with white markings, whatever the theme or accent ---------- */
     .formation-wrap { display: flex; flex-direction: column; height: 100%; gap: 8px; }
@@ -166,9 +154,8 @@
     .pbar { display: flex; height: 12px; border-radius: 999px; overflow: hidden; background: var(--surface-2); }
     .pbar > span { display: block; min-width: 3px; }
     .pb-h { background: var(--accent); } .pb-d { background: var(--muted); opacity: 0.45; } .pb-a { background: color-mix(in srgb, var(--text) 70%, transparent); }
-    .pill { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; color: #fff; }
+    .pill { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; color: var(--pill-ink); }
     .pill-W { background: var(--win); } .pill-D { background: var(--draw); } .pill-L { background: var(--loss); }
-    .pill-D { color: #1a1400; }
     .meter { height: 6px; border-radius: 999px; background: var(--surface-2); overflow: hidden; min-width: 56px; }
     .meter > span { display: block; height: 100%; background: var(--accent); }
     .filter-chip:hover { background: var(--hover); }
@@ -180,3 +167,5 @@
     .stat-tile b { display: block; font-family: var(--font-display); font-size: 1.9rem; line-height: 1.1; }
     .stat-tile span { font-size: 0.8rem; color: var(--muted); }
 </style>
+{% load ufd_theme %}
+{% club_accent %}

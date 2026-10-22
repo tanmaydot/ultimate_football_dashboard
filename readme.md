@@ -84,3 +84,10 @@ If a pull ever reports a conflict in a data file, don't edit it by hand: keep th
 (`git checkout --theirs ufd/ufd_app/data/pl_history.json` while rebasing, `--ours` while merging) and let the next build
 bring it up to date. The workflow runs `check_data` before it commits, and `.gitattributes` stops git from writing
 conflict markers into these files. `pitchapi_raw/` (the 34 MB harvest) is ignored by git; keep it on disk or zip it.
+
+## Themes and team accents
+
+The interface has two themes, **Light** and **Dark** (switch in the sidebar; the choice is saved in the browser and defaults to the OS setting).
+The only colour that changes from club to club is the accent (buttons, active links, key numbers, bars, highlights).
+`ufd/ufd_app/accent.py` derives it from the club's colours and tunes its lightness per theme so text is at least 4.5:1 and fills at least 3:1
+against the surfaces; `{% club_accent %}` (in `partials/head.html`) writes the CSS variables. Clubs with only black and white colours get a black accent in light and white in dark.
