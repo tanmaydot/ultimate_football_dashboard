@@ -44,22 +44,7 @@
     </div>
     {% else %}
 
-    {% if validation %}
-    <div class="alert-note px-4 py-3 mb-6 text-sm flex items-start gap-3">
-        <i class="fas fa-circle-check text-accent mt-1"></i>
-        <p>
-            <b>Track record.</b> Tested on {{ validation.matches }} past matches ({{ validation.test_seasons.0 }} to {{ validation.test_seasons.1 }}), using only what was known before each kick-off,
-            the model picked the right result {% widthratio validation.accuracy 1 100 %}% of the time against {% widthratio validation.baseline_accuracy 1 100 %}% for a fixed home/draw/away guess.
-            Football is noisy: a 55% hit rate is about what good forecasters reach, and no forecast here is a certainty.
-        </p>
-    </div>
-    {% endif %}
 
-    <div class="flex flex-wrap gap-2 mb-4" role="tablist">
-        <button type="button" class="filter-chip" data-tab="club" aria-pressed="true" role="tab">{{ team.shortName|default:team.name }} fixtures</button>
-        <button type="button" class="filter-chip" data-tab="league" aria-pressed="false" role="tab">Next matchday · all clubs</button>
-        <button type="button" class="filter-chip" data-tab="players" aria-pressed="false" role="tab">Player outlook ({{ players|length }})</button>
-    </div>
 
     <!-- ===================== This club ===================== -->
     <div class="tab-panel" data-panel="club">
@@ -240,16 +225,6 @@
         <div class="card p-6 text-sm" style="color: var(--muted)">No player data to forecast from yet.</div>
         {% endif %}
     </div>
-
-    <details class="card p-5 mt-6 text-sm">
-        <summary class="font-semibold cursor-pointer"><i class="fas fa-circle-question text-accent mr-2"></i>How these numbers are made, and what is missing</summary>
-        <div class="mt-3 space-y-3" style="color: var(--muted)">
-            <p><b style="color: var(--text)">Match forecasts</b> estimate the goals each side is expected to score from {{ meta.sources.match_history.seasons }} seasons of results ({{ meta.sources.match_history.finished_matches_used }} matches, from the open-source <a class="hover-accent underline" href="{{ meta.sources.match_history.url }}" target="_blank" rel="noopener">OpenFootball</a> data). Recent results count more, opponents' strength is taken into account, and the goal estimates become win / draw / loss odds.
-            Recent form and head-to-head records are shown above, but they are not fed into the odds: testing on 2005-2016 showed they made the forecasts worse.</p>
-            <p><b style="color: var(--text)">Player forecasts</b> blend each player's season rates and recent matches (including expected goals), pulled towards the average for his position when he has played little, then adjusted for the opponent and expected minutes.</p>
-            <ul class="list-disc pl-5">{% for line in meta.not_available %}<li>{{ line }}</li>{% endfor %}</ul>
-        </div>
-    </details>
     {% endif %}
 </div>
 {% endblock %}
