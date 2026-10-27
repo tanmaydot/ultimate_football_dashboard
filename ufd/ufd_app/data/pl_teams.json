@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": 1,
-    "generated_at": "2026-10-26T00:31:32+00:00",
+    "generated_at": "2026-10-27T01:33:48+00:00",
     "competition": {
       "code": "PL",
       "name": "Premier League"
@@ -31,12 +31,12 @@
         {
           "name": "finished matches (clean sheets)",
           "ok": true,
-          "detail": "80 matches, 9 new since the last build"
+          "detail": "80 matches, 0 new since the last build"
         },
         {
           "name": "pitchapi matches (lineups, formations, possession, player numbers)",
           "ok": true,
-          "detail": "80 finished: 5 new, 5 read again (5 new, 5 recent), 70 unchanged and not requested"
+          "detail": "80 finished: 0 new, 9 read again (9 recent), 71 unchanged and not requested"
         },
         {
           "name": "pitchapi team matching",
@@ -51,7 +51,7 @@
         {
           "name": "footballdata.io team matching",
           "ok": true,
-          "detail": "20/20 matched (club list from the last week)"
+          "detail": "20/20 matched"
         },
         {
           "name": "footballdata.io team stats",
@@ -71,7 +71,7 @@
         {
           "name": "updated this run",
           "ok": true,
-          "detail": "9 new result(s); PitchAPI 5 new / 5 re-read / 70 untouched; footballdata.io 20 club(s) refreshed"
+          "detail": "0 new result(s); PitchAPI 0 new / 9 re-read / 71 untouched; footballdata.io 20 club(s) refreshed"
         }
       ],
       "unmatched_footballdata_io": [],
@@ -98,12 +98,12 @@
         "cards_not_reconciled": 11
       },
       "updates": {
-        "new_results": 9,
+        "new_results": 0,
         "pitchapi_matches": {
           "finished": 80,
-          "new": 5,
-          "refreshed": 5,
-          "unchanged": 70
+          "new": 0,
+          "refreshed": 9,
+          "unchanged": 71
         },
         "footballdata_io": {
           "fetched": 20,
@@ -2183,7 +2183,7 @@
             "standing": {
               "table_position": 2,
               "performance_rank": 2,
-              "risk": 57
+              "risk": 50
             },
             "stadium": {
               "name": null,
@@ -2448,7 +2448,7 @@
               "won_per_match": 0.13,
               "match_with_penalty_percentage": 13
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -4333,9 +4333,9 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 11,
-              "performance_rank": 11,
-              "risk": 71
+              "table_position": 6,
+              "performance_rank": 6,
+              "risk": 75
             },
             "stadium": {
               "name": null,
@@ -4600,7 +4600,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -6499,7 +6499,7 @@
             "standing": {
               "table_position": 4,
               "performance_rank": 4,
-              "risk": 157
+              "risk": 150
             },
             "stadium": {
               "name": null,
@@ -6764,7 +6764,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -8303,9 +8303,9 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 8,
-              "performance_rank": 8,
-              "risk": 29
+              "table_position": 9,
+              "performance_rank": 9,
+              "risk": 25
             },
             "stadium": {
               "name": null,
@@ -8570,7 +8570,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -10327,9 +10327,9 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 17,
-              "performance_rank": 17,
-              "risk": 57
+              "table_position": 13,
+              "performance_rank": 13,
+              "risk": 50
             },
             "stadium": {
               "name": null,
@@ -10594,7 +10594,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -12859,7 +12859,7 @@
               "won_per_match": 0.14,
               "match_with_penalty_percentage": 28
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -14793,7 +14793,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 13
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -16794,8 +16794,8 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 13,
-              "performance_rank": 13,
+              "table_position": 15,
+              "performance_rank": 15,
               "risk": 71
             },
             "stadium": {
@@ -17061,7 +17061,7 @@
               "won_per_match": 0.14,
               "match_with_penalty_percentage": 14
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -18780,8 +18780,8 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 12,
-              "performance_rank": 12,
+              "table_position": 14,
+              "performance_rank": 14,
               "risk": 100
             },
             "stadium": {
@@ -19047,7 +19047,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 28
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -20934,8 +20934,8 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 19,
-              "performance_rank": 19,
+              "table_position": 20,
+              "performance_rank": 20,
               "risk": 29
             },
             "stadium": {
@@ -21201,7 +21201,7 @@
               "won_per_match": 0.14,
               "match_with_penalty_percentage": 28
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -23099,9 +23099,9 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 20,
-              "performance_rank": 20,
-              "risk": 33
+              "table_position": 12,
+              "performance_rank": 12,
+              "risk": 38
             },
             "stadium": {
               "name": null,
@@ -23366,7 +23366,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -25500,8 +25500,8 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 9,
-              "performance_rank": 9,
+              "table_position": 11,
+              "performance_rank": 11,
               "risk": 57
             },
             "stadium": {
@@ -25767,7 +25767,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -27442,8 +27442,8 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 7,
-              "performance_rank": 7,
+              "table_position": 8,
+              "performance_rank": 8,
               "risk": 86
             },
             "stadium": {
@@ -27709,7 +27709,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -29607,7 +29607,7 @@
             "standing": {
               "table_position": 10,
               "performance_rank": 10,
-              "risk": 114
+              "risk": 113
             },
             "stadium": {
               "name": null,
@@ -29872,7 +29872,7 @@
               "won_per_match": 0.13,
               "match_with_penalty_percentage": 25
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -31451,9 +31451,9 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 18,
-              "performance_rank": 18,
-              "risk": 57
+              "table_position": 17,
+              "performance_rank": 17,
+              "risk": 63
             },
             "stadium": {
               "name": null,
@@ -31718,7 +31718,7 @@
               "won_per_match": 0.13,
               "match_with_penalty_percentage": 13
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -33605,8 +33605,8 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 14,
-              "performance_rank": 14,
+              "table_position": 16,
+              "performance_rank": 16,
               "risk": 114
             },
             "stadium": {
@@ -33872,7 +33872,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -36142,7 +36142,7 @@
               "won_per_match": 0.14,
               "match_with_penalty_percentage": 14
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -38075,8 +38075,8 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 6,
-              "performance_rank": 6,
+              "table_position": 7,
+              "performance_rank": 7,
               "risk": 71
             },
             "stadium": {
@@ -38342,7 +38342,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 14
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -40227,8 +40227,8 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 15,
-              "performance_rank": 15,
+              "table_position": 18,
+              "performance_rank": 18,
               "risk": 86
             },
             "stadium": {
@@ -40494,7 +40494,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }
@@ -42465,9 +42465,9 @@
               "format": "Domestic League"
             },
             "standing": {
-              "table_position": 16,
-              "performance_rank": 16,
-              "risk": 67
+              "table_position": 19,
+              "performance_rank": 19,
+              "risk": 50
             },
             "stadium": {
               "name": null,
@@ -42732,7 +42732,7 @@
               "won_per_match": 0.13,
               "match_with_penalty_percentage": 25
             },
-            "last_updated": "2026-10-26 00:00:26"
+            "last_updated": "2026-10-27 01:00:26"
           }
         }
       }

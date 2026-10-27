@@ -1,7 +1,7 @@
 {
   "version": 1,
   "season_start": "2026-08-21",
-  "updated_at": "2026-10-26T00:31:32+00:00",
+  "updated_at": "2026-10-27T01:33:48+00:00",
   "results": {
     "560542": {
       "date": "2026-08-21",
@@ -55468,7 +55468,7 @@
   },
   "io_stats": {
     "57": {
-      "fetched_at": "2026-10-26T00:31:19+00:00",
+      "fetched_at": "2026-10-27T01:33:36+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -55727,11 +55727,11 @@
           "won_per_match": 0.13,
           "match_with_penalty_percentage": 13
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "58": {
-      "fetched_at": "2026-10-26T00:31:20+00:00",
+      "fetched_at": "2026-10-27T01:33:37+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -55990,11 +55990,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "61": {
-      "fetched_at": "2026-10-26T00:31:20+00:00",
+      "fetched_at": "2026-10-27T01:33:37+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -56253,11 +56253,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "62": {
-      "fetched_at": "2026-10-26T00:31:21+00:00",
+      "fetched_at": "2026-10-27T01:33:38+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -56516,11 +56516,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "63": {
-      "fetched_at": "2026-10-26T00:31:22+00:00",
+      "fetched_at": "2026-10-27T01:33:39+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -56779,11 +56779,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "64": {
-      "fetched_at": "2026-10-26T00:31:22+00:00",
+      "fetched_at": "2026-10-27T01:33:39+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -57042,11 +57042,11 @@
           "won_per_match": 0.14,
           "match_with_penalty_percentage": 28
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "65": {
-      "fetched_at": "2026-10-26T00:31:23+00:00",
+      "fetched_at": "2026-10-27T01:33:40+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -57305,11 +57305,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 13
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "66": {
-      "fetched_at": "2026-10-26T00:31:24+00:00",
+      "fetched_at": "2026-10-27T01:33:41+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -57568,11 +57568,11 @@
           "won_per_match": 0.14,
           "match_with_penalty_percentage": 14
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "67": {
-      "fetched_at": "2026-10-26T00:31:24+00:00",
+      "fetched_at": "2026-10-27T01:33:41+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -57831,11 +57831,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 28
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "71": {
-      "fetched_at": "2026-10-26T00:31:25+00:00",
+      "fetched_at": "2026-10-27T01:33:42+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -58094,11 +58094,11 @@
           "won_per_match": 0.14,
           "match_with_penalty_percentage": 28
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "73": {
-      "fetched_at": "2026-10-26T00:31:26+00:00",
+      "fetched_at": "2026-10-27T01:33:43+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -58357,11 +58357,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "322": {
-      "fetched_at": "2026-10-26T00:31:27+00:00",
+      "fetched_at": "2026-10-27T01:33:43+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -58620,11 +58620,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "341": {
-      "fetched_at": "2026-10-26T00:31:27+00:00",
+      "fetched_at": "2026-10-27T01:33:44+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -58883,11 +58883,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "349": {
-      "fetched_at": "2026-10-26T00:31:28+00:00",
+      "fetched_at": "2026-10-27T01:33:44+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -59146,11 +59146,11 @@
           "won_per_match": 0.13,
           "match_with_penalty_percentage": 25
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "351": {
-      "fetched_at": "2026-10-26T00:31:28+00:00",
+      "fetched_at": "2026-10-27T01:33:45+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -59409,11 +59409,11 @@
           "won_per_match": 0.13,
           "match_with_penalty_percentage": 13
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "354": {
-      "fetched_at": "2026-10-26T00:31:29+00:00",
+      "fetched_at": "2026-10-27T01:33:46+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -59672,11 +59672,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "397": {
-      "fetched_at": "2026-10-26T00:31:30+00:00",
+      "fetched_at": "2026-10-27T01:33:46+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -59935,11 +59935,11 @@
           "won_per_match": 0.14,
           "match_with_penalty_percentage": 14
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "402": {
-      "fetched_at": "2026-10-26T00:31:30+00:00",
+      "fetched_at": "2026-10-27T01:33:47+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -60198,11 +60198,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 14
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "1044": {
-      "fetched_at": "2026-10-26T00:31:31+00:00",
+      "fetched_at": "2026-10-27T01:33:48+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -60461,11 +60461,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     },
     "1076": {
-      "fetched_at": "2026-10-26T00:31:32+00:00",
+      "fetched_at": "2026-10-27T01:33:48+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -60724,7 +60724,7 @@
           "won_per_match": 0.13,
           "match_with_penalty_percentage": 25
         },
-        "last_updated": "2026-10-26 00:00:26"
+        "last_updated": "2026-10-27 01:00:26"
       }
     }
   },
@@ -119377,7 +119377,7 @@
   "meta": {
     "pitchapi_league_id": "l_4WFCIZ",
     "io_directory": {
-      "fetched_at": "2026-10-19T12:06:59+00:00",
+      "fetched_at": "2026-10-27T01:33:35+00:00",
       "league_id": 15,
       "season_id": 103535,
       "teams": [
@@ -119425,7 +119425,7 @@
           "standing": {
             "table_position": 2,
             "performance_rank": 2,
-            "risk": 57
+            "risk": 50
           },
           "stadium": {
             "name": null,
@@ -119477,7 +119477,7 @@
           "standing": {
             "table_position": 4,
             "performance_rank": 4,
-            "risk": 157
+            "risk": 150
           },
           "stadium": {
             "name": null,
@@ -119512,6 +119512,32 @@
           "founded": "1892"
         },
         {
+          "team_id": 142,
+          "team_name": "Aston Villa FC",
+          "team_name_clean": "Aston Villa",
+          "team_name_english": "Aston Villa FC",
+          "short_name": "aston-villa-fc",
+          "full_name": "Aston Villa FC",
+          "country": "England",
+          "team_logo": "https://footballdata.io/img/team/aston-villa-fc.png",
+          "season": {
+            "season_id": 103535,
+            "year": 20262027,
+            "label": "2026/2027",
+            "format": "Domestic League"
+          },
+          "standing": {
+            "table_position": 6,
+            "performance_rank": 6,
+            "risk": 75
+          },
+          "stadium": {
+            "name": null,
+            "address": null
+          },
+          "founded": "1874"
+        },
+        {
           "team_id": 189,
           "team_name": "Brentford FC",
           "team_name_clean": "Brentford",
@@ -119527,8 +119553,8 @@
             "format": "Domestic League"
           },
           "standing": {
-            "table_position": 6,
-            "performance_rank": 6,
+            "table_position": 7,
+            "performance_rank": 7,
             "risk": 71
           },
           "stadium": {
@@ -119553,8 +119579,8 @@
             "format": "Domestic League"
           },
           "standing": {
-            "table_position": 7,
-            "performance_rank": 7,
+            "table_position": 8,
+            "performance_rank": 8,
             "risk": 86
           },
           "stadium": {
@@ -119579,9 +119605,35 @@
             "format": "Domestic League"
           },
           "standing": {
-            "table_position": 8,
-            "performance_rank": 8,
-            "risk": 29
+            "table_position": 9,
+            "performance_rank": 9,
+            "risk": 25
+          },
+          "stadium": {
+            "name": null,
+            "address": null
+          },
+          "founded": "1878"
+        },
+        {
+          "team_id": 191,
+          "team_name": "Ipswich Town FC",
+          "team_name_clean": "Ipswich Town",
+          "team_name_english": "Ipswich Town FC",
+          "short_name": "ipswich-town-fc",
+          "full_name": "Ipswich Town FC",
+          "country": "England",
+          "team_logo": "https://footballdata.io/img/team/ipswich-town-fc.png",
+          "season": {
+            "season_id": 103535,
+            "year": 20262027,
+            "label": "2026/2027",
+            "format": "Domestic League"
+          },
+          "standing": {
+            "table_position": 10,
+            "performance_rank": 10,
+            "risk": 113
           },
           "stadium": {
             "name": null,
@@ -119605,8 +119657,8 @@
             "format": "Domestic League"
           },
           "standing": {
-            "table_position": 9,
-            "performance_rank": 9,
+            "table_position": 11,
+            "performance_rank": 11,
             "risk": 57
           },
           "stadium": {
@@ -119616,14 +119668,14 @@
           "founded": "1904"
         },
         {
-          "team_id": 191,
-          "team_name": "Ipswich Town FC",
-          "team_name_clean": "Ipswich Town",
-          "team_name_english": "Ipswich Town FC",
-          "short_name": "ipswich-town-fc",
-          "full_name": "Ipswich Town FC",
+          "team_id": 86,
+          "team_name": "Tottenham Hotspur FC",
+          "team_name_clean": "Tottenham Hotspur",
+          "team_name_english": "Tottenham Hotspur FC",
+          "short_name": "tottenham-hotspur-fc",
+          "full_name": "Tottenham Hotspur FC",
           "country": "England",
-          "team_logo": "https://footballdata.io/img/team/ipswich-town-fc.png",
+          "team_logo": "https://footballdata.io/img/team/tottenham-hotspur-fc.png",
           "season": {
             "season_id": 103535,
             "year": 20262027,
@@ -119631,25 +119683,25 @@
             "format": "Domestic League"
           },
           "standing": {
-            "table_position": 10,
-            "performance_rank": 10,
-            "risk": 114
+            "table_position": 12,
+            "performance_rank": 12,
+            "risk": 38
           },
           "stadium": {
             "name": null,
             "address": null
           },
-          "founded": "1878"
+          "founded": "1882"
         },
         {
-          "team_id": 142,
-          "team_name": "Aston Villa FC",
-          "team_name_clean": "Aston Villa",
-          "team_name_english": "Aston Villa FC",
-          "short_name": "aston-villa-fc",
-          "full_name": "Aston Villa FC",
+          "team_id": 146,
+          "team_name": "Fulham FC",
+          "team_name_clean": "Fulham",
+          "team_name_english": "Fulham FC",
+          "short_name": "fulham-fc",
+          "full_name": "Fulham FC",
           "country": "England",
-          "team_logo": "https://footballdata.io/img/team/aston-villa-fc.png",
+          "team_logo": "https://footballdata.io/img/team/fulham-fc.png",
           "season": {
             "season_id": 103535,
             "year": 20262027,
@@ -119657,15 +119709,15 @@
             "format": "Domestic League"
           },
           "standing": {
-            "table_position": 11,
-            "performance_rank": 11,
-            "risk": 71
+            "table_position": 13,
+            "performance_rank": 13,
+            "risk": 50
           },
           "stadium": {
             "name": null,
             "address": null
           },
-          "founded": "1874"
+          "founded": "1879"
         },
         {
           "team_id": 141,
@@ -119683,8 +119735,8 @@
             "format": "Domestic League"
           },
           "standing": {
-            "table_position": 12,
-            "performance_rank": 12,
+            "table_position": 14,
+            "performance_rank": 14,
             "risk": 100
           },
           "stadium": {
@@ -119709,8 +119761,8 @@
             "format": "Domestic League"
           },
           "standing": {
-            "table_position": 13,
-            "performance_rank": 13,
+            "table_position": 15,
+            "performance_rank": 15,
             "risk": 71
           },
           "stadium": {
@@ -119735,8 +119787,8 @@
             "format": "Domestic League"
           },
           "standing": {
-            "table_position": 14,
-            "performance_rank": 14,
+            "table_position": 16,
+            "performance_rank": 16,
             "risk": 114
           },
           "stadium": {
@@ -119744,6 +119796,32 @@
             "address": null
           },
           "founded": "1905"
+        },
+        {
+          "team_id": 182,
+          "team_name": "Nottingham Forest FC",
+          "team_name_clean": "Nottingham Forest",
+          "team_name_english": "Nottingham Forest FC",
+          "short_name": "nottingham-forest-fc",
+          "full_name": "Nottingham Forest FC",
+          "country": "England",
+          "team_logo": "https://footballdata.io/img/team/nottingham-forest-fc.png",
+          "season": {
+            "season_id": 103535,
+            "year": 20262027,
+            "label": "2026/2027",
+            "format": "Domestic League"
+          },
+          "standing": {
+            "table_position": 17,
+            "performance_rank": 17,
+            "risk": 63
+          },
+          "stadium": {
+            "name": null,
+            "address": null
+          },
+          "founded": "1865"
         },
         {
           "team_id": 132,
@@ -119761,8 +119839,8 @@
             "format": "Domestic League"
           },
           "standing": {
-            "table_position": 15,
-            "performance_rank": 15,
+            "table_position": 18,
+            "performance_rank": 18,
             "risk": 86
           },
           "stadium": {
@@ -119787,67 +119865,15 @@
             "format": "Domestic League"
           },
           "standing": {
-            "table_position": 16,
-            "performance_rank": 16,
-            "risk": 67
+            "table_position": 19,
+            "performance_rank": 19,
+            "risk": 50
           },
           "stadium": {
             "name": null,
             "address": null
           },
           "founded": "1883"
-        },
-        {
-          "team_id": 146,
-          "team_name": "Fulham FC",
-          "team_name_clean": "Fulham",
-          "team_name_english": "Fulham FC",
-          "short_name": "fulham-fc",
-          "full_name": "Fulham FC",
-          "country": "England",
-          "team_logo": "https://footballdata.io/img/team/fulham-fc.png",
-          "season": {
-            "season_id": 103535,
-            "year": 20262027,
-            "label": "2026/2027",
-            "format": "Domestic League"
-          },
-          "standing": {
-            "table_position": 17,
-            "performance_rank": 17,
-            "risk": 57
-          },
-          "stadium": {
-            "name": null,
-            "address": null
-          },
-          "founded": "1879"
-        },
-        {
-          "team_id": 182,
-          "team_name": "Nottingham Forest FC",
-          "team_name_clean": "Nottingham Forest",
-          "team_name_english": "Nottingham Forest FC",
-          "short_name": "nottingham-forest-fc",
-          "full_name": "Nottingham Forest FC",
-          "country": "England",
-          "team_logo": "https://footballdata.io/img/team/nottingham-forest-fc.png",
-          "season": {
-            "season_id": 103535,
-            "year": 20262027,
-            "label": "2026/2027",
-            "format": "Domestic League"
-          },
-          "standing": {
-            "table_position": 18,
-            "performance_rank": 18,
-            "risk": 57
-          },
-          "stadium": {
-            "name": null,
-            "address": null
-          },
-          "founded": "1865"
         },
         {
           "team_id": 140,
@@ -119865,8 +119891,8 @@
             "format": "Domestic League"
           },
           "standing": {
-            "table_position": 19,
-            "performance_rank": 19,
+            "table_position": 20,
+            "performance_rank": 20,
             "risk": 29
           },
           "stadium": {
@@ -119874,32 +119900,6 @@
             "address": null
           },
           "founded": "1879"
-        },
-        {
-          "team_id": 86,
-          "team_name": "Tottenham Hotspur FC",
-          "team_name_clean": "Tottenham Hotspur",
-          "team_name_english": "Tottenham Hotspur FC",
-          "short_name": "tottenham-hotspur-fc",
-          "full_name": "Tottenham Hotspur FC",
-          "country": "England",
-          "team_logo": "https://footballdata.io/img/team/tottenham-hotspur-fc.png",
-          "season": {
-            "season_id": 103535,
-            "year": 20262027,
-            "label": "2026/2027",
-            "format": "Domestic League"
-          },
-          "standing": {
-            "table_position": 20,
-            "performance_rank": 20,
-            "risk": 33
-          },
-          "stadium": {
-            "name": null,
-            "address": null
-          },
-          "founded": "1882"
         }
       ]
     }
