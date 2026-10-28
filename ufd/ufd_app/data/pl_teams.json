@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": 1,
-    "generated_at": "2026-10-27T01:33:48+00:00",
+    "generated_at": "2026-10-28T01:30:34+00:00",
     "competition": {
       "code": "PL",
       "name": "Premier League"
@@ -36,7 +36,7 @@
         {
           "name": "pitchapi matches (lineups, formations, possession, player numbers)",
           "ok": true,
-          "detail": "80 finished: 0 new, 9 read again (9 recent), 71 unchanged and not requested"
+          "detail": "80 finished: 0 new, 5 read again (5 recent), 75 unchanged and not requested"
         },
         {
           "name": "pitchapi team matching",
@@ -51,12 +51,12 @@
         {
           "name": "footballdata.io team matching",
           "ok": true,
-          "detail": "20/20 matched"
+          "detail": "20/20 matched (club list from the last week)"
         },
         {
           "name": "footballdata.io team stats",
           "ok": true,
-          "detail": "20/20 teams: 20 fetched"
+          "detail": "20/20 teams: 0 fetched, 20 unchanged since the club last played (not requested)"
         },
         {
           "name": "pitchapi players",
@@ -71,7 +71,7 @@
         {
           "name": "updated this run",
           "ok": true,
-          "detail": "0 new result(s); PitchAPI 0 new / 9 re-read / 71 untouched; footballdata.io 20 club(s) refreshed"
+          "detail": "0 new result(s); PitchAPI 0 new / 5 re-read / 75 untouched; footballdata.io 0 club(s) refreshed"
         }
       ],
       "unmatched_footballdata_io": [],
@@ -102,12 +102,12 @@
         "pitchapi_matches": {
           "finished": 80,
           "new": 0,
-          "refreshed": 9,
-          "unchanged": 71
+          "refreshed": 5,
+          "unchanged": 75
         },
         "footballdata_io": {
-          "fetched": 20,
-          "reused": 0
+          "fetched": 0,
+          "reused": 20
         }
       }
     },
