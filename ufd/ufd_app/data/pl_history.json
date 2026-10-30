@@ -1,7 +1,7 @@
 {
   "version": 1,
   "season_start": "2026-08-21",
-  "updated_at": "2026-10-29T01:54:19+00:00",
+  "updated_at": "2026-10-30T02:04:04+00:00",
   "results": {
     "560542": {
       "date": "2026-08-21",
@@ -55468,7 +55468,7 @@
   },
   "io_stats": {
     "57": {
-      "fetched_at": "2026-10-29T01:54:06+00:00",
+      "fetched_at": "2026-10-30T02:03:52+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -55727,11 +55727,11 @@
           "won_per_match": 0.13,
           "match_with_penalty_percentage": 13
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "58": {
-      "fetched_at": "2026-10-29T01:54:07+00:00",
+      "fetched_at": "2026-10-30T02:03:52+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -55990,11 +55990,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "61": {
-      "fetched_at": "2026-10-29T01:54:08+00:00",
+      "fetched_at": "2026-10-30T02:03:53+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -56253,11 +56253,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "62": {
-      "fetched_at": "2026-10-29T01:54:08+00:00",
+      "fetched_at": "2026-10-30T02:03:54+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -56516,11 +56516,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "63": {
-      "fetched_at": "2026-10-29T01:54:09+00:00",
+      "fetched_at": "2026-10-30T02:03:54+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -56779,11 +56779,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "64": {
-      "fetched_at": "2026-10-29T01:54:10+00:00",
+      "fetched_at": "2026-10-30T02:03:55+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -57042,11 +57042,11 @@
           "won_per_match": 0.13,
           "match_with_penalty_percentage": 25
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "65": {
-      "fetched_at": "2026-10-29T01:54:10+00:00",
+      "fetched_at": "2026-10-30T02:03:56+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -57305,11 +57305,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 13
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "66": {
-      "fetched_at": "2026-10-29T01:54:11+00:00",
+      "fetched_at": "2026-10-30T02:03:56+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -57568,11 +57568,11 @@
           "won_per_match": 0.13,
           "match_with_penalty_percentage": 13
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "67": {
-      "fetched_at": "2026-10-29T01:54:12+00:00",
+      "fetched_at": "2026-10-30T02:03:57+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -57831,11 +57831,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 25
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "71": {
-      "fetched_at": "2026-10-29T01:54:12+00:00",
+      "fetched_at": "2026-10-30T02:03:58+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -58094,11 +58094,11 @@
           "won_per_match": 0.13,
           "match_with_penalty_percentage": 25
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "73": {
-      "fetched_at": "2026-10-29T01:54:13+00:00",
+      "fetched_at": "2026-10-30T02:03:58+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -58357,11 +58357,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "322": {
-      "fetched_at": "2026-10-29T01:54:14+00:00",
+      "fetched_at": "2026-10-30T02:03:59+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -58620,11 +58620,11 @@
           "won_per_match": 0.13,
           "match_with_penalty_percentage": 13
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "341": {
-      "fetched_at": "2026-10-29T01:54:14+00:00",
+      "fetched_at": "2026-10-30T02:03:59+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -58883,11 +58883,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "349": {
-      "fetched_at": "2026-10-29T01:54:15+00:00",
+      "fetched_at": "2026-10-30T02:04:00+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -59146,11 +59146,11 @@
           "won_per_match": 0.13,
           "match_with_penalty_percentage": 25
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "351": {
-      "fetched_at": "2026-10-29T01:54:16+00:00",
+      "fetched_at": "2026-10-30T02:04:01+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -59409,11 +59409,11 @@
           "won_per_match": 0.13,
           "match_with_penalty_percentage": 13
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "354": {
-      "fetched_at": "2026-10-29T01:54:16+00:00",
+      "fetched_at": "2026-10-30T02:04:01+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -59672,11 +59672,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "397": {
-      "fetched_at": "2026-10-29T01:54:17+00:00",
+      "fetched_at": "2026-10-30T02:04:02+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -59935,11 +59935,11 @@
           "won_per_match": 0.13,
           "match_with_penalty_percentage": 13
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "402": {
-      "fetched_at": "2026-10-29T01:54:17+00:00",
+      "fetched_at": "2026-10-30T02:04:03+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -60198,11 +60198,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 25
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "1044": {
-      "fetched_at": "2026-10-29T01:54:18+00:00",
+      "fetched_at": "2026-10-30T02:04:03+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -60461,11 +60461,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     },
     "1076": {
-      "fetched_at": "2026-10-29T01:54:19+00:00",
+      "fetched_at": "2026-10-30T02:04:04+00:00",
       "played": 8,
       "data": {
         "team": {
@@ -60724,7 +60724,7 @@
           "won_per_match": 0.13,
           "match_with_penalty_percentage": 25
         },
-        "last_updated": "2026-10-29 01:00:22"
+        "last_updated": "2026-10-30 02:00:24"
       }
     }
   },
