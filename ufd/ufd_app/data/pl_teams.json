@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": 1,
-    "generated_at": "2026-10-30T02:04:04+00:00",
+    "generated_at": "2026-10-31T01:42:37+00:00",
     "competition": {
       "code": "PL",
       "name": "Premier League"
@@ -56,7 +56,7 @@
         {
           "name": "footballdata.io team stats",
           "ok": true,
-          "detail": "20/20 teams: 20 fetched"
+          "detail": "20/20 teams: 0 fetched, 20 unchanged since the club last played (not requested)"
         },
         {
           "name": "pitchapi players",
@@ -71,7 +71,7 @@
         {
           "name": "updated this run",
           "ok": true,
-          "detail": "0 new result(s); PitchAPI 0 new / 0 re-read / 80 untouched; footballdata.io 20 club(s) refreshed"
+          "detail": "0 new result(s); PitchAPI 0 new / 0 re-read / 80 untouched; footballdata.io 0 club(s) refreshed"
         }
       ],
       "unmatched_footballdata_io": [],
@@ -106,8 +106,8 @@
           "unchanged": 80
         },
         "footballdata_io": {
-          "fetched": 20,
-          "reused": 0
+          "fetched": 0,
+          "reused": 20
         }
       }
     },
