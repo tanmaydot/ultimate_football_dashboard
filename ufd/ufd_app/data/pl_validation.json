@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T04:21:16+00:00",
+  "generated_at": "2026-11-01T13:16:51+00:00",
   "team_model": {
     "test_seasons": [
       "2016-17",
@@ -14,7 +14,7 @@
       "2025-26",
       "2026-27"
     ],
-    "matches": 3869,
+    "matches": 3888,
     "params": {
       "half_life": 365.0,
       "window": 1460,
@@ -33,70 +33,70 @@
     },
     "scores": {
       "model": {
-        "n": 3869,
-        "rps": 0.1989,
-        "log_loss": 0.968,
-        "brier": 0.5746,
-        "accuracy": 0.541
+        "n": 3888,
+        "rps": 0.199,
+        "log_loss": 0.9685,
+        "brier": 0.5749,
+        "accuracy": 0.5406
       },
       "constant_home_draw_away_rates": {
-        "n": 3869,
-        "rps": 0.2329,
+        "n": 3888,
+        "rps": 0.2328,
         "log_loss": 1.0659,
-        "brier": 0.6449,
-        "accuracy": 0.4453
+        "brier": 0.6448,
+        "accuracy": 0.4455
       },
       "with_form_term": {
-        "n": 3869,
-        "rps": 0.1993,
-        "log_loss": 0.9694,
-        "brier": 0.5756,
-        "accuracy": 0.5415
+        "n": 3888,
+        "rps": 0.1995,
+        "log_loss": 0.9699,
+        "brier": 0.5759,
+        "accuracy": 0.5406
       },
       "with_h2h_term": {
-        "n": 3869,
-        "rps": 0.1996,
-        "log_loss": 0.9697,
-        "brier": 0.5757,
-        "accuracy": 0.541
+        "n": 3888,
+        "rps": 0.1997,
+        "log_loss": 0.9701,
+        "brier": 0.5761,
+        "accuracy": 0.5406
       },
       "without_dixon_coles": {
-        "n": 3869,
-        "rps": 0.1989,
-        "log_loss": 0.9679,
-        "brier": 0.5745,
-        "accuracy": 0.5404
+        "n": 3888,
+        "rps": 0.199,
+        "log_loss": 0.9684,
+        "brier": 0.5748,
+        "accuracy": 0.5401
       },
       "without_time_decay": {
-        "n": 3869,
-        "rps": 0.2013,
-        "log_loss": 0.9749,
-        "brier": 0.5794,
-        "accuracy": 0.5322
+        "n": 3888,
+        "rps": 0.2014,
+        "log_loss": 0.9752,
+        "brier": 0.5796,
+        "accuracy": 0.5319
       },
       "without_shrinkage": {
-        "n": 3869,
-        "rps": 0.1996,
-        "log_loss": 0.9714,
-        "brier": 0.5757,
-        "accuracy": 0.542
+        "n": 3888,
+        "rps": 0.1998,
+        "log_loss": 0.9719,
+        "brier": 0.5761,
+        "accuracy": 0.5417
       }
     },
     "rps_difference_vs": {
       "constant_home_draw_away_rates": {
-        "mean": -0.03397,
-        "low": -0.03783,
-        "high": -0.03021
+        "mean": -0.03378,
+        "low": -0.03778,
+        "high": -0.0299
       },
       "with_form_term": {
-        "mean": -0.00044,
-        "low": -0.00131,
-        "high": 0.00046
+        "mean": -0.00042,
+        "low": -0.00128,
+        "high": 0.00047
       },
       "with_h2h_term": {
-        "mean": -0.00066,
-        "low": -0.00115,
-        "high": -0.00017
+        "mean": -0.00065,
+        "low": -0.00112,
+        "high": -0.00016
       },
       "without_dixon_coles": {
         "mean": 2e-05,
@@ -104,14 +104,14 @@
         "high": 9e-05
       },
       "without_time_decay": {
-        "mean": -0.00241,
-        "low": -0.00336,
-        "high": -0.00144
+        "mean": -0.00236,
+        "low": -0.00331,
+        "high": -0.00138
       },
       "without_shrinkage": {
-        "mean": -0.00072,
-        "low": -0.00148,
-        "high": 6e-05
+        "mean": -0.00074,
+        "low": -0.0015,
+        "high": 3e-05
       }
     },
     "per_season": {
@@ -186,11 +186,11 @@
         "accuracy": 0.4658
       },
       "2026-27": {
-        "n": 69,
-        "rps": 0.2032,
-        "log_loss": 1.0224,
-        "brier": 0.6076,
-        "accuracy": 0.5217
+        "n": 88,
+        "rps": 0.2087,
+        "log_loss": 1.0321,
+        "brier": 0.6158,
+        "accuracy": 0.5114
       }
     },
     "per_season_constant": {
@@ -265,11 +265,11 @@
         "accuracy": 0.4263
       },
       "2026-27": {
-        "n": 69,
-        "rps": 0.2288,
-        "log_loss": 1.0971,
-        "brier": 0.6654,
-        "accuracy": 0.3913
+        "n": 88,
+        "rps": 0.2278,
+        "log_loss": 1.0902,
+        "brier": 0.6605,
+        "accuracy": 0.4091
       }
     },
     "calibration": [
@@ -281,39 +281,39 @@
       },
       {
         "bin": "0.1-0.2",
-        "n": 1544,
+        "n": 1545,
         "predicted": 0.159,
         "observed": 0.134
       },
       {
         "bin": "0.2-0.3",
-        "n": 4675,
+        "n": 4708,
         "predicted": 0.253,
         "observed": 0.251
       },
       {
         "bin": "0.3-0.4",
-        "n": 1765,
+        "n": 1771,
         "predicted": 0.346,
-        "observed": 0.343
+        "observed": 0.342
       },
       {
         "bin": "0.4-0.5",
-        "n": 1372,
+        "n": 1383,
         "predicted": 0.449,
         "observed": 0.448
       },
       {
         "bin": "0.5-0.6",
-        "n": 916,
+        "n": 921,
         "predicted": 0.546,
-        "observed": 0.557
+        "observed": 0.555
       },
       {
         "bin": "0.6-0.7",
-        "n": 589,
+        "n": 590,
         "predicted": 0.645,
-        "observed": 0.691
+        "observed": 0.692
       },
       {
         "bin": "0.7-0.8",
@@ -336,10 +336,10 @@
     ],
     "goals": {
       "mean_predicted_home_goals": 1.545,
-      "mean_actual_home_goals": 1.556,
+      "mean_actual_home_goals": 1.555,
       "mean_predicted_away_goals": 1.261,
-      "mean_actual_away_goals": 1.28,
-      "mae_total_goals": 1.307
+      "mean_actual_away_goals": 1.278,
+      "mae_total_goals": 1.305
     },
     "tuned_on_seasons": [
       "2005-06",
@@ -347,8 +347,8 @@
     ]
   },
   "player_model": {
-    "matches": 69,
-    "split_after_match": 40,
+    "matches": 88,
+    "split_after_match": 51,
     "params": {
       "k90": 2.0,
       "k90_xg": 3.0,
@@ -366,324 +366,324 @@
       "trend_margin": 0.35
     },
     "tuning_window": {
+      "matches": 48,
+      "variants": {
+        "model": {
+          "player_matches": 1851,
+          "goal_rate_actual": 0.0519,
+          "goal": {
+            "brier": 0.04467,
+            "log_loss": 0.1748,
+            "auc": 0.807
+          },
+          "assist": {
+            "brier": 0.03703,
+            "log_loss": 0.1624,
+            "auc": 0.763
+          },
+          "goal_or_assist": {
+            "brier": 0.07022,
+            "log_loss": 0.2655,
+            "auc": 0.789
+          },
+          "top3_scorer_hit_rate": 0.661,
+          "top3_random_hit_rate": 0.216,
+          "rating": {
+            "n": 987,
+            "mae": 0.611
+          }
+        },
+        "season_totals_only": {
+          "player_matches": 1851,
+          "goal_rate_actual": 0.0519,
+          "goal": {
+            "brier": 0.04728,
+            "log_loss": 0.1844,
+            "auc": 0.787
+          },
+          "assist": {
+            "brier": 0.0382,
+            "log_loss": 0.1731,
+            "auc": 0.743
+          },
+          "goal_or_assist": {
+            "brier": 0.07329,
+            "log_loss": 0.2789,
+            "auc": 0.777
+          },
+          "top3_scorer_hit_rate": 0.554,
+          "top3_random_hit_rate": 0.216,
+          "rating": {
+            "n": 987,
+            "mae": 0.611
+          }
+        },
+        "without_xg": {
+          "player_matches": 1851,
+          "goal_rate_actual": 0.0519,
+          "goal": {
+            "brier": 0.04692,
+            "log_loss": 0.183,
+            "auc": 0.79
+          },
+          "assist": {
+            "brier": 0.03792,
+            "log_loss": 0.1717,
+            "auc": 0.745
+          },
+          "goal_or_assist": {
+            "brier": 0.07281,
+            "log_loss": 0.2772,
+            "auc": 0.778
+          },
+          "top3_scorer_hit_rate": 0.554,
+          "top3_random_hit_rate": 0.216,
+          "rating": {
+            "n": 987,
+            "mae": 0.611
+          }
+        },
+        "without_recent": {
+          "player_matches": 1851,
+          "goal_rate_actual": 0.0519,
+          "goal": {
+            "brier": 0.04469,
+            "log_loss": 0.1748,
+            "auc": 0.807
+          },
+          "assist": {
+            "brier": 0.03706,
+            "log_loss": 0.1624,
+            "auc": 0.763
+          },
+          "goal_or_assist": {
+            "brier": 0.07024,
+            "log_loss": 0.2654,
+            "auc": 0.79
+          },
+          "top3_scorer_hit_rate": 0.661,
+          "top3_random_hit_rate": 0.216,
+          "rating": {
+            "n": 987,
+            "mae": 0.611
+          }
+        },
+        "without_opponent_context": {
+          "player_matches": 1851,
+          "goal_rate_actual": 0.0519,
+          "goal": {
+            "brier": 0.04483,
+            "log_loss": 0.175,
+            "auc": 0.807
+          },
+          "assist": {
+            "brier": 0.03696,
+            "log_loss": 0.1616,
+            "auc": 0.77
+          },
+          "goal_or_assist": {
+            "brier": 0.07027,
+            "log_loss": 0.2653,
+            "auc": 0.792
+          },
+          "top3_scorer_hit_rate": 0.661,
+          "top3_random_hit_rate": 0.216,
+          "rating": {
+            "n": 987,
+            "mae": 0.619
+          }
+        }
+      },
+      "baselines": {
+        "constant_rate": {
+          "brier": 0.04933,
+          "log_loss": 0.2104,
+          "auc": 0.448
+        },
+        "season_goals_per_match": {
+          "brier": 0.06883,
+          "log_loss": 0.2862,
+          "auc": 0.337
+        },
+        "position_average": {
+          "brier": 0.04582,
+          "log_loss": 0.1789,
+          "auc": 0.794
+        },
+        "last_rating": {
+          "mae": 0.805,
+          "n": 987
+        },
+        "season_mean_rating": {
+          "mae": 0.737,
+          "n": 987
+        },
+        "position_mean_rating": {
+          "mae": 0.635,
+          "n": 987
+        }
+      },
+      "scorers": 96
+    },
+    "holdout_window": {
       "matches": 37,
       "variants": {
         "model": {
-          "player_matches": 1310,
-          "goal_rate_actual": 0.0527,
+          "player_matches": 1927,
+          "goal_rate_actual": 0.0446,
           "goal": {
-            "brier": 0.04475,
-            "log_loss": 0.1699,
-            "auc": 0.82
+            "brier": 0.03898,
+            "log_loss": 0.1582,
+            "auc": 0.818
           },
           "assist": {
-            "brier": 0.03642,
-            "log_loss": 0.1652,
-            "auc": 0.772
+            "brier": 0.03275,
+            "log_loss": 0.1335,
+            "auc": 0.783
           },
           "goal_or_assist": {
-            "brier": 0.07012,
-            "log_loss": 0.2674,
-            "auc": 0.792
+            "brier": 0.06396,
+            "log_loss": 0.2343,
+            "auc": 0.801
           },
-          "top3_scorer_hit_rate": 0.667,
-          "top3_random_hit_rate": 0.215,
+          "top3_scorer_hit_rate": 0.654,
+          "top3_random_hit_rate": 0.184,
           "rating": {
-            "n": 716,
-            "mae": 0.594
+            "n": 952,
+            "mae": 0.624
           }
         },
         "season_totals_only": {
-          "player_matches": 1310,
-          "goal_rate_actual": 0.0527,
+          "player_matches": 1927,
+          "goal_rate_actual": 0.0446,
           "goal": {
-            "brier": 0.04682,
-            "log_loss": 0.176,
-            "auc": 0.808
+            "brier": 0.04099,
+            "log_loss": 0.1695,
+            "auc": 0.795
           },
           "assist": {
-            "brier": 0.03761,
-            "log_loss": 0.1709,
-            "auc": 0.749
+            "brier": 0.03366,
+            "log_loss": 0.1391,
+            "auc": 0.787
           },
           "goal_or_assist": {
-            "brier": 0.07326,
-            "log_loss": 0.2755,
-            "auc": 0.78
+            "brier": 0.0666,
+            "log_loss": 0.2451,
+            "auc": 0.788
           },
-          "top3_scorer_hit_rate": 0.595,
-          "top3_random_hit_rate": 0.215,
+          "top3_scorer_hit_rate": 0.5,
+          "top3_random_hit_rate": 0.184,
           "rating": {
-            "n": 716,
-            "mae": 0.594
+            "n": 952,
+            "mae": 0.624
           }
         },
         "without_xg": {
-          "player_matches": 1310,
-          "goal_rate_actual": 0.0527,
+          "player_matches": 1927,
+          "goal_rate_actual": 0.0446,
           "goal": {
-            "brier": 0.04653,
-            "log_loss": 0.1753,
-            "auc": 0.808
-          },
-          "assist": {
-            "brier": 0.03734,
-            "log_loss": 0.1698,
-            "auc": 0.751
-          },
-          "goal_or_assist": {
-            "brier": 0.0728,
-            "log_loss": 0.2741,
-            "auc": 0.781
-          },
-          "top3_scorer_hit_rate": 0.595,
-          "top3_random_hit_rate": 0.215,
-          "rating": {
-            "n": 716,
-            "mae": 0.594
-          }
-        },
-        "without_recent": {
-          "player_matches": 1310,
-          "goal_rate_actual": 0.0527,
-          "goal": {
-            "brier": 0.04474,
-            "log_loss": 0.1697,
-            "auc": 0.821
-          },
-          "assist": {
-            "brier": 0.03643,
-            "log_loss": 0.1651,
-            "auc": 0.772
-          },
-          "goal_or_assist": {
-            "brier": 0.07013,
-            "log_loss": 0.2674,
-            "auc": 0.792
-          },
-          "top3_scorer_hit_rate": 0.667,
-          "top3_random_hit_rate": 0.215,
-          "rating": {
-            "n": 716,
-            "mae": 0.594
-          }
-        },
-        "without_opponent_context": {
-          "player_matches": 1310,
-          "goal_rate_actual": 0.0527,
-          "goal": {
-            "brier": 0.04509,
-            "log_loss": 0.171,
-            "auc": 0.817
-          },
-          "assist": {
-            "brier": 0.03661,
-            "log_loss": 0.1658,
-            "auc": 0.775
-          },
-          "goal_or_assist": {
-            "brier": 0.07076,
-            "log_loss": 0.269,
-            "auc": 0.79
-          },
-          "top3_scorer_hit_rate": 0.667,
-          "top3_random_hit_rate": 0.215,
-          "rating": {
-            "n": 716,
-            "mae": 0.612
-          }
-        }
-      },
-      "baselines": {
-        "constant_rate": {
-          "brier": 0.0501,
-          "log_loss": 0.2153,
-          "auc": 0.45
-        },
-        "season_goals_per_match": {
-          "brier": 0.07178,
-          "log_loss": 0.292,
-          "auc": 0.359
-        },
-        "position_average": {
-          "brier": 0.04646,
-          "log_loss": 0.1768,
-          "auc": 0.796
-        },
-        "last_rating": {
-          "mae": 0.773,
-          "n": 716
-        },
-        "season_mean_rating": {
-          "mae": 0.743,
-          "n": 716
-        },
-        "position_mean_rating": {
-          "mae": 0.631,
-          "n": 716
-        }
-      },
-      "scorers": 69
-    },
-    "holdout_window": {
-      "matches": 29,
-      "variants": {
-        "model": {
-          "player_matches": 1460,
-          "goal_rate_actual": 0.0521,
-          "goal": {
-            "brier": 0.04546,
-            "log_loss": 0.1838,
-            "auc": 0.796
-          },
-          "assist": {
-            "brier": 0.03812,
-            "log_loss": 0.1495,
-            "auc": 0.788
-          },
-          "goal_or_assist": {
-            "brier": 0.07222,
-            "log_loss": 0.2593,
-            "auc": 0.799
-          },
-          "top3_scorer_hit_rate": 0.619,
-          "top3_random_hit_rate": 0.204,
-          "rating": {
-            "n": 727,
-            "mae": 0.645
-          }
-        },
-        "season_totals_only": {
-          "player_matches": 1460,
-          "goal_rate_actual": 0.0521,
-          "goal": {
-            "brier": 0.04783,
-            "log_loss": 0.1966,
-            "auc": 0.779
-          },
-          "assist": {
-            "brier": 0.0396,
-            "log_loss": 0.1661,
-            "auc": 0.777
-          },
-          "goal_or_assist": {
-            "brier": 0.07443,
-            "log_loss": 0.2752,
-            "auc": 0.788
-          },
-          "top3_scorer_hit_rate": 0.452,
-          "top3_random_hit_rate": 0.204,
-          "rating": {
-            "n": 727,
-            "mae": 0.645
-          }
-        },
-        "without_xg": {
-          "player_matches": 1460,
-          "goal_rate_actual": 0.0521,
-          "goal": {
-            "brier": 0.04747,
-            "log_loss": 0.1944,
-            "auc": 0.78
-          },
-          "assist": {
-            "brier": 0.03929,
-            "log_loss": 0.1636,
-            "auc": 0.778
-          },
-          "goal_or_assist": {
-            "brier": 0.07397,
-            "log_loss": 0.2728,
-            "auc": 0.79
-          },
-          "top3_scorer_hit_rate": 0.452,
-          "top3_random_hit_rate": 0.204,
-          "rating": {
-            "n": 727,
-            "mae": 0.645
-          }
-        },
-        "without_recent": {
-          "player_matches": 1460,
-          "goal_rate_actual": 0.0521,
-          "goal": {
-            "brier": 0.04546,
-            "log_loss": 0.1838,
-            "auc": 0.796
-          },
-          "assist": {
-            "brier": 0.03818,
-            "log_loss": 0.1498,
-            "auc": 0.789
-          },
-          "goal_or_assist": {
-            "brier": 0.07224,
-            "log_loss": 0.2593,
-            "auc": 0.799
-          },
-          "top3_scorer_hit_rate": 0.595,
-          "top3_random_hit_rate": 0.204,
-          "rating": {
-            "n": 727,
-            "mae": 0.645
-          }
-        },
-        "without_opponent_context": {
-          "player_matches": 1460,
-          "goal_rate_actual": 0.0521,
-          "goal": {
-            "brier": 0.0454,
-            "log_loss": 0.1836,
+            "brier": 0.0406,
+            "log_loss": 0.1672,
             "auc": 0.797
           },
           "assist": {
-            "brier": 0.0379,
-            "log_loss": 0.1486,
-            "auc": 0.791
+            "brier": 0.03339,
+            "log_loss": 0.1374,
+            "auc": 0.786
           },
           "goal_or_assist": {
-            "brier": 0.07194,
-            "log_loss": 0.2586,
-            "auc": 0.8
+            "brier": 0.06606,
+            "log_loss": 0.2425,
+            "auc": 0.79
           },
-          "top3_scorer_hit_rate": 0.619,
-          "top3_random_hit_rate": 0.204,
+          "top3_scorer_hit_rate": 0.5,
+          "top3_random_hit_rate": 0.184,
           "rating": {
-            "n": 727,
-            "mae": 0.65
+            "n": 952,
+            "mae": 0.624
+          }
+        },
+        "without_recent": {
+          "player_matches": 1927,
+          "goal_rate_actual": 0.0446,
+          "goal": {
+            "brier": 0.03902,
+            "log_loss": 0.1581,
+            "auc": 0.819
+          },
+          "assist": {
+            "brier": 0.03281,
+            "log_loss": 0.1336,
+            "auc": 0.784
+          },
+          "goal_or_assist": {
+            "brier": 0.06402,
+            "log_loss": 0.2343,
+            "auc": 0.801
+          },
+          "top3_scorer_hit_rate": 0.615,
+          "top3_random_hit_rate": 0.184,
+          "rating": {
+            "n": 952,
+            "mae": 0.624
+          }
+        },
+        "without_opponent_context": {
+          "player_matches": 1927,
+          "goal_rate_actual": 0.0446,
+          "goal": {
+            "brier": 0.03907,
+            "log_loss": 0.1591,
+            "auc": 0.815
+          },
+          "assist": {
+            "brier": 0.03279,
+            "log_loss": 0.134,
+            "auc": 0.779
+          },
+          "goal_or_assist": {
+            "brier": 0.06423,
+            "log_loss": 0.2355,
+            "auc": 0.798
+          },
+          "top3_scorer_hit_rate": 0.654,
+          "top3_random_hit_rate": 0.184,
+          "rating": {
+            "n": 952,
+            "mae": 0.635
           }
         }
       },
       "baselines": {
         "constant_rate": {
-          "brier": 0.04957,
-          "log_loss": 0.2131,
-          "auc": 0.434
+          "brier": 0.04284,
+          "log_loss": 0.1892,
+          "auc": 0.488
         },
         "season_goals_per_match": {
-          "brier": 0.05701,
-          "log_loss": 0.2478,
-          "auc": 0.418
+          "brier": 0.04765,
+          "log_loss": 0.2079,
+          "auc": 0.473
         },
         "position_average": {
-          "brier": 0.04616,
-          "log_loss": 0.1879,
-          "auc": 0.782
+          "brier": 0.03977,
+          "log_loss": 0.1637,
+          "auc": 0.796
         },
         "last_rating": {
-          "mae": 0.883,
-          "n": 727
+          "mae": 0.836,
+          "n": 952
         },
         "season_mean_rating": {
-          "mae": 0.713,
-          "n": 727
+          "mae": 0.686,
+          "n": 952
         },
         "position_mean_rating": {
-          "mae": 0.655,
-          "n": 727
+          "mae": 0.642,
+          "n": 952
         }
       },
-      "scorers": 76
+      "scorers": 86
     }
   },
   "notes": [

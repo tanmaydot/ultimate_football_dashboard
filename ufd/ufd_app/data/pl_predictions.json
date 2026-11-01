@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": 1,
-    "generated_at": "2026-11-01T01:19:32+00:00",
+    "generated_at": "2026-11-01T13:17:16+00:00",
     "as_of": "2026-11-01",
     "season": "2026-27",
     "model": {
@@ -58,17 +58,17 @@
       }
     },
     "validation": {
-      "generated_at": "2026-10-21T04:21:16+00:00",
+      "generated_at": "2026-11-01T13:16:51+00:00",
       "test_seasons": [
         "2016-17",
         "2026-27"
       ],
-      "matches": 3869,
-      "accuracy": 0.541,
-      "baseline_accuracy": 0.4453,
-      "rps": 0.1989,
-      "baseline_rps": 0.2329,
-      "log_loss": 0.968
+      "matches": 3888,
+      "accuracy": 0.5406,
+      "baseline_accuracy": 0.4455,
+      "rps": 0.199,
+      "baseline_rps": 0.2328,
+      "log_loss": 0.9685
     },
     "not_available": [
       "Bookmaker odds (no free open source): the forecasts cannot be compared with the market.",
