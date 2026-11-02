@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": 1,
-    "generated_at": "2026-11-01T01:19:31+00:00",
+    "generated_at": "2026-11-02T01:39:51+00:00",
     "competition": {
       "code": "PL",
       "name": "Premier League"
@@ -31,12 +31,12 @@
         {
           "name": "finished matches (clean sheets)",
           "ok": true,
-          "detail": "88 matches, 8 new since the last build"
+          "detail": "89 matches, 1 new since the last build"
         },
         {
           "name": "pitchapi matches (lineups, formations, possession, player numbers)",
           "ok": true,
-          "detail": "88 finished: 8 new, 0 read again, 80 unchanged and not requested"
+          "detail": "89 finished: 1 new, 8 read again (1 new, 8 recent), 80 unchanged and not requested"
         },
         {
           "name": "pitchapi team matching",
@@ -46,7 +46,7 @@
         {
           "name": "pitchapi cards",
           "ok": false,
-          "detail": "in 14 of 88 matches the cards don't add up to the team statistics (counts can be off by one or two)"
+          "detail": "in 14 of 89 matches the cards don't add up to the team statistics (counts can be off by one or two)"
         },
         {
           "name": "footballdata.io team matching",
@@ -66,12 +66,12 @@
         {
           "name": "history",
           "ok": true,
-          "detail": "results stored 88, last match date 2026-10-31, pitch matches stored 88, team snapshots 199, player snapshots 1990"
+          "detail": "results stored 89, last match date 2026-11-01, pitch matches stored 89, team snapshots 202, player snapshots 2021"
         },
         {
           "name": "updated this run",
           "ok": true,
-          "detail": "8 new result(s); PitchAPI 8 new / 0 re-read / 80 untouched; footballdata.io 20 club(s) refreshed"
+          "detail": "1 new result(s); PitchAPI 1 new / 8 re-read / 80 untouched; footballdata.io 20 club(s) refreshed"
         }
       ],
       "unmatched_footballdata_io": [],
@@ -95,15 +95,15 @@
         "AFC Bournemouth: Junior Kroupi"
       ],
       "pitchapi": {
-        "matches": 88,
+        "matches": 89,
         "cards_not_reconciled": 14
       },
       "updates": {
-        "new_results": 8,
+        "new_results": 1,
         "pitchapi_matches": {
-          "finished": 88,
-          "new": 8,
-          "refreshed": 0,
+          "finished": 89,
+          "new": 1,
+          "refreshed": 8,
           "unchanged": 80
         },
         "footballdata_io": {
@@ -113,16 +113,33 @@
       }
     },
     "history": {
-      "results_stored": 88,
-      "last_match_date": "2026-10-31",
-      "pitch_matches_stored": 88,
-      "team_snapshots": 199,
-      "player_snapshots": 1990
+      "results_stored": 89,
+      "last_match_date": "2026-11-01",
+      "pitch_matches_stored": 89,
+      "team_snapshots": 202,
+      "player_snapshots": 2021
     }
   },
   "standings": [
     {
       "position": 1,
+      "team_id": 57,
+      "name": "Arsenal FC",
+      "short_name": "Arsenal",
+      "tla": "ARS",
+      "crest": "https://crests.football-data.org/57.png",
+      "played": 9,
+      "won": 8,
+      "draw": 0,
+      "lost": 1,
+      "goals_for": 14,
+      "goals_against": 5,
+      "goal_difference": 9,
+      "points": 24,
+      "form": null
+    },
+    {
+      "position": 2,
       "team_id": 65,
       "name": "Manchester City FC",
       "short_name": "Man City",
@@ -135,23 +152,6 @@
       "goals_for": 20,
       "goals_against": 10,
       "goal_difference": 10,
-      "points": 21,
-      "form": null
-    },
-    {
-      "position": 2,
-      "team_id": 57,
-      "name": "Arsenal FC",
-      "short_name": "Arsenal",
-      "tla": "ARS",
-      "crest": "https://crests.football-data.org/57.png",
-      "played": 8,
-      "won": 7,
-      "draw": 0,
-      "lost": 1,
-      "goals_for": 13,
-      "goals_against": 5,
-      "goal_difference": 8,
       "points": 21,
       "form": null
     },
@@ -196,13 +196,13 @@
       "short_name": "Liverpool",
       "tla": "LIV",
       "crest": "https://crests.football-data.org/64.png",
-      "played": 8,
+      "played": 9,
       "won": 4,
       "draw": 3,
-      "lost": 1,
+      "lost": 2,
       "goals_for": 11,
-      "goals_against": 8,
-      "goal_difference": 3,
+      "goals_against": 9,
+      "goal_difference": 2,
       "points": 15,
       "form": null
     },
@@ -558,19 +558,19 @@
               "pitchapi_id": "p_3w44Lo",
               "matched": true,
               "shirt_number": 1,
-              "appearances": 8,
+              "appearances": 9,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
-              "yellow_cards": 0,
+              "yellow_cards": 1,
               "red_cards": 0,
-              "rating": 7.5,
+              "rating": 7.46,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/76e2fbb8dd5366da2cd8f20ea0a0ad9e45da8aeaafc19f8d860624692215a57b.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 720,
+                "minutes": 810,
                 "shots": 0,
                 "goals_conceded": 5,
                 "saves": 18,
@@ -580,7 +580,7 @@
                 "blocks": 0,
                 "crosses": 0,
                 "interceptions": 0,
-                "clearances": 8,
+                "clearances": 12,
                 "dispossessed": 0,
                 "duels": 8,
                 "duels_won": 8,
@@ -590,12 +590,12 @@
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 241,
+                "passes": 293,
                 "key_passes": 0,
                 "woodwork": 0,
                 "xg": 0.0,
                 "xa": 0.0,
-                "pass_accuracy": 66.8
+                "pass_accuracy": 63.8
               }
             }
           },
@@ -716,44 +716,44 @@
               "pitchapi_id": "p_4Rboah",
               "matched": true,
               "shirt_number": 15,
-              "appearances": 7,
+              "appearances": 8,
               "goals": 1,
               "assists": 0,
               "own_goals": 0,
               "yellow_cards": 0,
               "red_cards": 0,
-              "rating": 7.15,
+              "rating": 7.25,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/7196b01072e9cb8a5b11f7cba003faa658909c5d2b23aa95bb69cbebd3fb46a9.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 551,
+                "minutes": 641,
                 "shots": 3,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
                 "fouls": 6,
-                "tackles": 10,
-                "blocks": 2,
+                "tackles": 15,
+                "blocks": 4,
                 "crosses": 0,
                 "interceptions": 8,
-                "clearances": 21,
+                "clearances": 29,
                 "dispossessed": 3,
-                "duels": 60,
-                "duels_won": 37,
+                "duels": 69,
+                "duels_won": 45,
                 "dribble_attempts": 1,
                 "dribbles": 1,
                 "pen_won": 0,
                 "pen_committed": 1,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 323,
+                "passes": 351,
                 "key_passes": 1,
                 "woodwork": 0,
                 "xg": 0.59,
                 "xa": 0.03,
-                "pass_accuracy": 96.0
+                "pass_accuracy": 95.4
               }
             }
           },
@@ -769,44 +769,44 @@
               "pitchapi_id": "p_2siSV9",
               "matched": true,
               "shirt_number": 6,
-              "appearances": 8,
+              "appearances": 9,
               "goals": 1,
               "assists": 0,
               "own_goals": 0,
               "yellow_cards": 2,
               "red_cards": 0,
-              "rating": 7.34,
+              "rating": 7.33,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/58470940bdd31bc21a74469aea053a58c01b50b82f7fde45cd924ee0caccd6be.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 720,
+                "minutes": 810,
                 "shots": 9,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
                 "fouls": 7,
-                "tackles": 10,
-                "blocks": 8,
+                "tackles": 12,
+                "blocks": 11,
                 "crosses": 1,
                 "interceptions": 9,
-                "clearances": 42,
-                "dispossessed": 6,
-                "duels": 72,
-                "duels_won": 37,
+                "clearances": 46,
+                "dispossessed": 7,
+                "duels": 81,
+                "duels_won": 43,
                 "dribble_attempts": 0,
                 "dribbles": 0,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 456,
+                "passes": 494,
                 "key_passes": 2,
                 "woodwork": 0,
                 "xg": 1.38,
                 "xa": 0.25,
-                "pass_accuracy": 89.3
+                "pass_accuracy": 88.7
               }
             }
           },
@@ -874,44 +874,44 @@
               "pitchapi_id": "p_1hTEsN",
               "matched": true,
               "shirt_number": 12,
-              "appearances": 4,
+              "appearances": 5,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
-              "yellow_cards": 0,
+              "yellow_cards": 1,
               "red_cards": 0,
-              "rating": 6.33,
+              "rating": 6.57,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/c23200d36a46663adcaad72c65c5ee8e32efb8d089a0e4ab51c625db605b8549.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 156,
-                "shots": 0,
+                "minutes": 246,
+                "shots": 1,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 2,
-                "tackles": 3,
+                "fouls": 3,
+                "tackles": 4,
                 "blocks": 0,
                 "crosses": 2,
-                "interceptions": 1,
-                "clearances": 4,
-                "dispossessed": 0,
-                "duels": 10,
-                "duels_won": 6,
-                "dribble_attempts": 2,
-                "dribbles": 0,
+                "interceptions": 2,
+                "clearances": 9,
+                "dispossessed": 1,
+                "duels": 25,
+                "duels_won": 13,
+                "dribble_attempts": 4,
+                "dribbles": 1,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 60,
-                "key_passes": 1,
+                "passes": 87,
+                "key_passes": 3,
                 "woodwork": 0,
-                "xg": 0.0,
-                "xa": 0.17,
-                "pass_accuracy": 83.3
+                "xg": 0.02,
+                "xa": 0.19,
+                "pass_accuracy": 81.6
               }
             }
           },
@@ -927,7 +927,7 @@
               "pitchapi_id": "p_4aXTsg",
               "matched": true,
               "shirt_number": 5,
-              "appearances": 3,
+              "appearances": 4,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
@@ -939,32 +939,32 @@
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 40,
+                "minutes": 46,
                 "shots": 0,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 0,
-                "tackles": 1,
+                "fouls": 1,
+                "tackles": 2,
                 "blocks": 0,
                 "crosses": 1,
                 "interceptions": 0,
-                "clearances": 5,
+                "clearances": 7,
                 "dispossessed": 0,
-                "duels": 3,
-                "duels_won": 2,
+                "duels": 7,
+                "duels_won": 5,
                 "dribble_attempts": 0,
                 "dribbles": 0,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 19,
+                "passes": 23,
                 "key_passes": 0,
                 "woodwork": 0,
                 "xg": 0.0,
                 "xa": 0.0,
-                "pass_accuracy": 94.7
+                "pass_accuracy": 82.6
               }
             }
           },
@@ -980,44 +980,44 @@
               "pitchapi_id": "p_2HbdkS",
               "matched": true,
               "shirt_number": 33,
-              "appearances": 8,
+              "appearances": 9,
               "goals": 1,
               "assists": 2,
               "own_goals": 0,
               "yellow_cards": 0,
               "red_cards": 0,
-              "rating": 7.05,
+              "rating": 7.07,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/e11c2c3764ceb3f5e1261c3327659e1bef293b525ad52531a4127838a87cf44f.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 612,
+                "minutes": 702,
                 "shots": 9,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 5,
-                "tackles": 11,
-                "blocks": 1,
+                "fouls": 6,
+                "tackles": 14,
+                "blocks": 4,
                 "crosses": 6,
-                "interceptions": 4,
-                "clearances": 12,
+                "interceptions": 6,
+                "clearances": 14,
                 "dispossessed": 3,
-                "duels": 47,
-                "duels_won": 26,
+                "duels": 57,
+                "duels_won": 30,
                 "dribble_attempts": 3,
                 "dribbles": 1,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 212,
+                "passes": 243,
                 "key_passes": 6,
                 "woodwork": 0,
                 "xg": 1.31,
-                "xa": 0.8,
-                "pass_accuracy": 84.0
+                "xa": 0.82,
+                "pass_accuracy": 79.8
               }
             }
           },
@@ -1086,44 +1086,44 @@
               "pitchapi_id": "p_1csDgb",
               "matched": true,
               "shirt_number": 39,
-              "appearances": 6,
+              "appearances": 7,
               "goals": 2,
               "assists": 0,
               "own_goals": 0,
               "yellow_cards": 0,
               "red_cards": 0,
-              "rating": 6.97,
+              "rating": 6.96,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/ba565aed0140338bf61122ef7ffafce5acf940dc5e3611d8aca8a49c346d8a97.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 239,
-                "shots": 3,
+                "minutes": 301,
+                "shots": 5,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
                 "fouls": 2,
-                "tackles": 4,
+                "tackles": 6,
                 "blocks": 2,
                 "crosses": 2,
                 "interceptions": 2,
-                "clearances": 2,
-                "dispossessed": 4,
-                "duels": 37,
-                "duels_won": 26,
+                "clearances": 4,
+                "dispossessed": 5,
+                "duels": 42,
+                "duels_won": 30,
                 "dribble_attempts": 6,
                 "dribbles": 5,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 171,
+                "passes": 189,
                 "key_passes": 1,
                 "woodwork": 0,
-                "xg": 0.17,
-                "xa": 0.27,
-                "pass_accuracy": 90.1
+                "xg": 0.25,
+                "xa": 0.28,
+                "pass_accuracy": 89.4
               }
             }
           },
@@ -1192,44 +1192,44 @@
               "pitchapi_id": "p_3Jf13O",
               "matched": true,
               "shirt_number": 8,
-              "appearances": 8,
+              "appearances": 9,
               "goals": 2,
               "assists": 0,
               "own_goals": 0,
               "yellow_cards": 1,
               "red_cards": 0,
-              "rating": 7.5,
+              "rating": 7.51,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/97fcb94481ea722d1f13fa68e205cbae95593dd8e29dbde3e650afd9a564d48a.webp",
               "full_name": null,
               "captain": true,
               "extra": {
-                "minutes": 651,
+                "minutes": 739,
                 "shots": 14,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
                 "fouls": 3,
-                "tackles": 6,
+                "tackles": 8,
                 "blocks": 0,
-                "crosses": 16,
-                "interceptions": 2,
+                "crosses": 17,
+                "interceptions": 3,
                 "clearances": 4,
                 "dispossessed": 5,
-                "duels": 41,
-                "duels_won": 18,
-                "dribble_attempts": 11,
+                "duels": 47,
+                "duels_won": 23,
+                "dribble_attempts": 12,
                 "dribbles": 4,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 473,
-                "key_passes": 15,
+                "passes": 516,
+                "key_passes": 17,
                 "woodwork": 0,
                 "xg": 2.13,
-                "xa": 1.72,
-                "pass_accuracy": 90.7
+                "xa": 1.86,
+                "pass_accuracy": 89.7
               }
             }
           },
@@ -1245,7 +1245,7 @@
               "pitchapi_id": "p_3oy7bN",
               "matched": true,
               "shirt_number": 23,
-              "appearances": 8,
+              "appearances": 9,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
@@ -1257,7 +1257,7 @@
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 174,
+                "minutes": 176,
                 "shots": 8,
                 "goals_conceded": 0,
                 "saves": 0,
@@ -1267,22 +1267,22 @@
                 "blocks": 0,
                 "crosses": 2,
                 "interceptions": 0,
-                "clearances": 1,
-                "dispossessed": 5,
-                "duels": 40,
-                "duels_won": 16,
-                "dribble_attempts": 7,
-                "dribbles": 5,
+                "clearances": 2,
+                "dispossessed": 6,
+                "duels": 45,
+                "duels_won": 18,
+                "dribble_attempts": 8,
+                "dribbles": 6,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 107,
+                "passes": 111,
                 "key_passes": 0,
                 "woodwork": 0,
                 "xg": 0.62,
                 "xa": 0.25,
-                "pass_accuracy": 83.2
+                "pass_accuracy": 83.8
               }
             }
           },
@@ -1298,44 +1298,44 @@
               "pitchapi_id": "p_36Bxcp",
               "matched": true,
               "shirt_number": 41,
-              "appearances": 8,
+              "appearances": 9,
               "goals": 0,
-              "assists": 4,
+              "assists": 5,
               "own_goals": 0,
               "yellow_cards": 1,
               "red_cards": 0,
-              "rating": 7.72,
+              "rating": 7.76,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/842a90e25d9c6e84c7fd8268f7e9ae0769b95f18bc9b79269542a50eb8d4ecb5.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 674,
-                "shots": 6,
+                "minutes": 764,
+                "shots": 9,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 6,
-                "tackles": 9,
+                "fouls": 7,
+                "tackles": 12,
                 "blocks": 4,
-                "crosses": 29,
-                "interceptions": 8,
-                "clearances": 13,
+                "crosses": 32,
+                "interceptions": 9,
+                "clearances": 15,
                 "dispossessed": 4,
-                "duels": 46,
-                "duels_won": 23,
-                "dribble_attempts": 5,
-                "dribbles": 4,
+                "duels": 56,
+                "duels_won": 28,
+                "dribble_attempts": 7,
+                "dribbles": 5,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 568,
-                "key_passes": 15,
+                "passes": 612,
+                "key_passes": 17,
                 "woodwork": 0,
-                "xg": 0.37,
-                "xa": 1.66,
-                "pass_accuracy": 91.4
+                "xg": 0.49,
+                "xa": 2.01,
+                "pass_accuracy": 91.0
               }
             }
           },
@@ -1404,44 +1404,44 @@
               "pitchapi_id": "p_2Ho1Vf",
               "matched": true,
               "shirt_number": 49,
-              "appearances": 6,
+              "appearances": 7,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
-              "yellow_cards": 1,
+              "yellow_cards": 2,
               "red_cards": 0,
-              "rating": 6.94,
+              "rating": 6.9,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/b91b84c8b7dac479d4e4c44869173a827fe5e5094dfaf186b76ccc023e97ab4f.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 404,
-                "shots": 4,
+                "minutes": 432,
+                "shots": 5,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 10,
-                "tackles": 4,
+                "fouls": 11,
+                "tackles": 6,
                 "blocks": 3,
                 "crosses": 2,
                 "interceptions": 4,
                 "clearances": 3,
                 "dispossessed": 3,
-                "duels": 33,
-                "duels_won": 19,
-                "dribble_attempts": 1,
-                "dribbles": 0,
+                "duels": 39,
+                "duels_won": 23,
+                "dribble_attempts": 2,
+                "dribbles": 1,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 277,
+                "passes": 291,
                 "key_passes": 3,
                 "woodwork": 0,
-                "xg": 0.17,
+                "xg": 0.21,
                 "xa": 0.64,
-                "pass_accuracy": 92.8
+                "pass_accuracy": 92.1
               }
             }
           },
@@ -1457,44 +1457,44 @@
               "pitchapi_id": "p_2Yd5On",
               "matched": true,
               "shirt_number": 29,
-              "appearances": 8,
-              "goals": 2,
+              "appearances": 9,
+              "goals": 3,
               "assists": 0,
               "own_goals": 0,
               "yellow_cards": 1,
               "red_cards": 0,
-              "rating": 6.95,
+              "rating": 7.02,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/b81496b3509c01eb557dcc55336e586def9c80d9a684180465b06fa9fa077bc9.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 589,
-                "shots": 14,
+                "minutes": 673,
+                "shots": 15,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 8,
-                "tackles": 1,
-                "blocks": 0,
+                "fouls": 11,
+                "tackles": 2,
+                "blocks": 1,
                 "crosses": 4,
-                "interceptions": 3,
-                "clearances": 4,
-                "dispossessed": 3,
-                "duels": 67,
-                "duels_won": 31,
-                "dribble_attempts": 4,
-                "dribbles": 1,
+                "interceptions": 4,
+                "clearances": 7,
+                "dispossessed": 5,
+                "duels": 82,
+                "duels_won": 36,
+                "dribble_attempts": 6,
+                "dribbles": 2,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 152,
+                "passes": 170,
                 "key_passes": 5,
                 "woodwork": 0,
-                "xg": 2.11,
-                "xa": 0.5,
-                "pass_accuracy": 80.3
+                "xg": 2.74,
+                "xa": 0.51,
+                "pass_accuracy": 79.4
               }
             }
           },
@@ -1510,7 +1510,7 @@
               "pitchapi_id": "p_0ALmup",
               "matched": true,
               "shirt_number": 14,
-              "appearances": 5,
+              "appearances": 6,
               "goals": 0,
               "assists": 1,
               "own_goals": 0,
@@ -1522,7 +1522,7 @@
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 148,
+                "minutes": 154,
                 "shots": 1,
                 "goals_conceded": 0,
                 "saves": 0,
@@ -1542,12 +1542,12 @@
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 36,
+                "passes": 38,
                 "key_passes": 7,
                 "woodwork": 0,
                 "xg": 0.08,
                 "xa": 0.49,
-                "pass_accuracy": 77.8
+                "pass_accuracy": 78.9
               }
             }
           },
@@ -1616,44 +1616,44 @@
               "pitchapi_id": "p_4NUmpH",
               "matched": true,
               "shirt_number": 17,
-              "appearances": 5,
+              "appearances": 6,
               "goals": 0,
               "assists": 1,
               "own_goals": 0,
               "yellow_cards": 2,
               "red_cards": 0,
-              "rating": 7.15,
+              "rating": 7.12,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/f9f61e64501eb2f9dc57518acb2671e328a2b17dad7d86e4a561992ec106aac0.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 365,
-                "shots": 4,
+                "minutes": 449,
+                "shots": 5,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 2,
-                "tackles": 4,
+                "fouls": 3,
+                "tackles": 5,
                 "blocks": 0,
-                "crosses": 13,
+                "crosses": 18,
                 "interceptions": 2,
-                "clearances": 5,
-                "dispossessed": 2,
-                "duels": 33,
-                "duels_won": 18,
-                "dribble_attempts": 6,
+                "clearances": 6,
+                "dispossessed": 3,
+                "duels": 47,
+                "duels_won": 24,
+                "dribble_attempts": 9,
                 "dribbles": 1,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 134,
-                "key_passes": 8,
+                "passes": 158,
+                "key_passes": 9,
                 "woodwork": 0,
-                "xg": 0.24,
-                "xa": 0.55,
-                "pass_accuracy": 83.6
+                "xg": 0.27,
+                "xa": 0.85,
+                "pass_accuracy": 79.7
               }
             }
           },
@@ -1669,44 +1669,44 @@
               "pitchapi_id": "p_3wFuxK",
               "matched": true,
               "shirt_number": 20,
-              "appearances": 5,
+              "appearances": 6,
               "goals": 1,
               "assists": 0,
               "own_goals": 0,
-              "yellow_cards": 1,
+              "yellow_cards": 2,
               "red_cards": 0,
-              "rating": 7.14,
+              "rating": 7.17,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/1fd067d3b12f0f5a8fc30afe1728cb6106170c9621a24438e3cc578147dd40f9.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 248,
-                "shots": 8,
+                "minutes": 338,
+                "shots": 9,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 5,
+                "fouls": 6,
                 "tackles": 2,
                 "blocks": 0,
-                "crosses": 15,
+                "crosses": 16,
                 "interceptions": 1,
-                "clearances": 0,
-                "dispossessed": 5,
-                "duels": 28,
-                "duels_won": 9,
-                "dribble_attempts": 12,
-                "dribbles": 5,
+                "clearances": 2,
+                "dispossessed": 7,
+                "duels": 41,
+                "duels_won": 13,
+                "dribble_attempts": 14,
+                "dribbles": 6,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 99,
-                "key_passes": 9,
+                "passes": 122,
+                "key_passes": 12,
                 "woodwork": 0,
-                "xg": 0.45,
-                "xa": 0.61,
-                "pass_accuracy": 88.9
+                "xg": 0.48,
+                "xa": 1.28,
+                "pass_accuracy": 86.9
               }
             }
           },
@@ -1827,20 +1827,20 @@
         }
       },
       "stats": {
-        "position": 2,
-        "played": 8,
-        "won": 7,
+        "position": 1,
+        "played": 9,
+        "won": 8,
         "draw": 0,
         "lost": 1,
-        "goals_for": 13,
+        "goals_for": 14,
         "goals_against": 5,
-        "goal_difference": 8,
-        "points": 21,
-        "avg_points": 2.62,
+        "goal_difference": 9,
+        "points": 24,
+        "avg_points": 2.67,
         "form": null,
-        "clean_sheets": 5,
-        "possession": 61.0,
-        "possession_matches": 8,
+        "clean_sheets": 6,
+        "possession": 59.1,
+        "possession_matches": 9,
         "possession_source": "pitchapi",
         "xg_for": 12.49,
         "shots_per_match": 13.38,
@@ -1853,20 +1853,20 @@
         "formations": [
           {
             "formation": "4-2-3-1",
-            "count": 7,
-            "last_date": "2026-10-24",
+            "count": 8,
+            "last_date": "2026-11-01",
             "starting_xi": [
               "David Raya",
-              "Ben White",
+              "Jurriën Timber",
               "Ezri Konsa",
               "Gabriel",
-              "Myles Lewis-Skelly",
+              "Riccardo Calafiori",
+              "Bruno Guimarães",
               "Declan Rice",
-              "Mikel Merino",
               "Noni Madueke",
               "Martin Ødegaard",
-              "Eberechi Eze",
-              "Viktor Gyökeres"
+              "Christos Tzolis",
+              "Kai Havertz"
             ]
           },
           {
@@ -1891,38 +1891,38 @@
         "last_used": "4-2-3-1",
         "last_used_xi": [
           "David Raya",
-          "Ben White",
+          "Jurriën Timber",
           "Ezri Konsa",
           "Gabriel",
-          "Myles Lewis-Skelly",
+          "Riccardo Calafiori",
+          "Bruno Guimarães",
           "Declan Rice",
-          "Mikel Merino",
           "Noni Madueke",
           "Martin Ødegaard",
-          "Eberechi Eze",
-          "Viktor Gyökeres"
+          "Christos Tzolis",
+          "Kai Havertz"
         ],
-        "last_used_date": "2026-10-24",
+        "last_used_date": "2026-11-01",
         "default": "4-2-3-1",
         "usage": {
-          "4-2-3-1": 7,
+          "4-2-3-1": 8,
           "4-3-3": 1
         },
-        "matches_counted": 8,
+        "matches_counted": 9,
         "starting_xi": [
           "David Raya",
-          "Ben White",
+          "Jurriën Timber",
           "Ezri Konsa",
           "Gabriel",
-          "Myles Lewis-Skelly",
+          "Riccardo Calafiori",
+          "Bruno Guimarães",
           "Declan Rice",
-          "Mikel Merino",
           "Noni Madueke",
           "Martin Ødegaard",
-          "Eberechi Eze",
-          "Viktor Gyökeres"
+          "Christos Tzolis",
+          "Kai Havertz"
         ],
-        "based_on_match_date": "2026-10-24"
+        "based_on_match_date": "2026-11-01"
       },
       "sources": {
         "football_data": true,
@@ -2449,7 +2449,7 @@
               "won_per_match": 0.13,
               "match_with_penalty_percentage": 13
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -3992,12 +3992,12 @@
         "possession": 45.9,
         "possession_matches": 9,
         "possession_source": "pitchapi",
-        "xg_for": 9.52,
-        "shots_per_match": 11.38,
+        "xg_for": 11.15,
+        "shots_per_match": 11.89,
         "shots_on_target_per_match": 3,
-        "corners_per_match": 3.25,
-        "fouls_per_match": 11.88,
-        "cards_per_match": 2.38
+        "corners_per_match": 3.67,
+        "fouls_per_match": 11.33,
+        "cards_per_match": 2.22
       },
       "formation": {
         "formations": [
@@ -4367,23 +4367,23 @@
               "is_current": true
             },
             "summary": {
-              "matches_played": 8,
+              "matches_played": 9,
               "wins": 3,
-              "draws": 2,
+              "draws": 3,
               "losses": 3,
-              "goals_for": 9,
-              "goals_against": 12,
+              "goals_for": 10,
+              "goals_against": 13,
               "goal_difference": -3,
-              "win_percentage": 38,
-              "draw_percentage": 25,
-              "loss_percentage": 38,
-              "points_per_game": 1.38
+              "win_percentage": 33,
+              "draw_percentage": 33,
+              "loss_percentage": 33,
+              "points_per_game": 1.33
             },
             "home_away": {
               "home": {
-                "matches_played": 4,
+                "matches_played": 5,
                 "wins": 1,
-                "draws": 1,
+                "draws": 2,
                 "losses": 2,
                 "goals_for": null,
                 "goals_against": null,
@@ -4400,27 +4400,27 @@
               }
             },
             "goals": {
-              "for_per_match": 1.13,
-              "against_per_match": 1.5,
-              "total_goals_per_match": 2.63,
-              "over_0_5_percentage": 88,
-              "over_1_5_percentage": 63,
-              "over_2_5_percentage": 63,
-              "over_3_5_percentage": 38,
-              "over_4_5_percentage": 13,
+              "for_per_match": 1.11,
+              "against_per_match": 1.44,
+              "total_goals_per_match": 2.56,
+              "over_0_5_percentage": 89,
+              "over_1_5_percentage": 67,
+              "over_2_5_percentage": 56,
+              "over_3_5_percentage": 33,
+              "over_4_5_percentage": 11,
               "over_5_5_percentage": 0,
-              "under_0_5_percentage": 12,
-              "under_1_5_percentage": 37,
-              "under_2_5_percentage": 37,
-              "under_3_5_percentage": 62,
-              "under_4_5_percentage": 87,
+              "under_0_5_percentage": 11,
+              "under_1_5_percentage": 33,
+              "under_2_5_percentage": 44,
+              "under_3_5_percentage": 67,
+              "under_4_5_percentage": 89,
               "under_5_5_percentage": 100
             },
             "clean_sheets": {
               "total": 2,
               "home": 0,
               "away": 2,
-              "percentage": 25,
+              "percentage": 22,
               "home_percentage": 0,
               "away_percentage": 50
             },
@@ -4428,56 +4428,56 @@
               "total": 3,
               "home": 1,
               "away": 2,
-              "percentage": 38,
-              "home_percentage": 25,
+              "percentage": 33,
+              "home_percentage": 20,
               "away_percentage": 50
             },
             "both_teams_to_score": {
-              "total": 4,
-              "home": 3,
+              "total": 5,
+              "home": 4,
               "away": 1,
-              "percentage": 50,
-              "home_percentage": 75,
+              "percentage": 56,
+              "home_percentage": 80,
               "away_percentage": 25
             },
             "corners": {
-              "recorded_matches": 8,
-              "for_total": 26,
-              "against_total": 37,
-              "for_per_match": 3.25,
-              "against_per_match": 4.63,
-              "total_per_match": 7.88,
-              "over_7_5_percentage": 38,
-              "over_8_5_percentage": 38,
-              "over_9_5_percentage": 25,
-              "over_10_5_percentage": 25,
-              "over_11_5_percentage": 13
+              "recorded_matches": 9,
+              "for_total": 33,
+              "against_total": 44,
+              "for_per_match": 3.67,
+              "against_per_match": 4.89,
+              "total_per_match": 8.56,
+              "over_7_5_percentage": 44,
+              "over_8_5_percentage": 44,
+              "over_9_5_percentage": 33,
+              "over_10_5_percentage": 33,
+              "over_11_5_percentage": 22
             },
             "cards": {
-              "for_total": 19,
-              "against_total": 26,
-              "total": 45,
-              "for_per_match": 2.38,
-              "against_per_match": 3.25,
-              "total_per_match": 5.63,
+              "for_total": 20,
+              "against_total": 29,
+              "total": 49,
+              "for_per_match": 2.22,
+              "against_per_match": 3.22,
+              "total_per_match": 5.44,
               "over_1_5_percentage": 100,
-              "over_2_5_percentage": 88,
-              "over_3_5_percentage": 75,
-              "over_4_5_percentage": 63
+              "over_2_5_percentage": 89,
+              "over_3_5_percentage": 78,
+              "over_4_5_percentage": 56
             },
             "shots": {
-              "recorded_matches": 8,
-              "shots_total": 91,
-              "shots_per_match": 11.38,
-              "shots_on_target_total": 24,
+              "recorded_matches": 9,
+              "shots_total": 107,
+              "shots_per_match": 11.89,
+              "shots_on_target_total": 27,
               "shots_on_target_per_match": 3,
-              "shot_conversion_rate": 10
+              "shot_conversion_rate": 9
             },
             "xg": {
-              "xg_for": 9.52,
-              "xg_against": 14.14,
-              "xg_for_per_match": 1.19,
-              "xg_against_per_match": 1.77
+              "xg_for": 11.15,
+              "xg_against": 15.8,
+              "xg_for_per_match": 1.24,
+              "xg_against_per_match": 1.76
             },
             "possession": {
               "average": 46,
@@ -4485,16 +4485,16 @@
               "away_average": 47
             },
             "fouls": {
-              "committed_total": 95,
-              "committed_per_match": 11.88,
-              "against_total": 109,
-              "against_per_match": 13.63
+              "committed_total": 102,
+              "committed_per_match": 11.33,
+              "against_total": 121,
+              "against_per_match": 13.44
             },
             "goal_timing": {
               "scored": {
                 "0_15": 2,
                 "16_30": 0,
-                "31_45": 2,
+                "31_45": 3,
                 "46_60": 1,
                 "61_75": 2,
                 "76_90": 2
@@ -4504,48 +4504,48 @@
                 "16_30": 2,
                 "31_45": 1,
                 "46_60": 3,
-                "61_75": 0,
+                "61_75": 1,
                 "76_90": 4
               }
             },
             "form": {
-              "overall": "lldlwdww",
-              "home": "lldw",
+              "overall": "lldlwdwwd",
+              "home": "lldwd",
               "away": "ldww"
             },
             "set_pieces": {
               "throw_ins": {
-                "per_match": 15.63,
-                "home_per_match": 17.25,
+                "per_match": 15.56,
+                "home_per_match": 16.8,
                 "away_per_match": 14,
-                "match_total_per_match": 31.38
+                "match_total_per_match": 30.56
               },
               "free_kicks": {
-                "per_match": 16.63,
-                "home_per_match": 17.5,
+                "per_match": 16.44,
+                "home_per_match": 17,
                 "away_per_match": 15.75,
-                "match_total_per_match": 29.63
+                "match_total_per_match": 29
               },
               "goal_kicks": {
-                "per_match": 10,
-                "home_per_match": 10.5,
+                "per_match": 9.67,
+                "home_per_match": 9.8,
                 "away_per_match": 9.5,
-                "match_total_per_match": 17.63
+                "match_total_per_match": 17.11
               }
             },
             "offsides": {
-              "team_per_match": 1,
-              "match_total_per_match": 5.13,
-              "over_2_5_percentage": 88,
-              "over_3_5_percentage": 75,
-              "over_4_5_percentage": 50
+              "team_per_match": 1.11,
+              "match_total_per_match": 5.22,
+              "over_2_5_percentage": 89,
+              "over_3_5_percentage": 78,
+              "over_4_5_percentage": 56
             },
             "goal_timing_minutes": {
               "scored": {
                 "min_0_10": 1,
                 "min_11_20": 1,
                 "min_21_30": 0,
-                "min_31_40": 1,
+                "min_31_40": 2,
                 "min_41_50": 1,
                 "min_51_60": 1,
                 "min_61_70": 1,
@@ -4559,7 +4559,7 @@
                 "min_31_40": 1,
                 "min_41_50": 1,
                 "min_51_60": 2,
-                "min_61_70": 0,
+                "min_61_70": 1,
                 "min_71_80": 1,
                 "min_81_90": 3
               }
@@ -4568,7 +4568,7 @@
               "match_total_goals": {
                 "exactly_0": 1,
                 "exactly_1": 2,
-                "exactly_2": 0,
+                "exactly_2": 1,
                 "exactly_3": 2,
                 "exactly_4": 2,
                 "exactly_5": 1,
@@ -4577,21 +4577,21 @@
               },
               "team_goals": {
                 "exactly_0": 3,
-                "exactly_1": 2,
+                "exactly_1": 3,
                 "exactly_2": 2,
                 "exactly_3": 1
               }
             },
             "special_markets": {
-              "team_with_most_corners_win_percentage": 38,
-              "most_goals_in_1st_half_percentage": 25,
-              "most_goals_in_2nd_half_percentage": 50,
-              "most_corners_in_1st_half_percentage": 75,
-              "most_corners_in_2nd_half_percentage": 25,
-              "btts_and_win_percentage": 25,
-              "btts_and_draw_percentage": 13,
-              "btts_and_lose_percentage": 13,
-              "over_2_5_and_btts_percentage": 50
+              "team_with_most_corners_win_percentage": 33,
+              "most_goals_in_1st_half_percentage": 22,
+              "most_goals_in_2nd_half_percentage": 44,
+              "most_corners_in_1st_half_percentage": 67,
+              "most_corners_in_2nd_half_percentage": 22,
+              "btts_and_win_percentage": 22,
+              "btts_and_draw_percentage": 22,
+              "btts_and_lose_percentage": 11,
+              "over_2_5_and_btts_percentage": 44
             },
             "penalties": {
               "won": 0,
@@ -4601,7 +4601,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -6765,7 +6765,7 @@
               "won_per_match": 0.11,
               "match_with_penalty_percentage": 11
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -8571,7 +8571,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -10007,12 +10007,12 @@
         "possession": 57.4,
         "possession_matches": 9,
         "possession_source": "pitchapi",
-        "xg_for": 13.09,
-        "shots_per_match": 14.38,
-        "shots_on_target_per_match": 4.5,
-        "corners_per_match": 6.13,
-        "fouls_per_match": 10.38,
-        "cards_per_match": 2.25
+        "xg_for": 14.75,
+        "shots_per_match": 14.33,
+        "shots_on_target_per_match": 4.56,
+        "corners_per_match": 6.22,
+        "fouls_per_match": 10.56,
+        "cards_per_match": 2.33
       },
       "formation": {
         "formations": [
@@ -10361,16 +10361,16 @@
               "is_current": true
             },
             "summary": {
-              "matches_played": 8,
+              "matches_played": 9,
               "wins": 2,
-              "draws": 2,
+              "draws": 3,
               "losses": 4,
-              "goals_for": 8,
-              "goals_against": 10,
+              "goals_for": 9,
+              "goals_against": 11,
               "goal_difference": -2,
-              "win_percentage": 25,
-              "draw_percentage": 25,
-              "loss_percentage": 50,
+              "win_percentage": 22,
+              "draw_percentage": 33,
+              "loss_percentage": 44,
               "points_per_game": 1
             },
             "home_away": {
@@ -10384,9 +10384,9 @@
                 "points_per_game": 1
               },
               "away": {
-                "matches_played": 4,
+                "matches_played": 5,
                 "wins": 1,
-                "draws": 1,
+                "draws": 2,
                 "losses": 2,
                 "goals_for": null,
                 "goals_against": null,
@@ -10395,83 +10395,83 @@
             },
             "goals": {
               "for_per_match": 1,
-              "against_per_match": 1.25,
-              "total_goals_per_match": 2.25,
-              "over_0_5_percentage": 88,
-              "over_1_5_percentage": 50,
-              "over_2_5_percentage": 38,
-              "over_3_5_percentage": 25,
-              "over_4_5_percentage": 25,
+              "against_per_match": 1.22,
+              "total_goals_per_match": 2.22,
+              "over_0_5_percentage": 89,
+              "over_1_5_percentage": 56,
+              "over_2_5_percentage": 33,
+              "over_3_5_percentage": 22,
+              "over_4_5_percentage": 22,
               "over_5_5_percentage": 0,
-              "under_0_5_percentage": 12,
-              "under_1_5_percentage": 50,
-              "under_2_5_percentage": 62,
-              "under_3_5_percentage": 75,
-              "under_4_5_percentage": 75,
+              "under_0_5_percentage": 11,
+              "under_1_5_percentage": 44,
+              "under_2_5_percentage": 67,
+              "under_3_5_percentage": 78,
+              "under_4_5_percentage": 78,
               "under_5_5_percentage": 100
             },
             "clean_sheets": {
               "total": 3,
               "home": 1,
               "away": 2,
-              "percentage": 38,
+              "percentage": 33,
               "home_percentage": 25,
-              "away_percentage": 50
+              "away_percentage": 40
             },
             "failed_to_score": {
               "total": 2,
               "home": 0,
               "away": 2,
-              "percentage": 25,
+              "percentage": 22,
               "home_percentage": 0,
-              "away_percentage": 50
+              "away_percentage": 40
             },
             "both_teams_to_score": {
-              "total": 4,
+              "total": 5,
               "home": 3,
-              "away": 1,
-              "percentage": 50,
+              "away": 2,
+              "percentage": 56,
               "home_percentage": 75,
-              "away_percentage": 25
+              "away_percentage": 40
             },
             "corners": {
-              "recorded_matches": 8,
-              "for_total": 49,
-              "against_total": 34,
-              "for_per_match": 6.13,
-              "against_per_match": 4.25,
-              "total_per_match": 10.38,
-              "over_7_5_percentage": 75,
-              "over_8_5_percentage": 63,
-              "over_9_5_percentage": 63,
-              "over_10_5_percentage": 38,
-              "over_11_5_percentage": 38
+              "recorded_matches": 9,
+              "for_total": 56,
+              "against_total": 41,
+              "for_per_match": 6.22,
+              "against_per_match": 4.56,
+              "total_per_match": 10.78,
+              "over_7_5_percentage": 78,
+              "over_8_5_percentage": 67,
+              "over_9_5_percentage": 67,
+              "over_10_5_percentage": 44,
+              "over_11_5_percentage": 44
             },
             "cards": {
-              "for_total": 18,
-              "against_total": 7,
-              "total": 25,
-              "for_per_match": 2.25,
-              "against_per_match": 0.88,
-              "total_per_match": 3.13,
-              "over_1_5_percentage": 75,
-              "over_2_5_percentage": 50,
-              "over_3_5_percentage": 38,
-              "over_4_5_percentage": 38
+              "for_total": 21,
+              "against_total": 8,
+              "total": 29,
+              "for_per_match": 2.33,
+              "against_per_match": 0.89,
+              "total_per_match": 3.22,
+              "over_1_5_percentage": 78,
+              "over_2_5_percentage": 56,
+              "over_3_5_percentage": 44,
+              "over_4_5_percentage": 33
             },
             "shots": {
-              "recorded_matches": 8,
-              "shots_total": 115,
-              "shots_per_match": 14.38,
-              "shots_on_target_total": 36,
-              "shots_on_target_per_match": 4.5,
+              "recorded_matches": 9,
+              "shots_total": 129,
+              "shots_per_match": 14.33,
+              "shots_on_target_total": 41,
+              "shots_on_target_per_match": 4.56,
               "shot_conversion_rate": 7
             },
             "xg": {
-              "xg_for": 13.09,
-              "xg_against": 12.02,
+              "xg_for": 14.75,
+              "xg_against": 13.64,
               "xg_for_per_match": 1.64,
-              "xg_against_per_match": 1.5
+              "xg_against_per_match": 1.52
             },
             "possession": {
               "average": 58,
@@ -10479,10 +10479,10 @@
               "away_average": 55
             },
             "fouls": {
-              "committed_total": 83,
-              "committed_per_match": 10.38,
-              "against_total": 68,
-              "against_per_match": 8.5
+              "committed_total": 95,
+              "committed_per_match": 10.56,
+              "against_total": 75,
+              "against_per_match": 8.33
             },
             "goal_timing": {
               "scored": {
@@ -10490,49 +10490,49 @@
                 "16_30": 1,
                 "31_45": 2,
                 "46_60": 2,
-                "61_75": 1,
+                "61_75": 2,
                 "76_90": 1
               },
               "conceded": {
                 "0_15": 1,
                 "16_30": 0,
-                "31_45": 2,
+                "31_45": 3,
                 "46_60": 2,
                 "61_75": 1,
                 "76_90": 4
               }
             },
             "form": {
-              "overall": "lllddlww",
+              "overall": "lllddlwwd",
               "home": "lldw",
-              "away": "ldlw"
+              "away": "ldlwd"
             },
             "set_pieces": {
               "throw_ins": {
-                "per_match": 19.63,
+                "per_match": 18.44,
                 "home_per_match": 18.5,
-                "away_per_match": 20.75,
-                "match_total_per_match": 36.5
+                "away_per_match": 18.4,
+                "match_total_per_match": 35.11
               },
               "free_kicks": {
-                "per_match": 10.5,
+                "per_match": 10.33,
                 "home_per_match": 10.75,
-                "away_per_match": 10.25,
-                "match_total_per_match": 21.88
+                "away_per_match": 10,
+                "match_total_per_match": 22.11
               },
               "goal_kicks": {
-                "per_match": 8.38,
+                "per_match": 8.11,
                 "home_per_match": 8,
-                "away_per_match": 8.75,
-                "match_total_per_match": 15.63
+                "away_per_match": 8.2,
+                "match_total_per_match": 15.33
               }
             },
             "offsides": {
-              "team_per_match": 1.13,
-              "match_total_per_match": 3.13,
-              "over_2_5_percentage": 63,
-              "over_3_5_percentage": 25,
-              "over_4_5_percentage": 13
+              "team_per_match": 1.44,
+              "match_total_per_match": 3.44,
+              "over_2_5_percentage": 67,
+              "over_3_5_percentage": 33,
+              "over_4_5_percentage": 22
             },
             "goal_timing_minutes": {
               "scored": {
@@ -10542,7 +10542,7 @@
                 "min_31_40": 1,
                 "min_41_50": 1,
                 "min_51_60": 2,
-                "min_61_70": 1,
+                "min_61_70": 2,
                 "min_71_80": 1,
                 "min_81_90": 0
               },
@@ -10550,7 +10550,7 @@
                 "min_0_10": 1,
                 "min_11_20": 0,
                 "min_21_30": 0,
-                "min_31_40": 1,
+                "min_31_40": 2,
                 "min_41_50": 2,
                 "min_51_60": 1,
                 "min_61_70": 0,
@@ -10562,7 +10562,7 @@
               "match_total_goals": {
                 "exactly_0": 1,
                 "exactly_1": 3,
-                "exactly_2": 1,
+                "exactly_2": 2,
                 "exactly_3": 1,
                 "exactly_4": 0,
                 "exactly_5": 2,
@@ -10571,21 +10571,21 @@
               },
               "team_goals": {
                 "exactly_0": 2,
-                "exactly_1": 4,
+                "exactly_1": 5,
                 "exactly_2": 2,
                 "exactly_3": 0
               }
             },
             "special_markets": {
-              "team_with_most_corners_win_percentage": 88,
-              "most_goals_in_1st_half_percentage": 38,
-              "most_goals_in_2nd_half_percentage": 50,
-              "most_corners_in_1st_half_percentage": 43,
-              "most_corners_in_2nd_half_percentage": 56,
+              "team_with_most_corners_win_percentage": 78,
+              "most_goals_in_1st_half_percentage": 33,
+              "most_goals_in_2nd_half_percentage": 44,
+              "most_corners_in_1st_half_percentage": 38,
+              "most_corners_in_2nd_half_percentage": 50,
               "btts_and_win_percentage": 0,
-              "btts_and_draw_percentage": 13,
-              "btts_and_lose_percentage": 38,
-              "over_2_5_and_btts_percentage": 38
+              "btts_and_draw_percentage": 22,
+              "btts_and_lose_percentage": 33,
+              "over_2_5_and_btts_percentage": 33
             },
             "penalties": {
               "won": 0,
@@ -10595,7 +10595,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -10643,23 +10643,23 @@
               "pitchapi_id": "p_0DQRGp",
               "matched": true,
               "shirt_number": 1,
-              "appearances": 8,
+              "appearances": 9,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
               "yellow_cards": 1,
               "red_cards": 0,
-              "rating": 6.87,
+              "rating": 6.75,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/3aa180bdbae05738665197f853dedb9c7b8a2a1e8a579340d30e8494ee61020b.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 720,
+                "minutes": 810,
                 "shots": 0,
-                "goals_conceded": 8,
-                "saves": 17,
-                "inside_box_saves": 9,
+                "goals_conceded": 9,
+                "saves": 19,
+                "inside_box_saves": 11,
                 "fouls": 1,
                 "tackles": 0,
                 "blocks": 0,
@@ -10675,12 +10675,12 @@
                 "pen_committed": 1,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 228,
+                "passes": 249,
                 "key_passes": 0,
                 "woodwork": 0,
                 "xg": 0.0,
-                "xa": 0.0,
-                "pass_accuracy": 74.6
+                "xa": 0.01,
+                "pass_accuracy": 74.7
               }
             }
           },
@@ -10904,7 +10904,7 @@
               "pitchapi_id": "p_3GDs05",
               "matched": true,
               "shirt_number": 21,
-              "appearances": 3,
+              "appearances": 4,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
@@ -10916,32 +10916,32 @@
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 66,
+                "minutes": 75,
                 "shots": 1,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 4,
+                "fouls": 5,
                 "tackles": 1,
                 "blocks": 2,
-                "crosses": 5,
+                "crosses": 9,
                 "interceptions": 1,
                 "clearances": 2,
                 "dispossessed": 1,
-                "duels": 10,
-                "duels_won": 2,
+                "duels": 12,
+                "duels_won": 3,
                 "dribble_attempts": 2,
                 "dribbles": 1,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 44,
+                "passes": 50,
                 "key_passes": 0,
                 "woodwork": 0,
                 "xg": 0.04,
-                "xa": 0.02,
-                "pass_accuracy": 75.0
+                "xa": 0.08,
+                "pass_accuracy": 76.0
               }
             }
           },
@@ -11010,44 +11010,44 @@
               "pitchapi_id": "p_1Y56LM",
               "matched": true,
               "shirt_number": 4,
-              "appearances": 8,
+              "appearances": 9,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
-              "yellow_cards": 2,
+              "yellow_cards": 3,
               "red_cards": 0,
-              "rating": 7.36,
+              "rating": 7.37,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/0410b422b6e7ed05e1eb5a821e39dde71031c1641a2ea46c1b2b523436669de5.webp",
               "full_name": null,
               "captain": true,
               "extra": {
-                "minutes": 720,
-                "shots": 3,
+                "minutes": 810,
+                "shots": 5,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 3,
+                "fouls": 4,
                 "tackles": 7,
-                "blocks": 1,
+                "blocks": 2,
                 "crosses": 0,
-                "interceptions": 10,
-                "clearances": 56,
+                "interceptions": 11,
+                "clearances": 61,
                 "dispossessed": 0,
-                "duels": 46,
-                "duels_won": 35,
+                "duels": 55,
+                "duels_won": 43,
                 "dribble_attempts": 0,
                 "dribbles": 0,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 575,
-                "key_passes": 2,
+                "passes": 642,
+                "key_passes": 4,
                 "woodwork": 0,
-                "xg": 0.31,
-                "xa": 0.11,
-                "pass_accuracy": 89.0
+                "xg": 0.36,
+                "xa": 0.2,
+                "pass_accuracy": 88.3
               }
             }
           },
@@ -11063,44 +11063,44 @@
               "pitchapi_id": "p_3YD9No",
               "matched": true,
               "shirt_number": 33,
-              "appearances": 8,
+              "appearances": 9,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
               "yellow_cards": 2,
               "red_cards": 0,
-              "rating": 6.95,
+              "rating": 6.96,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/b28ebf2f97dda369d0e105188a2d24135331d45d90abd3a44fdab7290b90f308.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 495,
-                "shots": 1,
+                "minutes": 576,
+                "shots": 3,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 4,
-                "tackles": 9,
+                "fouls": 5,
+                "tackles": 11,
                 "blocks": 5,
-                "crosses": 8,
-                "interceptions": 4,
-                "clearances": 22,
+                "crosses": 10,
+                "interceptions": 5,
+                "clearances": 30,
                 "dispossessed": 1,
-                "duels": 54,
-                "duels_won": 35,
-                "dribble_attempts": 6,
+                "duels": 69,
+                "duels_won": 44,
+                "dribble_attempts": 7,
                 "dribbles": 4,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 239,
+                "passes": 258,
                 "key_passes": 1,
                 "woodwork": 0,
-                "xg": 0.02,
-                "xa": 0.08,
-                "pass_accuracy": 79.5
+                "xg": 0.18,
+                "xa": 0.09,
+                "pass_accuracy": 78.3
               }
             }
           },
@@ -11169,43 +11169,43 @@
               "pitchapi_id": "p_1cvezl",
               "matched": true,
               "shirt_number": 6,
-              "appearances": 8,
+              "appearances": 9,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
-              "yellow_cards": 2,
+              "yellow_cards": 3,
               "red_cards": 0,
-              "rating": 6.87,
+              "rating": 6.91,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/c52000375ba521a372114ed11ac3317b3a21e12fed278d20e61dd7130c0028f4.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 654,
-                "shots": 3,
+                "minutes": 735,
+                "shots": 4,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 13,
-                "tackles": 14,
+                "fouls": 15,
+                "tackles": 15,
                 "blocks": 4,
-                "crosses": 18,
+                "crosses": 26,
                 "interceptions": 4,
-                "clearances": 25,
+                "clearances": 30,
                 "dispossessed": 4,
-                "duels": 67,
-                "duels_won": 35,
+                "duels": 75,
+                "duels_won": 40,
                 "dribble_attempts": 6,
                 "dribbles": 1,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 282,
-                "key_passes": 4,
+                "passes": 313,
+                "key_passes": 7,
                 "woodwork": 0,
-                "xg": 0.07,
-                "xa": 0.13,
+                "xg": 0.24,
+                "xa": 0.31,
                 "pass_accuracy": 78.0
               }
             }
@@ -11326,44 +11326,44 @@
               "pitchapi_id": "p_3HKHHt",
               "matched": true,
               "shirt_number": 5,
-              "appearances": 8,
+              "appearances": 9,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
               "yellow_cards": 2,
               "red_cards": 0,
-              "rating": 7.36,
+              "rating": 7.27,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/ffcd994d942a5419dda6a01daa64908541a1e0e8e751f62234f0f9f03b406ef3.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 685,
+                "minutes": 775,
                 "shots": 2,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 8,
-                "tackles": 19,
-                "blocks": 9,
-                "crosses": 0,
-                "interceptions": 14,
+                "fouls": 9,
+                "tackles": 24,
+                "blocks": 10,
+                "crosses": 2,
+                "interceptions": 17,
                 "clearances": 24,
-                "dispossessed": 4,
-                "duels": 67,
-                "duels_won": 47,
-                "dribble_attempts": 6,
+                "dispossessed": 5,
+                "duels": 80,
+                "duels_won": 56,
+                "dribble_attempts": 7,
                 "dribbles": 5,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 445,
-                "key_passes": 3,
+                "passes": 497,
+                "key_passes": 4,
                 "woodwork": 0,
                 "xg": 0.27,
-                "xa": 0.19,
-                "pass_accuracy": 88.5
+                "xa": 0.24,
+                "pass_accuracy": 87.7
               }
             }
           },
@@ -11431,44 +11431,44 @@
               "pitchapi_id": "p_1SwvER",
               "matched": true,
               "shirt_number": 8,
-              "appearances": 6,
+              "appearances": 7,
               "goals": 1,
               "assists": 0,
               "own_goals": 0,
               "yellow_cards": 1,
               "red_cards": 0,
-              "rating": 7.26,
+              "rating": 7.17,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/ffd8cd3f8a62063e18360dcedd837c0948180ca687e4890adc7ed54ea12be083.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 473,
+                "minutes": 504,
                 "shots": 14,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 10,
-                "tackles": 7,
+                "fouls": 11,
+                "tackles": 8,
                 "blocks": 3,
-                "crosses": 36,
+                "crosses": 38,
                 "interceptions": 4,
-                "clearances": 7,
+                "clearances": 8,
                 "dispossessed": 5,
-                "duels": 45,
-                "duels_won": 16,
-                "dribble_attempts": 4,
+                "duels": 48,
+                "duels_won": 17,
+                "dribble_attempts": 5,
                 "dribbles": 2,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 1,
                 "pen_missed": 0,
-                "passes": 317,
-                "key_passes": 11,
+                "passes": 349,
+                "key_passes": 12,
                 "woodwork": 0,
                 "xg": 1.51,
-                "xa": 1.05,
-                "pass_accuracy": 86.1
+                "xa": 1.13,
+                "pass_accuracy": 85.7
               }
             }
           },
@@ -11484,44 +11484,44 @@
               "pitchapi_id": "p_06lEAz",
               "matched": true,
               "shirt_number": 7,
-              "appearances": 8,
+              "appearances": 9,
               "goals": 0,
               "assists": 2,
               "own_goals": 0,
               "yellow_cards": 1,
               "red_cards": 0,
-              "rating": 7.41,
+              "rating": 7.27,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/ca253909acd13dd39aed77934595f57b6d04784f9be042ee2e00dbcdf6736f7e.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 624,
-                "shots": 16,
+                "minutes": 705,
+                "shots": 19,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 14,
-                "tackles": 12,
+                "fouls": 16,
+                "tackles": 13,
                 "blocks": 0,
-                "crosses": 16,
-                "interceptions": 1,
+                "crosses": 17,
+                "interceptions": 2,
                 "clearances": 3,
-                "dispossessed": 8,
-                "duels": 73,
-                "duels_won": 30,
-                "dribble_attempts": 19,
+                "dispossessed": 10,
+                "duels": 85,
+                "duels_won": 33,
+                "dribble_attempts": 21,
                 "dribbles": 8,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 350,
+                "passes": 384,
                 "key_passes": 22,
-                "woodwork": 0,
-                "xg": 1.17,
-                "xa": 0.9,
-                "pass_accuracy": 79.7
+                "woodwork": 1,
+                "xg": 1.46,
+                "xa": 0.96,
+                "pass_accuracy": 79.9
               }
             }
           },
@@ -11537,44 +11537,44 @@
               "pitchapi_id": "p_34aq2B",
               "matched": true,
               "shirt_number": 10,
-              "appearances": 8,
+              "appearances": 9,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
-              "yellow_cards": 2,
+              "yellow_cards": 3,
               "red_cards": 0,
-              "rating": 7.18,
+              "rating": 7.17,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/74165af94e943433e3034862264db7f747056c776c55a3a380d467da287fc010.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 578,
-                "shots": 12,
+                "minutes": 668,
+                "shots": 14,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 8,
-                "tackles": 16,
+                "fouls": 12,
+                "tackles": 19,
                 "blocks": 3,
-                "crosses": 9,
+                "crosses": 10,
                 "interceptions": 2,
                 "clearances": 13,
                 "dispossessed": 3,
-                "duels": 61,
-                "duels_won": 32,
-                "dribble_attempts": 9,
-                "dribbles": 5,
+                "duels": 71,
+                "duels_won": 37,
+                "dribble_attempts": 10,
+                "dribbles": 6,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 341,
-                "key_passes": 7,
+                "passes": 400,
+                "key_passes": 8,
                 "woodwork": 0,
-                "xg": 0.61,
-                "xa": 0.88,
-                "pass_accuracy": 85.3
+                "xg": 0.76,
+                "xa": 1.03,
+                "pass_accuracy": 85.5
               }
             }
           },
@@ -11695,44 +11695,44 @@
               "pitchapi_id": "p_1MrwPh",
               "matched": true,
               "shirt_number": 42,
-              "appearances": 6,
+              "appearances": 7,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
               "yellow_cards": 0,
               "red_cards": 0,
-              "rating": 6.45,
+              "rating": 6.46,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/20a578fedc4d74901686b494988543b2762ac7788c9da98d25ee0e8acdb154a5.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 145,
+                "minutes": 204,
                 "shots": 2,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 3,
-                "tackles": 5,
+                "fouls": 5,
+                "tackles": 6,
                 "blocks": 1,
                 "crosses": 1,
-                "interceptions": 5,
+                "interceptions": 6,
                 "clearances": 9,
                 "dispossessed": 0,
-                "duels": 14,
-                "duels_won": 7,
-                "dribble_attempts": 1,
+                "duels": 18,
+                "duels_won": 8,
+                "dribble_attempts": 2,
                 "dribbles": 0,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 95,
+                "passes": 150,
                 "key_passes": 1,
                 "woodwork": 0,
                 "xg": 0.09,
-                "xa": 0.07,
-                "pass_accuracy": 88.4
+                "xa": 0.15,
+                "pass_accuracy": 91.3
               }
             }
           },
@@ -11800,44 +11800,44 @@
               "pitchapi_id": "p_2YlH3E",
               "matched": true,
               "shirt_number": 9,
-              "appearances": 7,
+              "appearances": 8,
               "goals": 6,
               "assists": 0,
               "own_goals": 0,
               "yellow_cards": 1,
               "red_cards": 0,
-              "rating": 7.5,
+              "rating": 7.36,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/9f257cedde16925e6002f4a1debdb170607587b90e12c8b5b7ec8fc4173793ab.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 571,
-                "shots": 20,
+                "minutes": 661,
+                "shots": 22,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 1,
-                "tackles": 1,
+                "fouls": 2,
+                "tackles": 2,
                 "blocks": 1,
-                "crosses": 1,
+                "crosses": 2,
                 "interceptions": 1,
                 "clearances": 1,
-                "dispossessed": 5,
-                "duels": 34,
-                "duels_won": 15,
-                "dribble_attempts": 10,
-                "dribbles": 5,
+                "dispossessed": 6,
+                "duels": 43,
+                "duels_won": 20,
+                "dribble_attempts": 11,
+                "dribbles": 6,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 78,
-                "key_passes": 6,
+                "passes": 94,
+                "key_passes": 7,
                 "woodwork": 0,
-                "xg": 4.23,
-                "xa": 0.13,
-                "pass_accuracy": 75.6
+                "xg": 4.33,
+                "xa": 0.26,
+                "pass_accuracy": 75.5
               }
             }
           },
@@ -11853,44 +11853,44 @@
               "pitchapi_id": "p_0FNIRb",
               "matched": true,
               "shirt_number": 18,
-              "appearances": 6,
+              "appearances": 7,
               "goals": 1,
               "assists": 3,
               "own_goals": 0,
               "yellow_cards": 0,
               "red_cards": 0,
-              "rating": 7.65,
+              "rating": 7.42,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/626b8641717c87a58d19b8d16ece63d4c943211816566649beaa4f8260979c1b.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 461,
-                "shots": 16,
+                "minutes": 528,
+                "shots": 17,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 8,
+                "fouls": 9,
                 "tackles": 10,
                 "blocks": 0,
-                "crosses": 10,
-                "interceptions": 7,
+                "crosses": 18,
+                "interceptions": 9,
                 "clearances": 2,
-                "dispossessed": 8,
-                "duels": 66,
-                "duels_won": 33,
-                "dribble_attempts": 13,
+                "dispossessed": 11,
+                "duels": 73,
+                "duels_won": 35,
+                "dribble_attempts": 14,
                 "dribbles": 6,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 154,
-                "key_passes": 13,
+                "passes": 167,
+                "key_passes": 14,
                 "woodwork": 0,
-                "xg": 1.01,
-                "xa": 1.75,
-                "pass_accuracy": 76.0
+                "xg": 1.05,
+                "xa": 1.86,
+                "pass_accuracy": 76.6
               }
             }
           },
@@ -11958,44 +11958,44 @@
               "pitchapi_id": "p_44PYcV",
               "matched": true,
               "shirt_number": 29,
-              "appearances": 6,
+              "appearances": 7,
               "goals": 0,
               "assists": 2,
               "own_goals": 0,
-              "yellow_cards": 1,
+              "yellow_cards": 2,
               "red_cards": 0,
-              "rating": 7.13,
+              "rating": 6.97,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/2a84f1c7a4748abe4aecc6f2d0e9a372688143866eacd745b7ec68ecf1b078d6.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 425,
-                "shots": 8,
+                "minutes": 515,
+                "shots": 9,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
-                "fouls": 6,
-                "tackles": 9,
+                "fouls": 7,
+                "tackles": 10,
                 "blocks": 0,
-                "crosses": 3,
-                "interceptions": 3,
-                "clearances": 3,
-                "dispossessed": 2,
-                "duels": 47,
-                "duels_won": 20,
-                "dribble_attempts": 17,
-                "dribbles": 6,
+                "crosses": 7,
+                "interceptions": 4,
+                "clearances": 4,
+                "dispossessed": 6,
+                "duels": 65,
+                "duels_won": 26,
+                "dribble_attempts": 23,
+                "dribbles": 9,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 118,
-                "key_passes": 6,
+                "passes": 149,
+                "key_passes": 7,
                 "woodwork": 1,
-                "xg": 0.88,
-                "xa": 0.71,
-                "pass_accuracy": 79.7
+                "xg": 0.95,
+                "xa": 0.84,
+                "pass_accuracy": 77.9
               }
             }
           },
@@ -12011,7 +12011,7 @@
               "pitchapi_id": "p_2Lw7tn",
               "matched": true,
               "shirt_number": 67,
-              "appearances": 6,
+              "appearances": 7,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
@@ -12023,32 +12023,32 @@
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 121,
+                "minutes": 130,
                 "shots": 4,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
                 "fouls": 4,
-                "tackles": 0,
+                "tackles": 1,
                 "blocks": 0,
                 "crosses": 0,
                 "interceptions": 0,
                 "clearances": 0,
                 "dispossessed": 2,
-                "duels": 24,
-                "duels_won": 7,
+                "duels": 27,
+                "duels_won": 8,
                 "dribble_attempts": 5,
                 "dribbles": 1,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 15,
+                "passes": 20,
                 "key_passes": 0,
                 "woodwork": 0,
                 "xg": 0.43,
                 "xa": 0.01,
-                "pass_accuracy": 73.3
+                "pass_accuracy": 75.0
               }
             }
           },
@@ -12064,7 +12064,7 @@
               "pitchapi_id": "p_3sJ0Ji",
               "matched": true,
               "shirt_number": 23,
-              "appearances": 7,
+              "appearances": 8,
               "goals": 2,
               "assists": 0,
               "own_goals": 0,
@@ -12076,8 +12076,8 @@
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 428,
-                "shots": 12,
+                "minutes": 437,
+                "shots": 13,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
@@ -12086,9 +12086,9 @@
                 "blocks": 1,
                 "crosses": 11,
                 "interceptions": 5,
-                "clearances": 2,
-                "dispossessed": 4,
-                "duels": 54,
+                "clearances": 3,
+                "dispossessed": 5,
+                "duels": 57,
                 "duels_won": 27,
                 "dribble_attempts": 20,
                 "dribbles": 10,
@@ -12096,12 +12096,12 @@
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 110,
-                "key_passes": 2,
+                "passes": 117,
+                "key_passes": 3,
                 "woodwork": 0,
-                "xg": 0.74,
+                "xg": 0.77,
                 "xa": 0.33,
-                "pass_accuracy": 80.9
+                "pass_accuracy": 80.3
               }
             }
           },
@@ -12117,20 +12117,20 @@
               "pitchapi_id": "p_2aw3Dn",
               "matched": true,
               "shirt_number": 73,
-              "appearances": 6,
+              "appearances": 7,
               "goals": 0,
               "assists": 0,
               "own_goals": 0,
               "yellow_cards": 0,
               "red_cards": 0,
-              "rating": 6.28,
+              "rating": 6.3,
               "injured": false,
               "image": "https://cdn.pitchapi.dev/images/players/083ae2ddd42b609724976cae253e3139298ed48e0c3080532883062cb4ca0139.webp",
               "full_name": null,
               "captain": false,
               "extra": {
-                "minutes": 166,
-                "shots": 3,
+                "minutes": 189,
+                "shots": 5,
                 "goals_conceded": 0,
                 "saves": 0,
                 "inside_box_saves": 0,
@@ -12139,22 +12139,22 @@
                 "blocks": 0,
                 "crosses": 9,
                 "interceptions": 0,
-                "clearances": 1,
+                "clearances": 2,
                 "dispossessed": 4,
-                "duels": 19,
-                "duels_won": 10,
-                "dribble_attempts": 7,
-                "dribbles": 5,
+                "duels": 24,
+                "duels_won": 12,
+                "dribble_attempts": 9,
+                "dribbles": 6,
                 "pen_won": 0,
                 "pen_committed": 0,
                 "pen_scored": 0,
                 "pen_missed": 0,
-                "passes": 40,
+                "passes": 53,
                 "key_passes": 1,
                 "woodwork": 0,
-                "xg": 0.18,
-                "xa": 0.12,
-                "pass_accuracy": 85.0
+                "xg": 0.26,
+                "xa": 0.23,
+                "pass_accuracy": 84.9
               }
             }
           },
@@ -12223,19 +12223,19 @@
       },
       "stats": {
         "position": 5,
-        "played": 8,
+        "played": 9,
         "won": 4,
         "draw": 3,
-        "lost": 1,
+        "lost": 2,
         "goals_for": 11,
-        "goals_against": 8,
-        "goal_difference": 3,
+        "goals_against": 9,
+        "goal_difference": 2,
         "points": 15,
-        "avg_points": 1.88,
+        "avg_points": 1.67,
         "form": null,
         "clean_sheets": 4,
-        "possession": 53.2,
-        "possession_matches": 8,
+        "possession": 53.6,
+        "possession_matches": 9,
         "possession_source": "pitchapi",
         "xg_for": 13.65,
         "shots_per_match": 15.38,
@@ -12248,19 +12248,19 @@
         "formations": [
           {
             "formation": "4-2-3-1",
-            "count": 8,
-            "last_date": "2026-10-25",
+            "count": 9,
+            "last_date": "2026-11-01",
             "starting_xi": [
               "Alisson Becker",
               "Ronald Araujo",
               "Jérémy Jacquet",
               "Virgil van Dijk",
               "Miloš Kerkez",
-              "Ryan Gravenberch",
               "Alexis Mac Allister",
-              "Bradley Barcola",
-              "Florian Wirtz",
+              "Trey Nyoni",
               "Cody Gakpo",
+              "Florian Wirtz",
+              "Bradley Barcola",
               "Alexander Isak"
             ]
           }
@@ -12272,33 +12272,33 @@
           "Jérémy Jacquet",
           "Virgil van Dijk",
           "Miloš Kerkez",
-          "Ryan Gravenberch",
           "Alexis Mac Allister",
-          "Bradley Barcola",
-          "Florian Wirtz",
+          "Trey Nyoni",
           "Cody Gakpo",
+          "Florian Wirtz",
+          "Bradley Barcola",
           "Alexander Isak"
         ],
-        "last_used_date": "2026-10-25",
+        "last_used_date": "2026-11-01",
         "default": "4-2-3-1",
         "usage": {
-          "4-2-3-1": 8
+          "4-2-3-1": 9
         },
-        "matches_counted": 8,
+        "matches_counted": 9,
         "starting_xi": [
           "Alisson Becker",
           "Ronald Araujo",
           "Jérémy Jacquet",
           "Virgil van Dijk",
           "Miloš Kerkez",
-          "Ryan Gravenberch",
           "Alexis Mac Allister",
-          "Bradley Barcola",
-          "Florian Wirtz",
+          "Trey Nyoni",
           "Cody Gakpo",
+          "Florian Wirtz",
+          "Bradley Barcola",
           "Alexander Isak"
         ],
-        "based_on_match_date": "2026-10-25"
+        "based_on_match_date": "2026-11-01"
       },
       "sources": {
         "football_data": true,
@@ -12860,7 +12860,7 @@
               "won_per_match": 0.13,
               "match_with_penalty_percentage": 25
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -14177,7 +14177,7 @@
         }
       },
       "stats": {
-        "position": 1,
+        "position": 2,
         "played": 9,
         "won": 7,
         "draw": 0,
@@ -14794,7 +14794,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 11
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -17062,7 +17062,7 @@
               "won_per_match": 0.11,
               "match_with_penalty_percentage": 22
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -19048,7 +19048,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 25
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -21202,7 +21202,7 @@
               "won_per_match": 0.22,
               "match_with_penalty_percentage": 33
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -23368,7 +23368,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -25769,7 +25769,7 @@
               "won_per_match": 0.11,
               "match_with_penalty_percentage": 11
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -27711,7 +27711,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -29874,7 +29874,7 @@
               "won_per_match": 0.11,
               "match_with_penalty_percentage": 22
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -31721,7 +31721,7 @@
               "won_per_match": 0.11,
               "match_with_penalty_percentage": 11
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -33875,7 +33875,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -36026,7 +36026,7 @@
             "possession": {
               "average": 58,
               "home_average": 59,
-              "away_average": 56
+              "away_average": 57
             },
             "fouls": {
               "committed_total": 111,
@@ -36145,7 +36145,7 @@
               "won_per_match": 0.11,
               "match_with_penalty_percentage": 11
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -38345,7 +38345,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 22
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -40497,7 +40497,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
@@ -42736,7 +42736,7 @@
               "won_per_match": 0.11,
               "match_with_penalty_percentage": 33
             },
-            "last_updated": "2026-11-01 01:00:22"
+            "last_updated": "2026-11-02 01:00:23"
           }
         }
       }
