@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": 1,
-    "generated_at": "2026-11-03T03:33:21+00:00",
+    "generated_at": "2026-11-04T02:30:49+00:00",
     "competition": {
       "code": "PL",
       "name": "Premier League"
@@ -31,12 +31,12 @@
         {
           "name": "finished matches (clean sheets)",
           "ok": true,
-          "detail": "90 matches, 1 new since the last build"
+          "detail": "90 matches, 0 new since the last build"
         },
         {
           "name": "pitchapi matches (lineups, formations, possession, player numbers)",
           "ok": true,
-          "detail": "90 finished: 1 new, 9 read again (1 new, 9 recent), 80 unchanged and not requested"
+          "detail": "90 finished: 0 new, 2 read again (2 recent), 88 unchanged and not requested"
         },
         {
           "name": "pitchapi team matching",
@@ -51,12 +51,12 @@
         {
           "name": "footballdata.io team matching",
           "ok": true,
-          "detail": "20/20 matched"
+          "detail": "20/20 matched (club list from the last week)"
         },
         {
           "name": "footballdata.io team stats",
           "ok": true,
-          "detail": "20/20 teams: 20 fetched"
+          "detail": "20/20 teams: 0 fetched, 20 unchanged since the club last played (not requested)"
         },
         {
           "name": "pitchapi players",
@@ -71,7 +71,7 @@
         {
           "name": "updated this run",
           "ok": true,
-          "detail": "1 new result(s); PitchAPI 1 new / 9 re-read / 80 untouched; footballdata.io 20 club(s) refreshed"
+          "detail": "0 new result(s); PitchAPI 0 new / 2 re-read / 88 untouched; footballdata.io 0 club(s) refreshed"
         }
       ],
       "unmatched_footballdata_io": [],
@@ -99,16 +99,16 @@
         "cards_not_reconciled": 15
       },
       "updates": {
-        "new_results": 1,
+        "new_results": 0,
         "pitchapi_matches": {
           "finished": 90,
-          "new": 1,
-          "refreshed": 9,
-          "unchanged": 80
+          "new": 0,
+          "refreshed": 2,
+          "unchanged": 88
         },
         "footballdata_io": {
-          "fetched": 20,
-          "reused": 0
+          "fetched": 0,
+          "reused": 20
         }
       }
     },
