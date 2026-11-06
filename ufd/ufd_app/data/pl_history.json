@@ -1,7 +1,7 @@
 {
   "version": 1,
   "season_start": "2026-08-21",
-  "updated_at": "2026-11-05T02:38:23+00:00",
+  "updated_at": "2026-11-06T02:38:51+00:00",
   "results": {
     "560542": {
       "date": "2026-08-21",
@@ -53996,6 +53996,45 @@
             "pass_accuracy": 80.0
           }
         ]
+      },
+      "303053": {
+        "name": "Nathanael Kalembo",
+        "snapshots": [
+          {
+            "date": "2026-11-06",
+            "appearances": 0,
+            "goals": 0,
+            "assists": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "injured": false,
+            "minutes": 0,
+            "shots": 0,
+            "goals_conceded": 0,
+            "saves": 0,
+            "inside_box_saves": 0,
+            "fouls": 0,
+            "tackles": 0,
+            "blocks": 0,
+            "crosses": 0,
+            "interceptions": 0,
+            "clearances": 0,
+            "dispossessed": 0,
+            "duels": 0,
+            "duels_won": 0,
+            "dribble_attempts": 0,
+            "dribbles": 0,
+            "pen_won": 0,
+            "pen_committed": 0,
+            "pen_scored": 0,
+            "pen_missed": 0,
+            "passes": 0,
+            "key_passes": 0,
+            "woodwork": 0,
+            "xg": 0,
+            "xa": 0
+          }
+        ]
       }
     },
     "397": {
@@ -66946,7 +66985,7 @@
   },
   "io_stats": {
     "57": {
-      "fetched_at": "2026-11-05T02:38:11+00:00",
+      "fetched_at": "2026-11-06T02:38:37+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -67205,11 +67244,11 @@
           "won_per_match": 0.11,
           "match_with_penalty_percentage": 11
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "58": {
-      "fetched_at": "2026-11-05T02:38:11+00:00",
+      "fetched_at": "2026-11-06T02:38:37+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -67468,11 +67507,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "61": {
-      "fetched_at": "2026-11-05T02:38:12+00:00",
+      "fetched_at": "2026-11-06T02:38:38+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -67731,11 +67770,11 @@
           "won_per_match": 0.11,
           "match_with_penalty_percentage": 11
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "62": {
-      "fetched_at": "2026-11-05T02:38:13+00:00",
+      "fetched_at": "2026-11-06T02:38:39+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -67994,11 +68033,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "63": {
-      "fetched_at": "2026-11-05T02:38:14+00:00",
+      "fetched_at": "2026-11-06T02:38:40+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -68257,11 +68296,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "64": {
-      "fetched_at": "2026-11-05T02:38:14+00:00",
+      "fetched_at": "2026-11-06T02:38:41+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -68520,11 +68559,11 @@
           "won_per_match": 0.11,
           "match_with_penalty_percentage": 22
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "65": {
-      "fetched_at": "2026-11-05T02:38:15+00:00",
+      "fetched_at": "2026-11-06T02:38:42+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -68783,11 +68822,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 11
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "66": {
-      "fetched_at": "2026-11-05T02:38:15+00:00",
+      "fetched_at": "2026-11-06T02:38:43+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -69046,11 +69085,11 @@
           "won_per_match": 0.11,
           "match_with_penalty_percentage": 22
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "67": {
-      "fetched_at": "2026-11-05T02:38:16+00:00",
+      "fetched_at": "2026-11-06T02:38:43+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -69309,11 +69348,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 22
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "71": {
-      "fetched_at": "2026-11-05T02:38:17+00:00",
+      "fetched_at": "2026-11-06T02:38:44+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -69572,11 +69611,11 @@
           "won_per_match": 0.22,
           "match_with_penalty_percentage": 33
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "73": {
-      "fetched_at": "2026-11-05T02:38:17+00:00",
+      "fetched_at": "2026-11-06T02:38:44+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -69835,11 +69874,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "322": {
-      "fetched_at": "2026-11-05T02:38:18+00:00",
+      "fetched_at": "2026-11-06T02:38:45+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -70098,11 +70137,11 @@
           "won_per_match": 0.11,
           "match_with_penalty_percentage": 11
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "341": {
-      "fetched_at": "2026-11-05T02:38:18+00:00",
+      "fetched_at": "2026-11-06T02:38:46+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -70361,11 +70400,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "349": {
-      "fetched_at": "2026-11-05T02:38:19+00:00",
+      "fetched_at": "2026-11-06T02:38:47+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -70624,11 +70663,11 @@
           "won_per_match": 0.11,
           "match_with_penalty_percentage": 22
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "351": {
-      "fetched_at": "2026-11-05T02:38:20+00:00",
+      "fetched_at": "2026-11-06T02:38:47+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -70887,11 +70926,11 @@
           "won_per_match": 0.11,
           "match_with_penalty_percentage": 11
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "354": {
-      "fetched_at": "2026-11-05T02:38:20+00:00",
+      "fetched_at": "2026-11-06T02:38:48+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -71150,11 +71189,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "397": {
-      "fetched_at": "2026-11-05T02:38:21+00:00",
+      "fetched_at": "2026-11-06T02:38:49+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -71413,11 +71452,11 @@
           "won_per_match": 0.11,
           "match_with_penalty_percentage": 11
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "402": {
-      "fetched_at": "2026-11-05T02:38:22+00:00",
+      "fetched_at": "2026-11-06T02:38:50+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -71676,11 +71715,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 22
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "1044": {
-      "fetched_at": "2026-11-05T02:38:22+00:00",
+      "fetched_at": "2026-11-06T02:38:50+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -71939,11 +71978,11 @@
           "won_per_match": 0,
           "match_with_penalty_percentage": 0
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     },
     "1076": {
-      "fetched_at": "2026-11-05T02:38:23+00:00",
+      "fetched_at": "2026-11-06T02:38:51+00:00",
       "played": 9,
       "data": {
         "team": {
@@ -72202,7 +72241,7 @@
           "won_per_match": 0.11,
           "match_with_penalty_percentage": 33
         },
-        "last_updated": "2026-11-05 02:00:22"
+        "last_updated": "2026-11-06 02:00:24"
       }
     }
   },
