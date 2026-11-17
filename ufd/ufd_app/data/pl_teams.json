@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": 1,
-    "generated_at": "2026-11-16T02:17:34+00:00",
+    "generated_at": "2026-11-17T04:40:14+00:00",
     "competition": {
       "code": "PL",
       "name": "Premier League"
@@ -51,7 +51,7 @@
         {
           "name": "footballdata.io team matching",
           "ok": true,
-          "detail": "20/20 matched (club list from the last week)"
+          "detail": "20/20 matched"
         },
         {
           "name": "footballdata.io team stats",
@@ -2449,7 +2449,7 @@
               "won_per_match": 0.1,
               "match_with_penalty_percentage": 10
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -4602,7 +4602,7 @@
               "won_per_match": 0.1,
               "match_with_penalty_percentage": 10
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -6785,7 +6785,7 @@
               "won_per_match": 0.1,
               "match_with_penalty_percentage": 20
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -8591,7 +8591,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -10615,7 +10615,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -12880,7 +12880,7 @@
               "won_per_match": 0.1,
               "match_with_penalty_percentage": 30
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -14814,7 +14814,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 10
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -17082,7 +17082,7 @@
               "won_per_match": 0.2,
               "match_with_penalty_percentage": 30
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -19068,7 +19068,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 20
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -21222,7 +21222,7 @@
               "won_per_match": 0.3,
               "match_with_penalty_percentage": 40
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -23407,7 +23407,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -25828,7 +25828,7 @@
               "won_per_match": 0.1,
               "match_with_penalty_percentage": 10
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -27770,7 +27770,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -29933,7 +29933,7 @@
               "won_per_match": 0.2,
               "match_with_penalty_percentage": 30
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -31780,7 +31780,7 @@
               "won_per_match": 0.1,
               "match_with_penalty_percentage": 10
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -33993,7 +33993,7 @@
               "won_per_match": 0.1,
               "match_with_penalty_percentage": 10
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -36264,7 +36264,7 @@
               "won_per_match": 0.2,
               "match_with_penalty_percentage": 20
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -38464,7 +38464,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 30
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -40616,7 +40616,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 10
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
@@ -42855,7 +42855,7 @@
               "won_per_match": 0.1,
               "match_with_penalty_percentage": 30
             },
-            "last_updated": "2026-11-16 02:00:23"
+            "last_updated": "2026-11-17 04:00:23"
           }
         }
       }
