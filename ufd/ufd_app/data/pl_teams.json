@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": 1,
-    "generated_at": "2026-11-25T04:57:58+00:00",
+    "generated_at": "2026-11-26T04:14:52+00:00",
     "competition": {
       "code": "PL",
       "name": "Premier League"
@@ -36,7 +36,7 @@
         {
           "name": "pitchapi matches (lineups, formations, possession, player numbers)",
           "ok": true,
-          "detail": "110 finished: 0 new, 3 read again (3 recent), 107 unchanged and not requested"
+          "detail": "110 finished: 0 new, 1 read again (1 recent), 109 unchanged and not requested"
         },
         {
           "name": "pitchapi team matching",
@@ -56,22 +56,22 @@
         {
           "name": "footballdata.io team stats",
           "ok": true,
-          "detail": "20/20 teams: 0 fetched, 20 unchanged since the club last played (not requested)"
+          "detail": "20/20 teams: 20 fetched"
         },
         {
           "name": "pitchapi players",
           "ok": false,
-          "detail": "16 players who appeared match nobody in the squad lists: Chelsea FC: Robert Sánchez, Everton FC: Beto, Manchester City FC: Kaden Braithwaite, Newcastle United FC: Nick Woltemade, Sunderland AFC: Juan Riquelme Angulo, Sunderland AFC: Timur Tuterov"
+          "detail": "15 players who appeared match nobody in the squad lists: Chelsea FC: Robert Sánchez, Everton FC: Beto, Manchester City FC: Kaden Braithwaite, Newcastle United FC: Nick Woltemade, Sunderland AFC: Juan Riquelme Angulo, Sunderland AFC: Timur Tuterov"
         },
         {
           "name": "history",
           "ok": true,
-          "detail": "results stored 110, last match date 2026-11-23, pitch matches stored 110, team snapshots 273, player snapshots 2670"
+          "detail": "results stored 110, last match date 2026-11-23, pitch matches stored 110, team snapshots 273, player snapshots 2671"
         },
         {
           "name": "updated this run",
           "ok": true,
-          "detail": "0 new result(s); PitchAPI 0 new / 3 re-read / 107 untouched; footballdata.io 0 club(s) refreshed"
+          "detail": "0 new result(s); PitchAPI 0 new / 1 re-read / 109 untouched; footballdata.io 20 club(s) refreshed"
         }
       ],
       "unmatched_footballdata_io": [],
@@ -84,7 +84,6 @@
         "Sunderland AFC: Juan Riquelme Angulo",
         "Sunderland AFC: Timur Tuterov",
         "Tottenham Hotspur FC: Mikey Moore",
-        "Tottenham Hotspur FC: Lucá Williams-Barnett",
         "Hull City AFC: Matt Crooks",
         "Hull City AFC: Liam Millar",
         "Hull City AFC: Cody Drameh",
@@ -103,12 +102,12 @@
         "pitchapi_matches": {
           "finished": 110,
           "new": 0,
-          "refreshed": 3,
-          "unchanged": 107
+          "refreshed": 1,
+          "unchanged": 109
         },
         "footballdata_io": {
-          "fetched": 0,
-          "reused": 20
+          "fetched": 20,
+          "reused": 0
         }
       }
     },
@@ -117,7 +116,7 @@
       "last_match_date": "2026-11-23",
       "pitch_matches_stored": 110,
       "team_snapshots": 273,
-      "player_snapshots": 2670
+      "player_snapshots": 2671
     }
   },
   "standings": [
@@ -2450,7 +2449,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -4603,7 +4602,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -6787,7 +6786,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 27
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -8507,10 +8506,10 @@
             },
             "set_pieces": {
               "throw_ins": {
-                "per_match": 16.18,
+                "per_match": 16.27,
                 "home_per_match": 18.8,
-                "away_per_match": 14,
-                "match_total_per_match": 34.18
+                "away_per_match": 14.17,
+                "match_total_per_match": 34.27
               },
               "free_kicks": {
                 "per_match": 12.73,
@@ -8593,7 +8592,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -10695,7 +10694,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -12960,7 +12959,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 27
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -14894,7 +14893,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -17182,7 +17181,7 @@
               "won_per_match": 0.18,
               "match_with_penalty_percentage": 27
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -19168,7 +19167,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 18
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -21322,7 +21321,7 @@
               "won_per_match": 0.27,
               "match_with_penalty_percentage": 36
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -22416,6 +22415,59 @@
             }
           },
           {
+            "id": 272687,
+            "name": "Luca Williams-Barnett",
+            "position": "Midfield",
+            "nationality": "England",
+            "date_of_birth": "2008-10-01",
+            "shirt_number": null,
+            "pitchapi": {
+              "source": "pitchapi",
+              "pitchapi_id": "p_0DojTs",
+              "matched": true,
+              "shirt_number": 68,
+              "appearances": 3,
+              "goals": 1,
+              "assists": 0,
+              "own_goals": 0,
+              "yellow_cards": 1,
+              "red_cards": 0,
+              "rating": 8.06,
+              "injured": false,
+              "image": "https://cdn.pitchapi.dev/images/players/0940b43d2cc1b6bce0dd3dca773fbfab99ac35f0d30ae5dab22a43a3815896ec.webp",
+              "full_name": null,
+              "captain": false,
+              "extra": {
+                "minutes": 73,
+                "shots": 4,
+                "goals_conceded": 0,
+                "saves": 0,
+                "inside_box_saves": 0,
+                "fouls": 1,
+                "tackles": 1,
+                "blocks": 2,
+                "crosses": 2,
+                "interceptions": 0,
+                "clearances": 0,
+                "dispossessed": 1,
+                "duels": 10,
+                "duels_won": 5,
+                "dribble_attempts": 2,
+                "dribbles": 1,
+                "pen_won": 0,
+                "pen_committed": 0,
+                "pen_scored": 0,
+                "pen_missed": 0,
+                "passes": 41,
+                "key_passes": 2,
+                "woodwork": 0,
+                "xg": 0.84,
+                "xa": 0.2,
+                "pass_accuracy": 75.6
+              }
+            }
+          },
+          {
             "id": 7878,
             "name": "Dominic Solanke",
             "position": "Offence",
@@ -22864,9 +22916,9 @@
         "possession": 62.6,
         "possession_matches": 11,
         "possession_source": "pitchapi",
-        "xg_for": 19.86,
-        "shots_per_match": 15.73,
-        "shots_on_target_per_match": 4.82,
+        "xg_for": 19.73,
+        "shots_per_match": 15.64,
+        "shots_on_target_per_match": 4.73,
         "corners_per_match": 7.55,
         "fouls_per_match": 13.73,
         "cards_per_match": 2
@@ -22972,8 +23024,7 @@
         "pitchapi": true,
         "pitchapi_team_id": "t_4A7FfD",
         "pitchapi_unmatched_players": [
-          "Mikey Moore",
-          "Lucá Williams-Barnett"
+          "Mikey Moore"
         ]
       },
       "raw": {
@@ -23162,6 +23213,13 @@
               "position": "Midfield",
               "dateOfBirth": "2006-02-02",
               "nationality": "Sweden"
+            },
+            {
+              "id": 272687,
+              "name": "Luca Williams-Barnett",
+              "position": "Midfield",
+              "dateOfBirth": "2008-10-01",
+              "nationality": "England"
             },
             {
               "id": 7878,
@@ -23373,16 +23431,16 @@
             },
             "shots": {
               "recorded_matches": 11,
-              "shots_total": 173,
-              "shots_per_match": 15.73,
-              "shots_on_target_total": 53,
-              "shots_on_target_per_match": 4.82,
+              "shots_total": 172,
+              "shots_per_match": 15.64,
+              "shots_on_target_total": 52,
+              "shots_on_target_per_match": 4.73,
               "shot_conversion_rate": 7
             },
             "xg": {
-              "xg_for": 19.86,
+              "xg_for": 19.73,
               "xg_against": 14.13,
-              "xg_for_per_match": 1.81,
+              "xg_for_per_match": 1.79,
               "xg_against_per_match": 1.28
             },
             "possession": {
@@ -23507,7 +23565,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -25947,7 +26005,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -27889,7 +27947,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -29926,9 +29984,9 @@
             },
             "xg": {
               "xg_for": 13.66,
-              "xg_against": 19.45,
+              "xg_against": 19.32,
               "xg_for_per_match": 1.24,
-              "xg_against_per_match": 1.77
+              "xg_against_per_match": 1.76
             },
             "possession": {
               "average": 46,
@@ -30052,7 +30110,7 @@
               "won_per_match": 0.18,
               "match_with_penalty_percentage": 27
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -31899,7 +31957,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -34131,7 +34189,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -36402,7 +36460,7 @@
               "won_per_match": 0.18,
               "match_with_penalty_percentage": 18
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -38519,7 +38577,7 @@
                 "per_match": 18.55,
                 "home_per_match": 15,
                 "away_per_match": 22.8,
-                "match_total_per_match": 35.55
+                "match_total_per_match": 35.64
               },
               "free_kicks": {
                 "per_match": 12.09,
@@ -38602,7 +38660,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 27
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -40754,7 +40812,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
@@ -42993,7 +43051,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 27
             },
-            "last_updated": "2026-11-24 06:00:24"
+            "last_updated": "2026-11-26 04:00:22"
           }
         }
       }
