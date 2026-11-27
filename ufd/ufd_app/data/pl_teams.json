@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema_version": 1,
-    "generated_at": "2026-11-26T04:14:52+00:00",
+    "generated_at": "2026-11-27T04:22:37+00:00",
     "competition": {
       "code": "PL",
       "name": "Premier League"
@@ -9,7 +9,7 @@
     "season": {
       "start": "2026-08-21",
       "end": "2027-05-30",
-      "current_matchday": 11
+      "current_matchday": 12
     },
     "report": {
       "stages": [
@@ -36,7 +36,7 @@
         {
           "name": "pitchapi matches (lineups, formations, possession, player numbers)",
           "ok": true,
-          "detail": "110 finished: 0 new, 1 read again (1 recent), 109 unchanged and not requested"
+          "detail": "110 finished: 0 new, 0 read again, 110 unchanged and not requested"
         },
         {
           "name": "pitchapi team matching",
@@ -66,12 +66,12 @@
         {
           "name": "history",
           "ok": true,
-          "detail": "results stored 110, last match date 2026-11-23, pitch matches stored 110, team snapshots 273, player snapshots 2671"
+          "detail": "results stored 110, last match date 2026-11-23, pitch matches stored 110, team snapshots 273, player snapshots 2673"
         },
         {
           "name": "updated this run",
           "ok": true,
-          "detail": "0 new result(s); PitchAPI 0 new / 1 re-read / 109 untouched; footballdata.io 20 club(s) refreshed"
+          "detail": "0 new result(s); PitchAPI 0 new / 0 re-read / 110 untouched; footballdata.io 20 club(s) refreshed"
         }
       ],
       "unmatched_footballdata_io": [],
@@ -102,8 +102,8 @@
         "pitchapi_matches": {
           "finished": 110,
           "new": 0,
-          "refreshed": 1,
-          "unchanged": 109
+          "refreshed": 0,
+          "unchanged": 110
         },
         "footballdata_io": {
           "fetched": 20,
@@ -116,7 +116,7 @@
       "last_match_date": "2026-11-23",
       "pitch_matches_stored": 110,
       "team_snapshots": 273,
-      "player_snapshots": 2671
+      "player_snapshots": 2673
     }
   },
   "standings": [
@@ -2449,7 +2449,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -4602,7 +4602,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -6786,7 +6786,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 27
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -8592,7 +8592,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -10694,7 +10694,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -12959,7 +12959,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 27
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -14893,7 +14893,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -17181,7 +17181,7 @@
               "won_per_match": 0.18,
               "match_with_penalty_percentage": 27
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -19167,7 +19167,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 18
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -20681,6 +20681,58 @@
                 "pass_accuracy": 100.0
               }
             }
+          },
+          {
+            "id": 304337,
+            "name": "Joe Cowan",
+            "position": null,
+            "nationality": "England",
+            "date_of_birth": "2008-09-12",
+            "shirt_number": null,
+            "pitchapi": {
+              "source": "pitchapi",
+              "pitchapi_id": null,
+              "matched": false,
+              "shirt_number": null,
+              "appearances": 0,
+              "goals": 0,
+              "assists": 0,
+              "own_goals": 0,
+              "yellow_cards": 0,
+              "red_cards": 0,
+              "rating": null,
+              "injured": false,
+              "image": null,
+              "full_name": null,
+              "captain": false,
+              "extra": {
+                "minutes": 0,
+                "shots": 0,
+                "goals_conceded": 0,
+                "saves": 0,
+                "inside_box_saves": 0,
+                "fouls": 0,
+                "tackles": 0,
+                "blocks": 0,
+                "crosses": 0,
+                "interceptions": 0,
+                "clearances": 0,
+                "dispossessed": 0,
+                "duels": 0,
+                "duels_won": 0,
+                "dribble_attempts": 0,
+                "dribbles": 0,
+                "pen_won": 0,
+                "pen_committed": 0,
+                "pen_scored": 0,
+                "pen_missed": 0,
+                "passes": 0,
+                "key_passes": 0,
+                "woodwork": 0,
+                "xg": 0,
+                "xa": 0
+              }
+            }
           }
         ],
         "running_competitions": [
@@ -21032,6 +21084,13 @@
               "position": "Offence",
               "dateOfBirth": "2005-02-09",
               "nationality": "Ivory Coast"
+            },
+            {
+              "id": 304337,
+              "name": "Joe Cowan",
+              "position": null,
+              "dateOfBirth": "2008-09-12",
+              "nationality": "England"
             }
           ],
           "staff": [],
@@ -21321,7 +21380,7 @@
               "won_per_match": 0.27,
               "match_with_penalty_percentage": 36
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -23565,7 +23624,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 0
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -26005,7 +26064,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -27947,7 +28006,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -30110,7 +30169,7 @@
               "won_per_match": 0.18,
               "match_with_penalty_percentage": 27
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -31957,7 +32016,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -33526,6 +33585,58 @@
                 "pass_accuracy": 80.0
               }
             }
+          },
+          {
+            "id": 304343,
+            "name": "Charlie Walker-Smith",
+            "position": null,
+            "nationality": "Wales",
+            "date_of_birth": "2007-09-19",
+            "shirt_number": null,
+            "pitchapi": {
+              "source": "pitchapi",
+              "pitchapi_id": null,
+              "matched": false,
+              "shirt_number": null,
+              "appearances": 0,
+              "goals": 0,
+              "assists": 0,
+              "own_goals": 0,
+              "yellow_cards": 0,
+              "red_cards": 0,
+              "rating": null,
+              "injured": false,
+              "image": null,
+              "full_name": null,
+              "captain": false,
+              "extra": {
+                "minutes": 0,
+                "shots": 0,
+                "goals_conceded": 0,
+                "saves": 0,
+                "inside_box_saves": 0,
+                "fouls": 0,
+                "tackles": 0,
+                "blocks": 0,
+                "crosses": 0,
+                "interceptions": 0,
+                "clearances": 0,
+                "dispossessed": 0,
+                "duels": 0,
+                "duels_won": 0,
+                "dribble_attempts": 0,
+                "dribbles": 0,
+                "pen_won": 0,
+                "pen_committed": 0,
+                "pen_scored": 0,
+                "pen_missed": 0,
+                "passes": 0,
+                "key_passes": 0,
+                "woodwork": 0,
+                "xg": 0,
+                "xa": 0
+              }
+            }
           }
         ],
         "running_competitions": [
@@ -33900,6 +34011,13 @@
               "position": "Offence",
               "dateOfBirth": "2007-03-22",
               "nationality": "USA"
+            },
+            {
+              "id": 304343,
+              "name": "Charlie Walker-Smith",
+              "position": null,
+              "dateOfBirth": "2007-09-19",
+              "nationality": "Wales"
             }
           ],
           "staff": [],
@@ -34189,7 +34307,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -36460,7 +36578,7 @@
               "won_per_match": 0.18,
               "match_with_penalty_percentage": 18
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -38660,7 +38778,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 27
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -40812,7 +40930,7 @@
               "won_per_match": 0,
               "match_with_penalty_percentage": 9
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
@@ -43051,7 +43169,7 @@
               "won_per_match": 0.09,
               "match_with_penalty_percentage": 27
             },
-            "last_updated": "2026-11-26 04:00:22"
+            "last_updated": "2026-11-27 04:00:25"
           }
         }
       }
